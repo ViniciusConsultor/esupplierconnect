@@ -1,0 +1,347 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPageWithMenu.master.cs" Inherits="MasterPages_MasterPageWithMenu" %>
+
+<%@ Register Src="../UserControls/Footer.ascx" TagName="Footer" TagPrefix="ucFooter" %>
+<%@ Register Src="../UserControls/Header.ascx" TagName="Header" TagPrefix="ucHeader" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>eProcurement</title>
+    <script type ="text/javascript" > 
+    
+    var mainForm_onSubmit = true;
+    
+    function submit_control()
+    {
+        var temp = mainForm_onSubmit;
+        if (!mainForm_onSubmit) mainForm_onSubmit = true;
+        return temp;
+    }
+    
+    </script>
+</head>
+<body style="width:100%">
+    <center>
+    <form id="frmMaster" runat="server" onsubmit="javascript:return submit_control();">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td style="text-align:center; width:100%">
+                <table id="mainTable" style="background-color:#FFFFFF" border="0" cellpadding="0" cellspacing="0" width="990" height="430" style="" >
+                    <tr>
+                        <td style="width:100%">
+                           <ucHeader:Header ID="Header" runat="server" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height:2px"><asp:Image ID="Image2" runat="server" ImageUrl ="~/Images/common/HeaderLine.gif" width="990" height="2" alt="" /></td>
+                      </tr>
+                      <tr>
+                        <td>
+                            <table id="Table2" BORDER=0 style="background-color:#6666cc;vertical-align:middle;" cellpadding=0 cellspacing =0 width="100%">
+                                 <tr>
+                                    <td class="TopMenu" style="width:14%"><a href="#" style="color:black">&nbsp;Buyer&nbsp;</a></td>
+                                    <td class="TopMenu"> | </td>
+                                    <td class="TopMenu"  style="width:14%"><a href="PurchaseOrderList.aspx?Profile=SUPPLIER" style="color:black">&nbsp;Supplier&nbsp;</a></td>
+                                    <td class="TopMenu"> | </td>
+                                    <td class="TopMenu"  style="width:14%"><a href="#" style="color:black">&nbsp;Warehouse&nbsp;User&nbsp;</a></td>
+                                    <td class="TopMenu"> | </td>
+                                    <td class="TopMenu"  style="width:14%"><a href="#" style="color:black">&nbsp;Administrator&nbsp;</a></td>
+                                    <td class="TopMenu"> | </td>
+                                    <td class="TopMenu"  style="width:14%"><a href="#" style="color:black">&nbsp;About&nbsp;Us&nbsp;</a></td>
+                                    <td class="TopMenu"> | </td>
+                                    <td class="TopMenu"  style="width:14%"><a href="mailto:raymondkhoo@fujitecsg.com" style="color:black">&nbsp;Contact&nbsp;Us&nbsp;</a></td>
+                                    <td class="TopMenu"> | </td>
+                                    <td class="TopMenu"  style="width:14%"><a href="#" style="color:black">&nbsp;logout&nbsp;</a></td>
+                                 </tr>
+                            </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="height:3px"><asp:Image ID="Image17" runat="server" ImageUrl ="~/Images/common/HeaderLine.gif" width="990" height="3" alt="" /></td>
+                      </tr>
+                    <tr>
+                        <td style="height:100%; width:100%" valign="top">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="100%">
+                                <tr>
+                                    <td width="180" style="height:100%">
+                                        <table width="100%" border="1" cellspacing="0" cellpadding="0" height="100%">
+                                            <tr>
+                                                <td class="LeftMenu" style="vertical-align:top">
+                                                    <asp:Panel runat="server" ID="plSupplier" Visible="false">  
+                                                    <table id="tbl1" BORDER=0 cellpadding=0 cellspacing =0 width="100%">
+                                                         <tr>
+                                                            <td class="LeftMenuCaption" >&nbsp;</td>
+                                                            <td class="LeftMenuCaption" colspan=3>
+                                                                Contract Processing 
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image7" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Acknowledge Contract</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image8" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Enquiry Contract</a>
+                                                            </td>
+                                                         </tr>
+                                                            <td colspan=4 style="height:10px"></td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenuCaption" >&nbsp;</td>
+                                                            <td class="LeftMenuCaption" colspan=3>
+                                                                Order Processing 
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image3" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="PurchaseOrderList.aspx?Profile=SUPPLIER" style="color:black">Acknowledge Order</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image5" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Acknowledge Expediting</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image6" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Generate Deliveries</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image9" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" style="height:35px ">
+                                                                <a href="#" style="color:black">Acknowledge Goods Rejection</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image10" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Enquiry Order</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image11" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Enquiry Expediting</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td colspan=4 style="height:10px"></td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenuCaption" >&nbsp;</td>
+                                                            <td class="LeftMenuCaption" colspan=3>
+                                                                Quotation Processing 
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image12" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Process RFQ</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image13" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Enquiry RFQ</a>
+                                                            </td>
+                                                         </tr>
+                                                            <td colspan=4 style="height:10px"></td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenuCaption" >&nbsp;</td>
+                                                            <td class="LeftMenuCaption" colspan=3>
+                                                                User Prfile 
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image14" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Update Profile</a>
+                                                            </td>
+                                                         </tr>
+                                                    </table>
+                                                    </asp:Panel> 
+                                                    <asp:Panel runat="server" ID="plBuyer" Visible="false">
+                                                    <table id="Table1" BORDER=0 cellpadding=0 cellspacing =0 width="100%">
+                                                         <tr>
+                                                            <td class="LeftMenuCaption" >&nbsp;</td>
+                                                            <td class="LeftMenuCaption" colspan=3>
+                                                                Order Processing 
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image4" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu"  style="height:35px ">
+                                                                <a href="#" style="color:black">Accept Order<br>Acknowledgement</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image15" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" style="height:35px ">
+                                                                <a href="#" style="color:black">Accept Expediting<br>Acknowledgement</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image1" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Expedit Delivery</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image16" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">View Shortage List</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image18" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Enquiry Order</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td colspan=4 style="height:10px"></td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenuCaption" >&nbsp;</td>
+                                                            <td class="LeftMenuCaption" colspan=3>
+                                                                Quotation Processing 
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image20" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Create RFQ</a>
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image21" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Enquiry RFQ</a>
+                                                            </td>
+                                                         </tr>
+                                                            <td colspan=4 style="height:10px"></td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenuCaption" >&nbsp;</td>
+                                                            <td class="LeftMenuCaption" colspan=3>
+                                                                User Prfile 
+                                                            </td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu" >
+                                                                <asp:Image ID="Image22" runat="server" ImageUrl ="~/Images/common/closed.gif" width="7" height="7" alt="" /> 
+                                                            </td>
+                                                            <td class="LeftMenu" >&nbsp;</td>
+                                                            <td class="LeftMenu">
+                                                                <a href="#" style="color:black">Update Profile</a>
+                                                            </td>
+                                                         </tr>
+                                                    </table>
+                                                    </asp:Panel> 
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td width="810">
+                                        <asp:contentplaceholder id="cphMain" runat="server"> </asp:contentplaceholder>  
+                                    </td>
+                                </tr>
+                            </table> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:100%">
+                           <ucFooter:Footer ID="Footer" runat="server" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr> 
+    </table> 
+    </form>
+    </center>
+</body>
+</html>
