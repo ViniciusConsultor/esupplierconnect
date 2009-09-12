@@ -1,0 +1,175 @@
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:8152 ======> Value for ID 'PASSWD' not found
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:4384 ======> Value for ID 'PASSWD' not found
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:3984 ======> Value for ID 'PASSWD' not found
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:5960 ======> Value for ID 'PASSWD' not found
+>TS> Wed Aug 12 00:30:23 2009
+T:5960 ======> Value for ID 'PASSWD' not found
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:2880 ======> Value for ID 'PASSWD' not found
+>TS> Wed Aug 12 00:36:02 2009
+T:2880 ======> Value for ID 'PASSWD' not found
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:3332 ======> Value for ID 'PASSWD' not found
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:380 ======> Name or password is incorrect. Please re-enter
+T:380 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:5024 ======> Name or password is incorrect. Please re-enter
+T:5024 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:5284 ======> Name or password is incorrect. Please re-enter
+T:5284 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:5176 ======> Name or password is incorrect. Please re-enter
+T:5176 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:788 ======> Name or password is incorrect. Please re-enter
+T:788 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:5200 ======> Name or password is incorrect. Please re-enter
+T:5200 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:3136 ======> Name or password is incorrect. Please re-enter
+T:3136 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:5892 ======> Name or password is incorrect. Please re-enter
+T:5892 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:3436 ======> Name or password is incorrect. Please re-enter
+T:3436 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:5284 ======> Name or password is incorrect. Please re-enter
+T:5284 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:5108 ======> Name or password is incorrect. Please re-enter
+T:5108 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:5444 ======> Name or password is incorrect. Please re-enter
+T:5444 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:684 ======> Name or password is incorrect. Please re-enter
+T:684 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:2824 ======> Name or password is incorrect. Please re-enter
+T:2824 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:5816 ======> Name or password is incorrect. Please re-enter
+T:5816 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:2924 ======> Name or password is incorrect. Please re-enter
+T:2924 <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:2296 ======> Connect to SAP gateway failed
+Connect_PM  GWHOST=SAPPR3, GWSERV=sapgw00, ASHOST=SAPPR3, SYSNR=00
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       connection to host 82.98.86.171, service 3300 timed out
+
+TIME        Sat Aug 15 01:03:43 2009
+RELEASE     640
+COMPONENT   NI (network interface)
+VERSION     37
+RC          -12
+MODULE      nixxi_r.cpp
+LINE        1070
+DETAIL      NiPConnect
+COUNTER     1
+
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:3964 ======> Connect to SAP gateway failed
+Connect_PM  GWHOST=SAPPR3, GWSERV=sapgw00, ASHOST=SAPPR3, SYSNR=00
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       connection to host 82.98.86.171, service 3300 timed out
+
+TIME        Sat Aug 15 01:08:28 2009
+RELEASE     640
+COMPONENT   NI (network interface)
+VERSION     37
+RC          -12
+MODULE      nixxi_r.cpp
+LINE        1070
+DETAIL      NiPConnect
+COUNTER     1
+
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:5428 ======> Connect to SAP gateway failed
+Connect_PM  GWHOST=SAPPR3, GWSERV=sapgw00, ASHOST=SAPPR3, SYSNR=00
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       connection to host 82.98.86.171, service 3300 timed out
+
+TIME        Sat Aug 15 01:16:32 2009
+RELEASE     640
+COMPONENT   NI (network interface)
+VERSION     37
+RC          -12
+MODULE      nixxi_r.cpp
+LINE        1070
+DETAIL      NiPConnect
+COUNTER     1
+
+>TS> Sat Aug 15 01:17:39 2009
+T:5428 ======> Connect to SAP gateway failed
+Connect_PM  GWHOST=SAPPR3, GWSERV=sapgw00, ASHOST=SAPPR3, SYSNR=00
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       connection to host 82.98.86.171, service 3300 timed out
+
+TIME        Sat Aug 15 01:17:39 2009
+RELEASE     640
+COMPONENT   NI (network interface)
+VERSION     37
+RC          -12
+MODULE      nixxi_r.cpp
+LINE        1070
+DETAIL      NiPConnect
+COUNTER     2
+
+
+**** ERROR file opened at , SAP-REL 640,0,78 RFC-VER 3 759904 MT-SL
+T:2636 ======> Connect to SAP gateway failed
+Connect_PM  GWHOST=SAPPR3, GWSERV=sapgw00, ASHOST=SAPPR3, SYSNR=00
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       connection to host 10.21.0.176, service 3300 timed out
+
+TIME        Sat Aug 15 16:42:54 2009
+RELEASE     640
+COMPONENT   NI (network interface)
+VERSION     37
+RC          -12
+MODULE      nixxi_r.cpp
+LINE        1070
+DETAIL      NiPConnect
+COUNTER     1
+
