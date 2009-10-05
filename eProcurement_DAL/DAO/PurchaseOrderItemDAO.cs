@@ -290,7 +290,7 @@ namespace eProcurement_DAL
 
             SqlParameter p10 = new SqlParameter("@WEMNG", SqlDbType.Decimal, 13);
             cm.Parameters.Add(p10);
-            if (entity.p10.HasValue)
+            if (entity.DeliveredQuantity.HasValue)
                 p10.Value = entity.DeliveredQuantity.Value;
             else
                 p10.Value = DBNull.Value;
