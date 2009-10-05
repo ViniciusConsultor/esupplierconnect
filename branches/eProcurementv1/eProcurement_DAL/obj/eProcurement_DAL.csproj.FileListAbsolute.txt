@@ -18,3 +18,5 @@ C:\eProcurement\eProcurement_DAL\bin\Debug\eProcurement_DAL.pdb
 C:\eProcurement\eProcurement_DAL\obj\Debug\ResolveAssemblyReference.cache
 C:\eProcurement\eProcurement_DAL\obj\Debug\eProcurement_DAL.dll
 C:\eProcurement\eProcurement_DAL\obj\Debug\eProcurement_DAL.pdb
+D:\NUSPrj\Development\eProcurementv1\eProcurement_DAL\obj\Debug\ResolveAssemblyReference.cache
+D:\NUSPrj\Development\eProcurementv1\eProcurement_DAL\obj\Debug\eProcurement_DAL.dll
