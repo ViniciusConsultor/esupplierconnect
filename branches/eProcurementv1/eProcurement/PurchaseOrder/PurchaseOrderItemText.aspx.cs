@@ -13,7 +13,7 @@ using System.Web.UI.HtmlControls;
 using eProcurement_BLL;
 using eProcurement_DAL;
 
-public partial class PurchaseOrder_PurchaseItemText : BaseForm
+public partial class PurchaseOrder_PurchaseOrderItemText : BaseForm
 {
     new protected void Page_Load(object sender, EventArgs e)
     {
