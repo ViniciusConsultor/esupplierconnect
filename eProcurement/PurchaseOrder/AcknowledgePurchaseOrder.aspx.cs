@@ -98,7 +98,7 @@ public partial class PurchaseOrder_AcknowledgePurchaseOrder:BaseForm
                     lblOrderDate.Text = GetShortDate(GetDateTimeFormStoredValue(poHeader.OrderDate.Value));
                 else
                     lblOrderDate.Text = "";
-                lblSupplierId.Text=poHeader.SupplierID; 
+                lblSupplierId.Text=poHeader.SupplierId; 
                 lblPaymentTerm.Text=poHeader.PaymentTerms; 
                 lblRemarks.Text=poHeader.Remarks;
                 lblBuyer.Text = poHeader.BuyerName; 
