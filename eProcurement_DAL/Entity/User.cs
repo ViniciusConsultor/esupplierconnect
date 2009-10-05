@@ -49,10 +49,10 @@ namespace eProcurement_DAL
             set { updatedBy = value; }
         }
 
-        Nullable<DateTime> updatedDate;
-        public DateTime UpdatedDate
+        Nullable<long> updatedDate;
+        public Nullable<long> UpdatedDate
         {
-            get { return Convert.ToDateTime(updatedDate); }
+            get { return updatedDate; }
             set { updatedDate = value; }
         }
 

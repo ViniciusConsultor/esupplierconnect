@@ -9,64 +9,66 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    public class UserDAO
+    public class MaterialRequirementDAO
     {
         #region RetrieveAll
-        public static Collection<User> RetrieveAll()
+        public static Collection<MaterialRequirement> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
 
-        public static Collection<User> RetrieveAll(string sortClaues)
+        public static Collection<MaterialRequirement> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
 
-        public static Collection<User> RetrieveAll(EpTransaction epTran)
+        public static Collection<MaterialRequirement> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
 
-        public static Collection<User> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public static Collection<MaterialRequirement> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
         #endregion
 
         #region RetrieveByQuery
-        public static Collection<User> RetrieveByQuery(string whereClause)
+        public static Collection<MaterialRequirement> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
 
-        public static Collection<User> RetrieveByQuery(string whereClause, string sortClaues)
+        public static Collection<MaterialRequirement> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
 
-        public static Collection<User> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public static Collection<MaterialRequirement> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
 
-        public static Collection<User> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public static Collection<MaterialRequirement> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
         #endregion
 
         #region RetrieveByKey
-        public static User RetrieveByKey(string userID)
+        public static MaterialRequirement RetrieveByKey(string materialNumber, string plant, long requiredDate)
         {
-            return RetrieveByKey(null, userID);
+            return RetrieveByKey(null, materialNumber, plant, requiredDate);
         }
 
-        public static User RetrieveByKey(EpTransaction epTran, string userID)
+        public static MaterialRequirement RetrieveByKey(EpTransaction epTran, string materialNumber, string plant, long requiredDate)
         {
-            User entity = null;
-            string whereClause = " USERID='" + DataManager.EscapeSQL(userID) + "' ";
+            MaterialRequirement entity = null;
+            string whereClause = " MATNR='" + DataManager.EscapeSQL(materialNumber) + "' ";
+            whereClause += "AND WERKS='" + DataManager.EscapeSQL(plant) + "' ";
+            whereClause += "AND AEDAT=" + requiredDate + " ";
 
-            Collection<User> entities = Retrieve(epTran, whereClause, "");
+            Collection<MaterialRequirement> entities = Retrieve(epTran, whereClause, "");
             if (entities.Count > 0)
                 entity = entities[0];
 
@@ -75,12 +77,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Insert
-        public static void Insert(User entity)
+        public static void Insert(MaterialRequirement entity)
         {
             Insert(null, entity);
         }
 
-        public static void Insert(EpTransaction epTran, User entity)
+        public static void Insert(EpTransaction epTran, MaterialRequirement entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -99,46 +101,40 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            User checkEntity = RetrieveByKey(epTran, entity.UserId);
+            MaterialRequirement checkEntity = RetrieveByKey(epTran, entity.MaterialNumber, entity.Plant, Convert.ToInt64(entity.RequiredDate));
             if (checkEntity != null)
             {
                 throw new Exception("Record already exists.");
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO USER ([USERID],[USRNAM],[USRPWD],[USRROLE],[USREMAIL],[UPDTBY],[UPDTDATE],[USRSTAT]) VALUES(@USERID,@USRNAM,@USRPWD,@USRROLE,@USREMAIL,@UPDTBY,@UPDTDATE,@USRSTAT)";
+            cm.CommandText = "INSERT INTO MTLREQ ([MATNR],[WERKS],[AEDAT],[REQDQT],[MEINS]) VALUES(@MATNR,@WERKS,@AEDAT,@REQDQT,@MEINS)";
 
-            SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.Char, 10);
+            SqlParameter p1 = new SqlParameter("@MATNR", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
-            p1.Value = entity.UserId;
+            p1.Value = entity.MaterialNumber;
 
-            SqlParameter p2 = new SqlParameter("@USRNAM", SqlDbType.VarChar, 40);
+            SqlParameter p2 = new SqlParameter("@WERKS", SqlDbType.Char, 4);
             cm.Parameters.Add(p2);
-            p2.Value = entity.UserName;
+            p2.Value = entity.Plant;
 
-            SqlParameter p3 = new SqlParameter("@USRPWD", SqlDbType.Char, 10);
+            SqlParameter p3 = new SqlParameter("@AEDAT", SqlDbType.BigInt, 8);
             cm.Parameters.Add(p3);
-            p3.Value = entity.UserPassword;
+            if (entity.RequiredDate.HasValue)
+                p3.Value = entity.RequiredDate;
+            else
+                p3.Value = DBNull.Value;
 
-            SqlParameter p4 = new SqlParameter("@USRROLE", SqlDbType.Char, 15);
+            SqlParameter p4 = new SqlParameter("@REQDQT", SqlDbType.Decimal, 8);
             cm.Parameters.Add(p4);
-            p4.Value = entity.UserRole;
+            if (entity.RequiredQuantity.HasValue)
+                p4.Value = entity.RequiredQuantity;
+            else
+                p4.Value = DBNull.Value;
 
-            SqlParameter p5 = new SqlParameter("@USREMAIL", SqlDbType.VarChar, 70);
+            SqlParameter p5 = new SqlParameter("@MEINS", SqlDbType.Char, 3);
             cm.Parameters.Add(p5);
-            p5.Value = entity.UserEmail;
-
-            SqlParameter p6 = new SqlParameter("@UPDTBY", SqlDbType.VarChar, 10);
-            cm.Parameters.Add(p6);
-            p6.Value = entity.UpdatedBy;
-
-            SqlParameter p7 = new SqlParameter("@UPDTDATE", SqlDbType.DateTime);
-            cm.Parameters.Add(p7);
-            p7.Value = entity.UpdatedDate;
-
-            SqlParameter p8 = new SqlParameter("@USRSTAT", SqlDbType.Char, 1);
-            cm.Parameters.Add(p8);
-            p8.Value = entity.UserStatus;
+            p5.Value = entity.UnitOfMeasure;
 
             cm.ExecuteNonQuery();
 
@@ -148,12 +144,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Update
-        public static void Update(User entity)
+        public static void Update(MaterialRequirement entity)
         {
             Update(null, entity);
         }
 
-        public static void Update(EpTransaction epTran, User entity)
+        public static void Update(EpTransaction epTran, MaterialRequirement entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -172,42 +168,40 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            User checkEntity = RetrieveByKey(epTran, entity.UserId);
+            MaterialRequirement checkEntity = RetrieveByKey(epTran, entity.MaterialNumber,entity.Plant,Convert.ToInt64(entity.RequiredDate));
             if (checkEntity == null)
             {
                 throw new Exception("Record doesn't exist.");
             }
 
             //Update 
-            cm.CommandText = "UPDATE USER SET [USERID]=@USERID,[USRNAM]=@USRNAM,[USRPWD]=@USRPWD,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT WHERE USERID=@USERID";
+            cm.CommandText = "UPDATE MTLREQ SET [MATNR]=@MATNR,[WERKS]=@WERKS,[AEDAT]=@AEDAT,[REQDQT]=@REQDQT,[MEINS]=@MEINS WHERE MATNR=@MATNR";
 
-            SqlParameter p1 = new SqlParameter("@USRNAM", SqlDbType.VarChar, 40);
+            SqlParameter p1 = new SqlParameter("@MATNR", SqlDbType.VarChar, 18);
             cm.Parameters.Add(p1);
-            p1.Value = entity.UserName;
+            p1.Value = entity.MaterialNumber;
 
-            SqlParameter p2 = new SqlParameter("@USRPWD", SqlDbType.Char, 10);
+            SqlParameter p2 = new SqlParameter("@WERKS", SqlDbType.VarChar, 4);
             cm.Parameters.Add(p2);
-            p2.Value = entity.UserPassword;
+            p2.Value = entity.Plant;
 
-            SqlParameter p3 = new SqlParameter("@USRROLE", SqlDbType.Char, 15);
+            SqlParameter p3 = new SqlParameter("@AEDAT", SqlDbType.BigInt, 8);
             cm.Parameters.Add(p3);
-            p3.Value = entity.UserRole;
+            if (entity.RequiredDate.HasValue)
+                p3.Value = entity.RequiredDate;
+            else
+                p3.Value = DBNull.Value;
 
-            SqlParameter p4 = new SqlParameter("@USREMAIL", SqlDbType.VarChar, 70);
+            SqlParameter p4 = new SqlParameter("@REQDQT", SqlDbType.Decimal, 8);
             cm.Parameters.Add(p4);
-            p4.Value = entity.UserEmail;
+            if (entity.RequiredQuantity.HasValue)
+                p4.Value = entity.RequiredQuantity;
+            else
+                p4.Value = DBNull.Value;
 
-            SqlParameter p5 = new SqlParameter("@UPDTBY", SqlDbType.VarChar, 10);
+            SqlParameter p5 = new SqlParameter("@MEINS", SqlDbType.VarChar, 3);
             cm.Parameters.Add(p5);
-            p5.Value = entity.UpdatedBy;
-
-            SqlParameter p6 = new SqlParameter("@UPDTDATE", SqlDbType.DateTime);
-            cm.Parameters.Add(p6);
-            p6.Value = entity.UpdatedDate;
-
-            SqlParameter p7 = new SqlParameter("@USRSTAT", SqlDbType.Char, 1);
-            cm.Parameters.Add(p7);
-            p7.Value = entity.UserStatus;
+            p5.Value = entity.UnitOfMeasure;
 
             cm.ExecuteNonQuery();
 
@@ -217,12 +211,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Delete
-        public static void Delete(User entity)
+        public static void Delete(MaterialRequirement entity)
         {
             Delete(null, entity);
         }
 
-        public static void Delete(EpTransaction epTran, User entity)
+        public static void Delete(EpTransaction epTran, MaterialRequirement entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -241,17 +235,28 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            User checkEntity = RetrieveByKey(epTran, entity.UserId);
+            MaterialRequirement checkEntity = RetrieveByKey(epTran, entity.MaterialNumber,entity.Plant,Convert.ToInt64(entity.RequiredDate));
             if (checkEntity == null)
             {
                 throw new Exception("Record doesn't exist.");
             }
 
             //Update 
-            cm.CommandText = "DELETE FROM USER WHERE USERID=@USERID";
-            SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.Char, 10);
+            cm.CommandText = "DELETE FROM MTLREQ WHERE MATNR=@MATNR AND WERKS=@WERKS AND AEDAT=@AEDAT";
+            SqlParameter p1 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
             cm.Parameters.Add(p1);
-            p1.Value = entity.UserId;
+            p1.Value = entity.MaterialNumber;
+
+            SqlParameter p2 = new SqlParameter("@WERKS", SqlDbType.Char, 4);
+            cm.Parameters.Add(p2);
+            p2.Value = entity.Plant;
+
+            SqlParameter p3 = new SqlParameter("@AEDAT", SqlDbType.BigInt, 8);
+            cm.Parameters.Add(p3);
+            if (entity.RequiredQuantity.HasValue)
+                p3.Value = entity.RequiredDate;
+            else
+                p3.Value = DBNull.Value;
 
             cm.ExecuteNonQuery();
 
@@ -261,9 +266,9 @@ namespace eProcurement_DAL
         #endregion
 
         #region private methods
-        private static Collection<User> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
+        private static Collection<MaterialRequirement> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
         {
-            Collection<User> entities = new Collection<User>();
+            Collection<MaterialRequirement> entities = new Collection<MaterialRequirement>();
 
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -282,7 +287,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [USERID],[USRNAM],[USRPWD],[USRROLE],[USREMAIL] FROM USER";
+            string selectCommand = "SELECT [MATNR],[WERKS],[AEDAT],[REQDQT],[MEINS] FROM MTLREQ";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -290,15 +295,21 @@ namespace eProcurement_DAL
             SqlDataReader rd = cm.ExecuteReader();
             while (rd.Read())
             {
-                User entity = new User();
-                entity.UserId = rd["USERID"].ToString();
-                entity.UserName = rd["USRNAM"].ToString();
-                entity.UserPassword = rd["USRPSWD"].ToString();
-                entity.UserRole= rd["USRROLE"].ToString();
-                entity.UserEmail = rd["USREMAIL"].ToString();
-                entity.UpdatedBy = rd["UPDTBY"].ToString();
-                entity.UpdatedDate =  Convert.ToInt64 (rd["UPDTDATE"]);
-                entity.UserStatus = rd["USRSTAT"].ToString();
+                MaterialRequirement entity = new MaterialRequirement();
+                entity.MaterialNumber = rd["MATNR"].ToString();
+                entity.Plant = rd["WERKS"].ToString();
+
+                if (rd.IsDBNull(2))
+                    entity.RequiredDate = null;
+                else
+                    entity.RequiredDate = Convert.ToInt64(rd["AEDAT"]);
+
+                if (rd.IsDBNull(3))
+                    entity.RequiredQuantity = null;
+                else
+                    entity.RequiredQuantity = Convert.ToDecimal(rd["REQDQT"]);
+
+                entity.UnitOfMeasure = rd["MEINS"].ToString();
 
                 entities.Add(entity);
 
