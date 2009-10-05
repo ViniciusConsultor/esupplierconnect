@@ -42,7 +42,7 @@ namespace eProcurement_BLL
             }
         }
 
-        public static Collection<PurchaseOrderItemText> GetPurchaseOrderItemTexts(string orderNumber, string ItemSequenceNo)
+        public static Collection<PurchaseItemText> GetPurchaseItemTexts(string orderNumber, string ItemSequenceNo)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace eProcurement_BLL
                 string orderCluase = "";
                 whereCluase = " EBELN = '" + Utility.EscapeSQL(orderNumber) + "' AND EBELP='" + Utility.EscapeSQL(ItemSequenceNo) + "' ";
                 orderCluase = " TXTITM asc ";
-                return PurchaseOrderItemTextDAO.RetrieveByQuery(whereCluase, orderCluase);
+                return PurchaseItemTextDAO.RetrieveByQuery(whereCluase, orderCluase);
             }
             catch (Exception ex)
             {
