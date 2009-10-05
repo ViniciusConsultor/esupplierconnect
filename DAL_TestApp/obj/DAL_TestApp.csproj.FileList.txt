@@ -1,0 +1,14 @@
+bin\Debug\DAL_TestApp.exe
+bin\Debug\DAL_TestApp.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\DAL_TestApp.Properties.Resources.resources
+obj\Debug\DAL_TestApp.csproj.GenerateResource.Cache
+obj\Debug\DAL_TestApp.exe
+obj\Debug\DAL_TestApp.pdb
+obj\Debug\DAL_TestApp.Form1.resources
+bin\Debug\DAL_TestApp.exe.config
+bin\Debug\eProcurement_BLL.dll
+bin\Debug\eProcurement_DAL.dll
+bin\Debug\log4net.dll
+bin\Debug\eProcurement_BLL.pdb
+bin\Debug\eProcurement_DAL.pdb
