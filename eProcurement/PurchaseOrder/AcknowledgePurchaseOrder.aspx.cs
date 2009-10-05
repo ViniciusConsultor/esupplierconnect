@@ -86,7 +86,7 @@ public partial class PurchaseOrder_AcknowledgePurchaseOrder:BaseForm
                 m_Header = poHeader;
                 m_Items = new Collection<PurchaseOrderItem>();
                 m_Schedules = new Collection<PurchaseOrderItemSchedule>(); 
-                Supplier supplier = SupplierController.GetSupplier(poHeader.SupplierID);
+                Supplier supplier = SupplierController.GetSupplier(poHeader.SupplierId);
                 lblSupplierName.Text=supplier.SupplierName ;
                 lblSupplierAddress.Text = supplier.SupplierAddress;
                 lblPostalCode.Text ="Singapore " + supplier.PostalCode ;

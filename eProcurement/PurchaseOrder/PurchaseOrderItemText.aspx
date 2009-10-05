@@ -29,7 +29,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblTextSerialNumber" runat="server" CssClass="" Text='<%# Eval("TextSerialNumber") %>'></asp:Label>
+                                            <asp:Label ID="lblTextSerialNumber" runat="server" CssClass="" Text='<%# Eval("TextSequence") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>

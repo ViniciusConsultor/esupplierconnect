@@ -13,7 +13,7 @@ using System.Web.UI.HtmlControls;
 using eProcurement_BLL;
 using eProcurement_DAL;
 
-public partial class PurchaseOrder_PurchaseOrderItemText : BaseForm
+public partial class PurchaseOrder_PurchaseItemText : BaseForm
 {
     new protected void Page_Load(object sender, EventArgs e)
     {
@@ -39,7 +39,7 @@ public partial class PurchaseOrder_PurchaseOrderItemText : BaseForm
     {
         string orderNumber = Request.QueryString["OrderNumber"];
         string itemNo = Request.QueryString["ItemNo"];
-        Collection<PurchaseOrderItemText> texts = PurchaseOrderItemController.GetPurchaseOrderItemTexts(orderNumber, itemNo);
+        Collection<PurchaseItemText> texts = PurchaseOrderItemController.GetPurchaseItemTexts(orderNumber, itemNo);
         gvData.DataSource = texts;
         gvData.DataBind();
         if (texts.Count == 0)
