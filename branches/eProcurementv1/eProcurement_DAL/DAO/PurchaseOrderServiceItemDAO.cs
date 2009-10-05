@@ -186,9 +186,9 @@ namespace eProcurement_DAL
             SqlParameter p2 = new SqlParameter("@MENGE", SqlDbType.Decimal, 13);
             cm.Parameters.Add(p2);
             if (entity.ServiceQuantity.HasValue)
-                p6.Value = entity.ServiceQuantity.Value;
+                p2.Value = entity.ServiceQuantity.Value;
             else
-                p6.Value = DBNull.Value;
+                p2.Value = DBNull.Value;
 
             SqlParameter p3 = new SqlParameter("@PREIS", SqlDbType.Decimal, 11);
             cm.Parameters.Add(p3);
