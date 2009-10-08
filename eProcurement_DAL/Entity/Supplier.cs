@@ -49,11 +49,11 @@ namespace eProcurement_DAL
             set { postalCode = value; }
         }
 
-        string country;
-        public string Country
+        string city;
+        public string City
         {
-            get { return country; }
-            set { country = value; }
+            get { return city; }
+            set { city = value; }
         }
 
         string region;
@@ -84,18 +84,18 @@ namespace eProcurement_DAL
             set { telephone2 = value; }
         }
 
-        string sprEQ;
-        public string SPREQ
-        {
-            get { return sprEQ; }
-            set { sprEQ = value; }
-        }
-
         string faxNo;
         public string FaxNo
         {
             get { return faxNo; }
             set { faxNo = value; }
+        }
+
+        string userField;
+        public string UserField
+        {
+            get { return UserField; }
+            set { userField = value; }
         }
 
         string emailID;
