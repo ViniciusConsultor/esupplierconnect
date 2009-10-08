@@ -127,7 +127,7 @@ namespace eProcurement_DAL
             p6.Value = entity.PostalCode;
             SqlParameter p7 = new SqlParameter("@KORT", SqlDbType.VarChar, 40);
             cm.Parameters.Add(p7);
-            p7.Value = entity.Country;
+            p7.Value = entity.City;
             SqlParameter p8 = new SqlParameter("@REGIO", SqlDbType.Char, 3);
             cm.Parameters.Add(p8);
             p8.Value = entity.Region;
@@ -145,7 +145,7 @@ namespace eProcurement_DAL
             p12.Value = entity.FaxNo;
             SqlParameter p13 = new SqlParameter("@SPREQ", SqlDbType.Char, 3);
             cm.Parameters.Add(p13);
-            p13.Value = entity.SPREQ;
+            p13.Value = entity.UserField;
             SqlParameter p14 = new SqlParameter("@EMAIL", SqlDbType.VarChar, 100);
             cm.Parameters.Add(p14);
             p14.Value = entity.EmailID;
@@ -192,7 +192,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE vndmst SET LIFNR=@LIFNR,VN=@VN,ANRED=@ANRED,NAME=@NAME,ADDRESS=@ADDRESS,PSTLZ=@PSTLZ,KORT=@KORT,REGIO=@REGIO,LAND1=@LAND1,TELF1=@TELF1,TELF2=@TELF2,TELFX=@TELFX,SPREQ=@SPREQ,EMAIL=@EMAIL,RECSTS=@RECSTS WHERE LIFNR=@LIFNR";
+            cm.CommandText = "UPDATE vndmst SET LIFNR=@LIFNR,PASSWD=@PASSWD,ANRED=@ANRED,NAME=@NAME,ADDRESS=@ADDRESS,PSTLZ=@PSTLZ,KORT=@KORT,REGIO=@REGIO,LAND1=@LAND1,TELF1=@TELF1,TELF2=@TELF2,TELFX=@TELFX,SPREQ=@SPREQ,EMAIL=@EMAIL,RECSTS=@RECSTS WHERE LIFNR=@LIFNR";
             SqlParameter p1 = new SqlParameter("@LIFNR", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.SupplierID;
@@ -213,7 +213,7 @@ namespace eProcurement_DAL
             p6.Value = entity.PostalCode;
             SqlParameter p7 = new SqlParameter("@KORT", SqlDbType.VarChar, 40);
             cm.Parameters.Add(p7);
-            p7.Value = entity.Country;
+            p7.Value = entity.City;
             SqlParameter p8 = new SqlParameter("@REGIO", SqlDbType.Char, 3);
             cm.Parameters.Add(p8);
             p8.Value = entity.Region;
@@ -231,7 +231,7 @@ namespace eProcurement_DAL
             p12.Value = entity.FaxNo;
             SqlParameter p13 = new SqlParameter("@SPREQ", SqlDbType.Char, 3);
             cm.Parameters.Add(p13);
-            p13.Value = entity.SPREQ;
+            p13.Value = entity.UserField;
             SqlParameter p14 = new SqlParameter("@EMAIL", SqlDbType.VarChar, 100);
             cm.Parameters.Add(p14);
             p14.Value = entity.EmailID;
@@ -327,13 +327,13 @@ namespace eProcurement_DAL
                 entity.SupplierName = rd["NAME"].ToString();
                 entity.SupplierAddress = rd["ADDRESS"].ToString();
                 entity.PostalCode = rd["PSTLZ"].ToString();
-                entity.Country = rd["KORT"].ToString();
+                entity.City = rd["KORT"].ToString();
                 entity.Region = rd["REGIO"].ToString();
                 entity.CountryCode = rd["LAND1"].ToString();
                 entity.Telephone1 = rd["TELF1"].ToString();
                 entity.Telephone2 = rd["TELF2"].ToString();
                 entity.FaxNo = rd["TELFX"].ToString();
-                entity.SPREQ = rd["SPREQ"].ToString();
+                entity.UserField = rd["SPREQ"].ToString();
                 entity.EmailID = rd["EMAIL"].ToString();
                 entity.RecordStatus = rd["RECSTS"].ToString();
 
