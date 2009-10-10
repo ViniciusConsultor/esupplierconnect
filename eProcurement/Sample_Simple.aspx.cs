@@ -47,9 +47,9 @@ public partial class Sample_Simple : System.Web.UI.Page
             vos.Add(vo);
         }
 
-        Collection<PurchaseOrderHeaderText> objs = PurchaseOrderController.GetPurchaseOrderHeaderText ("");
-        gvUserDetails.DataSource = objs;
-        gvUserDetails.DataBind();
+        //Collection<PurchaseOrderHeaderText> objs = PurchaseOrderController.GetPurchaseOrderHeaderText ("");
+        //gvUserDetails.DataSource = objs;
+        //gvUserDetails.DataBind();
 
         
     }
