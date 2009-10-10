@@ -99,7 +99,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            PurchaseOrderHeaderText checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.TextSequence);
+            PurchaseHeaderText checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.TextSequence);
             if (checkEntity != null)
             {
                 throw new Exception("Record already exists.");

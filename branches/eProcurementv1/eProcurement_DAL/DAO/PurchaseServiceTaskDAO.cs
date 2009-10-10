@@ -243,10 +243,10 @@ namespace eProcurement_DAL
             cm.CommandText = "DELETE FROM PURSRH WHERE LBLN1=@LBLN1 AND EXTROW=@EXTROW";
             SqlParameter p1 = new SqlParameter("@LBLN1", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
-            p1.Value = entity.ServiceLineNumber;
+            p1.Value = entity.SheetNumber;
             SqlParameter p2 = new SqlParameter("@EXTROW", SqlDbType.Char, 10);
             cm.Parameters.Add(p2);
-            p2.Value = entity.ServiceLineSequence;
+            p2.Value = entity.SheetSequence;
             cm.ExecuteNonQuery();
 
             if (epTran == null)
