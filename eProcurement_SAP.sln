@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eProcurement_SAP", "eProcurement_SAP\eProcurement_SAP.csproj", "{B3B81BBD-3BC5-480D-A43B-120D75F2C849}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eProcurement_DAL", "eProcurement_DAL\eProcurement_DAL.csproj", "{27E99553-CBFF-48C1-A103-10830F3A52EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eProcurement_BLL", "eProcurement_BLL\eProcurement_BLL.csproj", "{BACD6EE3-ABD7-4120-9750-C62EE830D5F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3B81BBD-3BC5-480D-A43B-120D75F2C849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3B81BBD-3BC5-480D-A43B-120D75F2C849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3B81BBD-3BC5-480D-A43B-120D75F2C849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3B81BBD-3BC5-480D-A43B-120D75F2C849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27E99553-CBFF-48C1-A103-10830F3A52EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27E99553-CBFF-48C1-A103-10830F3A52EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27E99553-CBFF-48C1-A103-10830F3A52EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27E99553-CBFF-48C1-A103-10830F3A52EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BACD6EE3-ABD7-4120-9750-C62EE830D5F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BACD6EE3-ABD7-4120-9750-C62EE830D5F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BACD6EE3-ABD7-4120-9750-C62EE830D5F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BACD6EE3-ABD7-4120-9750-C62EE830D5F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
