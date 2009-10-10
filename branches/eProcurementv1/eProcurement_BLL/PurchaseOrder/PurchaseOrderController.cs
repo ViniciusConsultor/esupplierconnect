@@ -8,6 +8,7 @@ namespace eProcurement_BLL
 {
     public class PurchaseOrderController
     {
+        /*
         public static Collection<PurchaseOrderHeader> GetPendingAckPOList(string orderNumber,DateTime startDate,DateTime endDate,string status)
         {
             try
@@ -86,5 +87,6 @@ namespace eProcurement_BLL
                 throw (ex);
             }
         }
+         * */
     }
 }

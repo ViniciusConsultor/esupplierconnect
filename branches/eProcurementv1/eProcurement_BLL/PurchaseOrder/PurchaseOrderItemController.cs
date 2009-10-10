@@ -8,6 +8,7 @@ namespace eProcurement_BLL
 {
     public class PurchaseOrderItemController
     {
+        /*
         public static Collection<PurchaseOrderItem> GetPurchaseOrderItems(string orderNumber)
         {
             try
@@ -91,7 +92,8 @@ namespace eProcurement_BLL
                 Utility.ExceptionLog(ex);
                 throw (ex);
             }
-        }        
+        }    
+         */
 
     }
 }
