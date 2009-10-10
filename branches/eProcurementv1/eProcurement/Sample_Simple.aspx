@@ -73,13 +73,13 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Line Number">
                 <ItemTemplate>
-                    <asp:Label ID="lblUserID" runat="server" Text='<%# Eval("TextSerialNumber") %>' CssClass="" ></asp:Label>
+                    <asp:Label ID="lblUserID" runat="server" Text='<%# Eval("Id") %>' CssClass="" ></asp:Label>
                 </ItemTemplate> 
                 <ItemStyle Width="30%" />
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Long Text">
                 <ItemTemplate>
-                    <asp:Label ID="lblUserName" runat="server" Text='<%# Eval("LongText") %>' CssClass="" ></asp:Label>
+                    <asp:Label ID="lblUserName" runat="server" Text='<%# Eval("Name") %>' CssClass="" ></asp:Label>
                 </ItemTemplate> 
                 <ItemStyle Width="60%" />
             </asp:TemplateField>
