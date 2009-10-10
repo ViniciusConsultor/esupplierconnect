@@ -232,7 +232,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            PurchaseOrderSubcontractComponent checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.ItemSequence, entity.ComponentSequence);
+            SubcontractorMaterial checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.ItemSequence, entity.ComponentSequence);
             if (checkEntity == null)
             {
                 throw new Exception("Record doesn't exist.");
