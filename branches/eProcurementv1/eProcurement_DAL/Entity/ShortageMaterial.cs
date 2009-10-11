@@ -6,7 +6,7 @@
 // NUS ISS M.TECH SE16 Batch
 //
 // Note: 
-//    1. This class contains field mapping to database table [MTLSHORTAGE].
+//    1. This class contains field mapping to database table [mtlshortage].
 //	  
 // Revision History:
 //    1.0:
@@ -23,11 +23,11 @@ using System.Text;
 
 namespace eProcurement_DAL
 {
-     ///<summary>Entity Object (MaterialStock) - Database table [MTLSTOCK]</summary>
+    ///<summary>Entity Object (MaterialStock) - Database table [mtlshortage]</summary>
     [Serializable]
     public class ShortageMaterial
     {
-        ///<summary>Database mapping to column MTLSHORTAGE.MATNR</summary>
+        ///<summary>Database mapping to column mtlshortage.MATNR</summary>
         string materialNumber;
         public string MaterialNumber
         {
@@ -35,7 +35,7 @@ namespace eProcurement_DAL
             set { materialNumber = value; }
         }
 
-        ///<summary>Database mapping to column MTLSHORTAGE.WERKS</summary>
+        ///<summary>Database mapping to column mtlshortage.WERKS</summary>
         string plant;
         public string Plant
         {
@@ -43,7 +43,7 @@ namespace eProcurement_DAL
             set { plant = value; }
         }
 
-        ///<summary>Database mapping to column MTLSHORTAGE.MENGE</summary>
+        ///<summary>Database mapping to column mtlshortage.MENGE</summary>
         Nullable<decimal> shortageQuantity;
         public Nullable<decimal> ShortageQuantity
         {
