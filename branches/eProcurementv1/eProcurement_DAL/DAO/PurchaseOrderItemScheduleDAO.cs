@@ -115,7 +115,7 @@ namespace eProcurement_DAL
         /// <param name="orderNumber">Order Number: PURSCH.EBELN</param>
         /// <param name="itemSequence">purchase Item Sequence Number : PURSCH.EBELP</param>
         /// <returns>
-        /// PurchaseOrderItem Object
+        /// PurchaseOrderItemSchedule Object
         /// </returns>
         public static PurchaseOrderItemSchedule RetrieveByKey
             (string orderNumber, string ItemSequenceNO, string ScheduleSequenceNo)
@@ -382,7 +382,7 @@ namespace eProcurement_DAL
         /// Delete the record from database table for the given Entity Object.
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
-        /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItem Object</param>
+        /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
         public static void Delete(EpTransaction epTran, PurchaseOrderItemSchedule entity)
         {
             SqlCommand cm = new SqlCommand();
