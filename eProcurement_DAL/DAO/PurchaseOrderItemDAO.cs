@@ -6,7 +6,7 @@
 // ISS M.TECH SE16 Batch
 //
 // Note: 
-//    1. This class enables to provide methods for accessing database table [puitxt]  
+//    1. This class enables to provide methods for accessing database table [PURDTL]  
 //       -Insert, Delete Update and Retrieve.
 //	  
 // Revision History:
