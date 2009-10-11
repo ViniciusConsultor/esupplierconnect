@@ -40,6 +40,9 @@
     <Compile Include="DAO\PurchaseItemTextDAO.cs" />
     <Compile Include="DAO\PurchaseOrderHeaderDAO.cs" />
     <Compile Include="DAO\PurchaseOrderHistoryDAO.cs" />
+    <Compile Include="DAO\PurchaseOrderItemDAO.cs" />
+    <Compile Include="DAO\PurchaseOrderItemScheduleDAO.cs" />
+    <Compile Include="DAO\PurchaseOrderServiceItemDAO.cs" />
     <Compile Include="DAO\PurchaseServiceTaskDAO.cs" />
     <Compile Include="DAO\RequisitionHeaderDAO.cs" />
     <Compile Include="DAO\RequisitionItemDAO.cs" />
@@ -53,6 +56,9 @@
     <Compile Include="Entity\PurchaseItemText.cs" />
     <Compile Include="Entity\PurchaseOrderHeader.cs" />
     <Compile Include="Entity\PurchaseOrderHistory.cs" />
+    <Compile Include="Entity\PurchaseOrderItem.cs" />
+    <Compile Include="Entity\PurchaseOrderItemSchedule.cs" />
+    <Compile Include="Entity\PurchaseOrderServiceItem.cs" />
     <Compile Include="Entity\PurchaseServiceTask.cs" />
     <Compile Include="Entity\RequisitionHeader.cs" />
     <Compile Include="Entity\RequisitionItem.cs" />
