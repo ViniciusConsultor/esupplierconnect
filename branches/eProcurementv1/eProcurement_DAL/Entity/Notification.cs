@@ -6,7 +6,7 @@
 // NUS ISS M.TECH SE16 Batch
 //
 // Note: 
-//    1. This class contains field mapping to database table [NOTIFICATION].
+//    1. This class contains field mapping to database table [notification].
 //	  
 // Revision History:
 //    1.0:
@@ -23,11 +23,11 @@ using System.Text;
 
 namespace eProcurement_DAL
 {
-    ///<summary>Entity Object (Notification) - Database table [NOTIFICATION]</summary>
+    ///<summary>Entity Object (Notification) - Database table [notification]</summary>
     [Serializable]
     public class Notification
     {
-        ///<summary>Database mapping to column NOTIFICATION.NOTIFID</summary>
+        ///<summary>Database mapping to column notification.NOTIFID</summary>
         string notificationId;
         public string NotificationId
         {
@@ -35,7 +35,7 @@ namespace eProcurement_DAL
             set { notificationId = value; }
         }
 
-        ///<summary>Database mapping to column NOTIFICATION.NOTIFTYPE</summary>
+        ///<summary>Database mapping to column notification.NOTIFTYPE</summary>
         string notificationType;
         public string NotificationType
         {
@@ -43,7 +43,7 @@ namespace eProcurement_DAL
             set { notificationType = value; }
         }
 
-        ///<summary>Database mapping to column NOTIFICATION.NOTIFDATE</summary> 
+        ///<summary>Database mapping to column notification.NOTIFDATE</summary> 
         long notificationDate;
         public long NotificationDate
         {
@@ -51,7 +51,7 @@ namespace eProcurement_DAL
             set { notificationDate = value; }
         }
 
-        ///<summary>Database mapping to column NOTIFICATION.REFNUM</summary>
+        ///<summary>Database mapping to column notification.REFNUM</summary>
         string referenceNumber;
         public string ReferenceNumber
         {
@@ -59,7 +59,7 @@ namespace eProcurement_DAL
             set { referenceNumber = value; }
         }
 
-        ///<summary>Database mapping to column NOTIFICATION.REFSEQ</summary>
+        ///<summary>Database mapping to column notification.REFSEQ</summary>
         string referenceSequence;
         public string ReferenceSequence
         {
@@ -67,7 +67,7 @@ namespace eProcurement_DAL
             set { referenceSequence = value; }
         }
 
-        ///<summary>Database mapping to column NOTIFICATION.MESSAGE</summary>
+        ///<summary>Database mapping to column notification.MESSAGE</summary>
         string message;
         public string Message
         {
@@ -75,15 +75,15 @@ namespace eProcurement_DAL
             set { message = value; }
         }
 
-        ///<summary>Database mapping to column NOTIFICATION.SENDER</summary>
+        ///<summary>Database mapping to column notification.SENDER</summary>
         string sender;
         public string Sender
         {
             get { return sender; }
             set { sender = value; }
         }
-        
-        ///<summary>Database mapping to column NOTIFICATION.RECIPIENT</summary>
+
+        ///<summary>Database mapping to column notification.RECIPIENT</summary>
         string recipient;
         public string Recipient
         {
@@ -91,7 +91,7 @@ namespace eProcurement_DAL
             set { recipient = value; }
         }
 
-        ///<summary>Database mapping to column NOTIFICATION.EMAIL</summary>
+        ///<summary>Database mapping to column notification.EMAIL</summary>
         string email;
         public string Email
         {
@@ -99,7 +99,7 @@ namespace eProcurement_DAL
             set { email = value; }
         }
 
-        ///<summary>Database mapping to column NOTIFICATION.STATUS</summary>
+        ///<summary>Database mapping to column notification.STATUS</summary>
         string status;
         public string Status
         {
