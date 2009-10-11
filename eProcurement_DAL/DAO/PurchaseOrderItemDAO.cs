@@ -150,7 +150,7 @@ namespace eProcurement_DAL
         /// <summary>
         /// Insert a record into database table for the given Entity Object. 
         /// </summary>
-        /// <param name="PurchaseItemText">PurchaseOrderItem Object</param>
+        /// <param name="PurchaseOrderItem">PurchaseOrderItem Object</param>
         /// 
         public static void Insert(PurchaseOrderItem entity)
         {
@@ -161,7 +161,7 @@ namespace eProcurement_DAL
         /// Insert a record into database table for the given Entity Object.
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
-        /// <param name="PurchaseItemText">PurchaseOrderItem Object</param>
+        /// <param name="PurchaseOrderItem">PurchaseOrderItem Object</param>
         public static void Insert(EpTransaction epTran, PurchaseOrderItem entity)
         {
             SqlCommand cm = new SqlCommand();
@@ -293,7 +293,7 @@ namespace eProcurement_DAL
         /// <summary>
         /// Update the record on database table for the given Entity Object.
         /// </summary>
-        /// <param name="PurchaseItemText">PurchaseOrderItem Object</param>
+        /// <param name="PurchaseOrderItem">PurchaseOrderItem Object</param>
         public static void Update(PurchaseOrderItem entity)
         {
             Update(null, entity);
@@ -302,7 +302,7 @@ namespace eProcurement_DAL
         /// Update the record on database table for the given Entity Object.
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
-        /// <param name="PurchaseItemText">PurchaseOrderItem Object</param>
+        /// <param name="PurchaseOrderItem">PurchaseOrderItem Object</param>
         public static void Update(EpTransaction epTran, PurchaseOrderItem entity)
         {
             SqlCommand cm = new SqlCommand();
@@ -423,7 +423,7 @@ namespace eProcurement_DAL
         /// <summary>
         /// Delete the record from database table for the given Entity Object.
         /// </summary>
-        /// <param name="PurchaseItemText">PurchaseOrderItem Object</param>
+        /// <param name="PurchaseOrderItem">PurchaseOrderItem Object</param>
         public static void Delete(PurchaseOrderItem entity)
         {
             Delete(null, entity);
@@ -433,7 +433,7 @@ namespace eProcurement_DAL
         /// Delete the record from database table for the given Entity Object.
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
-        /// <param name="PurchaseItemText">PurchaseOrderItem Object</param>
+        /// <param name="PurchaseOrderItem">PurchaseOrderItem Object</param>
         public static void Delete(EpTransaction epTran, PurchaseOrderItem entity)
         {
             SqlCommand cm = new SqlCommand();
