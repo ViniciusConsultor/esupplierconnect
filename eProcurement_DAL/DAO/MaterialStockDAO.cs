@@ -6,7 +6,7 @@
 // ISS M.TECH SE16 Batch
 //
 // Note: 
-//    1. This class enables to provide methods for accessing database table [mtlstock]  
+//    1. This class enables to provide methods for accessing database table [mtlshortage]  
 //       -Insert, Delete Update and Retrieve.
 //	  
 // Revision History:
@@ -160,13 +160,13 @@ namespace eProcurement_DAL
         /// <returns>
         /// Material Stock Object
         /// </returns>
-        public static Notification RetrieveByKey(EpTransaction epTran, string materialNumber,string plant)
+        public static MaterialStock RetrieveByKey(EpTransaction epTran, string materialNumber,string plant)
         {
             Notification entity = null;
             string whereClause = " MATNR='" + DataManager.EscapeSQL(materialNumber) + "' ";
             whereClause += "AND WERKS='" + DataManager.EscapeSQL(plant) + "' ";
 
-            Collection<Notification> entities = Retrieve(epTran, whereClause, "");
+            Collection<MaterialStock> entities = Retrieve(epTran, whereClause, "");
             if (entities.Count > 0)
                 entity = entities[0];
 
