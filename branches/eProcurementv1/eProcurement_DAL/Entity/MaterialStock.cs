@@ -6,7 +6,7 @@
 // NUS ISS M.TECH SE16 Batch
 //
 // Note: 
-//    1. This class contains field mapping to database table [MTLSTOCK].
+//    1. This class contains field mapping to database table [mtlstock].
 //	  
 // Revision History:
 //    1.0:
@@ -23,11 +23,11 @@ using System.Text;
 
 namespace eProcurement_DAL
 {
-    ///<summary>Entity Object (MaterialStock) - Database table [MTLSTOCK]</summary>
+    ///<summary>Entity Object (MaterialStock) - Database table [mtlstock]</summary>
     [Serializable]
     public class MaterialStock
     {
-        ///<summary>Database mapping to column MTLSTOCK.MATNR</summary>
+        ///<summary>Database mapping to column mtlstock.MATNR</summary>
         string materialNumber;
         public string MaterialNumber
         {
@@ -35,7 +35,7 @@ namespace eProcurement_DAL
             set { materialNumber = value; }
         }
 
-        ///<summary>Database mapping to column MTLSTOCK.MAKTX</summary>
+        ///<summary>Database mapping to column mtlstock.MAKTX</summary>
         string materialDescription;
         public string MaterialDescription
         {
@@ -43,7 +43,7 @@ namespace eProcurement_DAL
             set { materialDescription = value; }
         }
 
-        ///<summary>Database mapping to column MTLSTOCK.WERKS</summary>
+        ///<summary>Database mapping to column mtlstock.WERKS</summary>
         string plant;
         public string Plant
         {
@@ -51,7 +51,7 @@ namespace eProcurement_DAL
             set { plant = value; }
         }
 
-        ///<summary>Database mapping to column MTLSTOCK.LABST</summary>
+        ///<summary>Database mapping to column mtlstock.LABST</summary>
         Nullable<decimal> unrestrictedStock;
         public Nullable<decimal> UnrestrictedStock
         {
@@ -59,7 +59,7 @@ namespace eProcurement_DAL
             set { unrestrictedStock = value; }
         }
 
-        ///<summary>Database mapping to column MTLSTOCK.QINSP</summary>
+        ///<summary>Database mapping to column mtlstock.QINSP</summary>
         Nullable<decimal> inspectionStock;
         public Nullable<decimal> InspectionStock
         {
@@ -67,7 +67,7 @@ namespace eProcurement_DAL
             set { inspectionStock = value; }
         }
 
-        ///<summary>Database mapping to column MTLSTOCK.MEINS</summary>
+        ///<summary>Database mapping to column mtlstock.MEINS</summary>
         string unitOfMeasure;
         public string UnitOfMeasure
         {
