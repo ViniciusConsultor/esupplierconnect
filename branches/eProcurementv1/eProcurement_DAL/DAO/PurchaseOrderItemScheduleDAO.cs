@@ -1,3 +1,22 @@
+//------------------------------------------------------------------------------
+// 
+// Team         : Team 03
+// Author       : HNIN
+// Created Date : 20/09/2009
+// ISS M.TECH SE16 Batch
+//
+// Note: 
+//    1. This class contains field mapping to database table [PURSCH].
+//	  
+// Revision History:
+//    1.0:
+//      Author  : HNIN
+//      Date    : 20/09/2009   
+//      Comments: Created class 
+//    
+// Copyright 2008-2010 ISS/Fujitec
+//------------------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,25 +25,51 @@ using System.Data.SqlClient;
 using System.Data;
 
 namespace eProcurement_DAL
+///<summary>Entity Object (Purchase Order Item Schedule) - Database table [PURSCH]</summary>
 {
     public class PurchaseOrderItemScheduleDAO
     {
         #region RetrieveAll
+        /// <summary>
+        /// Retrieve all the records from database table  
+        /// </summary>
+        /// <returns>
+        /// Collection of PurchaseOrderItemSchedule Object
+        /// </returns>
         public static Collection<PurchaseOrderItemSchedule> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
-        
+        /// <summary>
+        /// Retrieve all the records in a specified sort order from database table 
+        /// </summary>
+        /// <param name="sortClaues">Sort Clause</param>
+        /// <returns>
+        /// Collection of PurchaseOrderItemSchedule Object 
+        /// </returns>
         public static Collection<PurchaseOrderItemSchedule> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
-
+        /// <summary>
+        /// Retrieve all the records from database table  
+        /// </summary>
+        /// <param name="epTran">EpTransaction Object</param>
+        /// <returns>
+        /// Collection of PurchaseOrderItemSchedule Object
+        /// </returns>
         public static Collection<PurchaseOrderItemSchedule> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
-
+        /// <summary>
+        /// Retrieve all the records in a specified sort order from database table 
+        /// </summary>
+        /// <param name="epTran">EpTransaction Object</param>
+        /// <param name="sortClaues">Sort Clause</param>
+        /// <returns>
+        /// Collection of PurchaseOrderItemSchedule Object 
+        /// </returns>
         public static Collection<PurchaseOrderItemSchedule> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
@@ -32,6 +77,15 @@ namespace eProcurement_DAL
         #endregion
 
         #region RetrieveByQuery
+        /// <summary>
+        /// Retrieve list of record in a specified sort order from database table for the given search criteria
+        /// </summary>
+        /// <param name="epTran">EpTransaction Object</param>
+        /// <param name="whereClause">Where Clause</param>
+        /// <param name="sortClaues">Sort Clause</param>
+        /// <returns>
+        /// Collection of PurchaseOrderItemSchedule Object 
+        /// </returns>
         public static Collection<PurchaseOrderItemSchedule> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
@@ -55,12 +109,28 @@ namespace eProcurement_DAL
         #endregion
 
         #region RetrieveByKey
+        /// <summary>
+        /// Retrieve a record from database table for the given primary key(s)
+        /// </summary>
+        /// <param name="orderNumber">Order Number: PURSCH.EBELN</param>
+        /// <param name="itemSequence">purchase Item Sequence Number : PURSCH.EBELP</param>
+        /// <returns>
+        /// PurchaseOrderItem Object
+        /// </returns>
         public static PurchaseOrderItemSchedule RetrieveByKey
             (string orderNumber, string ItemSequenceNO, string ScheduleSequenceNo)
         {
             return RetrieveByKey(null, orderNumber, ItemSequenceNO, ScheduleSequenceNo);
         }
-
+        /// <summary>
+        /// Retrieve a record from database table for the given primary key(s)
+        /// </summary>
+        /// <param name="epTran">EpTransaction Object</param>
+        /// <param name="orderNumber">Order Number: PURSCH.EBELN</param>
+        /// <param name="itemSequence">purchase Item Sequence Number : PURSCH.EBELP</param>
+        /// <returns>
+        /// PurchaseOrderItemSchedule Object
+        /// </returns>
         public static PurchaseOrderItemSchedule RetrieveByKey
             (EpTransaction epTran, string orderNumber, string ItemSequenceNO, string ScheduleSequenceNo)
         {
@@ -77,11 +147,20 @@ namespace eProcurement_DAL
         #endregion
 
         #region Insert
+        /// <summary>
+        /// Insert a record into database table for the given Entity Object. 
+        /// </summary>
+        /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
+        /// 
         public static void Insert(PurchaseOrderItemSchedule entity)
         {
             Insert(null, entity);
         }
-
+        /// <summary>
+        /// Insert a record into database table for the given Entity Object.
+        /// </summary>
+        /// <param name="epTran">EpTransaction Object</param>
+        /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
         public static void Insert(EpTransaction epTran, PurchaseOrderItemSchedule entity)
         {
             SqlCommand cm = new SqlCommand();
@@ -180,11 +259,19 @@ namespace eProcurement_DAL
         #endregion
 
         #region Update
+        /// <summary>
+        /// Update the record on database table for the given Entity Object.
+        /// </summary>
+        /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
         public static void Update(PurchaseOrderItemSchedule entity)
         {
             Update(null, entity);
         }
-
+        /// <summary>
+        /// Update the record on database table for the given Entity Object.
+        /// </summary>
+        /// <param name="epTran">EpTransaction Object</param>
+        /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
         public static void Update(EpTransaction epTran, PurchaseOrderItemSchedule entity)
         {
             SqlCommand cm = new SqlCommand();
@@ -283,11 +370,19 @@ namespace eProcurement_DAL
         #endregion
 
         #region Delete
+        /// <summary>
+        /// Delete the record from database table for the given Entity Object.
+        /// </summary>
+        /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
         public static void Delete(PurchaseOrderItemSchedule entity)
         {
             Delete(null, entity);
         }
-
+        /// <summary>
+        /// Delete the record from database table for the given Entity Object.
+        /// </summary>
+        /// <param name="epTran">EpTransaction Object</param>
+        /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItem Object</param>
         public static void Delete(EpTransaction epTran, PurchaseOrderItemSchedule entity)
         {
             SqlCommand cm = new SqlCommand();
@@ -340,6 +435,14 @@ namespace eProcurement_DAL
         #endregion
 
         #region private methods
+        /// Retrieve list of record in a specified sort order from database table for the given search criteria
+        /// </summary>
+        /// <param name="epTran">EpTransaction Object</param>
+        /// <param name="whereClause">Where Clause</param>
+        /// <param name="sortClaues">Sort Clause</param>
+        /// <returns>
+        /// Collection of PurchaseOrderItemSchedule Object 
+        /// </returns>
         private static Collection<PurchaseOrderItemSchedule> Retrieve(
             EpTransaction epTran, string whereClause, string sortClaues)
         {
