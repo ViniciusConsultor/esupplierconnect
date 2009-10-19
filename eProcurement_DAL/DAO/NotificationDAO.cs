@@ -204,7 +204,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            Notification checkEntity = RetrieveByKey(epTran, entity.NotificationID);
+            Notification checkEntity = RetrieveByKey(epTran, entity.NotificationId);
             if (checkEntity != null)
             {
                 throw new Exception("Record already exists.");
