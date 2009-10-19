@@ -162,7 +162,7 @@ namespace eProcurement_DAL
         /// </returns>
         public static MaterialStock RetrieveByKey(EpTransaction epTran, string materialNumber,string plant)
         {
-            Notification entity = null;
+            MaterialStock entity = null;
             string whereClause = " MATNR='" + DataManager.EscapeSQL(materialNumber) + "' ";
             whereClause += "AND WERKS='" + DataManager.EscapeSQL(plant) + "' ";
 
@@ -208,7 +208,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            MaterialStock checkEntity = RetrieveByKey(epTran, entity.MaterialNumber);
+            MaterialStock checkEntity = RetrieveByKey(epTran, entity.MaterialNumber,entity.Plant);
             if (checkEntity != null)
             {
                 throw new Exception("Record already exists.");
@@ -443,7 +443,7 @@ namespace eProcurement_DAL
                 if(rd.IsDBNull(6))
                     entity.UnitOfMeasure = null;
                 else
-                    entity.UnitOfMeasure= rd[MEINS].ToString();
+                    entity.UnitOfMeasure= rd["MEINS"].ToString();
              
                 entities.Add(entity);
 
