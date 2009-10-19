@@ -1,33 +1,13 @@
-//------------------------------------------------------------------------------
-// 
-// Team         : Team 03
-// Author       : HNIN
-// Created Date : 20/09/2009
-// ISS M.TECH SE16 Batch
-//
-// Note: 
-//    1. This class contains field mapping to database table [PURDTL].
-//	  
-// Revision History:
-//    1.0:
-//      Author  : HNIN
-//      Date    : 20/09/2009   
-//      Comments: Created class 
-//    
-// Copyright 2008-2010 ISS/Fujitec
-//------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace eProcurement_DAL
 {
-    ///<summary>Entity Object (Purchase Order Item) - Database table [PURDTL]</summary>
     [Serializable]
     public class PurchaseOrderItem
     {
         string purchaseOrderNumber;
-        ///<summary>Database mapping to column PURDTL.EBELN</summary>
         public string PurchaseOrderNumber
         {
             get { return purchaseOrderNumber; }
@@ -35,7 +15,6 @@ namespace eProcurement_DAL
         }
 
         string purchaseItemSequenceNumber;
-        ///<summary>Database mapping to column PURDTL.EBELP</summary>
         public string PurchaseItemSequenceNumber
         {
             get { return purchaseItemSequenceNumber; }
@@ -43,7 +22,6 @@ namespace eProcurement_DAL
         }
 
         string materialNumber;
-        ///<summary>Database mapping to column PURDTL.MATNR</summary>
         public string MaterialNumber
         {
             get { return materialNumber; }
@@ -51,7 +29,6 @@ namespace eProcurement_DAL
         }
 
         string purchaseOrderType;
-        ///<summary>Database mapping to column PURDTL.PSTYP</summary>
         public string PurchaseOrderType
         {
             get { return purchaseOrderType; }
@@ -60,7 +37,6 @@ namespace eProcurement_DAL
 
 
         string shortText;
-        ///<summary>Database mapping to column PURDTL.TXZ01</summary>
         public string ShortText
         {
             get { return shortText; }
@@ -68,7 +44,6 @@ namespace eProcurement_DAL
         }
 
         string oldMaterialNumber;
-        ///<summary>Database mapping to column PURDTL.BISMT</summary>
         public string OldMaterialNumber
         {
             get { return oldMaterialNumber; }
@@ -76,7 +51,6 @@ namespace eProcurement_DAL
         }
 
         Nullable<decimal> orderQuantity;
-        ///<summary>Database mapping to column PURDTL.MENGE</summary>
         public Nullable<decimal> OrderQuantity
         {
             get { return orderQuantity; }
@@ -84,7 +58,6 @@ namespace eProcurement_DAL
         }
 
         Nullable<decimal> pricePerUnit;
-        ///<summary>Database mapping to column PURDTL.PEINH</summary>
         public Nullable<decimal> PricePerUnit
         {
             get { return pricePerUnit; }
@@ -92,7 +65,6 @@ namespace eProcurement_DAL
         }
 
         string unitofMeasure;
-        ///<summary>Database mapping to column PURDTL.MEINS</summary>
         public string UnitofMeasure
         {
             get { return unitofMeasure; }
@@ -100,7 +72,6 @@ namespace eProcurement_DAL
         }
 
         Nullable<decimal> netPrice;
-        ///<summary>Database mapping to column PURDTL.NETPR</summary>
         public Nullable<decimal> NetPrice
         {
             get { return netPrice; }
@@ -108,7 +79,6 @@ namespace eProcurement_DAL
         }
 
         string remarks;
-        ///<summary>Database mapping to column PURDTL.REMARK</summary>
         public string Remarks
         {
             get { return remarks; }
@@ -116,7 +86,6 @@ namespace eProcurement_DAL
         }
 
         Nullable<decimal> deliveredQuantity;
-        ///<summary>Database mapping to column PURDTL.WEMNG</summary>
         public Nullable<decimal> DeliveredQuantity
         {
             get { return deliveredQuantity; }
@@ -124,7 +93,6 @@ namespace eProcurement_DAL
         }
 
         string longTextDescription;
-        ///<summary>Database mapping to column PURDTL.TEXT80</summary>
         public string LongTextDescription
         {
             get { return longTextDescription; }
@@ -132,7 +100,6 @@ namespace eProcurement_DAL
         }
 
         string orderNumber;
-        ///<summary>Database mapping to column PURDTL.AUFNR</summary>
         public string OrderNumber
         {
             get { return orderNumber; }
@@ -140,7 +107,6 @@ namespace eProcurement_DAL
         }
 
         string storageLocation;
-        ///<summary>Database mapping to column PURDTL.LGORT_D</summary>
         public string StorageLocation
         {
             get { return storageLocation; }
@@ -148,7 +114,6 @@ namespace eProcurement_DAL
         }
 
         string itemStatus;
-        ///<summary>Database mapping to column PURDTL.ASFNR</summary>
         public string ItemStatus
         {
             get { return itemStatus; }
@@ -156,7 +121,6 @@ namespace eProcurement_DAL
         }
 
         string deletionStatusIndicator;
-        ///<summary>Database mapping to column PURDTL.STS2</summary>
         public string DeletionStatusIndicator
         {
             get { return deletionStatusIndicator; }
@@ -164,7 +128,6 @@ namespace eProcurement_DAL
         }
 
         string recordStatus;
-        ///<summary>Database mapping to column PURDTL.RECSTS</summary>
         public string RecordStatus
         {
             get { return recordStatus; }
@@ -172,7 +135,6 @@ namespace eProcurement_DAL
         }
 
         string acknowledgementStatus;
-        ///<summary>Database mapping to column PURDTL.ACKSTS</summary>
         public string AcknowledgementStatus
         {
             get { return acknowledgementStatus; }
