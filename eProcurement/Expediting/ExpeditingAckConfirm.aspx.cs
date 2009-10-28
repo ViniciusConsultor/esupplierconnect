@@ -72,7 +72,7 @@ public partial class Expediting_ExpeditingAckConfirm : BaseForm
     private void ShowData()
     {
         Collection<TemVO> objs = new Collection<TemVO>();
-        int iCount = 6;
+        int iCount = 2;
         for (int i = 1; i <= iCount; i++)
         {
             TemVO obj = new TemVO();
@@ -95,7 +95,7 @@ public partial class Expediting_ExpeditingAckConfirm : BaseForm
         {
             GridView gvSchedule = (GridView)e.Item.FindControl("gvSchedule");
             Collection<PurchaseExpediting> schedules = new Collection<PurchaseExpediting>();
-            int iCount = 3;
+            int iCount = 2;
             for (int i = 1; i <= iCount; i++)
             {
                 PurchaseExpediting obj = new PurchaseExpediting();

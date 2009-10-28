@@ -11,7 +11,8 @@
         <asp:Label runat="server" ID="lblMessage" CssClass="" Visible="True"></asp:Label>
     </asp:Panel>
     <asp:Panel CssClass="GreyTable" ID="plResult" runat="server" > 
-    <table cellspacing="0" cellpadding="0" width="100%" border="0">
+    <br />
+    <table cellspacing="0" cellpadding="0" width="100%" border="0" style="display:none">
         <tr>
             <td nowrap="nowrap" >
                 <asp:Label ID="lblCount" runat="server" CssClass="labelMessage" ></asp:Label>
@@ -19,7 +20,7 @@
             <td width="100%"></td>
         </tr> 
     </table>
-    <table id="Table1" cellspacing="0" cellpadding="0" width="100%" border="0">
+    <table id="GreyTable" cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
             <td valign="top" style="height: 8px">
                <table id="tblSearch" cellspacing="0" cellpadding="1" width="100%" border="0">
@@ -152,57 +153,6 @@
                                     </table> 
                                 </td>
                             </tr>     
-                            <tr class="odd" style="height:25px; font-weight:normal;">
-	                            <td>
-
-	                            </td>
-	                            <td>
-	                                 
-	                            </td>
-	                            <td>
-	                                
-
-	                            </td>
-	                            <td>
-                                   
-                                </td>
-	                            <td>
-	                               
-	                            </td>
-	                            <td>
-	                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                        <tr>
-                                            <td>&nbsp;</td>
-                                            <td Width="100%" nowrap="nowrap">
-                                                <asp:Label ID="Label12" runat="server" CssClass="" Text='Plant 2'></asp:Label> 
-                                            </td>
-                                           <td>&nbsp;</td>
-                                        </tr>
-                                    </table>  
-	                            </td>
-	                            <td>
-                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                        <tr>
-                                            <td>&nbsp;</td>
-                                            <td Width="100%" align="right">
-                                                <asp:Label ID="Label14" runat="server" CssClass="" Text='2000'></asp:Label>
-                                            </td>
-                                           <td>&nbsp;</td>
-                                        </tr>
-                                    </table> 
-                                </td>
-                                <td>
-                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                        <tr>
-                                            <td>&nbsp;</td>
-                                            <td Width="100%" align="right">
-                                                <asp:Label ID="Label18" runat="server" CssClass="" Text='2000'></asp:Label>
-                                            </td>
-                                           <td>&nbsp;</td>
-                                        </tr>
-                                    </table> 
-                                </td>
-                            </tr>     
 	                        <tr>
 	                            <td>
 	                            
@@ -227,7 +177,7 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Wrap="false" Width="10%"/>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Item<br>Sequence" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                            <asp:TemplateField HeaderText="Item<br>Seq" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                         <tr>
@@ -241,7 +191,7 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Wrap="false" Width="8%"/>
                                             </asp:TemplateField>
-                                             <asp:TemplateField HeaderText="Schedule<br>Sequence" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                             <asp:TemplateField HeaderText="Sch<br>Seq" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                         <tr>
@@ -255,7 +205,7 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Wrap="false" Width="8%"/>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Schedule<br>Quantity" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                            <asp:TemplateField HeaderText="Sch<br>Qty" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                         <tr>
@@ -269,7 +219,7 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Width="10%"/>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Unit<br>Measure" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                            <asp:TemplateField HeaderText="UOM" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                         <tr>
@@ -283,7 +233,21 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Wrap="false" Width="10%"/>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Expedite<br>Quantity" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                            <asp:TemplateField HeaderText="Sch<br>Date" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td Width="100%" nowrap="nowrap">
+                                                                <asp:Label ID="lblScheduleDate" runat="server" CssClass="" Text='29/10/2009'></asp:Label> 
+                                                            </td>
+                                                           <td>&nbsp;</td>
+                                                        </tr>
+                                                    </table>  
+                                                </ItemTemplate> 
+                                                <ItemStyle Wrap="false" Width="10%"/>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Expedite<br>Qty" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                         <tr>
@@ -297,13 +261,13 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Width="10%"/>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Expedite Date" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                            <asp:TemplateField HeaderText="Expedite<br>Date" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblPromiseDate" runat="server" CssClass="" Text='29/10/2009'></asp:Label> 
+                                                                <DatePicker:DatePicker ID="dtpAck" runat="server" SelectedDateString="28/10/2009"  />
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -311,7 +275,7 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Wrap="false" Width="10%"/>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Promise Date1" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                            <asp:TemplateField HeaderText="Promise<br>Date1" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                         <tr>
@@ -325,7 +289,7 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Wrap="false" Width="10%"/>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Promise Date2" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                            <asp:TemplateField HeaderText="Promise<br>Date2" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                         <tr>
@@ -339,21 +303,22 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Wrap="false" Width="10%"/>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Confirm" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                            <asp:TemplateField HeaderText="Confirm/Remarks" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                         <tr>
                                                             <td>&nbsp;</td>
-                                                            <td Width="100%" nowrap="nowrap">
-                                                                <asp:RadioButton runat="server" ID="rad1" Text="Accept" />
+                                                            <td nowrap="nowrap">
+                                                                <asp:RadioButton runat="server" ID="rad1" Text="Accept" Checked="true"  />
+                                                            </td>
+                                                            <td nowrap="nowrap">
+                                                                <asp:RadioButton runat="server" ID="RadioButton1" Text="Reject" />
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>&nbsp;</td>
-                                                            <td Width="100%" nowrap="nowrap">
-                                                                <asp:RadioButton runat="server" ID="RadioButton1" Text="Reject" />
-                                                            </td>
+                                                           <td>&nbsp;</td>
+                                                           <td colspan="2"><asp:TextBox runat="server" ID="txtRemarks" Width="115"></asp:TextBox> </td> 
                                                            <td>&nbsp;</td>
                                                         </tr>
                                                     </table>  
