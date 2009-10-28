@@ -45,7 +45,7 @@
                     <tr>
                         <td class="DetailsTableCaption" colspan="2">Information</td> 
                         <td>
-                            <asp:HyperLink runat="server" ID="hlHeaderText" Text='Header Texts'></asp:HyperLink>  
+                            <asp:HyperLink runat="server" ID="hlHeaderText" Text='Texts'></asp:HyperLink>  
                         </td>
                     </tr> 
                     <tr>
@@ -102,232 +102,310 @@
 		    </td>
 		</tr> 
 	</table> 
-	 <table id="tblItemHeader" cellspacing="2" cellpadding="0" width="100%" border="0">
-	    <tr class="gridHeader" style="height:25px">
-	        <td style="vertical-align:middle; text-align:center;" width="10%">Item No</td>
-	        <td style="vertical-align:middle; text-align:center;" width="30%">Material/Description</td>
-	        <td style="vertical-align:middle; text-align:center;" width="10%">Quantity</td>
-	        <td style="vertical-align:middle; text-align:center;" width="15%">UM</td>
-	        <td style="vertical-align:middle; text-align:center;" width="10%">Price Unit</td>
-	        <td style="vertical-align:middle; text-align:center;" width="10%">Net Price</td>
-	        <td style="vertical-align:middle; text-align:center;" width="15%">Net Amount</td>
-	    </tr>
-	 </table>
-	 <asp:GridView Width="100%" ID="gvItem" runat="server" AllowPaging="false" AutoGenerateColumns="False" 
-       AllowSorting="false" CellPadding="2" OnRowDataBound="gvItem_RowDataBound" ShowHeader="false">
-        <Columns>
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <table cellspacing="2" cellpadding="0" border="0" width="100%">
-                         <tr>
-                            <td rowspan="3" width="10%">
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblItemNo" runat="server" CssClass="" Text=' <%# Eval("PurchaseItemSequenceNumber") %> '></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table>  
-                            </td>
-                            <td width="30%">
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblMaterialNumber" runat="server" CssClass="" Text=' <%# Eval("MaterialNumber") %> '></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table>  
-                            </td>
-                            <td width="10%">
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" nowrap="nowrap" align="right">
-                                            <asp:Label ID="lblOrderQuantity" runat="server" CssClass="" Text=' <%# Eval("OrderQuantity") %> '></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table>  
-                            </td>
-                            <td width="15%">
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblUnitofMeasure" runat="server" CssClass="" Text=' <%# Eval("UnitofMeasure") %> '></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table>  
-                            </td>
-                             <td width="10%">
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" nowrap="nowrap" align="right">
-                                            <asp:Label ID="lblPricePerUnit" runat="server" CssClass="" Text=' <%# Eval("PricePerUnit") %> '></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table>  
-                            </td>
-                             <td width="10%">
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" nowrap="nowrap" align="right">
-                                            <asp:Label ID="lblNetPrice" runat="server" CssClass="" Text=' <%# Eval("NetPrice") %> '></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table>  
-                            </td>
-                             <td width="15%">
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" nowrap="nowrap" align="right">
-                                            <asp:Label ID="lblNetAmount" runat="server" CssClass="" Text=''></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table>  
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblShortText" runat="server" CssClass="" Text=' <%# Eval("ShortText") %> '></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table>  
-                            </td>
-                            <td colspan="5" align="left">
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td nowrap="nowrap" align="right">
-                                            <asp:HyperLink runat="server" ID="hlItemText" Text='Texts'></asp:HyperLink>
-                                        </td>
-                                        <td>&nbsp;&nbsp;</td>
-                                        <td nowrap="nowrap" align="right">
-                                            <asp:HyperLink runat="server" ID="hlComponent" Text='Components'></asp:HyperLink>
-                                        </td>
-                                        <td>&nbsp;&nbsp;</td>
-                                        <td nowrap="nowrap" align="right">
-                                            <asp:HyperLink runat="server" ID="hlService" Text='Services'></asp:HyperLink>
-                                        </td>
-                                       <td width="100%">&nbsp;</td>
-                                    </tr>
-                                </table>  
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" align="left">
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td Width="100%" nowrap="nowrap">
-                                            <asp:GridView BorderWidth="0" ShowHeader="false" AllowPaging="false" width="100%" ID="gvSchedule" runat="server" 
-                                            AutoGenerateColumns="False" OnRowDataBound="gvSchedule_RowDataBound" >
-                                                <HeaderStyle  Height="10px" ForeColor="black"  BackColor="gray"/>
-                                                <AlternatingRowStyle CssClass="" />
-                                                <Columns>
-                                                    <asp:TemplateField>
-                                                        <ItemTemplate>
-                                                            <table cellspacing="0" cellpadding="0" border="0">
-                                                                <tr>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>
-                                                                        Delivery
-                                                                    </td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                            </table> 
-                                                        </ItemTemplate>
-                                                        <ItemStyle Width = "15%" HorizontalAlign="left" />
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField >
-                                                        <ItemTemplate>
-                                                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                                <tr>
-                                                                    <td>&nbsp;</td>
-                                                                    <td Width="100%" nowrap="nowrap">
-                                                                        <asp:Label ID="lblPurchaseOrderScheduleSequence" runat="server" CssClass="" Text='<%#  Eval("PurchaseOrderScheduleSequence") %> '></asp:Label>
-                                                                    </td>
-                                                                   <td>&nbsp;</td>
-                                                                </tr>
-                                                            </table>  
-                                                        </ItemTemplate> 
-                                                        <ItemStyle Wrap="false" Width="15%"/>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Order Date" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
-                                                        <ItemTemplate>
-                                                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                                <tr>
-                                                                    <td>&nbsp;</td>
-                                                                    <td Width="100%" nowrap="nowrap">
-                                                                        <asp:Label ID="lblOrderItemScheduleDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("OrderItemScheduleDate")))) %> '></asp:Label>
-                                                                    </td>
-                                                                   <td>&nbsp;</td>
-                                                                </tr>
-                                                            </table>  
-                                                        </ItemTemplate> 
-                                                        <ItemStyle Wrap="false" Width="25%"/>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField >
-                                                        <ItemTemplate>
-                                                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                                <tr>
-                                                                    <td>&nbsp;</td>
-                                                                    <td Width="100%" nowrap="nowrap">
-                                                                        <asp:Label ID="lblDeliveryScheduleQuantity" runat="server" CssClass="" Text=' <%#  Eval("DeliveryScheduleQuantity") %> '></asp:Label>
-                                                                    </td>
-                                                                   <td>&nbsp;</td>
-                                                                </tr>
-                                                            </table>  
-                                                        </ItemTemplate> 
-                                                        <ItemStyle Wrap="false" Width="10%"/>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField >
-                                                        <ItemTemplate>
-                                                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                                <tr>
-                                                                    <td>&nbsp;</td>
-                                                                    <td nowrap="nowrap">
-                                                                        Ack.Dt 
-                                                                    </td>
-                                                                    <td nowrap="nowrap">&nbsp;&nbsp;</td>
-                                                                    <td Width="100%" nowrap="nowrap">
-                                                                        <DatePicker:DatePicker ID="dtpAck" runat="server" />
-                                                                        <asp:HiddenField ID="hdAckDate" Visible="false" runat="server" Value=' <%# Eval("AcknowledgementDate")%> '></asp:HiddenField>
-                                                                    </td>
-                                                                   <td>&nbsp;</td>
-                                                                </tr>
-                                                            </table>  
-                                                        </ItemTemplate> 
-                                                        <ItemStyle Wrap="false" Width="35%"/>
-                                                    </asp:TemplateField>
-                                                </Columns> 
-                                            </asp:GridView>
-                                        </td>
-                                    </tr>
-                                </table>  
-                            </td>
-                        </tr>
-                    </table> 
-                </ItemTemplate>
-                <ItemStyle Width = "100%" HorizontalAlign="left" />
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
+	<table cellspacing="0" cellpadding="0" width="100%" border="0">
+        <tr>
+	        <td valign="top" colspan="10" style="height: 20px">
+                <asp:Repeater ID="gvItem" runat="server" OnItemDataBound="gvItem_ItemDataBound">
+                    <HeaderTemplate>
+                        <table width="100%">
+                            <tr class="gridHeader" style="height:25px">
+	                            <td style="vertical-align:middle; text-align:center;" width="5%">Item<BR>Seq</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="15%">Material/<BR>Description</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="10%">Order Qty/<BR>Unit Measure</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="8%">Price<BR>Unit</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="8%">Net<BR>Price</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="15%">Remarks</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="5%">Delivery<BR>Qty</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="12%">Long Text</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="8%">Ref. Order</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="13%">Storage Location</td>
+	                        </tr>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                            <tr class="odd" style="height:25px; font-weight:normal;">
+	                            <td>
+	                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" nowrap="nowrap">
+                                                <asp:Label ID="lblItemSequence" runat="server" CssClass="" Text='<%# Eval("PurchaseItemSequenceNumber") %> '></asp:Label> 
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" nowrap="nowrap">
+                                              <a href="">Texts</a>
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr> 
+                                    </table>  
+	                            </td>
+	                            <td>
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" nowrap="nowrap">
+                                                <asp:Label ID="lblMaterialNumber" runat="server" CssClass="" Text='<%# Eval("MaterialNumber") %> '></asp:Label> 
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%">
+                                                <asp:Label ID="lblShortText" runat="server" CssClass="" Text='<%# Eval("ShortText") %> '></asp:Label> 
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                    </table>  
+                               </td> 
+                                <td>
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" align="right">
+                                                <asp:Label ID="lblOrderQuantity" runat="server" CssClass="" Text='<%# Eval("OrderQuantity") %>'></asp:Label>
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" nowrap="nowrap" align="right">
+                                                <asp:Label ID="lblUnitMeasure" runat="server" CssClass="" Text='<%# Eval("UnitofMeasure") %> '></asp:Label>  
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                    </table> 
+                                </td>
+                                 <td>
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" align="right">
+                                                <asp:Label ID="lblPricePer" runat="server" CssClass="" Text='<%# Eval("PricePerUnit") %>'></asp:Label>
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                    </table> 
+                                </td>
+                                <td>
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" align="right">
+                                                <asp:Label ID="lblNetPrice" runat="server" CssClass="" Text='<%# Eval("NetPrice") %>'></asp:Label>
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                    </table> 
+                                </td>
+                                <td>
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%">
+                                                <asp:Label ID="lblRemark" runat="server" CssClass="" Text='<%# Eval("Remarks") %> '></asp:Label>  
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                    </table>  
+                               </td>
+                                <td>
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" align="right">
+                                                <asp:Label ID="lblDeliverQuantity" runat="server" CssClass="" Text='<%# Eval("DeliveredQuantity") %>'></asp:Label>
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                    </table> 
+                                </td>
+                                <td>
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%">
+                                                <asp:Label ID="lblLongText" runat="server" CssClass="" Text='<%# Eval("LongTextDescription") %> '></asp:Label>  
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                    </table>  
+                               </td>
+                                <td>
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%">
+                                                <asp:Label ID="lblReferenceOrder" runat="server" CssClass="" Text='00000000002 '></asp:Label>  
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                    </table>  
+                               </td>
+                                <td>
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%">
+                                                <asp:Label ID="lblStorageLocation" runat="server" CssClass="" Text='<%# Eval("StorageLocation") %> '></asp:Label>  
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                    </table>  
+                                </td>
+	                        </tr>
+	                        <tr>
+	                            <td>
+	                            
+	                            </td>     
+	                            <td colspan="9" Width="100%" nowrap="nowrap">
+	                                <asp:GridView BorderWidth="0" ShowHeader="true" AllowPaging="false" width="100%" ID="gvSchedule" runat="server" 
+                                    AutoGenerateColumns="False">
+                                        <HeaderStyle  Height="10px" ForeColor="white"  BackColor="#a9a9a9"/>
+                                        <AlternatingRowStyle CssClass=""/>
+                                        <Columns>
+                                            <asp:TemplateField HeaderText="schedule<BR>Sequence" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td Width="100%" nowrap="nowrap">
+                                                                <asp:Label ID="lblScheduleSequence" runat="server" CssClass="" Text='<%# Eval("PurchaseOrderScheduleSequence") %> '></asp:Label> 
+                                                            </td>
+                                                           <td>&nbsp;</td>
+                                                        </tr>
+                                                    </table>  
+                                                </ItemTemplate> 
+                                                <ItemStyle Wrap="false" Width="8%"/>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Schedule Date" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td Width="100%" nowrap="nowrap">
+                                                                <asp:Label ID="lblScheduleDate" runat="server" CssClass="" Text='27/09/2009 '></asp:Label> 
+                                                            </td>
+                                                           <td>&nbsp;</td>
+                                                        </tr>
+                                                    </table>  
+                                                </ItemTemplate> 
+                                                <ItemStyle Wrap="false" Width="12%"/>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Schedule<br>Quantity" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td Width="100%" align="right">
+                                                                <asp:Label ID="lblScheduleQuantity" runat="server" CssClass="" Text='300'></asp:Label>
+                                                            </td>
+                                                           <td>&nbsp;</td>
+                                                        </tr>
+                                                    </table> 
+                                                </ItemTemplate> 
+                                                <ItemStyle Width="10%"/>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Delivery Date" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td Width="100%" nowrap="nowrap">
+                                                                <asp:Label ID="lblDeliveryDate" runat="server" CssClass="" Text='27/09/2009 '></asp:Label> 
+                                                            </td>
+                                                           <td>&nbsp;</td>
+                                                        </tr>
+                                                    </table>  
+                                                </ItemTemplate> 
+                                                <ItemStyle Wrap="false" Width="12%"/>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Delivery<br>Quantity" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td Width="100%" align="right">
+                                                                <asp:Label ID="lblDeliveryQuantity" runat="server" CssClass="" Text='100'></asp:Label>
+                                                            </td>
+                                                           <td>&nbsp;</td>
+                                                        </tr>
+                                                    </table> 
+                                                </ItemTemplate> 
+                                                <ItemStyle Width="10%"/>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Ack Date 1" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td Width="100%" nowrap="nowrap">
+                                                                <asp:Label ID="lblAcknowledgeDate1" runat="server" CssClass="" Text='27/09/2009 '></asp:Label> 
+                                                            </td>
+                                                           <td>&nbsp;</td>
+                                                        </tr>
+                                                    </table>  
+                                                </ItemTemplate> 
+                                                <ItemStyle Wrap="false" Width="12%"/>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Ack Date 2" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td Width="100%" nowrap="nowrap">
+                                                                <asp:Label ID="lblAcknowledgeDate2" runat="server" CssClass="" Text=' '></asp:Label> 
+                                                            </td>
+                                                           <td>&nbsp;</td>
+                                                        </tr>
+                                                    </table>  
+                                                </ItemTemplate> 
+                                                <ItemStyle Wrap="false" Width="12%"/>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Promise Date 1" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td Width="100%" nowrap="nowrap">
+                                                                <asp:Label ID="lblPromiseDate1" runat="server" CssClass="" Text='27/09/2009'></asp:Label> 
+                                                            </td>
+                                                           <td>&nbsp;</td>
+                                                        </tr>
+                                                    </table>  
+                                                </ItemTemplate> 
+                                                <ItemStyle Wrap="false" Width="12%"/>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Promise Date 2" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td Width="100%" nowrap="nowrap">
+                                                                <asp:Label ID="lblPromiseDate2" runat="server" CssClass="" Text=' '></asp:Label> 
+                                                            </td>
+                                                           <td>&nbsp;</td>
+                                                        </tr>
+                                                    </table>  
+                                                </ItemTemplate> 
+                                                <ItemStyle Wrap="false" Width="12%"/>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="20"><hr /></td>
+	                        </tr>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                      </table>
+                    </FooterTemplate>
+                  </asp:Repeater>
+                 </td> 
+           </tr> 
+      </table> 
     <br />
      <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>

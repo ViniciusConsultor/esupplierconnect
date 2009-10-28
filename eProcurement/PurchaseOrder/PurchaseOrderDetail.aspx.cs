@@ -16,63 +16,6 @@ using eProcurement_DAL;
 
 public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
 {
-    private Collection<PurchaseOrderItemSchedule> m_Schedules
-    {
-        get
-        {
-            if (ViewState["m_Schedules"] != null)
-            {
-                return (Collection<PurchaseOrderItemSchedule>)ViewState["m_Schedules"];
-            }
-            else
-            {
-                return null;
-            }
-        }
-        set
-        {
-            ViewState["m_Schedules"] = value;
-        }
-    }
-
-    private Collection<PurchaseOrderItem> m_Items
-    {
-        get
-        {
-            if (ViewState["m_Items"] != null)
-            {
-                return (Collection<PurchaseOrderItem>)ViewState["m_Items"];
-            }
-            else
-            {
-                return null;
-            }
-        }
-        set
-        {
-            ViewState["m_Items"] = value;
-        }
-    }
-
-    private PurchaseOrderHeader m_Header
-    {
-        get
-        {
-            if (ViewState["m_Header"] != null)
-            {
-                return (PurchaseOrderHeader)ViewState["m_Header"];
-            }
-            else
-            {
-                return null;
-            }
-        }
-        set
-        {
-            ViewState["m_Header"] = value;
-        }
-    }
-
     new protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -94,7 +37,6 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
                 poHeader.ShipmentAddress = "Fujitec Singapore Corpn, Ltd. 204 Bedok South Avenue 1 Singapore 469333";
                 poHeader.Remarks = "Remarks";
 
-                m_Header = poHeader;
                 //m_Items = new Collection<PurchaseOrderItem>();
                 //m_Schedules = new Collection<PurchaseOrderItemSchedule>();
 
@@ -126,7 +68,7 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
                 lblRemarks.Text = poHeader.Remarks;
                 hlHeaderText.NavigateUrl = "javascript:ShowHeaderText('" + poHeader.OrderNumber + "')";
 
-                //ShowItems();
+                ShowItems();
             }
         }
         catch (Exception ex)
@@ -138,58 +80,48 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
         }
     }
 
-    
-    protected void gvItem_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+
+    protected void gvItem_ItemDataBound(Object sender,RepeaterItemEventArgs e)
     {
-        if (e.Row.RowType == DataControlRowType.DataRow)
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-            GridView gvSchedule = (GridView)e.Row.FindControl("gvSchedule");
-            Label lblItemNo = (Label)e.Row.FindControl("lblItemNo");
-            Label lblPricePerUnit = (Label)e.Row.FindControl("lblPricePerUnit");
-            Label lblNetPrice = (Label)e.Row.FindControl("lblNetPrice");
-            Label lblNetAmount = (Label)e.Row.FindControl("lblNetAmount");
-
-            decimal amount = Convert.ToDecimal(lblPricePerUnit.Text) * Convert.ToDecimal(lblNetPrice.Text);
-            lblNetAmount.Text = amount.ToString();
-
-            HyperLink hlItemText = (HyperLink)e.Row.FindControl("hlItemText");
-            HyperLink hlComponent = (HyperLink)e.Row.FindControl("hlComponent");
-            HyperLink hlService = (HyperLink)e.Row.FindControl("hlService");
-
-            hlItemText.NavigateUrl = "javascript:ShowItemText('" + m_Header.OrderNumber + "','" + lblItemNo.Text + "')";
-            hlComponent.NavigateUrl = "javascript:ShowComponent('" + m_Header.OrderNumber + "','" + lblItemNo.Text + "')";
-            hlService.NavigateUrl = "javascript:ShowService('" + m_Header.OrderNumber + "','" + lblItemNo.Text + "')";
-
-            //Collection<PurchaseOrderItemSchedule> schedules = PurchaseOrderItemController.GetPurchaseOrderScheduleItems(m_Header.OrderNumber, lblItemNo.Text);
-            Collection<PurchaseOrderItemSchedule> schedules = new Collection<PurchaseOrderItemSchedule>(); 
-            foreach (PurchaseOrderItemSchedule schedule in schedules)
+            GridView gvSchedule = (GridView)e.Item.FindControl("gvSchedule");
+            Collection<PurchaseOrderItemSchedule> schedules = new Collection<PurchaseOrderItemSchedule>();
+            int iCount = 3;
+            for (int i = 1; i <= iCount; i++)
             {
-                m_Schedules.Add(schedule);
+                PurchaseOrderItemSchedule obj = new PurchaseOrderItemSchedule();
+
+                obj.PurchaseOrderScheduleSequence = "0" + i;
+                schedules.Add(obj);
             }
             gvSchedule.DataSource = schedules;
             gvSchedule.DataBind();
         }
-    }
-
-    protected void gvSchedule_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            HiddenField hdAckDate = (HiddenField)e.Row.FindControl("hdAckDate");
-            UserControls_DatePicker dtpAck = (UserControls_DatePicker)e.Row.FindControl("dtpAck");
-            if (hdAckDate.Value.Length > 1)
-            {
-                dtpAck.SelectedDate = GetDateTimeFormStoredValue(Convert.ToInt64(hdAckDate.Value));
-            }
-
-        }
-    }
+     }
 
     private void ShowItems()
     {
         //Collection<PurchaseOrderItem> items = PurchaseOrderItemController.GetPurchaseOrderItems(m_Header.OrderNumber);
-        Collection<PurchaseOrderItem> items=new Collection<PurchaseOrderItem>(); 
-        m_Items = items;
+        Collection<PurchaseOrderItem> items=new Collection<PurchaseOrderItem>();
+        int iCount = 6;
+        for (int i = 1; i <= iCount; i++)
+        {
+            PurchaseOrderItem obj = new PurchaseOrderItem();
+
+            obj.PurchaseItemSequenceNumber = "000" + i;
+            obj.MaterialNumber = "M000" + i;
+            obj.ShortText = "Material " + i;
+            obj.OrderQuantity = 1000;
+            obj.PricePerUnit  = 100;
+            obj.UnitofMeasure  = "PCS";
+            obj.NetPrice  = 300;
+            obj.Remarks = "Remarks XXXXX " + i;
+            obj.DeliveredQuantity  = 100;
+            obj.LongTextDescription = "Long Text Description " + i;
+            obj.StorageLocation = "Storage Location XXXXX " + i;
+            items.Add(obj);
+        }
         gvItem.DataSource = items;
         gvItem.DataBind();
 
