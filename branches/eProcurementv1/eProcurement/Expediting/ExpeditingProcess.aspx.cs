@@ -73,7 +73,7 @@ public partial class Expediting_ExpeditingProcess : BaseForm
     private void ShowData()
     {
         Collection<TemVO> objs = new Collection<TemVO>();
-        int iCount = 6;
+        int iCount = 2;
         for (int i = 1; i <= iCount; i++)
         {
             TemVO obj = new TemVO();

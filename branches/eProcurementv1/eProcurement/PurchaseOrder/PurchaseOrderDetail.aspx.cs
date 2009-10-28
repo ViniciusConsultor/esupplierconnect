@@ -87,7 +87,7 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
         {
             GridView gvSchedule = (GridView)e.Item.FindControl("gvSchedule");
             Collection<PurchaseOrderItemSchedule> schedules = new Collection<PurchaseOrderItemSchedule>();
-            int iCount = 3;
+            int iCount = 2;
             for (int i = 1; i <= iCount; i++)
             {
                 PurchaseOrderItemSchedule obj = new PurchaseOrderItemSchedule();
@@ -104,7 +104,7 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
     {
         //Collection<PurchaseOrderItem> items = PurchaseOrderItemController.GetPurchaseOrderItems(m_Header.OrderNumber);
         Collection<PurchaseOrderItem> items=new Collection<PurchaseOrderItem>();
-        int iCount = 6;
+        int iCount = 2;
         for (int i = 1; i <= iCount; i++)
         {
             PurchaseOrderItem obj = new PurchaseOrderItem();

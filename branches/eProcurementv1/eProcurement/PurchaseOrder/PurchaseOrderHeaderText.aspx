@@ -9,34 +9,102 @@
     <asp:Panel ID="plMessage" runat="server" Visible="false">
         <asp:Label runat="server" ID="lblMessage" CssClass="" Visible="True"></asp:Label>
     </asp:Panel>
-    <table cellspacing="0" cellpadding="0" width="100%" border="0">
-        <tr>
-            <td nowrap="nowrap" >
-                <asp:Label ID="lblCount" runat="server" CssClass="labelMessage" ></asp:Label>
-            </td>
-            <td width="100%"></td>
-        </tr> 
-    </table>
+    <table id="DetailsTable" width="100%" border="2" cellspacing="2" cellpadding="2" bordercolor="Gainsboro">
+		<tr>
+		    <td colspan=2 align="center" class="DetailsTableCaption">Purchase Order Information</td>
+		</tr>
+		<tr>
+		    <td width="50%">
+		        <table id="Table1" cellspacing="0" cellpadding="0" width="100%" border="0">
+                    <tr >
+                        <td class="DetailsTableCaption">Supplier Address</td> 
+                    </tr> 
+                    <tr>
+                        <td><asp:Label runat="server" ID="lblSupplierName" CssClass="labelValue">SupplierName</asp:Label></td> 
+                    </tr> 
+                    <tr>
+                        <td><asp:Label runat="server" ID="lblSupplierAddress" CssClass="labelValue">SupplierAddress</asp:Label></td> 
+                    </tr> 
+                    <tr>
+                        <td><asp:Label runat="server" ID="lblPostalCode" CssClass="labelValue">PostalCode</asp:Label></td> 
+                    </tr> 
+                    <tr>
+                        <td><asp:Label runat="server" ID="lblCountry" CssClass="labelValue">Country</asp:Label></td> 
+                    </tr> 
+                    <tr>
+                        <td class="DetailsTableCaption">Shipping Address</td> 
+                    </tr> 
+                    <tr>
+                        <td><asp:Label runat="server" ID="lblShipmentAddress" CssClass="labelValue">ShipmentAddress</asp:Label></td> 
+                    </tr> 
+                </table> 
+		    </td>
+		    <td width="50%" style="vertical-align:top">
+		        <table id="tabl1" cellspacing="0" cellpadding="0" width="100%" border="0">
+                    <tr>
+                        <td colspan="3" class="DetailsTableCaption" colspan="2">Information</td> 
+                    </tr> 
+                    <tr>
+                        <td Width="40%"><asp:Label runat="server" ID="Label1">Order Number</asp:Label></td> 
+                        <td>&nbsp;</td>
+                        <td Width="60%"><asp:Label runat="server" ID="lblOrderNumber" CssClass="labelValue">Order Number</asp:Label></td> 
+                    </tr>
+                    <tr>
+                        <td Width="40%"><asp:Label runat="server" ID="Label3">Supplier Id</asp:Label></td> 
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="lblSupplierId" CssClass="labelValue">Supplier Id</asp:Label></td> 
+                    </tr>
+                    <tr>
+                        <td><asp:Label runat="server" ID="Label2">Order Date</asp:Label></td> 
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="lblOrderDate" CssClass="labelValue">Order Date</asp:Label></td> 
+                    </tr>
+                     <tr>
+                        <td><asp:Label runat="server" ID="Label4">Order Amount</asp:Label></td> 
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="lblOrderAmount" CssClass="labelValue">Order Amount</asp:Label></td> 
+                    </tr>
+                     <tr>
+                        <td><asp:Label runat="server" ID="Label5">GST Amount</asp:Label></td> 
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="lblGSTAmount" CssClass="labelValue">GST Amount</asp:Label></td> 
+                    </tr>
+                    <tr>
+                        <td><asp:Label runat="server" ID="Label14">Currency Code</asp:Label></td> 
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="lblCurrency" CssClass="labelValue">Currency</asp:Label></td> 
+                    </tr>
+                    <tr>
+                        <td><asp:Label runat="server" ID="Label6">Payment Terms</asp:Label></td> 
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="lblPaymentTerm" CssClass="labelValue">Payment Terms</asp:Label></td> 
+                    </tr>
+                    <tr>
+                        <td><asp:Label runat="server" ID="Label10">Buyer Name</asp:Label></td> 
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="lblBuyer" CssClass="labelValue">Buyer Name</asp:Label></td> 
+                    </tr>
+                    <tr>
+                        <td><asp:Label runat="server" ID="Label12">Sale Person</asp:Label></td> 
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="lblSalePerson" CssClass="labelValue">Sale Person</asp:Label></td> 
+                    </tr>
+                     <tr>
+                        <td><asp:Label runat="server" ID="Label7">Remarks</asp:Label></td> 
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="lblRemarks" CssClass="labelValue">Remarks</asp:Label></td> 
+                    </tr>
+                </table> 
+		    </td>
+		</tr> 
+	</table> 
+    <br/>	
     <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
 	        <td valign="top" colspan="10" style="height: 20px">
                 <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="false" AutoGenerateColumns="False" 
                    AllowSorting="false" CellPadding="2" OnRowDataBound="gvData_RowDataBound" >
                     <Columns>
-                        <asp:TemplateField HeaderText="Order Number" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
-                            <ItemTemplate>
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblOrderNumber" runat="server" CssClass="" Text='<%# Eval("OrderNumber") %>'></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table>  
-                            </ItemTemplate> 
-                            <ItemStyle Wrap="false" Width="15%"/>
-                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Text Sequence" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -49,7 +117,7 @@
                                     </tr>
                                 </table>  
                             </ItemTemplate> 
-                            <ItemStyle Wrap="false" Width="15%"/>
+                            <ItemStyle Wrap="false" Width="10%"/>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Long Text" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>
@@ -63,7 +131,7 @@
                                     </tr>
                                 </table>  
                             </ItemTemplate> 
-                            <ItemStyle Wrap="false" Width="70%"/>
+                            <ItemStyle Wrap="false" Width="90%"/>
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
