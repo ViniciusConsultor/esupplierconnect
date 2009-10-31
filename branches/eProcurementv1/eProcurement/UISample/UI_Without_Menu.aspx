@@ -18,7 +18,7 @@
             <td valign="top" style="height: 8px">
                 <table id="tblSearch" cellspacing="0" cellpadding="1" width="100%" border="0">
                      <tr>
-                        <td align="left" Width="130px" >
+                        <td align="left" Width="130px" nowrap >
                             <asp:Label ID="Label4" runat="server" Text="Material Number"></asp:Label>
                         </td> 
                         <td  align="left">
