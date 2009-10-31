@@ -18,7 +18,7 @@
                             </td>
                             <td nowrap>&nbsp;</td>
                             <td nowrap>
-                               0001 - Supplier 
+                               0001 - CPP GLOBAL PRODUCTS P L 
                             </td>
                             <td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td nowrap>
@@ -58,7 +58,7 @@
                             </td>
                             <td width="100%"></td>
                             <td nowrap>
-                               31/10/2009
+                               Sunday 31 Oct 2009 16:56
                             </td>
                          </tr>
                      </table>    
