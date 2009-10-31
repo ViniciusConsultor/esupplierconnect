@@ -34,33 +34,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="height:2px"><asp:Image ID="Image2" runat="server" ImageUrl ="~/Images/common/HeaderLine.gif" width="990" height="2" alt="" /></td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <table id="Table2" BORDER=0 style="background-color:#6666cc;vertical-align:middle;" cellpadding=0 cellspacing =0 width="100%">
-                                 <tr>
-                                    <td class="TopMenu" style="width:14%"><a href="#" style="color:black">&nbsp;Buyer&nbsp;</a></td>
-                                    <td class="TopMenu"> | </td>
-                                    <td class="TopMenu"  style="width:14%"><a href="PurchaseOrderList.aspx?Profile=SUPPLIER" style="color:black">&nbsp;Supplier&nbsp;</a></td>
-                                    <td class="TopMenu"> | </td>
-                                    <td class="TopMenu"  style="width:14%"><a href="#" style="color:black">&nbsp;Warehouse&nbsp;User&nbsp;</a></td>
-                                    <td class="TopMenu"> | </td>
-                                    <td class="TopMenu"  style="width:14%"><a href="#" style="color:black">&nbsp;Administrator&nbsp;</a></td>
-                                    <td class="TopMenu"> | </td>
-                                    <td class="TopMenu"  style="width:14%"><a href="#" style="color:black">&nbsp;About&nbsp;Us&nbsp;</a></td>
-                                    <td class="TopMenu"> | </td>
-                                    <td class="TopMenu"  style="width:14%"><a href="mailto:raymondkhoo@fujitecsg.com" style="color:black">&nbsp;Contact&nbsp;Us&nbsp;</a></td>
-                                    <td class="TopMenu"> | </td>
-                                    <td class="TopMenu"  style="width:14%"><a href="#" style="color:black">&nbsp;logout&nbsp;</a></td>
-                                 </tr>
-                            </table>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="height:3px"><asp:Image ID="Image17" runat="server" ImageUrl ="~/Images/common/HeaderLine.gif" width="990" height="3" alt="" /></td>
-                      </tr>
-                    <tr>
                         <td style="height:100%; width:100%" valign="top">
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" height="100%">
                                 <tr>
