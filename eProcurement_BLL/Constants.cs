@@ -18,4 +18,20 @@ namespace eProcurement_BLL
         public const string Fatal = "F";
     }
 
+    #region User Management Constants
+
+    public class SessionKey
+    {
+        public const string LOGIN_USER = "LOGIN_USER";
+    }
+
+    public class UserType
+    {
+        public const string Buyer = "B";
+        public const string Supplier = "S";
+        public const string WarehouseUser = "H";
+    }
+
+    #endregion
+
 }
