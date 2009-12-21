@@ -43,7 +43,7 @@
     <Compile Include="PurchaseOrder\PurchaseOrderController.cs" />
     <Compile Include="PurchaseOrder\PurchaseOrderItemController.cs" />
     <Compile Include="Supplier\SupplierController.cs" />
-    <Compile Include="User\LoginUserVO.cs" />
+    <Compile Include="UserManagement\LoginUserVO.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
