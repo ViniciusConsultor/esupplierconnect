@@ -2,6 +2,8 @@ using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;  
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -10,6 +12,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
 using eProcurement_BLL;
+using eProcurement_BLL.User;
 using eProcurement_DAL;
 
 public partial class Login : BaseForm
@@ -93,8 +96,27 @@ public partial class Login : BaseForm
                 return;
             }
             */
-           
-            Session.Add(SessionKey.LOGIN_USER, null);
+
+            LoginUserVO loginUserVO = new LoginUserVO();
+            loginUserVO.UserId = userId;
+            loginUserVO.UserName = "debugger";
+            loginUserVO.LastLoginDateTime = DateTime.Now;
+            loginUserVO.EmailAddr = "";
+            loginUserVO.UserType = UserType.Buyer;
+            loginUserVO.SupplierId = "";
+            loginUserVO.Role = "";
+
+            Collection<string> buyerGrpList = new Collection<string>();
+            buyerGrpList.Add("BuyerGrp1");
+            buyerGrpList.Add("BuyerGrp2"); 
+            loginUserVO.BuyerGrpList = buyerGrpList;
+
+            Collection<string> funcList = new Collection<string>();
+            funcList.Add("F-0001");
+            funcList.Add("F-0002");
+            loginUserVO.FuncList = funcList; 
+
+            Session.Add(SessionKey.LOGIN_USER, loginUserVO);
 
             Response.Redirect("Common/Welcome.aspx");
                
