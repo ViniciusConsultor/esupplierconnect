@@ -10,7 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
 using eProcurement_BLL;
-using eProcurement_BLL.User;
+using eProcurement_BLL.UserManagement;
 using eProcurement_DAL;
 
 public partial class Common_Welcome : BaseForm
