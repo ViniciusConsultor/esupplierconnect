@@ -1,11 +1,8 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="Header.ascx.cs" Inherits="UserControls_Header" %>
-<table id="top" width="990" border="1" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><asp:Image ID="HeaderMain" runat="server" ImageUrl ="~/Images/common/Header.gif" width="990" height="105" alt="" /></td>
-  </tr>
-  <tr>
-    <td style="height:2px"><asp:Image ID="Image2" runat="server" ImageUrl ="~/Images/common/HeaderLine.gif" width="990" height="2" alt="" /></td>
-  </tr>
+<%@ Register Src="../UserControls/HeaderTop.ascx" TagName="HeaderTop" TagPrefix="ucHeaderTop" %>
+
+<ucHeaderTop:HeaderTop ID="HeaderTop" runat="server" />
+<table id="Table1" width="990" border="1" cellspacing="0" cellpadding="0">
   <tr>
     <td>
         <table id="Table2" BORDER=0 style="background-color:#6666cc;vertical-align:middle;" cellpadding=0 cellspacing =0 width="100%">
