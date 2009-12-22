@@ -25,13 +25,20 @@ namespace eProcurement_BLL
         public const string LOGIN_USER = "LOGIN_USER";
     }
 
-    public class UserType
+    public class ProfileType
     {
-        public const string Buyer = "B";
-        public const string Supplier = "S";
-        public const string WarehouseUser = "H";
+        public const string Buyer = "Buyer";
+        public const string Supplier = "Supplier";
+        public const string WarehouseUser = "WHUser";
     }
 
+    public class UserRole
+    {
+        public const string Administrator = "Administrator";
+        public const string Viewer = "Viewer";
+        public const string Operator = "Operator";
+    }
+   
     #endregion
 
 }

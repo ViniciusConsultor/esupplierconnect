@@ -40,11 +40,11 @@ namespace eProcurement_BLL.UserManagement
             set { _lastLoginDateTime = value; }
         }
 
-        private string _userType;
-        public string UserType
+        private string _profileType;
+        public string ProfileType
         {
-            get { return _userType; }
-            set { _userType = value; }
+            get { return _profileType; }
+            set { _profileType = value; }
         }
 
         private string _supplierId;
