@@ -1,0 +1,33 @@
+<TREE>
+	<TITLE>eProcurement</TITLE>
+	<HREF></HREF>
+	<!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
+	<ITEM>
+		<TITLE>Contract Processing</TITLE>
+		<HREF></HREF>
+    <!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
+    <ITEM FID="F-C001">
+      <!-- This node is tied to function, set FID = "Function id"-->
+      <!-- If this node is tied to multiple functions, set FID = "F001,F002,F003".-->
+			<TITLE>Acknowledge Contract</TITLE>
+			<HREF>~/PurchaseContract/PurchaseContractList.aspx</HREF>
+		</ITEM>
+    <ITEM FID="F-C002">
+      <TITLE>Enquiry Contract</TITLE>
+      <HREF>~/PurchaseContract/PurchaseContractList.aspx</HREF>
+    </ITEM>
+	</ITEM>
+  <ITEM>
+    <TITLE>Order Processing</TITLE>
+    <HREF></HREF>
+    <!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
+    <ITEM FID="F-0001">
+      <TITLE>Acknowledge Order</TITLE>
+      <HREF>~/PurchaseOrder/PurchaseOrderList.aspx</HREF>
+    </ITEM>
+    <ITEM FID="F-0002">
+      <TITLE>Accept Order Acknowledgement</TITLE>
+      <HREF>~/PurchaseOrder/PurchaseOrderList.aspx</HREF>
+    </ITEM>
+  </ITEM>
+</TREE>
