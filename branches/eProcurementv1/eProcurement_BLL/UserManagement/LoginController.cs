@@ -45,6 +45,7 @@ namespace eProcurement_BLL.UserManagement
                      return 2;
                 }
 
+                Utility.InfoLog("User Management module: Login Successfully for UserID '" + userId + "'." + Utility.GetLongDate(DateTime.Now));
                 return 0;
             }
             catch (Exception ex)
