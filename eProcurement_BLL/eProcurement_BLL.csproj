@@ -41,8 +41,8 @@
     <Compile Include="Log\LogHelper.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PurchaseOrder\PurchaseOrderController.cs" />
-    <Compile Include="PurchaseOrder\PurchaseOrderItemController.cs" />
+    <Compile Include="PurchaseOrder\OrderHeaderController.cs" />
+    <Compile Include="PurchaseOrder\OrderItemController.cs" />
     <Compile Include="Supplier\SupplierController.cs" />
     <Compile Include="UserManagement\LoginController.cs" />
     <Compile Include="UserManagement\LoginUserVO.cs" />
