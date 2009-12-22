@@ -54,6 +54,20 @@ namespace eProcurement_BLL.UserManagement
             set { _supplierId = value; }
         }
 
+        private string _supplierName;
+        public string SupplierName
+        {
+            get { return _supplierName; }
+            set { _supplierName = value; }
+        }
+
+        private string _supplierAddr;
+        public string SupplierAddr
+        {
+            get { return _supplierAddr; }
+            set { _supplierAddr = value; }
+        }
+
         private string _role;
         public string Role
         {
@@ -61,11 +75,11 @@ namespace eProcurement_BLL.UserManagement
             set { _role = value; }
         }
 
-        private Collection<string> _buyerGrpList;
-        public Collection<string> BuyerGrpList
+        private Collection<string> _purchaseGrpList;
+        public Collection<string> PurchaseGrpList
         {
-            get { return _buyerGrpList; }
-            set { _buyerGrpList = value; }
+            get { return _purchaseGrpList; }
+            set { _purchaseGrpList = value; }
         }
 
         private Collection<string> _funcList;

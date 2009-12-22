@@ -39,10 +39,12 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Log\LogHelper.cs" />
+    <Compile Include="MainController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrder\PurchaseOrderController.cs" />
     <Compile Include="PurchaseOrder\PurchaseOrderItemController.cs" />
     <Compile Include="Supplier\SupplierController.cs" />
+    <Compile Include="UserManagement\LoginController.cs" />
     <Compile Include="UserManagement\LoginUserVO.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
