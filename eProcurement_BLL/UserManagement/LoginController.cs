@@ -85,6 +85,7 @@ namespace eProcurement_BLL.UserManagement
                 Collection<string> funcList = new Collection<string>();
                 funcList.Add("F-0001");
                 funcList.Add("F-0002");
+                funcList.Add("F-C002");
                 loginUserVO.FuncList = funcList;
 
                 return loginUserVO;

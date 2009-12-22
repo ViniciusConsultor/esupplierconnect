@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Text;
 using eProcurement_DAL;
 
+using System.Xml;
+
 namespace eProcurement_BLL.UserManagement
 {
     /// <summary>
@@ -87,6 +89,13 @@ namespace eProcurement_BLL.UserManagement
         {
             get { return _funcList; }
             set { _funcList = value; }
+        }
+
+        private XmlDocument _menuXML = null;
+        public XmlDocument MenuXML
+        {
+            get { return _menuXML; }
+            set { _menuXML = value; }
         }
     }
 }
