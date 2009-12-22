@@ -70,7 +70,7 @@ namespace eProcurement_BLL.UserManagement
                 loginUserVO.UserName = "debugger";
                 loginUserVO.LastLoginDateTime = DateTime.Now;
                 loginUserVO.EmailAddr = "";
-                loginUserVO.UserType = UserType.Supplier;
+                loginUserVO.ProfileType = ProfileType.Supplier;
                 loginUserVO.SupplierId = "001";
                 loginUserVO.SupplierName = "CPP GLOBAL PRODUCTS P L";
                 loginUserVO.SupplierAddr = "Fujitec Singapore Corpn, Ltd. 204 Bedok South Avenue 1 Singapore 469333 ";
