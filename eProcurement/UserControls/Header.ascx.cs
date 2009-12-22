@@ -20,18 +20,20 @@ public partial class UserControls_Header : System.Web.UI.UserControl
         {
             if (!IsPostBack)
             {
-               
-                if (Session[SessionKey.LOGIN_USER] != null)
+                if (Session[SessionKey.LOGIN_USER] == null) 
                 {
-                    LoginUserVO loginUserVO = (LoginUserVO)Session[SessionKey.LOGIN_USER];
-                    lblLoginUser.Text = loginUserVO.UserId + " - " + loginUserVO.UserName + " (" + loginUserVO.Role + ")";
-                    if (string.Compare(loginUserVO.ProfileType, ProfileType.Supplier, true) == 0) 
-                    {
-                        lblSupplier.Text = loginUserVO.SupplierId + " - " + loginUserVO.SupplierName + " | " + loginUserVO.SupplierAddr;
-                        plSupplier.Visible = true;
-                    } 
+                    Session.Abandon();
+                    Response.Redirect("~/Common/Timeout.aspx");
                 }
 
+                LoginUserVO loginUserVO = (LoginUserVO)Session[SessionKey.LOGIN_USER];
+                lblLoginUser.Text = loginUserVO.UserId + " - " + loginUserVO.UserName + " (" + loginUserVO.Role + ")";
+                if (string.Compare(loginUserVO.ProfileType, ProfileType.Supplier, true) == 0)
+                {
+                    lblSupplier.Text = loginUserVO.SupplierId + " - " + loginUserVO.SupplierName + " | " + loginUserVO.SupplierAddr;
+                    plSupplier.Visible = true;
+                }
+             
                fnSetClockScript();
 
             }
