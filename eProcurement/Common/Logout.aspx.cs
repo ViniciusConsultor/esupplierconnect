@@ -17,8 +17,9 @@ public partial class Common_Logout : BaseForm
     {
         if (!IsPostBack)
         {
-            if (Session[SessionKey.LOGIN_USER] != null)
+            if (LoginUser!= null)
             {
+                Utility.InfoLog("User Management module: Logout Successfully for UserID '" + LoginUser.UserId + "'." + Utility.GetLongDate(DateTime.Now));
                 lblMessage.Text = "<b>You have logged out successfully.</b>";
             }
             else
