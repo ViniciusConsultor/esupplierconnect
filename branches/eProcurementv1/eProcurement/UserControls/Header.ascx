@@ -1,7 +1,36 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="Header.ascx.cs" Inherits="UserControls_Header" %>
 <%@ Register Src="../UserControls/HeaderTop.ascx" TagName="HeaderTop" TagPrefix="ucHeaderTop" %>
 
-<ucHeaderTop:HeaderTop ID="HeaderTop" runat="server" />
+<TABLE border="0" width="990" cellpadding="0" cellspacing="0" ID="TABLE7">
+    <tr>
+        <td>
+           <table id="Table6" BORDER=0 style="vertical-align:middle;" cellpadding=0 cellspacing =0 width="200px">
+                 <tr>
+                    <td nowrap Id="tdTime"></td>
+                 </tr>
+            </table> 
+        </td>
+        <td width=100%>&nbsp;</td>
+        <td align="right">
+             <table id="Table8" BORDER=0 style="vertical-align:middle;" cellpadding=0 cellspacing =0 width="200px">
+                 <tr>
+                    <td nowrap><asp:HyperLink ID="HyperLink1" runat ="server" NavigateUrl ="" >&nbsp;About&nbsp;Us&nbsp;</asp:HyperLink></td>
+                    <td nowrap> | </td>
+                    <td nowrap><asp:HyperLink ID="HyperLink3" runat ="server" NavigateUrl ="mailto:raymondkhoo@fujitecsg.com" >&nbsp;Contact&nbsp;Us&nbsp;</asp:HyperLink></td>
+                    <td nowrap> | </td>
+                    <td nowrap><asp:HyperLink  ID="HyperLink2" runat ="server" NavigateUrl ="~/Common/Logout.aspx">&nbsp;logout&nbsp;</asp:HyperLink></td>
+                 </tr>
+            </table>
+        </td>
+    </tr>
+</TABLE> 
+<TABLE border="0" width="990" cellpadding="0" cellspacing="0" ID="TblTop">
+    <tr>
+        <td>
+            <ucHeaderTop:HeaderTop ID="HeaderTop" runat="server" />        
+        </td>
+    </tr>
+</TABLE> 
 <table id="Table1" width="990" border="1" cellspacing="0" cellpadding="0">
   <tr>
     <td>
@@ -10,54 +39,25 @@
                 <td class="TopMenu" style="width:70%">
                     <table id="Table4" BORDER=0 cellpadding=0 cellspacing =0 width="100%">
                          <tr>
-                            <td nowrap>
-                               Login User:
-                            </td>
-                            <td nowrap>&nbsp;</td>
-                            <td nowrap>
-                               0001 - CPP GLOBAL PRODUCTS P L 
-                            </td>
-                            <td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                            <td nowrap>
-                               Role: 
-                            </td>
-                            <td nowrap>&nbsp;</td>
-                            <td nowrap>
-                               Administrator 
-                            </td>
-                            <td width="100%"></td>
+                                <td nowrap>
+                                   Login User:
+                                </td>
+                                <td nowrap>&nbsp;</td>
+                                <td nowrap align="left">
+                                   <asp:Label runat="server" id="lblLoginUser" CssClass="labelValue"></asp:Label> 
+                                </td>
                          </tr>
-                     </table>    
-                </td>
-                <td class="TopMenu"> | </td>
-                <td class="TopMenu"  style="width:10%"><a href="#" style="color:black">&nbsp;About&nbsp;Us&nbsp;</a></td>
-                <td class="TopMenu"> | </td>
-                <td class="TopMenu"  style="width:10%"><a href="mailto:raymondkhoo@fujitecsg.com" style="color:black">&nbsp;Contact&nbsp;Us&nbsp;</a></td>
-                <td class="TopMenu"> | </td>
-                <td class="TopMenu"  style="width:10%"><a href="#" style="color:black">&nbsp;logout&nbsp;</a></td>
-             </tr>
-        </table>
-    </td>
-  </tr>
-  <tr>
-    <td>
-        <table id="Table3" BORDER=0 style="background-color:#6666cc;vertical-align:middle;" cellpadding=0 cellspacing =0 width="100%">
-             <tr>
-                <td class="TopMenu" style="width:70%">
-                    <table id="Table5" BORDER=0 cellpadding=0 cellspacing =0 width="100%">
-                         <tr>
-                            <td nowrap>
-                               Address:
-                            </td>
-                            <td nowrap>&nbsp;</td>
-                            <td nowrap>
-                               Fujitec Singapore Corpn, Ltd. 204 Bedok South Avenue 1 Singapore 469333
-                            </td>
-                            <td width="100%"></td>
-                            <td nowrap>
-                               Sunday 31 Oct 2009 16:56
-                            </td>
-                         </tr>
+                         <asp:Panel runat ="server" ID="plSupplier" Visible="false">
+                          <tr>
+                                <td nowrap>
+                                   Supplier:
+                                </td>
+                                <td nowrap>&nbsp;</td>
+                                <td align="left">
+                                   <asp:Label runat="server" id="lblSupplier" CssClass="labelValue"></asp:Label> 
+                                </td>
+                         </tr>  
+                         </asp:Panel> 
                      </table>    
                 </td>
              </tr>

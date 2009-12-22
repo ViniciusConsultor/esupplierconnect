@@ -17,10 +17,14 @@ using eProcurement_DAL;
 
 public partial class Login : BaseForm
 {
+    private MainController mainController = null;
+    
     new void Page_Load(object sender, EventArgs e)
     {
         try
         {
+            this.mainController = new MainController();
+
             if (!IsPostBack)
             {
                 //Clean session temporary data 
@@ -70,52 +74,28 @@ public partial class Login : BaseForm
                 }
             }
 
-            /*
-            ////////////////////////////////////////////////////////////////////
-            //Check whether user account exists
-            ////////////////////////////////////////////////////////////////////
-            SecAvaUserProfile UserProfileRecord = SecAvaUserProfile.RetrieveByKey(UserId);
-            if (UserProfileRecord == null)
+            int iReturn = this.mainController.GetLoginController().ValidateLogin(userId, password);
+            if (iReturn > 0) 
             {
-                this.lblError.Visible = true;
-                txtUserName.Focus();
-                lblError.Text = "User account doesn't exist in our database.";
-                InfoLog("Security module: Login fail for UserID '" + UserId + "'." + "No record in database.");
-                return;
+                if (iReturn == 1) 
+                {
+                    this.lblError.Visible = true;
+                    txtUserName.Focus();
+                    lblError.Text = "User account doesn't exist in our database.";
+                    return;
+                }
+
+                if (iReturn == 2)
+                {
+                    this.lblError.Visible = true;
+                    txtUserName.Focus();
+                    lblError.Text = "Your account has been deleted.";
+                    return;
+                }
             }
 
-            ////////////////////////////////////////////////////////////////////
-            //Check whether user account is active
-            ////////////////////////////////////////////////////////////////////
-            if (UserProfileRecord.DelInd == FLAG_YES)
-            {
-                this.lblError.Visible = true;
-                txtUserName.Focus();
-                lblError.Text = "Your account has been deleted.";
-                InfoLog("Security module: Login fail for UserID '" + UserId + "'." + "User account has been logically deleted.");
-                return;
-            }
-            */
-
-            LoginUserVO loginUserVO = new LoginUserVO();
-            loginUserVO.UserId = userId;
-            loginUserVO.UserName = "debugger";
-            loginUserVO.LastLoginDateTime = DateTime.Now;
-            loginUserVO.EmailAddr = "";
-            loginUserVO.UserType = UserType.Buyer;
-            loginUserVO.SupplierId = "";
-            loginUserVO.Role = "";
-
-            Collection<string> buyerGrpList = new Collection<string>();
-            buyerGrpList.Add("BuyerGrp1");
-            buyerGrpList.Add("BuyerGrp2"); 
-            loginUserVO.BuyerGrpList = buyerGrpList;
-
-            Collection<string> funcList = new Collection<string>();
-            funcList.Add("F-0001");
-            funcList.Add("F-0002");
-            loginUserVO.FuncList = funcList; 
-
+            LoginUserVO loginUserVO = this.mainController.GetLoginController().GetLoginUserInfo(userId); 
+           
             Session.Add(SessionKey.LOGIN_USER, loginUserVO);
 
             Response.Redirect("Common/Welcome.aspx");

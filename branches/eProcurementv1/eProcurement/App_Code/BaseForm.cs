@@ -23,6 +23,7 @@ using System.Xml;
 
 using log4net;
 using eProcurement_BLL;
+using eProcurement_BLL.UserManagement;
 using eProcurement_DAL;
 
 /// <summary>
@@ -35,31 +36,97 @@ public class BaseForm : System.Web.UI.Page
     
     }
 
+    private bool _setCache;
+    protected bool m_SetCache
+    {
+        get { return _setCache; }
+        set { _setCache = value; }
+    }
+
+    private Collection<string> _functionIdColl = new Collection<string>();
+    protected Collection<string> m_FunctionIdColl
+    {
+        get { return _functionIdColl; }
+        set { _functionIdColl = value; }
+    }
+
+    private string _functionId;
+    protected string m_FunctionId
+    {
+        get { return _functionId; }
+        set { _functionId = value; }
+    }
+
+    protected LoginUserVO LoginUser
+    {
+        set
+        {
+            Session[SessionKey.LOGIN_USER] = value;
+        }
+        get
+        {
+            if (Session[SessionKey.LOGIN_USER] != null)
+                return (LoginUserVO)Session[SessionKey.LOGIN_USER];
+            else
+                return null;
+        }
+    }
+
     public void Page_Load(object sender, EventArgs e)
     {
         try
         {
+              if (!_setCache)
+                    setNoCache();
+            
             //Security: Check whether user has login or not
-            //if (SessionUserID == string.Empty)
-            //{
-            //    Session.Abandon();
-            //    Response.Redirect("~/Login.aspx");
-            //}
+            if (LoginUser == null)
+            {
+                Session.Abandon();
+                Response.Redirect("~/Login.aspx");
+            }
 
             //One form, one function
-            //if (m_FunctionId != null && m_FunctionId != string.Empty)
-            //{
-            //    if (!Authenticate(m_FunctionId, SessionUserID))
-            //    {
-            //        Session.Abandon();
-            //        Response.Redirect("~/Timeout.aspx");
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(m_FunctionId))
+            {
+                if (!LoginUser.FuncList.Contains(m_FunctionId))
+                {
+                    Session.Abandon();
+                    Response.Redirect("~/Common/Timeout.aspx");
+                }
+            }
+
+            //One form, more than one functions
+            if (m_FunctionIdColl.Count>0)
+            {
+                bool hasRight = false;
+                for (int i = 0; i < m_FunctionIdColl.Count; i++) 
+                {
+                    if (LoginUser.FuncList.Contains(m_FunctionIdColl[i])) 
+                    {
+                        hasRight = true;
+                        break;
+                    } 
+                }
+                if (!hasRight)
+                {
+                    Session.Abandon();
+                    Response.Redirect("~/Timeout.aspx");
+                }
+            }
+
         }
         catch (Exception ex)
         {
             ExceptionLog(ex);
         }
+    }
+
+    protected virtual void setNoCache()
+    {
+        Response.Expires = -1;
+        Response.ExpiresAbsolute = DateTime.Now.AddDays(-1);
+        Response.Cache.SetCacheability(HttpCacheability.NoCache);
     }
 
     #region Log
