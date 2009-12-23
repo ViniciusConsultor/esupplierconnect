@@ -63,5 +63,20 @@ namespace eProcurement_DAL
             set { userStatus = value; }
         }
 
+        string supplierID;
+        public string SupplierID
+        {
+            get { return supplierID; }
+            set { supplierID = value; }
+        }
+
+        string profileType;
+        public string ProfileType
+        {
+            get { return profileType; }
+            set { profileType = value; }
+        }
+
+
     }
 }
