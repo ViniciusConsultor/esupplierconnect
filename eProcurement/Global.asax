@@ -6,6 +6,9 @@
     {
     	//Initialize Log4net
         log4net.Config.XmlConfigurator.Configure();
+
+        String dataStoreType = System.Web.Configuration.WebConfigurationManager.AppSettings["DATA_STORE_TYPE"].ToString();
+        eProcurement_BLL.MainController.DataStoreType = dataStoreType;
     }
 
     void Application_End(object sender, EventArgs e) 
