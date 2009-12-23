@@ -5,29 +5,46 @@
 	<ITEM>
 		<TITLE>Contract Processing</TITLE>
 		<HREF></HREF>
-    <!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
-    <ITEM FID="F-C001">
-      <!-- This node is tied to function, set FID = "Function id"-->
-      <!-- If this node is tied to multiple functions, set FID = "F001,F002,F003".-->
+		<!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
+		<ITEM FID="F-C001">
+		<!-- This node is tied to function, set FID = "Function id"-->
+		<!-- If this node is tied to multiple functions, set FID = "F001,F002,F003".-->
 			<TITLE>Acknowledge Contract</TITLE>
 			<HREF>~/PurchaseContract/PurchaseContractList.aspx</HREF>
 		</ITEM>
-    <ITEM FID="F-C002">
-      <TITLE>Enquiry Contract</TITLE>
-      <HREF>~/PurchaseContract/PurchaseContractList.aspx</HREF>
-    </ITEM>
+		<ITEM FID="F-C002">
+			<TITLE>Enquiry Contract</TITLE>
+			<HREF>~/PurchaseContract/PurchaseContractList.aspx</HREF>
+		</ITEM>
 	</ITEM>
-  <ITEM>
-    <TITLE>Order Processing</TITLE>
-    <HREF></HREF>
-    <!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
-    <ITEM FID="F-0001">
-      <TITLE>Acknowledge Order</TITLE>
-      <HREF>~/PurchaseOrder/PurchaseOrderList.aspx</HREF>
-    </ITEM>
-    <ITEM FID="F-0002">
-      <TITLE>Accept Order Acknowledgement</TITLE>
-      <HREF>~/PurchaseOrder/PurchaseOrderList.aspx</HREF>
-    </ITEM>
-  </ITEM>
+	<ITEM>
+		<TITLE>Order Processing</TITLE>
+		<HREF></HREF>
+		<!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
+		<ITEM FID="F-O001">
+			<TITLE>Acknowledge Order</TITLE>
+			<HREF>~/PurchaseOrder/PurchaseOrderList.aspx</HREF>
+		</ITEM>
+		<ITEM FID="F-O002">
+			<TITLE>Accept Order Acknowledgement</TITLE>
+			<HREF>~/PurchaseOrder/PurchaseOrderList.aspx</HREF>
+		</ITEM>
+	</ITEM>
+	<ITEM>
+		<TITLE>User Profile</TITLE>
+		<HREF></HREF>
+		<!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
+		<ITEM FID="F-U001">
+			<TITLE>User List</TITLE>
+			<HREF>~/UserManagement/UserList.aspx</HREF>
+		</ITEM>
+		<ITEM FID="F-U002">
+			<TITLE>My Profile</TITLE>
+			<HREF>~/UserManagement/User.aspx</HREF>
+		</ITEM>
+		<ITEM FID="F-U003">
+			<TITLE>Change My Password</TITLE>
+			<HREF>~/UserManagement/UserPassword.aspx</HREF>
+		</ITEM>
+	</ITEM>
 </TREE>
