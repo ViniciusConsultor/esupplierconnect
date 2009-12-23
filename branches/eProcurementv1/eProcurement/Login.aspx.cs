@@ -92,6 +92,14 @@ public partial class Login : BaseForm
                     lblError.Text = "Your account has been deleted.";
                     return;
                 }
+
+                if (iReturn == 3)
+                {
+                    this.lblError.Visible = true;
+                    txtPassword.Focus();
+                    lblError.Text = "Invalid Password.";
+                    return;
+                }
             }
 
             LoginUserVO loginUserVO = this.mainController.GetLoginController().GetLoginUserInfo(userId); 

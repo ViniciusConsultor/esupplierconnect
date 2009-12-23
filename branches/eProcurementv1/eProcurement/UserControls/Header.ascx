@@ -43,7 +43,7 @@
                                    Login User:
                                 </td>
                                 <td nowrap>&nbsp;</td>
-                                <td nowrap align="left">
+                                <td nowrap align="left" width="100%">
                                    <asp:Label runat="server" id="lblLoginUser" CssClass="labelValue"></asp:Label> 
                                 </td>
                          </tr>
@@ -53,7 +53,7 @@
                                    Supplier:
                                 </td>
                                 <td nowrap>&nbsp;</td>
-                                <td align="left">
+                                <td align="left" width="100%">
                                    <asp:Label runat="server" id="lblSupplier" CssClass="labelValue"></asp:Label> 
                                 </td>
                          </tr>  
