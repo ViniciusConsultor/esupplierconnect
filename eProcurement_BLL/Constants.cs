@@ -38,6 +38,12 @@ namespace eProcurement_BLL
         public const string Viewer = "Viewer";
         public const string Operator = "Operator";
     }
+
+    public class UserStatus
+    {
+        public const string Active = "A";
+        public const string Void = "V";
+    }
    
     #endregion
 

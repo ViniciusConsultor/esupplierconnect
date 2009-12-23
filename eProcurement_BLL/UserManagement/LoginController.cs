@@ -24,6 +24,7 @@ namespace eProcurement_BLL.UserManagement
         /// 0:Successful
         /// 1:Faild(User account doesn't exist in our database.)
         /// 2:Faild(Your account has been deleted.)
+        /// 3:Faild(Invalid Password.)
         /// </returns>
         public int ValidateLogin(string userId, string password) 
         {
@@ -32,8 +33,8 @@ namespace eProcurement_BLL.UserManagement
                 ////////////////////////////////////////////////////////////////////
                 //Check whether user account exists
                 ////////////////////////////////////////////////////////////////////
-                bool userExist = true;
-                if (!userExist)
+                User user = mainController.GetDAOCreator().CreateUserDAO().RetrieveByKey(userId);   
+                if(user==null)
                 {
                     Utility.InfoLog("User Management module: Login fail for UserID '" + userId + "'." + "No record in database.");
                      return 1;
@@ -42,11 +43,19 @@ namespace eProcurement_BLL.UserManagement
                 ////////////////////////////////////////////////////////////////////
                 //Check whether user account is active
                 ////////////////////////////////////////////////////////////////////
-                bool userActive = true;
-                if (!userActive)
+                if (string.Compare(user.UserStatus,UserStatus.Active,true)!=0)
                 {
                      Utility.InfoLog("User Management module: Login fail for UserID '" + userId + "'." + "User account has been logically deleted.");
                      return 2;
+                }
+
+                ////////////////////////////////////////////////////////////////////
+                //Check whether user password is correct
+                ////////////////////////////////////////////////////////////////////
+                if (string.Compare(user.UserPassword, password, false) != 0)
+                {
+                    Utility.InfoLog("User Management module: Login fail for UserID '" + userId + "'." + "Invalid Password.");
+                    return 3;
                 }
 
                 Utility.InfoLog("User Management module: Login Successfully for UserID '" + userId + "'." + Utility.GetLongDate(DateTime.Now));
@@ -70,27 +79,46 @@ namespace eProcurement_BLL.UserManagement
         {
             try
             {
+                User user = mainController.GetDAOCreator().CreateUserDAO().RetrieveByKey(userId);
+                if (user == null)
+                {
+                    throw new Exception("LoginController:GetLoginUserInfo - Invalid User :" + userId); 
+                }
+                
                 LoginUserVO loginUserVO = new LoginUserVO();
-                loginUserVO.UserId = userId;
-                loginUserVO.UserName = "debugger";
+                loginUserVO.UserId = user.UserId;
+                loginUserVO.UserName = user.UserName;
                 loginUserVO.LastLoginDateTime = DateTime.Now;
-                loginUserVO.EmailAddr = "";
-                loginUserVO.ProfileType = ProfileType.Supplier;
-                loginUserVO.SupplierId = "001";
-                loginUserVO.SupplierName = "CPP GLOBAL PRODUCTS P L";
-                loginUserVO.SupplierAddr = "Fujitec Singapore Corpn, Ltd. 204 Bedok South Avenue 1 Singapore 469333 ";
-                loginUserVO.Role = "Administrator";
+                loginUserVO.EmailAddr = user.UserEmail;
+                loginUserVO.ProfileType = user.ProfileType;
+                loginUserVO.SupplierId = user.SupplierID;
+                loginUserVO.Role = user.UserRole;
+                if (!string.IsNullOrEmpty(user.SupplierID))
+                {
+                    Supplier supplier = mainController.GetDAOCreator().CreateSupplierDAO().RetrieveByKey(user.SupplierID);
+                    loginUserVO.SupplierName = supplier.SupplierName;
+                    loginUserVO.SupplierAddr = supplier.SupplierAddress;
+                }
+                else 
+                {
+                    loginUserVO.SupplierName = "";
+                    loginUserVO.SupplierAddr = "";
+                }
+
+                Collection<string> funcList = new Collection<string>();
+                string whereClause = "";
+                whereClause = " USRROLE='" + Utility.EscapeSQL(user.UserRole) + "' and PROFTYP='" 
+                                + Utility.EscapeSQL(user.ProfileType)  + "' ";
+                Collection<AccessMatrix> accessMatrixColl = mainController.GetDAOCreator().CreateAccessMatrixDAO().RetrieveByQuery(whereClause);
+                foreach (AccessMatrix aM in accessMatrixColl)
+                    funcList.Add(aM.FunctionID); 
+
+                loginUserVO.FuncList = funcList;
 
                 Collection<string> purchaseGrpList = new Collection<string>();
                 purchaseGrpList.Add("PhGrp1");
                 purchaseGrpList.Add("PhGrp2");
                 loginUserVO.PurchaseGrpList = purchaseGrpList;
-
-                Collection<string> funcList = new Collection<string>();
-                funcList.Add("F-0001");
-                funcList.Add("F-0002");
-                funcList.Add("F-C002");
-                loginUserVO.FuncList = funcList;
 
                 return loginUserVO;
             }
