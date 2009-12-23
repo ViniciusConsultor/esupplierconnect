@@ -248,7 +248,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "DELETE FROM USER WHERE USERID=@USERID";
+            cm.CommandText = "DELETE FROM [USER] WHERE USERID=@USERID";
             SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.UserId;
@@ -282,7 +282,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [USERID],[USRNAM],[USRPWD],[USRROLE],[USREMAIL] FROM USER";
+            string selectCommand = "SELECT [USERID],[USRNAM],[USRPWD],[USRROLE],[USREMAIL],[UPDTBY],[UPDTDATE],[USRSTAT],[LIFNR],[PROFTYP] FROM [USER]";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -293,12 +293,14 @@ namespace eProcurement_DAL
                 User entity = new User();
                 entity.UserId = rd["USERID"].ToString();
                 entity.UserName = rd["USRNAM"].ToString();
-                entity.UserPassword = rd["USRPSWD"].ToString();
+                entity.UserPassword = rd["USRPWD"].ToString();
                 entity.UserRole= rd["USRROLE"].ToString();
                 entity.UserEmail = rd["USREMAIL"].ToString();
                 entity.UpdatedBy = rd["UPDTBY"].ToString();
                 entity.UpdatedDate =  Convert.ToInt64 (rd["UPDTDATE"]);
                 entity.UserStatus = rd["USRSTAT"].ToString();
+                entity.SupplierID = rd["LIFNR"].ToString();
+                entity.ProfileType = rd["PROFTYP"].ToString();
 
                 entities.Add(entity);
 
