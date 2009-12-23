@@ -6,13 +6,13 @@
 		<TITLE>Contract Processing</TITLE>
 		<HREF></HREF>
 		<!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
-		<ITEM FID="F-C001">
+		<ITEM FID="S-0001">
 		<!-- This node is tied to function, set FID = "Function id"-->
 		<!-- If this node is tied to multiple functions, set FID = "F001,F002,F003".-->
 			<TITLE>Acknowledge Contract</TITLE>
 			<HREF>~/PurchaseContract/PurchaseContractList.aspx</HREF>
 		</ITEM>
-		<ITEM FID="F-C002">
+		<ITEM FID="S-C002">
 			<TITLE>Enquiry Contract</TITLE>
 			<HREF>~/PurchaseContract/PurchaseContractList.aspx</HREF>
 		</ITEM>
@@ -21,11 +21,11 @@
 		<TITLE>Order Processing</TITLE>
 		<HREF></HREF>
 		<!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
-		<ITEM FID="F-O001">
+		<ITEM FID="S-O001">
 			<TITLE>Acknowledge Order</TITLE>
 			<HREF>~/PurchaseOrder/PurchaseOrderList.aspx</HREF>
 		</ITEM>
-		<ITEM FID="F-O002">
+		<ITEM FID="B-O001">
 			<TITLE>Accept Order Acknowledgement</TITLE>
 			<HREF>~/PurchaseOrder/PurchaseOrderList.aspx</HREF>
 		</ITEM>
