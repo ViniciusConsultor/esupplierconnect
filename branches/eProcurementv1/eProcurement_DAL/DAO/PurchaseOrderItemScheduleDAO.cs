@@ -27,7 +27,7 @@ using System.Data;
 namespace eProcurement_DAL
 ///<summary>Entity Object (Purchase Order Item Schedule) - Database table [PURSCH]</summary>
 {
-    public class PurchaseOrderItemScheduleDAO
+    public class PurchaseOrderItemScheduleDAO : IPurchaseOrderItemScheduleDAO
     {
         #region RetrieveAll
         /// <summary>
@@ -36,7 +36,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseOrderItemSchedule Object
         /// </returns>
-        public static Collection<PurchaseOrderItemSchedule> RetrieveAll()
+        public override Collection<PurchaseOrderItemSchedule> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
@@ -47,7 +47,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseOrderItemSchedule Object 
         /// </returns>
-        public static Collection<PurchaseOrderItemSchedule> RetrieveAll(string sortClaues)
+        public override Collection<PurchaseOrderItemSchedule> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
@@ -58,7 +58,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseOrderItemSchedule Object
         /// </returns>
-        public static Collection<PurchaseOrderItemSchedule> RetrieveAll(EpTransaction epTran)
+        public override Collection<PurchaseOrderItemSchedule> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
@@ -70,7 +70,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseOrderItemSchedule Object 
         /// </returns>
-        public static Collection<PurchaseOrderItemSchedule> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<PurchaseOrderItemSchedule> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
@@ -86,22 +86,22 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseOrderItemSchedule Object 
         /// </returns>
-        public static Collection<PurchaseOrderItemSchedule> RetrieveByQuery(string whereClause)
+        public override Collection<PurchaseOrderItemSchedule> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
 
-        public static Collection<PurchaseOrderItemSchedule> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<PurchaseOrderItemSchedule> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
 
-        public static Collection<PurchaseOrderItemSchedule> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<PurchaseOrderItemSchedule> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
 
-        public static Collection<PurchaseOrderItemSchedule> RetrieveByQuery
+        public override Collection<PurchaseOrderItemSchedule> RetrieveByQuery
             (EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
@@ -117,7 +117,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// PurchaseOrderItemSchedule Object
         /// </returns>
-        public static PurchaseOrderItemSchedule RetrieveByKey
+        public override PurchaseOrderItemSchedule RetrieveByKey
             (string orderNumber, string ItemSequenceNO, string ScheduleSequenceNo)
         {
             return RetrieveByKey(null, orderNumber, ItemSequenceNO, ScheduleSequenceNo);
@@ -131,7 +131,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// PurchaseOrderItemSchedule Object
         /// </returns>
-        public static PurchaseOrderItemSchedule RetrieveByKey
+        public override PurchaseOrderItemSchedule RetrieveByKey
             (EpTransaction epTran, string orderNumber, string ItemSequenceNO, string ScheduleSequenceNo)
         {
             PurchaseOrderItemSchedule entity = null;
@@ -152,7 +152,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
         /// 
-        public static void Insert(PurchaseOrderItemSchedule entity)
+        public override void Insert(PurchaseOrderItemSchedule entity)
         {
             Insert(null, entity);
         }
@@ -161,7 +161,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
-        public static void Insert(EpTransaction epTran, PurchaseOrderItemSchedule entity)
+        public override void Insert(EpTransaction epTran, PurchaseOrderItemSchedule entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -263,7 +263,7 @@ namespace eProcurement_DAL
         /// Update the record on database table for the given Entity Object.
         /// </summary>
         /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
-        public static void Update(PurchaseOrderItemSchedule entity)
+        public override void Update(PurchaseOrderItemSchedule entity)
         {
             Update(null, entity);
         }
@@ -272,7 +272,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
-        public static void Update(EpTransaction epTran, PurchaseOrderItemSchedule entity)
+        public override void Update(EpTransaction epTran, PurchaseOrderItemSchedule entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -374,7 +374,7 @@ namespace eProcurement_DAL
         /// Delete the record from database table for the given Entity Object.
         /// </summary>
         /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
-        public static void Delete(PurchaseOrderItemSchedule entity)
+        public override void Delete(PurchaseOrderItemSchedule entity)
         {
             Delete(null, entity);
         }
@@ -383,7 +383,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="PurchaseOrderItemSchedule">PurchaseOrderItemSchedule Object</param>
-        public static void Delete(EpTransaction epTran, PurchaseOrderItemSchedule entity)
+        public override void Delete(EpTransaction epTran, PurchaseOrderItemSchedule entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -443,7 +443,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseOrderItemSchedule Object 
         /// </returns>
-        private static Collection<PurchaseOrderItemSchedule> Retrieve(
+        private  Collection<PurchaseOrderItemSchedule> Retrieve(
             EpTransaction epTran, string whereClause, string sortClaues)
         {
             Collection<PurchaseOrderItemSchedule> entities = new Collection<PurchaseOrderItemSchedule>();

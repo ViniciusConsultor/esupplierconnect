@@ -9,55 +9,55 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    public class FunctionDAO
+    public class FunctionDAO : IFunctionDAO
     {
         #region RetrieveAll
 
-        public static Collection<Function> RetrieveAll()
+        public override Collection<Function> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
 
-        public static Collection<Function> RetrieveAll(string sortClaues)
+        public override Collection<Function> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
 
-        public static Collection<Function> RetrieveAll(EpTransaction epTran)
+        public override Collection<Function> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
 
-        public static Collection<Function> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<Function> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
         #endregion
 
         #region RetrieveByQuery
-        public static Collection<Function> RetrieveByQuery(string whereClause)
+        public override Collection<Function> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
 
-        public static Collection<Function> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<Function> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
 
-        public static Collection<Function> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<Function> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
 
-        public static Collection<Function> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<Function> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
         #endregion
 
         #region RetrieveByKey
-        public static Function RetrieveByKey(string functionId)
+        public override Function RetrieveByKey(string functionId)
         {
             try{
                 return RetrieveByKey(null, functionId);
@@ -66,7 +66,7 @@ namespace eProcurement_DAL
             { throw ex; }
         }
 
-        public static Function RetrieveByKey(EpTransaction epTran, string functionId)
+        public override Function RetrieveByKey(EpTransaction epTran, string functionId)
         {
             Function entity = null;
             try
@@ -87,7 +87,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region Insert
-        public static void Insert(Function entity)
+        public override void Insert(Function entity)
         {
             try{
                 Insert(null, entity);
@@ -96,7 +96,7 @@ namespace eProcurement_DAL
             { throw ex; }
         }
 
-        public static void Insert(EpTransaction epTran, Function entity)
+        public override void Insert(EpTransaction epTran, Function entity)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region Update
-        public static void Update(Function entity)
+        public override void Update(Function entity)
         {
             try{
                 Update(null, entity);
@@ -157,7 +157,7 @@ namespace eProcurement_DAL
 
         }
 
-        public static void Update(EpTransaction epTran, Function entity)
+        public override void Update(EpTransaction epTran, Function entity)
         {
             try
             {
@@ -205,7 +205,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region Delete
-        public static void Delete(Function entity)
+        public override void Delete(Function entity)
         {
             try{
                 Delete(null, entity);
@@ -214,7 +214,7 @@ namespace eProcurement_DAL
             { throw ex; }
         }
 
-        public static void Delete(EpTransaction epTran, Function entity)
+        public override void Delete(EpTransaction epTran, Function entity)
         {
             try
             {

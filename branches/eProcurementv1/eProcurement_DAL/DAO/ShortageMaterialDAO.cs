@@ -30,7 +30,7 @@ using System.Data;
 namespace eProcurement_DAL.DAO
 {
      ///<summary>Data Access Object - Database table [mtlshortage]</summary>
-    public class ShortageMaterialDAO
+    public class ShortageMaterialDAO : IShortageMaterialDAO
     {
 
         #region RetrieveAll
@@ -40,7 +40,7 @@ namespace eProcurement_DAL.DAO
         /// <returns>
         /// Collection of Shortage Material Object
         /// </returns>
-        public static Collection<ShortageMaterial> RetrieveAll()
+        public override Collection<ShortageMaterial> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
@@ -52,7 +52,7 @@ namespace eProcurement_DAL.DAO
         /// <returns>
         /// Collection of Shortage Materail Object 
         /// </returns>
-        public static Collection<ShortageMaterial> RetrieveAll(string sortClaues)
+        public override Collection<ShortageMaterial> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
@@ -64,7 +64,7 @@ namespace eProcurement_DAL.DAO
         /// <returns>
         /// Collection of Shortage Material Object
         /// </returns>
-        public static Collection<ShortageMaterial> RetrieveAll(EpTransaction epTran)
+        public override Collection<ShortageMaterial> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
@@ -77,7 +77,7 @@ namespace eProcurement_DAL.DAO
         /// <returns>
         /// Collection of Shortage Material Object 
         /// </returns>
-        public static Collection<ShortageMaterial> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<ShortageMaterial> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
@@ -91,7 +91,7 @@ namespace eProcurement_DAL.DAO
         /// <returns>
         /// Collection of Shortage Material Object 
         /// </returns>
-        public static Collection<ShortageMaterial> RetrieveByQuery(string whereClause)
+        public override Collection<ShortageMaterial> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
@@ -104,7 +104,7 @@ namespace eProcurement_DAL.DAO
         /// <returns>
         /// Collection of Shortage Material Object 
         /// </returns>
-        public static Collection<ShortageMaterial> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<ShortageMaterial> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
@@ -117,7 +117,7 @@ namespace eProcurement_DAL.DAO
         /// <returns>
         /// Collection of Shortage Material Object 
         /// </returns>
-        public static Collection<ShortageMaterial> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<ShortageMaterial> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
@@ -131,7 +131,7 @@ namespace eProcurement_DAL.DAO
         /// <returns>
         /// Collection of Shortage Material Object 
         /// </returns>
-        public static Collection<ShortageMaterial> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<ShortageMaterial> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
@@ -145,7 +145,7 @@ namespace eProcurement_DAL.DAO
         /// <returns>
         /// Shortage Material Object
         /// </returns>
-        public static ShortageMaterial RetrieveByKey(string materialNumber)
+        public override ShortageMaterial RetrieveByKey(string materialNumber)
         {
             return RetrieveByKey(null, materialNumber);
         }
@@ -158,7 +158,7 @@ namespace eProcurement_DAL.DAO
         /// <returns>
         /// Shortage Material Object
         /// </returns>
-        public static ShortageMaterial RetrieveByKey(EpTransaction epTran, string materialNumber)
+        public override ShortageMaterial RetrieveByKey(EpTransaction epTran, string materialNumber)
         {
             ShortageMaterial entity = null;
             string whereClause = " MATNR='" + DataManager.EscapeSQL(materialNumber) + "' ";
@@ -176,7 +176,7 @@ namespace eProcurement_DAL.DAO
         /// Insert a record into database table for the given Entity Object. 
         /// </summary>
         /// <param name="ShortageMaterial">Shortage Material Object</param>
-        public static void Insert(ShortageMaterial entity)
+        public override void Insert(ShortageMaterial entity)
         {
             Insert(null, entity);
         }
@@ -186,7 +186,7 @@ namespace eProcurement_DAL.DAO
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="ShortageMaterial">Shortage Material</param>
-        public static void Insert(EpTransaction epTran, ShortageMaterial entity)
+        public override void Insert(EpTransaction epTran, ShortageMaterial entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -240,7 +240,7 @@ namespace eProcurement_DAL.DAO
         /// Update the record on database table for the given Entity Object.
         /// </summary>
         /// <param name="Shortage Material">Shortage Material Object</param>
-        public static void Update(ShortageMaterial entity)
+        public override void Update(ShortageMaterial entity)
         {
             Update(null, entity);
         }
@@ -250,7 +250,7 @@ namespace eProcurement_DAL.DAO
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="ShortageMaterial">ShortageMaterial Object</param>
-        public static void Update(EpTransaction epTran, ShortageMaterial entity)
+        public override void Update(EpTransaction epTran, ShortageMaterial entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -301,7 +301,7 @@ namespace eProcurement_DAL.DAO
         /// Delete the record from database table for the given Entity Object.
         /// </summary>
         /// <param name="ShortageMaterial">Shortage Material Object</param>
-        public static void Delete(ShortageMaterial entity)
+        public override void Delete(ShortageMaterial entity)
         {
             Delete(null, entity);
         }
@@ -311,7 +311,7 @@ namespace eProcurement_DAL.DAO
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="ShortageMAterial">Shortage Material Object</param>
-        public static void Delete(EpTransaction epTran, ShortageMaterial entity)
+        public override void Delete(EpTransaction epTran, ShortageMaterial entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;

@@ -9,59 +9,59 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    public class DeliveryOrderDAO
+    public class DeliveryOrderDAO : IDeliveryOrderDAO
     {
         #region RetrieveAll
-        public static Collection<DeliveryOrder> RetrieveAll()
+        public override Collection<DeliveryOrder> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
 
-        public static Collection<DeliveryOrder> RetrieveAll(string sortClause)
+        public override Collection<DeliveryOrder> RetrieveAll(string sortClause)
         {
             return Retrieve(null, "", sortClause);
         }
 
-        public static Collection<DeliveryOrder> RetrieveAll(EpTransaction epTran)
+        public override Collection<DeliveryOrder> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
 
-        public static Collection<DeliveryOrder> RetrieveAll(EpTransaction epTran, string sortClause)
+        public override Collection<DeliveryOrder> RetrieveAll(EpTransaction epTran, string sortClause)
         {
             return Retrieve(epTran, "", sortClause);
         }
         #endregion
 
         #region RetrieveByQuery
-        public static Collection<DeliveryOrder> RetrieveByQuery(string whereClause)
+        public override Collection<DeliveryOrder> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
 
-        public static Collection<DeliveryOrder> RetrieveByQuery(string whereClause, string sortClause)
+        public override Collection<DeliveryOrder> RetrieveByQuery(string whereClause, string sortClause)
         {
             return Retrieve(null, whereClause, sortClause);
         }
 
-        public static Collection<DeliveryOrder> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<DeliveryOrder> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
 
-        public static Collection<DeliveryOrder> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClause)
+        public override Collection<DeliveryOrder> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClause)
         {
             return Retrieve(epTran, whereClause, sortClause);
         }
         #endregion
 
         #region RetrieveByKey
-        public static DeliveryOrder RetrieveByKey(string OrderNumber, string ItemSequence, string DeliveryNumber)
+        public override DeliveryOrder RetrieveByKey(string OrderNumber, string ItemSequence, string DeliveryNumber)
         {
             return RetrieveByKey(null, OrderNumber, ItemSequence, DeliveryNumber);
         }
 
-        public static DeliveryOrder RetrieveByKey(EpTransaction epTran, string OrderNumber, string ItemSequence, string DeliveryNumber)
+        public override DeliveryOrder RetrieveByKey(EpTransaction epTran, string OrderNumber, string ItemSequence, string DeliveryNumber)
         {
             DeliveryOrder entity = null;
             string whereClause = " EBELN='" + DataManager.EscapeSQL(OrderNumber) + "' ";
@@ -77,12 +77,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Insert
-        public static void Insert(DeliveryOrder entity)
+        public override void Insert(DeliveryOrder entity)
         {
             Insert(null, entity);
         }
 
-        public static void Insert(EpTransaction epTran, DeliveryOrder entity)
+        public override void Insert(EpTransaction epTran, DeliveryOrder entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -153,12 +153,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Update
-        public static void Update(DeliveryOrder entity)
+        public override void Update(DeliveryOrder entity)
         {
             Update(null, entity);
         }
 
-        public static void Update(EpTransaction epTran, DeliveryOrder entity)
+        public override void Update(EpTransaction epTran, DeliveryOrder entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -228,12 +228,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Delete
-        public static void Delete(DeliveryOrder entity)
+        public override void Delete(DeliveryOrder entity)
         {
             Delete(null, entity);
         }
 
-        public static void Delete(EpTransaction epTran, DeliveryOrder entity)
+        public override void Delete(EpTransaction epTran, DeliveryOrder entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;

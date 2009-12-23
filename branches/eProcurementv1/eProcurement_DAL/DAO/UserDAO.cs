@@ -9,59 +9,59 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    public class UserDAO
+    public class UserDAO : IUserDAO
     {
         #region RetrieveAll
-        public static Collection<User> RetrieveAll()
+        public override Collection<User> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
 
-        public static Collection<User> RetrieveAll(string sortClaues)
+        public override Collection<User> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
 
-        public static Collection<User> RetrieveAll(EpTransaction epTran)
+        public override Collection<User> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
 
-        public static Collection<User> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<User> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
         #endregion
 
         #region RetrieveByQuery
-        public static Collection<User> RetrieveByQuery(string whereClause)
+        public override Collection<User> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
 
-        public static Collection<User> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<User> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
 
-        public static Collection<User> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<User> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
 
-        public static Collection<User> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<User> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
         #endregion
 
         #region RetrieveByKey
-        public static User RetrieveByKey(string userID)
+        public override User RetrieveByKey(string userID)
         {
             return RetrieveByKey(null, userID);
         }
 
-        public static User RetrieveByKey(EpTransaction epTran, string userID)
+        public override User RetrieveByKey(EpTransaction epTran, string userID)
         {
             User entity = null;
             string whereClause = " USERID='" + DataManager.EscapeSQL(userID) + "' ";
@@ -75,12 +75,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Insert
-        public static void Insert(User entity)
+        public override void Insert(User entity)
         {
             Insert(null, entity);
         }
 
-        public static void Insert(EpTransaction epTran, User entity)
+        public override void Insert(EpTransaction epTran, User entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -148,12 +148,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Update
-        public static void Update(User entity)
+        public override void Update(User entity)
         {
             Update(null, entity);
         }
 
-        public static void Update(EpTransaction epTran, User entity)
+        public override void Update(EpTransaction epTran, User entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -217,12 +217,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Delete
-        public static void Delete(User entity)
+        public override void Delete(User entity)
         {
             Delete(null, entity);
         }
 
-        public static void Delete(EpTransaction epTran, User entity)
+        public override void Delete(EpTransaction epTran, User entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -261,7 +261,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region private methods
-        private static Collection<User> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
+        private  Collection<User> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
         {
             Collection<User> entities = new Collection<User>();
 

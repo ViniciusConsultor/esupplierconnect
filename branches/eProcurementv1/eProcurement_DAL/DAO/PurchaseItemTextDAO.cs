@@ -30,7 +30,7 @@ using System.Data;
 namespace eProcurement_DAL
 {
     ///<summary>Data Access Object - Database table [puitxt]</summary>
-    public class PurchaseItemTextDAO
+    public class PurchaseItemTextDAO : IPurchaseItemTextDAO
     {
         #region RetrieveAll
         /// <summary>
@@ -39,7 +39,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseItemText Object
         /// </returns>
-        public static Collection<PurchaseItemText> RetrieveAll()
+        public override Collection<PurchaseItemText> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
@@ -51,7 +51,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseItemText Object 
         /// </returns>
-        public static Collection<PurchaseItemText> RetrieveAll(string sortClaues)
+        public override Collection<PurchaseItemText> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
@@ -63,7 +63,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseItemText Object
         /// </returns>
-        public static Collection<PurchaseItemText> RetrieveAll(EpTransaction epTran)
+        public override Collection<PurchaseItemText> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
@@ -76,7 +76,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseItemText Object 
         /// </returns>
-        public static Collection<PurchaseItemText> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<PurchaseItemText> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
@@ -90,7 +90,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseItemText Object 
         /// </returns>
-        public static Collection<PurchaseItemText> RetrieveByQuery(string whereClause)
+        public override Collection<PurchaseItemText> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
@@ -103,7 +103,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseItemText Object 
         /// </returns>
-        public static Collection<PurchaseItemText> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<PurchaseItemText> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
@@ -116,7 +116,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseItemText Object 
         /// </returns>
-        public static Collection<PurchaseItemText> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<PurchaseItemText> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
@@ -130,7 +130,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseItemText Object 
         /// </returns>
-        public static Collection<PurchaseItemText> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<PurchaseItemText> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
@@ -146,7 +146,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// PurchaseItemText Object
         /// </returns>
-        public static PurchaseItemText RetrieveByKey(string orderNumber, string itemSequence, string textSequence)
+        public override PurchaseItemText RetrieveByKey(string orderNumber, string itemSequence, string textSequence)
         {
             return RetrieveByKey(null, orderNumber, itemSequence, textSequence);
         }
@@ -161,7 +161,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// PurchaseItemText Object
         /// </returns>
-        public static PurchaseItemText RetrieveByKey(EpTransaction epTran, string orderNumber, string itemSequence, string textSequence)
+        public override PurchaseItemText RetrieveByKey(EpTransaction epTran, string orderNumber, string itemSequence, string textSequence)
         {
             PurchaseItemText entity = null;
             string whereClause = " EBELN='" + DataManager.EscapeSQL(orderNumber) + "' ";
@@ -181,7 +181,7 @@ namespace eProcurement_DAL
         /// Insert a record into database table for the given Entity Object. 
         /// </summary>
         /// <param name="PurchaseItemText">PurchaseItemText Object</param>
-        public static void Insert(PurchaseItemText entity)
+        public override void Insert(PurchaseItemText entity)
         {
             Insert(null, entity);
         }
@@ -191,7 +191,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="PurchaseItemText">PurchaseItemText Object</param>
-        public static void Insert(EpTransaction epTran, PurchaseItemText entity)
+        public override void Insert(EpTransaction epTran, PurchaseItemText entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -242,7 +242,7 @@ namespace eProcurement_DAL
         /// Update the record on database table for the given Entity Object.
         /// </summary>
         /// <param name="PurchaseItemText">PurchaseItemText Object</param>
-        public static void Update(PurchaseItemText entity)
+        public override void Update(PurchaseItemText entity)
         {
             Update(null, entity);
         }
@@ -252,7 +252,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="PurchaseItemText">PurchaseItemText Object</param>
-        public static void Update(EpTransaction epTran, PurchaseItemText entity)
+        public override void Update(EpTransaction epTran, PurchaseItemText entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -304,7 +304,7 @@ namespace eProcurement_DAL
         /// Delete the record from database table for the given Entity Object.
         /// </summary>
         /// <param name="PurchaseItemText">PurchaseItemText Object</param>
-        public static void Delete(PurchaseItemText entity)
+        public override void Delete(PurchaseItemText entity)
         {
             Delete(null, entity);
         }
@@ -314,7 +314,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="PurchaseItemText">PurchaseItemText Object</param>
-        public static void Delete(EpTransaction epTran, PurchaseItemText entity)
+        public override void Delete(EpTransaction epTran, PurchaseItemText entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -367,7 +367,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of PurchaseItemText Object 
         /// </returns>
-        private static Collection<PurchaseItemText> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
+        private  Collection<PurchaseItemText> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
         {
             Collection<PurchaseItemText> entities = new Collection<PurchaseItemText>();
 
