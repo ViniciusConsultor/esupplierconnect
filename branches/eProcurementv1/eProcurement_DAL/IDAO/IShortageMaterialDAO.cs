@@ -27,7 +27,7 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Data;
 
-namespace eProcurement_DAL.DAO
+namespace eProcurement_DAL
 {
     ///<summary>Data Access Object - Database table [mtlshortage]</summary>
     public abstract class IShortageMaterialDAO
