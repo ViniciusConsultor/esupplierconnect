@@ -9,6 +9,11 @@ namespace eProcurement_BLL.UserManagement
 {
     public class LoginController
     {
+        MainController mainController = null;
+        public LoginController(MainController mainController) 
+        {
+            this.mainController = mainController;
+        }
 
         /// <summary>
         /// Validate Login 
@@ -24,7 +29,6 @@ namespace eProcurement_BLL.UserManagement
         {
             try
             {
-
                 ////////////////////////////////////////////////////////////////////
                 //Check whether user account exists
                 ////////////////////////////////////////////////////////////////////

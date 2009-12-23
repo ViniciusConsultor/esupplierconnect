@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using System.Text;
 using eProcurement_DAL;
 
+using eProcurement_BLL.UserManagement; 
+
 namespace eProcurement_BLL
 {
     public class SupplierController
     {
-        public static Supplier GetSupplier(string supplierId) 
+        MainController mainController = null;
+        public SupplierController(MainController mainController) 
         {
-            return SupplierDAO.RetrieveByKey(supplierId);
+            this.mainController = mainController;
+        }
+        
+        public Supplier GetSupplier(string supplierId) 
+        {
+            return mainController.GetDAOCreator().CreateSupplierDAO().RetrieveByKey(supplierId);
         }
 
     }
