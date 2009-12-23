@@ -21,11 +21,11 @@
 		<TITLE>Order Processing</TITLE>
 		<HREF></HREF>
 		<!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
-		<ITEM FID="S-O001">
+		<ITEM FID="S-0001">
 			<TITLE>Acknowledge Order</TITLE>
 			<HREF>~/PurchaseOrder/PurchaseOrderList.aspx</HREF>
 		</ITEM>
-		<ITEM FID="B-O001">
+		<ITEM FID="B-0001">
 			<TITLE>Accept Order Acknowledgement</TITLE>
 			<HREF>~/PurchaseOrder/PurchaseOrderList.aspx</HREF>
 		</ITEM>

@@ -36,10 +36,10 @@
                                         <td width="35" style="height: 35px">&nbsp;</td>
                                     </tr>
                                 </table>
-                                <br><br><br><br>
+                                <br><br>
                                 <table id="Message" width="250" border="0" cellspacing="0" cellpadding="0">
                                     <tr>
-                                        <td valign="top"  colspan="5" >By logging on to eProcurement System, you confirm that you are an authorised eProcurement System User. Any misuse may be subjected to disciplinary action.
+                                        <td valign="top"  colspan="5" >By logging on to eProcurement System, you confirm that you are an authorised eProcurement System User. Any misuse may be subjected to disciplinary action.<br><br>
                                         </td>
                                     </tr>
                                 </table>
