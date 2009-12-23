@@ -9,58 +9,58 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    public class PurchaseHeaderTextDAO
+    public class PurchaseHeaderTextDAO : IPurchaseHeaderTextDAO
     {
         #region RetrieveAll
-        public static Collection<PurchaseHeaderText> RetrieveAll()
+        public override Collection<PurchaseHeaderText> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
 
-        public static Collection<PurchaseHeaderText> RetrieveAll(string sortClaues)
+        public override Collection<PurchaseHeaderText> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
 
-        public static Collection<PurchaseHeaderText> RetrieveAll(EpTransaction epTran)
+        public override Collection<PurchaseHeaderText> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
 
-        public static Collection<PurchaseHeaderText> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<PurchaseHeaderText> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
         #endregion
 
         #region RetrieveByQuery
-        public static Collection<PurchaseHeaderText> RetrieveByQuery(string whereClause)
+        public override Collection<PurchaseHeaderText> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
 
-        public static Collection<PurchaseHeaderText> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<PurchaseHeaderText> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
 
-        public static Collection<PurchaseHeaderText> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<PurchaseHeaderText> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
 
-        public static Collection<PurchaseHeaderText> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<PurchaseHeaderText> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
         #endregion
         #region RetrieveByKey
-        public static PurchaseHeaderText RetrieveByKey(string orderNumber, string textSequence)
+        public override PurchaseHeaderText RetrieveByKey(string orderNumber, string textSequence)
         {
             return RetrieveByKey(null, orderNumber, textSequence);
         }
 
-        public static PurchaseHeaderText RetrieveByKey(EpTransaction epTran, string orderNumber, string textSequence)
+        public override PurchaseHeaderText RetrieveByKey(EpTransaction epTran, string orderNumber, string textSequence)
         {
             PurchaseHeaderText entity = null;
             string whereClause = " EBELN='" + DataManager.EscapeSQL(orderNumber) + "' ";
@@ -75,12 +75,12 @@ namespace eProcurement_DAL
          #endregion
 
         #region Insert
-        public static void Insert(PurchaseHeaderText entity)
+        public override void Insert(PurchaseHeaderText entity)
         {
             Insert(null, entity);
         }
 
-        public static void Insert(EpTransaction epTran, PurchaseHeaderText entity)
+        public override void Insert(EpTransaction epTran, PurchaseHeaderText entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -123,12 +123,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Update
-        public static void Update(PurchaseHeaderText entity)
+        public override void Update(PurchaseHeaderText entity)
         {
             Update(null, entity);
         }
 
-        public static void Update(EpTransaction epTran, PurchaseHeaderText entity)
+        public override void Update(EpTransaction epTran, PurchaseHeaderText entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -173,12 +173,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Delete
-        public static void Delete(PurchaseHeaderText entity)
+        public override void Delete(PurchaseHeaderText entity)
         {
             Delete(null, entity);
         }
 
-        public static void Delete(EpTransaction epTran, PurchaseHeaderText entity)
+        public override void Delete(EpTransaction epTran, PurchaseHeaderText entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -218,7 +218,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region private methods
-        private static Collection<PurchaseHeaderText> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
+        private  Collection<PurchaseHeaderText> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
         {
             Collection<PurchaseHeaderText> entities = new Collection<PurchaseHeaderText>();
 

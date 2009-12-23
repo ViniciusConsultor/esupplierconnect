@@ -9,57 +9,57 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    public class SubcontractorMaterialDAO
+    public class SubcontractorMaterialDAO : ISubcontractorMaterialDAO
     {
         #region RetrieveAll
-        public static Collection<SubcontractorMaterial> RetrieveAll()
+        public override Collection<SubcontractorMaterial> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
 
-        public static Collection<SubcontractorMaterial> RetrieveAll(string sortClaues)
+        public override Collection<SubcontractorMaterial> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
 
-        public static Collection<SubcontractorMaterial> RetrieveAll(EpTransaction epTran)
+        public override Collection<SubcontractorMaterial> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
 
-        public static Collection<SubcontractorMaterial> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<SubcontractorMaterial> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
         #endregion
         #region RetrieveByQuery
-        public static Collection<SubcontractorMaterial> RetrieveByQuery(string whereClause)
+        public override Collection<SubcontractorMaterial> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
 
-        public static Collection<SubcontractorMaterial> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<SubcontractorMaterial> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
 
-        public static Collection<SubcontractorMaterial> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<SubcontractorMaterial> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
 
-        public static Collection<SubcontractorMaterial> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<SubcontractorMaterial> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
         #endregion
         #region RetrieveByKey
-        public static SubcontractorMaterial RetrieveByKey(string orderNumber, string ItemSequence, string ComponentSequence)
+        public override SubcontractorMaterial RetrieveByKey(string orderNumber, string ItemSequence, string ComponentSequence)
         {
             return RetrieveByKey(null, orderNumber, ItemSequence, ComponentSequence);
         }
 
-        public static SubcontractorMaterial RetrieveByKey(EpTransaction epTran, string orderNumber, string ItemSequence, string ComponentSequence)
+        public override SubcontractorMaterial RetrieveByKey(EpTransaction epTran, string orderNumber, string ItemSequence, string ComponentSequence)
         {
             SubcontractorMaterial entity = null;
             string whereClause = " EBELN='" + DataManager.EscapeSQL(orderNumber) + "' ";
@@ -74,12 +74,12 @@ namespace eProcurement_DAL
         }
        #endregion
         #region Insert
-        public static void Insert(SubcontractorMaterial entity)
+        public override void Insert(SubcontractorMaterial entity)
         {
             Insert(null, entity);
         }
 
-        public static void Insert(EpTransaction epTran, SubcontractorMaterial entity)
+        public override void Insert(EpTransaction epTran, SubcontractorMaterial entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -146,12 +146,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Update
-        public static void Update(SubcontractorMaterial entity)
+        public override void Update(SubcontractorMaterial entity)
         {
             Update(null, entity);
         }
 
-        public static void Update(EpTransaction epTran, SubcontractorMaterial entity)
+        public override void Update(EpTransaction epTran, SubcontractorMaterial entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -208,12 +208,12 @@ namespace eProcurement_DAL
         }
         #endregion
         #region Delete
-        public static void Delete(SubcontractorMaterial entity)
+        public override void Delete(SubcontractorMaterial entity)
         {
             Delete(null, entity);
         }
 
-        public static void Delete(EpTransaction epTran, SubcontractorMaterial entity)
+        public override void Delete(EpTransaction epTran, SubcontractorMaterial entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -256,7 +256,7 @@ namespace eProcurement_DAL
         }
           #endregion
         #region private methods
-        private static Collection<SubcontractorMaterial> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
+        private  Collection<SubcontractorMaterial> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
         {
             Collection<SubcontractorMaterial> entities = new Collection<SubcontractorMaterial>();
 

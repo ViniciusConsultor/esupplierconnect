@@ -9,59 +9,59 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    public class QuotationItemDAO
+    public class QuotationItemDAO : IQuotationItemDAO
     {
         #region RetrieveAll
-        public static Collection<QuotationItem> RetrieveAll()
+        public override Collection<QuotationItem> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
 
-        public static Collection<QuotationItem> RetrieveAll(string sortClause)
+        public override Collection<QuotationItem> RetrieveAll(string sortClause)
         {
             return Retrieve(null, "", sortClause);
         }
 
-        public static Collection<QuotationItem> RetrieveAll(EpTransaction epTran)
+        public override Collection<QuotationItem> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
 
-        public static Collection<QuotationItem> RetrieveAll(EpTransaction epTran, string sortClause)
+        public override Collection<QuotationItem> RetrieveAll(EpTransaction epTran, string sortClause)
         {
             return Retrieve(epTran, "", sortClause);
         }
         #endregion
 
         #region RetrieveByQuery
-        public static Collection<QuotationItem> RetrieveByQuery(string whereClause)
+        public override Collection<QuotationItem> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
 
-        public static Collection<QuotationItem> RetrieveByQuery(string whereClause, string sortClause)
+        public override Collection<QuotationItem> RetrieveByQuery(string whereClause, string sortClause)
         {
             return Retrieve(null, whereClause, sortClause);
         }
 
-        public static Collection<QuotationItem> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<QuotationItem> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
 
-        public static Collection<QuotationItem> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClause)
+        public override Collection<QuotationItem> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClause)
         {
             return Retrieve(epTran, whereClause, sortClause);
         }
         #endregion
 
         #region RetrieveByKey
-        public static QuotationItem RetrieveByKey(string RequestNumber, string RequestSequence)
+        public override QuotationItem RetrieveByKey(string RequestNumber, string RequestSequence)
         {
             return RetrieveByKey(null, RequestNumber, RequestSequence);
         }
 
-        public static QuotationItem RetrieveByKey(EpTransaction epTran, string RequestNumber, string RequestSequence)
+        public override QuotationItem RetrieveByKey(EpTransaction epTran, string RequestNumber, string RequestSequence)
         {
             QuotationItem entity = null;
             string whereClause = " EBELN='" + DataManager.EscapeSQL(RequestNumber) + "' ";
@@ -76,12 +76,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Insert
-        public static void Insert(QuotationItem entity)
+        public override void Insert(QuotationItem entity)
         {
             Insert(null, entity);
         }
 
-        public static void Insert(EpTransaction epTran, QuotationItem entity)
+        public override void Insert(EpTransaction epTran, QuotationItem entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -173,12 +173,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Update
-        public static void Update(QuotationItem entity)
+        public override void Update(QuotationItem entity)
         {
             Update(null, entity);
         }
 
-        public static void Update(EpTransaction epTran, QuotationItem entity)
+        public override void Update(EpTransaction epTran, QuotationItem entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -273,12 +273,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Delete
-        public static void Delete(QuotationItem entity)
+        public override void Delete(QuotationItem entity)
         {
             Delete(null, entity);
         }
 
-        public static void Delete(EpTransaction epTran, QuotationItem entity)
+        public override void Delete(EpTransaction epTran, QuotationItem entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;

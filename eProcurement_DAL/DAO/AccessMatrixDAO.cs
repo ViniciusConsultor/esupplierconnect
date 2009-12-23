@@ -9,100 +9,61 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    public class AccessMatrixDAO
+    public class AccessMatrixDAO: IAccessMatrixDAO 
     {
         #region RetrieveAll
 
-        public static Collection<AccessMatrix> RetrieveAll()
+        public override Collection<AccessMatrix> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
 
-        public static Collection<AccessMatrix> RetrieveAll(string sortClaues)
+        public override Collection<AccessMatrix> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
 
-        public static Collection<AccessMatrix> RetrieveAll(EpTransaction epTran)
+        public override Collection<AccessMatrix> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
 
-        public static Collection<AccessMatrix> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<AccessMatrix> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
         #endregion
 
         #region RetrieveByQuery
-        public static Collection<AccessMatrix> RetrieveByQuery(string whereClause)
+        public override Collection<AccessMatrix> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
 
-        public static Collection<AccessMatrix> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<AccessMatrix> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
 
-        public static Collection<AccessMatrix> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<AccessMatrix> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
 
-        public static Collection<AccessMatrix> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<AccessMatrix> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
         #endregion
 
         #region RetrieveByKey
-        public static AccessMatrix RetrieveByKey(string userID)
+
+        public override AccessMatrix RetrieveByKey(string userRole, string profileType, string functionId)
         {
-            try{
-                return RetrieveByKey(null, userID);
-            }
-            catch (Exception ex)
-            { throw ex; }
+            return RetrieveByKey(null, userRole, profileType, functionId);
         }
 
-        public static AccessMatrix RetrieveByKey(EpTransaction epTran, string userRole)
-        {
-            AccessMatrix entity = null;
-            try
-            {
-                string whereClause = " USRROLE='" + DataManager.EscapeSQL(userRole) + "' ";
-
-                Collection<AccessMatrix> entities = Retrieve(epTran, whereClause, "");
-                if (entities.Count > 0)
-                    entity = entities[0];
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return entity;
-        }
-
-        public static AccessMatrix RetrieveByKey(EpTransaction epTran, string userRole, string profileType)
-        {
-            AccessMatrix entity = null;
-            try
-            {
-                string whereClause = " USRROLE='" + DataManager.EscapeSQL(userRole) + "' AND PROFTYP='" + profileType + "'";
-
-                Collection<AccessMatrix> entities = Retrieve(epTran, whereClause, "");
-                if (entities.Count > 0)
-                    entity = entities[0];
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return entity;
-        }
-
-        public static AccessMatrix RetrieveByKey(EpTransaction epTran, string userRole, string profileType, string functionId)
+        public override AccessMatrix RetrieveByKey(EpTransaction epTran, string userRole, string profileType, string functionId)
         {
             AccessMatrix entity = null;
             try
@@ -123,7 +84,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region Insert
-        public static void Insert(AccessMatrix entity)
+        public override void Insert(AccessMatrix entity)
         {
             try{
                 Insert(null, entity);
@@ -132,7 +93,7 @@ namespace eProcurement_DAL
             { throw ex; }
         }
 
-        public static void Insert(EpTransaction epTran, AccessMatrix entity)
+        public override void Insert(EpTransaction epTran, AccessMatrix entity)
         {
             try
             {
@@ -187,7 +148,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region Update
-        public static void Update(AccessMatrix entity)
+        public override void Update(AccessMatrix entity)
         {
             try{
                 Update(null, entity);
@@ -197,7 +158,7 @@ namespace eProcurement_DAL
 
         }
 
-        public static void Update(EpTransaction epTran, AccessMatrix entity)
+        public override void Update(EpTransaction epTran, AccessMatrix entity)
         {
             try
             {
@@ -254,7 +215,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region Delete
-        public static void Delete(AccessMatrix entity)
+        public override void Delete(AccessMatrix entity)
         {
             try{
                 Delete(null, entity);
@@ -263,7 +224,7 @@ namespace eProcurement_DAL
             { throw ex; }
         }
 
-        public static void Delete(EpTransaction epTran, AccessMatrix entity)
+        public override void Delete(EpTransaction epTran, AccessMatrix entity)
         {
             try
             {

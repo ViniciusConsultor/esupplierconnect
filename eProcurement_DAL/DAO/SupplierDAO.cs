@@ -9,59 +9,59 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    public class SupplierDAO
+    public class SupplierDAO : ISupplierDAO
     {
         #region RetrieveAll
-        public static Collection<Supplier> RetrieveAll()
+        public override Collection<Supplier> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
 
-        public static Collection<Supplier> RetrieveAll(string sortClaues)
+        public override Collection<Supplier> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
 
-        public static Collection<Supplier> RetrieveAll(EpTransaction epTran)
+        public override Collection<Supplier> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
 
-        public static Collection<Supplier> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<Supplier> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
         #endregion
 
         #region RetrieveByQuery
-        public static Collection<Supplier> RetrieveByQuery(string whereClause)
+        public override Collection<Supplier> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
 
-        public static Collection<Supplier> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<Supplier> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
 
-        public static Collection<Supplier> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<Supplier> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
 
-        public static Collection<Supplier> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<Supplier> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
         #endregion
 
         #region RetrieveByKey
-        public static Supplier RetrieveByKey(string supplierID)
+        public override Supplier RetrieveByKey(string supplierID)
         {
             return RetrieveByKey(null, supplierID);
         }
 
-        public static Supplier RetrieveByKey(EpTransaction epTran, string supplierID)
+        public override Supplier RetrieveByKey(EpTransaction epTran, string supplierID)
         {
             Supplier entity = null;
             string whereClause = " LIFNR='" + DataManager.EscapeSQL(supplierID) + "' ";
@@ -75,12 +75,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Insert
-        public static void Insert(Supplier entity)
+        public override void Insert(Supplier entity)
         {
             Insert(null, entity);
         }
 
-        public static void Insert(EpTransaction epTran, Supplier entity)
+        public override void Insert(EpTransaction epTran, Supplier entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -161,12 +161,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Update
-        public static void Update(Supplier entity)
+        public override void Update(Supplier entity)
         {
             Update(null, entity);
         }
 
-        public static void Update(EpTransaction epTran, Supplier entity)
+        public override void Update(EpTransaction epTran, Supplier entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -247,12 +247,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Delete
-        public static void Delete(Supplier entity)
+        public override void Delete(Supplier entity)
         {
             Delete(null, entity);
         }
 
-        public static void Delete(EpTransaction epTran, Supplier entity)
+        public override void Delete(EpTransaction epTran, Supplier entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -291,7 +291,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region private methods
-        private static Collection<Supplier> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
+        private  Collection<Supplier> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
         {
             Collection<Supplier> entities = new Collection<Supplier>();
 

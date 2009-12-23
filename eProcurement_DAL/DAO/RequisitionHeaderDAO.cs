@@ -9,59 +9,59 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    public class RequisitionHeaderDAO
+    public class RequisitionHeaderDAO : IRequisitionHeaderDAO
     {
         #region RetrieveAll
-        public static Collection<RequisitionHeader> RetrieveAll()
+        public override Collection<RequisitionHeader> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
 
-        public static Collection<RequisitionHeader> RetrieveAll(string sortClaues)
+        public override Collection<RequisitionHeader> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
 
-        public static Collection<RequisitionHeader> RetrieveAll(EpTransaction epTran)
+        public override Collection<RequisitionHeader> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
 
-        public static Collection<RequisitionHeader> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<RequisitionHeader> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
         #endregion
 
         #region RetrieveByQuery
-        public static Collection<RequisitionHeader> RetrieveByQuery(string whereClause)
+        public override Collection<RequisitionHeader> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
 
-        public static Collection<RequisitionHeader> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<RequisitionHeader> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
 
-        public static Collection<RequisitionHeader> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<RequisitionHeader> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
 
-        public static Collection<RequisitionHeader> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<RequisitionHeader> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
         #endregion
 
         #region RetrieveByKey
-        public static RequisitionHeader RetrieveByKey(string RequisitionNumber)
+        public override RequisitionHeader RetrieveByKey(string RequisitionNumber)
         {
             return RetrieveByKey(null, RequisitionNumber);
         }
 
-        public static RequisitionHeader RetrieveByKey(EpTransaction epTran, string RequisitionNumber)
+        public override RequisitionHeader RetrieveByKey(EpTransaction epTran, string RequisitionNumber)
         {
             RequisitionHeader entity = null;
             string whereClause = " BANFN='" + DataManager.EscapeSQL(RequisitionNumber) + "' ";
@@ -75,12 +75,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Insert
-        public static void Insert(RequisitionHeader entity)
+        public override void Insert(RequisitionHeader entity)
         {
             Insert(null, entity);
         }
 
-        public static void Insert(EpTransaction epTran, RequisitionHeader entity)
+        public override void Insert(EpTransaction epTran, RequisitionHeader entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -150,12 +150,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Update
-        public static void Update(RequisitionHeader entity)
+        public override void Update(RequisitionHeader entity)
         {
             Update(null, entity);
         }
 
-        public static void Update(EpTransaction epTran, RequisitionHeader entity)
+        public override void Update(EpTransaction epTran, RequisitionHeader entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -222,12 +222,12 @@ namespace eProcurement_DAL
         #endregion
 
         #region Delete
-        public static void Delete(RequisitionHeader entity)
+        public override void Delete(RequisitionHeader entity)
         {
             Delete(null, entity);
         }
 
-        public static void Delete(EpTransaction epTran, RequisitionHeader entity)
+        public override void Delete(EpTransaction epTran, RequisitionHeader entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -266,7 +266,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region private methods
-        private static Collection<RequisitionHeader> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
+        private  Collection<RequisitionHeader> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
         {
             Collection<RequisitionHeader> entities = new Collection<RequisitionHeader>();
 

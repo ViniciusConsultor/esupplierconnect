@@ -30,7 +30,7 @@ using System.Data;
 namespace eProcurement_DAL
 {
     ///<summary>Data Access Object - Database table [notification]</summary>
-    public class NotificationDAO
+    public class NotificationDAO : INotificationDAO
     {
         #region RetrieveAll
         /// <summary>
@@ -39,7 +39,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Notification Object
         /// </returns>
-        public static Collection<Notification> RetrieveAll()
+        public override Collection<Notification> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
@@ -51,7 +51,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Notification Object 
         /// </returns>
-        public static Collection<Notification> RetrieveAll(string sortClaues)
+        public override Collection<Notification> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
@@ -63,7 +63,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Notification Object
         /// </returns>
-        public static Collection<Notification> RetrieveAll(EpTransaction epTran)
+        public override Collection<Notification> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
@@ -76,7 +76,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Notification Object 
         /// </returns>
-        public static Collection<Notification> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<Notification> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
@@ -90,7 +90,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Notification Object 
         /// </returns>
-        public static Collection<Notification> RetrieveByQuery(string whereClause)
+        public override Collection<Notification> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
@@ -103,7 +103,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Notification Object 
         /// </returns>
-        public static Collection<Notification> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<Notification> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
@@ -116,7 +116,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Notification Object 
         /// </returns>
-        public static Collection<Notification> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<Notification> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
@@ -130,7 +130,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Notification Object 
         /// </returns>
-        public static Collection<Notification> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<Notification> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
@@ -144,7 +144,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Notification Object
         /// </returns>
-        public static Notification RetrieveByKey(string notificationId)
+        public override Notification RetrieveByKey(string notificationId)
         {
             return RetrieveByKey(null, notificationId);
         }
@@ -157,7 +157,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Notification Object
         /// </returns>
-        public static Notification RetrieveByKey(EpTransaction epTran, string notificationId)
+        public override Notification RetrieveByKey(EpTransaction epTran, string notificationId)
         {
             Notification entity = null;
             string whereClause = " NOTIFID='" + DataManager.EscapeSQL(notificationId) + "' ";
@@ -175,7 +175,7 @@ namespace eProcurement_DAL
         /// Insert a record into database table for the given Entity Object. 
         /// </summary>
         /// <param name="Notification">Notification Object</param>
-        public static void Insert(Notification entity)
+        public override void Insert(Notification entity)
         {
             Insert(null, entity);
         }
@@ -185,7 +185,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="Notification">Notification Object</param>
-        public static void Insert(EpTransaction epTran, Notification entity)
+        public override void Insert(EpTransaction epTran, Notification entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -265,7 +265,7 @@ namespace eProcurement_DAL
         /// Update the record on database table for the given Entity Object.
         /// </summary>
         /// <param name="Notification">Notification Object</param>
-        public static void Update(Notification entity)
+        public override void Update(Notification entity)
         {
             Update(null, entity);
         }
@@ -275,7 +275,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="Notification">Notification Object</param>
-        public static void Update(EpTransaction epTran, Notification entity)
+        public override void Update(EpTransaction epTran, Notification entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -352,7 +352,7 @@ namespace eProcurement_DAL
         /// Delete the record from database table for the given Entity Object.
         /// </summary>
         /// <param name="Notification">Notification Object</param>
-        public static void Delete(Notification entity)
+        public override void Delete(Notification entity)
         {
             Delete(null, entity);
         }
@@ -362,7 +362,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="Notification">Notification Object</param>
-        public static void Delete(EpTransaction epTran, Notification entity)
+        public override void Delete(EpTransaction epTran, Notification entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;

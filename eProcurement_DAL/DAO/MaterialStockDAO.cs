@@ -30,7 +30,7 @@ using System.Data;
 namespace eProcurement_DAL
 {
     ///<summary>Data Access Object - Database table [mtlstock]</summary>
-    public class MaterialStockDAO
+    public class MaterialStockDAO : IMaterialStockDAO
     {
 
         #region RetrieveAll
@@ -40,7 +40,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Material Stock Object
         /// </returns>
-        public static Collection<MaterialStock> RetrieveAll()
+        public override Collection<MaterialStock> RetrieveAll()
         {
             return Retrieve(null, "", "");
         }
@@ -52,7 +52,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Materail Stock Object 
         /// </returns>
-        public static Collection<MaterialStock> RetrieveAll(string sortClaues)
+        public override Collection<MaterialStock> RetrieveAll(string sortClaues)
         {
             return Retrieve(null, "", sortClaues);
         }
@@ -64,7 +64,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Material Stock Object
         /// </returns>
-        public static Collection<MaterialStock> RetrieveAll(EpTransaction epTran)
+        public override Collection<MaterialStock> RetrieveAll(EpTransaction epTran)
         {
             return Retrieve(epTran, "", "");
         }
@@ -77,7 +77,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Material Stock Object 
         /// </returns>
-        public static Collection<MaterialStock> RetrieveAll(EpTransaction epTran, string sortClaues)
+        public override Collection<MaterialStock> RetrieveAll(EpTransaction epTran, string sortClaues)
         {
             return Retrieve(epTran, "", sortClaues);
         }
@@ -91,7 +91,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Material Stock Object 
         /// </returns>
-        public static Collection<MaterialStock> RetrieveByQuery(string whereClause)
+        public override Collection<MaterialStock> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
         }
@@ -104,7 +104,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Material Stock Object 
         /// </returns>
-        public static Collection<MaterialStock> RetrieveByQuery(string whereClause, string sortClaues)
+        public override Collection<MaterialStock> RetrieveByQuery(string whereClause, string sortClaues)
         {
             return Retrieve(null, whereClause, sortClaues);
         }
@@ -117,7 +117,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Material Stock Object 
         /// </returns>
-        public static Collection<MaterialStock> RetrieveByQuery(EpTransaction epTran, string whereClause)
+        public override Collection<MaterialStock> RetrieveByQuery(EpTransaction epTran, string whereClause)
         {
             return Retrieve(epTran, whereClause, "");
         }
@@ -131,7 +131,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Collection of Material Stock Object 
         /// </returns>
-        public static Collection<MaterialStock> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<MaterialStock> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
         {
             return Retrieve(epTran, whereClause, sortClaues);
         }
@@ -146,7 +146,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Material Stock Object
         /// </returns>
-        public static MaterialStock RetrieveByKey(string materialNumber,string plant)
+        public override MaterialStock RetrieveByKey(string materialNumber,string plant)
         {
             return RetrieveByKey(null, materialNumber, plant);
         }
@@ -160,7 +160,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Material Stock Object
         /// </returns>
-        public static MaterialStock RetrieveByKey(EpTransaction epTran, string materialNumber,string plant)
+        public override MaterialStock RetrieveByKey(EpTransaction epTran, string materialNumber,string plant)
         {
             MaterialStock entity = null;
             string whereClause = " MATNR='" + DataManager.EscapeSQL(materialNumber) + "' ";
@@ -179,7 +179,7 @@ namespace eProcurement_DAL
         /// Insert a record into database table for the given Entity Object. 
         /// </summary>
         /// <param name="materialStock">Material Stock Object</param>
-        public static void Insert(MaterialStock entity)
+        public override void Insert(MaterialStock entity)
         {
             Insert(null, entity);
         }
@@ -189,7 +189,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="MaterialStock">Material Stock Object</param>
-        public static void Insert(EpTransaction epTran, MaterialStock entity)
+        public override void Insert(EpTransaction epTran, MaterialStock entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -259,7 +259,7 @@ namespace eProcurement_DAL
         /// Update the record on database table for the given Entity Object.
         /// </summary>
         /// <param name="MaterialStock">Material Stock Object</param>
-        public static void Update(MaterialStock entity)
+        public override void Update(MaterialStock entity)
         {
             Update(null, entity);
         }
@@ -269,7 +269,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="MaterialStock">MaterialStock Object</param>
-        public static void Update(EpTransaction epTran, MaterialStock entity)
+        public override void Update(EpTransaction epTran, MaterialStock entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
@@ -331,7 +331,7 @@ namespace eProcurement_DAL
         /// Delete the record from database table for the given Entity Object.
         /// </summary>
         /// <param name="MaterialStock">Material Stock Object</param>
-        public static void Delete(MaterialStock entity)
+        public override void Delete(MaterialStock entity)
         {
             Delete(null, entity);
         }
@@ -341,7 +341,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="MaterialStock">Material Stock Object</param>
-        public static void Delete(EpTransaction epTran, MaterialStock entity)
+        public override void Delete(EpTransaction epTran, MaterialStock entity)
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
