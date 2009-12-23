@@ -11,26 +11,50 @@ namespace eProcurement_BLL
 {
     public class MainController
     {
+        //Data Store Type, It's used to get related DAOCreator
+        private static string m_DataStoreType = "";
+        public static string DataStoreType
+        {
+            set { m_DataStoreType = value; }
+            get { return m_DataStoreType; }
+        }
+        
+        // LoginUserVO
         private LoginUserVO loginUserVO = null;
+        
+        //DAOCreator
+        private DAOCreator daoCreator = null;
 
+        //Controllers
         private LoginController loginController = null;
         private OrderHeaderController orderHeaderController = null;
         private OrderItemController orderItemController = null;
 
         public MainController()
         {
-
+            this.daoCreator = DAOCreator.GetDAOCreator(m_DataStoreType);  
         }
         
         public MainController(LoginUserVO loginUserVO) 
         {
             this.loginUserVO = loginUserVO;
+            this.daoCreator = DAOCreator.GetDAOCreator(m_DataStoreType); 
+        }
+
+        public LoginUserVO GetLoginUserVO()
+        {
+            return this.loginUserVO;
+        }
+
+        public DAOCreator GetDAOCreator()
+        {
+            return this.daoCreator;
         }
 
         public LoginController GetLoginController() 
         {
             if (this.loginController == null)
-                this.loginController = new LoginController();
+                this.loginController = new LoginController(this);
             return this.loginController;
         }
 
