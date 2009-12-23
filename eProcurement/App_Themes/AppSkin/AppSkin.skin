@@ -20,8 +20,8 @@ Default skin template. The following skins are provided as examples only.
      <PagerStyle CssClass="gridpager" />
 </asp:GridView>
 <asp:ValidationSummary  runat="server" DisplayMode=BulletList CssClass="validationSummaryMessage" />
-<asp:DropDownList runat="server" CssClass="DropDownList" />
+<asp:DropDownList runat="server" CssClass="DropDownList" Width="405px" />
 <asp:Button  runat="server" ForeColor="buttontext"  CssClass="formbutton"/>
 <asp:CheckBox runat="server" CssClass="checkbox"/>
 <asp:Label runat="server" CssClass="label"></asp:Label>
-<asp:TextBox runat="server" CssClass="textbox"></asp:TextBox>
+<asp:TextBox runat="server" CssClass="textbox" Width="400px"></asp:TextBox>
