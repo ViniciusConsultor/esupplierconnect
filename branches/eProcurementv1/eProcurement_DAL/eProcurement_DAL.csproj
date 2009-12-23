@@ -34,6 +34,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAOCreator.cs" />
     <Compile Include="DAO\AccessMatrixDAO.cs" />
     <Compile Include="DAO\DeliveryOrderDAO.cs" />
     <Compile Include="DAO\FunctionDAO.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="DAO\RequisitionHeaderDAO.cs" />
     <Compile Include="DAO\RequisitionItemDAO.cs" />
     <Compile Include="DAO\ShortageMaterialDAO.cs" />
+    <Compile Include="DAO\SQLServerDAOCreator.cs" />
     <Compile Include="DAO\SubcontractorMaterialDAO.cs" />
     <Compile Include="DAO\SupplierDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
