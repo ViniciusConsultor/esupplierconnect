@@ -150,6 +150,12 @@ public class BaseForm : System.Web.UI.Page
         }
     }
 
+    protected void GotoTimeOutPage() 
+    {
+        Session.Abandon();
+        Response.Redirect("~/Common/Timeout.aspx");
+    }
+
     #region Log
     //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
