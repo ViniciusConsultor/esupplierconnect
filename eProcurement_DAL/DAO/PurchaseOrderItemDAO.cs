@@ -533,14 +533,14 @@ namespace eProcurement_DAL
 
                 entity.UnitofMeasure = rd["MEINS"].ToString();
 
-                if (rd.IsDBNull(8))
+                if (rd.IsDBNull(9))
                     entity.NetPrice = null;
                 else
                     entity.NetPrice = Convert.ToDecimal(rd["NETPR"].ToString());
 
                 entity.Remarks = rd["REMARK"].ToString();
 
-                if (rd.IsDBNull(9))
+                if (rd.IsDBNull(11))
                     entity.DeliveredQuantity = null;
                 else
                     entity.DeliveredQuantity = Convert.ToDecimal(rd["WEMNG"].ToString());
