@@ -6,8 +6,19 @@ namespace eProcurement_BLL
 {
     public class POAckStatus
     {
-        public const string PendingAcknowledge = "N";
-        public const string Acknowledged = "Y";
+        public const string Yes = "Y";
+        public const string No = "N";
+    }
+
+    public class PORecStatus
+    {
+        public const string Accept = "A";
+        public const string Reject = "R";
+    }
+
+    public class POStatus
+    {
+        public const string Delete = "D";
     }
 
     public class SystemMessageType

@@ -58,5 +58,19 @@ namespace eProcurement_BLL
             return this.loginController;
         }
 
+        public OrderHeaderController GetOrderHeaderController()
+        {
+            if (this.orderHeaderController == null)
+                this.orderHeaderController = new OrderHeaderController(this);
+            return this.orderHeaderController;
+        }
+
+        public OrderItemController GetOrderItemController()
+        {
+            if (this.orderItemController == null)
+                this.orderItemController = new OrderItemController(this);
+            return this.orderItemController;
+        }
+
     }
 }
