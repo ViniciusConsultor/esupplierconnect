@@ -124,7 +124,7 @@ public partial class PurchaseOrder_PurchaseOrderACK :BaseForm
                 m_QueryString = queryString + "&ReturnFromDetails=Y";
 
                 InitPOHeader();
-                ImitItems();
+                InitItems();
             }
         }
         catch (Exception ex)
@@ -204,6 +204,195 @@ public partial class PurchaseOrder_PurchaseOrderACK :BaseForm
         hlHeaderText.NavigateUrl = "javascript:ShowHeaderText()";
     }
 
+    private void InitItems()
+    {
+        string whereClause = " EBELN='" + Session[SessionKey.OrderNumber].ToString() + "' ";
+        whereClause += " AND isnull(STS2,'')<>'D' ";
+        string orderClause = " EBELP asc ";
+
+        Collection<PurchaseOrderItem> items = mainController.GetDAOCreator().
+            CreatePurchaseOrderItemDAO().RetrieveByQuery(whereClause, orderClause);
+        gvItem.DataSource = items;
+        gvItem.DataBind();
+
+    }
+    
+    
+    protected void gvItem_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            GridView gvSchedule = (GridView)e.Row.FindControl("gvSchedule");
+            Label lblItemNo = (Label)e.Row.FindControl("lblItemNo");
+            Label lblPricePerUnit = (Label)e.Row.FindControl("lblPricePerUnit");
+            Label lblNetPrice = (Label)e.Row.FindControl("lblNetPrice");
+            Label lblNetAmount = (Label)e.Row.FindControl("lblNetAmount");
+
+            decimal amount = Convert.ToDecimal(lblPricePerUnit.Text) * Convert.ToDecimal(lblNetPrice.Text);
+            lblNetAmount.Text = amount.ToString();
+
+            HyperLink hlItemText = (HyperLink)e.Row.FindControl("hlItemText");
+            HyperLink hlComponent = (HyperLink)e.Row.FindControl("hlComponent");
+            HyperLink hlService = (HyperLink)e.Row.FindControl("hlService");
+
+            hlItemText.Attributes.Add("OrderNo", lblOrderNumber.Text);
+            hlItemText.Attributes.Add("ItemSeq", lblOrderNumber.Text);
+
+            hlComponent.Attributes.Add("OrderNo", lblOrderNumber.Text);
+            hlComponent.Attributes.Add("ItemSeq", lblOrderNumber.Text);
+
+            hlService.Attributes.Add("OrderNo", lblOrderNumber.Text);
+            hlService.Attributes.Add("ItemSeq", lblOrderNumber.Text);
+
+  
+            hlItemText.NavigateUrl = "javascript:ShowItemText('" + lblItemNo.Text + "')";
+            hlComponent.NavigateUrl = "javascript:ShowComponent('" + lblItemNo.Text + "')";
+            hlService.NavigateUrl = "javascript:ShowService('" + lblItemNo.Text + "')";
+
+            //Collection<PurchaseOrderItemSchedule> schedules = PurchaseOrderItemController.GetPurchaseOrderScheduleItems(m_Header.OrderNumber, lblItemNo.Text);
+            //foreach (PurchaseOrderItemSchedule schedule in schedules)
+            //{
+            //    m_Schedules.Add(schedule);
+            //}
+            //gvSchedule.DataSource = schedules;
+            //gvSchedule.DataBind();
+        }
+    }
+
+    protected void gvSchedule_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+    {
+        //if (e.Row.RowType == DataControlRowType.DataRow)
+        //{
+        //    HiddenField hdAckDate = (HiddenField)e.Row.FindControl("hdAckDate");
+        //    UserControls_DatePicker dtpAck = (UserControls_DatePicker)e.Row.FindControl("dtpAck");
+        //    if (hdAckDate.Value.Length > 1)
+        //    {
+        //        dtpAck.SelectedDate = GetDateTimeFormStoredValue(Convert.ToInt64(hdAckDate.Value));
+        //    }
+
+        //}
+    }
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            //string strErrorMsg = ValidateInput();
+
+            //if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
+            //{
+            //    plMessage.Visible = true;
+            //    displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
+            //    return;
+            //}
+
+            //m_Header.AcknowledgeStatus = POAckStatus.Acknowledged;
+
+            //foreach (GridViewRow rowItem in gvItem.Rows)
+            //{
+            //    Label lblItemNo = (Label)rowItem.FindControl("lblItemNo");
+            //    GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
+            //    foreach (GridViewRow rowSchedule in gvSchedule.Rows)
+            //    {
+            //        Label lblPurchaseOrderScheduleSequence = (Label)rowSchedule.FindControl("lblPurchaseOrderScheduleSequence");
+            //        UserControls_DatePicker dtpAck = (UserControls_DatePicker)rowSchedule.FindControl("dtpAck");
+
+            //        foreach (PurchaseOrderItemSchedule schedule in m_Schedules)
+            //        {
+            //            if (string.Compare(lblItemNo.Text, schedule.PurchaseOrderItemSequence, true) == 0 &&
+            //                string.Compare(lblPurchaseOrderScheduleSequence.Text, schedule.PurchaseOrderScheduleSequence, true) == 0)
+            //            {
+            //                schedule.AcknowledgementDate = GetStoredDateValue(dtpAck.SelectedDate);
+            //            }
+            //        }
+            //    }
+            //}
+
+            //PurchaseOrderController.AcknowledgePurchaseOrder(m_Header, m_Schedules);
+
+            //btnSubmit.Enabled = false;
+            //plMessage.Visible = true;
+            //string sMessage = "Purchase Order has been acknowledged successfully.";
+            //displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information);
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            string sMessage = ex.Message;
+            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
+        }
+    }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            string url = "~/PurchaseOrder/PurchaseOrderList.aspx";
+            Response.Redirect(url);
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            string sMessage = ex.Message;
+            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
+        }
+    }
+
+    #region validation
+    private string ValidateInput()
+    {
+        System.Text.StringBuilder strErrorMsg = new System.Text.StringBuilder(string.Empty);
+        //bool bIsValid = true;
+        //foreach (GridViewRow rowItem in gvItem.Rows)
+        //{
+        //    GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
+        //    foreach (GridViewRow rowSchedule in gvSchedule.Rows)
+        //    {
+        //        UserControls_DatePicker dtpAck = (UserControls_DatePicker)rowSchedule.FindControl("dtpAck");
+        //        if (dtpAck.Text == "")
+        //        {
+        //            bIsValid = false;
+        //            strErrorMsg.Append(MakeListItem("Please select a value for Ack.Dt."));
+        //        }
+        //        else
+        //        {
+        //            if (!dtpAck.IsValidDate)
+        //            {
+        //                bIsValid = false;
+        //                strErrorMsg.Append(MakeListItem("Please select a valid value for Ack.Dt."));
+        //            }
+        //        }
+        //        bIsValid = false;
+        //        break;
+        //    }
+        //    if (!bIsValid)
+        //        break;
+        //}
+
+        //if (!bIsValid)
+        //{
+        //    return strErrorMsg.ToString();
+        //}
+
+        //if (dtpFrom.SelectedDateString != "" && dtpTo.SelectedDateString != "")
+        //{
+        //    DateTime dtFrom = dtpFrom.SelectedDate;
+        //    DateTime dtTo = dtpTo.SelectedDate;
+
+        //    if (dtFrom.CompareTo(dtTo) > 0) //fromdate - todate (0=equal, 1=greater, -1=smaller)
+        //    {
+        //        strErrorMsg.Append(MakeListItem("Order Date To must be equal or greater than Order Date From."));
+        //        return strErrorMsg.ToString();
+        //    }
+        //}
+        return strErrorMsg.ToString();
+    }
+    #endregion
+
+
+
 
     protected void gvItem_ItemDataBound(Object sender,RepeaterItemEventArgs e)
     {
@@ -223,63 +412,6 @@ public partial class PurchaseOrder_PurchaseOrderACK :BaseForm
             gvSchedule.DataBind();
         }
      }
-
-    private void ImitItems()
-    {
-        //Collection<PurchaseOrderItem> items = PurchaseOrderItemController.GetPurchaseOrderItems(m_Header.OrderNumber);
-        Collection<PurchaseOrderItem> items=new Collection<PurchaseOrderItem>();
-        int iCount = 2;
-        for (int i = 1; i <= iCount; i++)
-        {
-            PurchaseOrderItem obj = new PurchaseOrderItem();
-
-            obj.PurchaseItemSequenceNumber = "000" + i;
-            obj.MaterialNumber = "M000" + i;
-            obj.ShortText = "Material " + i;
-            obj.OrderQuantity = 1000;
-            obj.PricePerUnit  = 100;
-            obj.UnitofMeasure  = "PCS";
-            obj.NetPrice  = 300;
-            obj.Remarks = "Remarks XXXXX " + i;
-            obj.DeliveredQuantity  = 100;
-            obj.LongTextDescription = "Long Text Description " + i;
-            obj.StorageLocation = "Storage Location XXXXX " + i;
-            items.Add(obj);
-        }
-        gvItem.DataSource = items;
-        gvItem.DataBind();
-
-    }
-
-    protected void btnSubmit_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            
-        }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            string sMessage = ex.Message;
-            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
-        }
-    }
-
-    protected void btnReturn_Click(object sender, EventArgs e)
-    {
-        try
-        {
-           
-        }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            string sMessage = ex.Message;
-            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
-        }
-    }
 
     
     /*
@@ -402,176 +534,6 @@ public partial class PurchaseOrder_PurchaseOrderACK :BaseForm
     //    }
     //}
 
-    protected void gvItem_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            GridView gvSchedule = (GridView)e.Row.FindControl("gvSchedule");
-            Label lblItemNo = (Label)e.Row.FindControl("lblItemNo");
-            Label lblPricePerUnit = (Label)e.Row.FindControl("lblPricePerUnit");
-            Label lblNetPrice = (Label)e.Row.FindControl("lblNetPrice");
-            Label lblNetAmount = (Label)e.Row.FindControl("lblNetAmount");
-
-            decimal amount = Convert.ToDecimal(lblPricePerUnit.Text) * Convert.ToDecimal(lblNetPrice.Text);
-            lblNetAmount.Text = amount.ToString();
-
-            HyperLink hlItemText = (HyperLink)e.Row.FindControl("hlItemText");
-            HyperLink hlComponent = (HyperLink)e.Row.FindControl("hlComponent");
-            HyperLink hlService = (HyperLink)e.Row.FindControl("hlService");
-
-            hlItemText.NavigateUrl = "javascript:ShowItemText('" + m_Header.OrderNumber + "','" + lblItemNo.Text + "')";
-            hlComponent.NavigateUrl = "javascript:ShowComponent('" + m_Header.OrderNumber + "','" + lblItemNo.Text + "')";
-            hlService.NavigateUrl = "javascript:ShowService('" + m_Header.OrderNumber + "','" + lblItemNo.Text + "')";
-
-            Collection<PurchaseOrderItemSchedule> schedules = PurchaseOrderItemController.GetPurchaseOrderScheduleItems(m_Header.OrderNumber, lblItemNo.Text);
-            foreach (PurchaseOrderItemSchedule schedule in schedules)
-            {
-                m_Schedules.Add(schedule);
-            }
-            gvSchedule.DataSource = schedules;
-            gvSchedule.DataBind();
-        }
-    }
-
-    protected void gvSchedule_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            HiddenField hdAckDate = (HiddenField)e.Row.FindControl("hdAckDate");
-            UserControls_DatePicker dtpAck = (UserControls_DatePicker)e.Row.FindControl("dtpAck");
-            if (hdAckDate.Value.Length > 1)
-            {
-                dtpAck.SelectedDate = GetDateTimeFormStoredValue(Convert.ToInt64(hdAckDate.Value));
-            }
-
-        }
-    }
-
-    private void ShowItems()
-    {
-        Collection<PurchaseOrderItem> items = PurchaseOrderItemController.GetPurchaseOrderItems(m_Header.OrderNumber);
-        m_Items = items;
-        gvItem.DataSource = items;
-        gvItem.DataBind();
-
-    }
-
-    protected void btnSubmit_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            string strErrorMsg = ValidateInput();
-
-            if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
-            {
-                plMessage.Visible = true;
-                displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
-                return;
-            }
-
-            m_Header.AcknowledgeStatus = POAckStatus.Acknowledged;
-
-            foreach (GridViewRow rowItem in gvItem.Rows)
-            {
-                Label lblItemNo = (Label)rowItem.FindControl("lblItemNo");
-                GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
-                foreach (GridViewRow rowSchedule in gvSchedule.Rows)
-                {
-                    Label lblPurchaseOrderScheduleSequence = (Label)rowSchedule.FindControl("lblPurchaseOrderScheduleSequence");
-                    UserControls_DatePicker dtpAck = (UserControls_DatePicker)rowSchedule.FindControl("dtpAck");
-
-                    foreach (PurchaseOrderItemSchedule schedule in m_Schedules)
-                    {
-                        if (string.Compare(lblItemNo.Text, schedule.PurchaseOrderItemSequence, true) == 0 &&
-                            string.Compare(lblPurchaseOrderScheduleSequence.Text, schedule.PurchaseOrderScheduleSequence, true) == 0)
-                        {
-                            schedule.AcknowledgementDate = GetStoredDateValue(dtpAck.SelectedDate);
-                        }
-                    }
-                }
-            }
-
-            PurchaseOrderController.AcknowledgePurchaseOrder(m_Header, m_Schedules);
-
-            btnSubmit.Enabled = false;
-            plMessage.Visible = true;
-            string sMessage = "Purchase Order has been acknowledged successfully.";
-            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information);
-        }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            string sMessage = ex.Message;
-            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
-        }
-    }
-
-    protected void btnReturn_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            string url = "~/PurchaseOrder/PurchaseOrderList.aspx";
-            Response.Redirect(url);
-        }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            string sMessage = ex.Message;
-            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
-        }
-    }
-
-    #region validation
-    private string ValidateInput()
-    {
-        System.Text.StringBuilder strErrorMsg = new System.Text.StringBuilder(string.Empty);
-        bool bIsValid = true;
-        foreach (GridViewRow rowItem in gvItem.Rows)
-        {
-            GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
-            foreach (GridViewRow rowSchedule in gvSchedule.Rows)
-            {
-                UserControls_DatePicker dtpAck = (UserControls_DatePicker)rowSchedule.FindControl("dtpAck");
-                if (dtpAck.Text == "")
-                {
-                    bIsValid = false;
-                    strErrorMsg.Append(MakeListItem("Please select a value for Ack.Dt."));
-                }
-                else
-                {
-                    if (!dtpAck.IsValidDate)
-                    {
-                        bIsValid = false;
-                        strErrorMsg.Append(MakeListItem("Please select a valid value for Ack.Dt."));
-                    }
-                }
-                bIsValid = false;
-                break;
-            }
-            if (!bIsValid)
-                break;
-        }
-
-        //if (!bIsValid)
-        //{
-        //    return strErrorMsg.ToString();
-        //}
-
-        //if (dtpFrom.SelectedDateString != "" && dtpTo.SelectedDateString != "")
-        //{
-        //    DateTime dtFrom = dtpFrom.SelectedDate;
-        //    DateTime dtTo = dtpTo.SelectedDate;
-
-        //    if (dtFrom.CompareTo(dtTo) > 0) //fromdate - todate (0=equal, 1=greater, -1=smaller)
-        //    {
-        //        strErrorMsg.Append(MakeListItem("Order Date To must be equal or greater than Order Date From."));
-        //        return strErrorMsg.ToString();
-        //    }
-        //}
-        return strErrorMsg.ToString();
-    }
-    #endregion
+    
      * */
 }
