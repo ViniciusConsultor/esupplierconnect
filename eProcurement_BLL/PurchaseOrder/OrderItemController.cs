@@ -8,6 +8,13 @@ namespace eProcurement_BLL.PurchaseOrder
 {
     public class OrderItemController
     {
+        MainController mainController = null;
+        public OrderItemController(MainController mainController) 
+        {
+            this.mainController = mainController;
+        }
+
+        
         /*
        public static Collection<PurchaseOrderItem> GetPurchaseOrderItems(string orderNumber)
        {
