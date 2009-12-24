@@ -37,7 +37,7 @@ public partial class MasterPages_MasterPageWithMenu : System.Web.UI.MasterPage
             }
             else 
             {
-                docMenu.Load(Server.MapPath("~/App_Data/All_Functions.xml"));
+                docMenu.Load(Server.MapPath("~/App_Data/Menu.xml"));
                 Collection<string> funcIdColl = loginUserVO.FuncList;
                 FilterFunction(docMenu, funcIdColl);
 
