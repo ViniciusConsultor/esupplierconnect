@@ -89,7 +89,7 @@
         <tr>
 	        <td valign="top" colspan="10" style="height: 20px">
                 <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="True" AutoGenerateColumns="False" 
-                   AllowSorting="false" CellPadding="2">
+                   AllowSorting="false" CellPadding="2" OnPageIndexChanging ="gvData_PageIndexChanging" OnRowDataBound="gvData_RowDataBound">
                     <Columns>
                         <asp:TemplateField HeaderText="S/N" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>
@@ -111,7 +111,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:LinkButton runat="server" ID="lbhlOrderNo" Text=' <%# Eval("OrderNumber") %> '></asp:LinkButton>  
+                                            <asp:LinkButton runat="server" ID="lbhlOrderNo" Text=' <%# Eval("OrderNumber") %> ' OnClick="hlOrderNo_OnClick"></asp:LinkButton>  
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>

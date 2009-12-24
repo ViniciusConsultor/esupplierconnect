@@ -333,7 +333,7 @@
         <tr>
             <td nowrap="nowrap" width="50%" style="height: 21px">&nbsp;&nbsp;</td>
             <td nowrap="nowrap" style="height: 21px">
-               <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click"/>
+               <asp:Button ID="btnReturn" runat="server" Text="Return" />
             </td>
             <td nowrap="nowrap" style="height: 21px">&nbsp;&nbsp;</td>
             

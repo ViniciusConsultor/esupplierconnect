@@ -50,11 +50,23 @@ public class BaseForm : System.Web.UI.Page
         set { _functionIdColl = value; }
     }
 
-    private string _functionId;
     protected string m_FunctionId
     {
-        get { return _functionId; }
-        set { _functionId = value; }
+        get
+        {
+            if (ViewState["m_FunctionId"] != null && ViewState["m_FunctionId"].ToString() != string.Empty)
+            {
+                return ViewState["m_FunctionId"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            ViewState["m_FunctionId"] = value;
+        }
     }
 
     protected LoginUserVO LoginUser

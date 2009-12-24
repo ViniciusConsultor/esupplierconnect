@@ -7,7 +7,7 @@
     <asp:Table ID="tblNavigation" runat="server" CellPadding="0" CellSpacing="0" Width="100%">
         <asp:TableHeaderRow>
             <asp:TableCell CssClass="navigation" VerticalAlign="Middle">
-                <asp:Label ID="lblSubPath" runat="server" Text="Label" ForeColor="White">Purchase Contract List
+                <asp:Label ID="lblSubPath" runat="server" Text="Label" ForeColor="White">title
                 </asp:Label>
                 </asp:TableCell>
          </asp:TableHeaderRow>        

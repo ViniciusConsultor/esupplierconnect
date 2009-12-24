@@ -21,31 +21,28 @@ public partial class MasterPages_MasterPageWithMenu : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+     
+        if (Session[SessionKey.LOGIN_USER] == null) 
         {
-            if (Session[SessionKey.LOGIN_USER] == null) 
-            {
-                Session.Abandon();
-                Response.Redirect("~/Common/Timeout.aspx");
-            }
-
-            LoginUserVO loginUserVO = (LoginUserVO)Session[SessionKey.LOGIN_USER];
-            XmlDocument docMenu = new XmlDocument();
-            if (loginUserVO.MenuXML != null)
-            {
-                docMenu = loginUserVO.MenuXML;
-            }
-            else 
-            {
-                docMenu.Load(Server.MapPath("~/App_Data/Menu.xml"));
-                Collection<string> funcIdColl = loginUserVO.FuncList;
-                FilterFunction(docMenu, funcIdColl);
-
-            }
-            loginUserVO.MenuXML = docMenu;
-            Session[SessionKey.LOGIN_USER] = loginUserVO;
-            CreateMene(docMenu);
+            Session.Abandon();
+            Response.Redirect("~/Common/Timeout.aspx");
         }
+
+        LoginUserVO loginUserVO = (LoginUserVO)Session[SessionKey.LOGIN_USER];
+        XmlDocument docMenu = new XmlDocument();
+        if (loginUserVO.MenuXML != null)
+        {
+            docMenu = loginUserVO.MenuXML;
+        }
+        else 
+        {
+            docMenu.Load(Server.MapPath("~/App_Data/Menu.xml"));
+            Collection<string> funcIdColl = loginUserVO.FuncList;
+            FilterFunction(docMenu, funcIdColl);
+            loginUserVO.MenuXML = docMenu;
+            Session[SessionKey.LOGIN_USER] = loginUserVO; 
+        }
+        CreateMene(docMenu);
     }
 
     private void CreateMene(XmlDocument menuXML)
