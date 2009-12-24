@@ -135,7 +135,6 @@
                                         <tr>
                                             <td>&nbsp;</td>
                                             <td Width="100%" nowrap="nowrap">
-                                              <a href="">Texts</a>
                                             </td>
                                            <td>&nbsp;</td>
                                         </tr> 
@@ -257,7 +256,23 @@
 	                        </tr>
 	                        <tr>
 	                            <td>
-	                            
+	                                <table border=0 cellpadding=0 cellspacing =0>
+	                                    <tr>
+	                                        <td>
+	                                            <asp:HyperLink runat="server" ID="hlItemText" Text='Texts'></asp:HyperLink>
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>
+	                                            <asp:HyperLink runat="server" ID="hlComponent" Text='Comps'></asp:HyperLink> 
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>
+	                                            <asp:HyperLink runat="server" ID="hlService" Text='Servs'></asp:HyperLink> 
+	                                        </td>
+	                                    </tr>
+	                                </table>
 	                            </td>     
 	                            <td colspan="9" Width="100%" nowrap="nowrap">
 	                                <asp:GridView BorderWidth="0" ShowHeader="true" AllowPaging="false" width="100%" ID="gvSchedule" runat="server" 
@@ -430,24 +445,24 @@
             MyArgs = window.showModalDialog("PurchaseOrderHeaderText.aspx", MyArgs, WinSettings);
         }
         
-        function ShowItemText()
+        function ShowItemText(itemNo)
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderItemText.aspx", MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("PurchaseOrderItemText.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
         }
-        function ShowComponent()
+        function ShowComponent(itemNo)
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderComponents.aspx", MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("PurchaseOrderComponents.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
             
         }
-         function ShowService()
+         function ShowService(itemNo)
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderServices.aspx", MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("PurchaseOrderServices.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
             
         }
     </script>	
