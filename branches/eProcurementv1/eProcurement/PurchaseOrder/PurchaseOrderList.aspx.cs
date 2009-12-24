@@ -15,6 +15,169 @@ using eProcurement_DAL;
 
 public partial class PurchaseOrder_PurchaseOrderList : BaseForm
 {
+    private MainController mainController = null;
+
+    private string m_FuncFlag
+    {
+        get
+        {
+            if (ViewState["m_FuncFlag"] != null && ViewState["m_FuncFlag"].ToString() != string.Empty)
+            {
+                return ViewState["m_FuncFlag"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            ViewState["m_FuncFlag"] = value;
+        }
+    }
+    
+    new protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            plMessage.Visible = false;
+            lblMessage.Text = string.Empty;
+            if (!IsPostBack)
+            {
+                base.m_FunctionIdColl.Add("S-0001");
+                base.m_FunctionIdColl.Add("B-0001");
+                  
+                string functionId = Request.QueryString["FunctionId"];
+                if (string.IsNullOrEmpty(functionId)) 
+                {
+                    throw new Exception("Invalid Function Id."); 
+                }
+                else
+                {
+                    if (string.Compare(functionId, "S-0001", true) == 0)
+                    {
+                        m_FuncFlag = "ACK_ORDER";
+                        lblSubPath.Text = "Acknowledge Order";
+                        base.m_FunctionId = "S-0001";
+                    }
+                    if (string.Compare(functionId, "B-0001", true) == 0)
+                    {
+                        m_FuncFlag = "ACPT_ORDER_ACKMT";
+                        lblSubPath.Text = "Accept Order Acknowledgement";
+                        base.m_FunctionId = "B-0001";
+                    }
+                }
+
+                base.Page_Load(sender, e);
+
+   
+                      //FunctionId=S-0001  
+                
+                GetData();
+                ShowData();
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            string sMessage = ex.Message;
+            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
+        }
+    }
+
+    private void InitPage() 
+    {
+        try
+        {
+            if (string.Compare(m_FuncFlag, "ACK_ORDER", false) == 0) 
+            {
+                plshSupplier.Visible = false;
+                plshBuyer.Visible = true;
+            }
+
+            if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
+            {
+                plshSupplier.Visible = true;
+                plshBuyer.Visible = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw (ex);
+        }
+    }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            CheckSessionTimeOut();
+
+            string strErrorMsg = ValidateInput();
+
+            if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
+            {
+                plMessage.Visible = true;
+                displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
+                return;
+            }
+
+            //GenerateEnquiryCriteriaSession();
+            //ShowCaseList(false, false);
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
+        }
+    }
+
+    #region validation
+    private string ValidateInput()
+    {
+        System.Text.StringBuilder strErrorMsg = new System.Text.StringBuilder(string.Empty);
+
+        bool bIsValid = true;
+        if (dtpFrom.Text != "")
+        {
+            if (!dtpFrom.IsValidDate)
+            {
+                bIsValid = false;
+                strErrorMsg.Append(MakeListItem("Please select a valid value for Order Date From."));
+            }
+        }
+
+        if (dtpTo.Text != "")
+        {
+            if (!dtpTo.IsValidDate)
+            {
+                bIsValid = false;
+                strErrorMsg.Append(MakeListItem("Please select a valid value for Order Date To."));
+            }
+        }
+
+        if (!bIsValid)
+        {
+            return strErrorMsg.ToString();
+        }
+
+        if (dtpFrom.SelectedDateString != "" && dtpTo.SelectedDateString != "")
+        {
+            DateTime dtFrom = dtpFrom.SelectedDate;
+            DateTime dtTo = dtpTo.SelectedDate;
+
+            if (dtFrom.CompareTo(dtTo) > 0) //fromdate - todate (0=equal, 1=greater, -1=smaller)
+            {
+                strErrorMsg.Append(MakeListItem("Order Date To must be equal or greater than Order Date From."));
+                return strErrorMsg.ToString();
+            }
+        }
+        return strErrorMsg.ToString();
+    }
+    #endregion
+
     private Collection<PurchaseOrderHeader> m_Data
     {
         get
@@ -31,27 +194,6 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
         set
         {
             ViewState["m_Data"] = value;
-        }
-    }
-
-    new protected void Page_Load(object sender, EventArgs e)
-    {
-        try
-        {
-            plMessage.Visible = false;
-            lblMessage.Text = string.Empty;
-            if (!IsPostBack)
-            {
-                GetData();
-                ShowData();
-            }
-        }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            string sMessage = ex.Message;
-            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
         }
     }
 

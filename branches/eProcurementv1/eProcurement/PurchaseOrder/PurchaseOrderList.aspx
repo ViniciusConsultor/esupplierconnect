@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="PurchaseOrderList.aspx.cs" Inherits="PurchaseOrder_PurchaseOrderList" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="PurchaseOrderList.aspx.cs" Inherits="PurchaseOrder_PurchaseOrderList" Title="eProcurement System" %>
 <%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
     <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
@@ -20,7 +20,7 @@
                                 <asp:Label ID="Label3" runat="server" Width="130px" Text="Order Number"></asp:Label>
                             </td> 
                             <td  align="left" style="width: 100%" colspan=4>
-                                <asp:TextBox runat="server" id="txtOrderNumber"></asp:TextBox>
+                                <asp:TextBox runat="server" id="txtOrderNumber" Width="200px"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -44,38 +44,30 @@
                                </table>
                             </td>
                         </tr>
+                        <asp:Panel runat="server" ID="plshSupplier" Visible="false">
                         <tr>
                             <td align="left" >
                                 <asp:Label ID="Label1" runat="server" Width="130px" Text="Supplier"></asp:Label>
                             </td> 
                             <td  align="left" style="width: 100%;" colspan=4>
-                                <asp:TextBox runat="server" id="TextBox1"></asp:TextBox>
+                                <asp:TextBox runat="server" id="txtSupplierId" Width="200px"></asp:TextBox>
                                 <img style="cursor: hand; vertical-align:middle" id="imgSupplierSearch" height="20" src="../Images/Common/Search.gif" runat="server" />
                             </td>
                         </tr>
+                        </asp:Panel> 
+                        <asp:Panel runat="server" ID="plshBuyer" Visible="false">
                         <tr>
                             <td align="left" >
-                                <asp:Label ID="Label2" runat="server" Width="130px" Text="Buyer Name"></asp:Label>
+                                <asp:Label ID="Label2" runat="server" Width="130px" Text="Buyer"></asp:Label>
                             </td> 
                             <td  align="left" style="width: 100%" colspan=4>
-                                <asp:TextBox runat="server" id="TextBox2"></asp:TextBox>
+                                <asp:TextBox runat="server" id="txtBuyer"  Width="200px"></asp:TextBox>
                             </td>
                         </tr>
-                        <tr style="display:none">
-                            <td align="left" >
-                                <asp:Label ID="lbl1" runat="server" Width="130px" Text="Order Status"></asp:Label>
-                            </td> 
-                            <td  align="left" style="width: 100%" colspan=4>
-                                <asp:DropDownList ID="ddlIspType" runat="server" AutoPostBack="false">
-                                    <asp:ListItem Value="" Text=""></asp:ListItem>
-                                    <asp:ListItem Value="" Text="Pending 1st Acknowledge"></asp:ListItem>
-                                    <asp:ListItem Value="" Text="Pending 2nd Acknowledge"></asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
+                        </asp:Panel> 
                         <tr>
                             <td colspan="9" style="text-align: right">
-                                <asp:Button ID="btnSearch" runat="server" Text="Search"/>
+                                <asp:Button ID="btnSearch" runat="server" Text="Search"  OnClick="btnSearch_Click"/>
                             </td>
                         </tr>
                     </table>
