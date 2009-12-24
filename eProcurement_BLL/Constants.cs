@@ -34,6 +34,9 @@ namespace eProcurement_BLL
     public class SessionKey
     {
         public const string LOGIN_USER = "LOGIN_USER";
+        public const string OrderNumber = "ORDER_NO";
+        public const string OrderItemSeqNumber = "ORDER_ITEM_SEQ_NUMBER";
+        public const string OrderScheduleSeq = "ORDER_SCHEDULE_SEQ";
     }
 
     public class ProfileType
