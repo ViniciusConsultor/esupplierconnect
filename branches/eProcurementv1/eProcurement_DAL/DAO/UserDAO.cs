@@ -12,17 +12,6 @@ namespace eProcurement_DAL
     public class UserDAO : IUserDAO
     {
         #region RetrieveAll
-
-        public override Collection<User> RetrieveAll(string userId, string supplierID, string sortClaues)
-        {
-            return Retrieve(null, "(USERID<>'" + userId + "' AND LIFNR='" + supplierID + "' AND USRROLE<>'Administrator')", sortClaues);
-        }
-
-        public override Collection<User> RetrieveAll(string userId, string sortClaues)
-        {
-            return Retrieve(null, "(USERID<>'" + userId + "' AND PROFTYP<>'System')", sortClaues);
-        }
-
         public override Collection<User> RetrieveAll()
         {
             return Retrieve(null, "", "");
@@ -69,537 +58,261 @@ namespace eProcurement_DAL
         #region RetrieveByKey
         public override User RetrieveByKey(string userID)
         {
-            try{
-                return RetrieveByKey(null, userID);
-            }
-            catch (Exception ex)
-            { throw ex; }
+            return RetrieveByKey(null, userID);
         }
 
         public override User RetrieveByKey(EpTransaction epTran, string userID)
         {
             User entity = null;
-            try
-            {
-                string whereClause = " USERID='" + DataManager.EscapeSQL(userID) + "' ";
+            string whereClause = " USERID='" + DataManager.EscapeSQL(userID) + "' ";
 
-                Collection<User> entities = Retrieve(epTran, whereClause, "");
-                if (entities.Count > 0)
-                    entity = entities[0];
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            Collection<User> entities = Retrieve(epTran, whereClause, "");
+            if (entities.Count > 0)
+                entity = entities[0];
+
             return entity;
         }
         #endregion
 
         #region Insert
-        public static void Insert(User entity)
+        public override void Insert(User entity)
         {
-            try{
-                Insert(null, entity);
-            }
-            catch (Exception ex)
-            { throw ex; }
+            Insert(null, entity);
         }
 
         public override void Insert(EpTransaction epTran, User entity)
         {
-            try
+            SqlCommand cm = new SqlCommand();
+            cm.CommandType = CommandType.Text;
+
+            //set connection
+            SqlConnection connection;
+            if (epTran == null)
+                connection = DataManager.GetConnection();
+            else
+                connection = epTran.GetSqlConnection();
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+            cm.Connection = connection;
+
+            //set transaction
+            if (epTran != null)
+                cm.Transaction = epTran.GetSqlTransaction();
+
+            //Check whether record exists
+            User checkEntity = RetrieveByKey(epTran, entity.UserId);
+            if (checkEntity != null)
             {
-                SqlCommand cm = new SqlCommand();
-                cm.CommandType = CommandType.Text;
-
-                //set connection
-                SqlConnection connection;
-                if (epTran == null)
-                    connection = DataManager.GetConnection();
-                else
-                    connection = epTran.GetSqlConnection();
-                if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-                cm.Connection = connection;
-
-                //set transaction
-                if (epTran != null)
-                    cm.Transaction = epTran.GetSqlTransaction();
-
-                //Check whether record exists
-                User checkEntity = RetrieveByKey(epTran, entity.UserId);
-                if (checkEntity != null)
-                {
-                    throw new Exception("Record already exists.");
-                }
-
-                //Insert 
-                cm.CommandText = "INSERT INTO USERS ([USERID],[USRNAM],[USRPWD],[USRROLE],[USREMAIL],[UPDTBY],[UPDTDATE],[USRSTAT],[LIFNR],[PROFTYP]) VALUES(@USERID,@USRNAM,@USRPWD,@USRROLE,@USREMAIL,@UPDTBY,@UPDTDATE,@USRSTAT,@LIFNR,@PROFTYP)";
-
-                SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p1);
-                p1.Value = entity.UserId;
-
-                SqlParameter p2 = new SqlParameter("@USRNAM", SqlDbType.VarChar, 40);
-                cm.Parameters.Add(p2);
-                p2.Value = entity.UserName;
-
-                SqlParameter p3 = new SqlParameter("@USRPWD", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p3);
-                p3.Value = entity.UserPassword;
-
-                SqlParameter p4 = new SqlParameter("@USRROLE", SqlDbType.VarChar, 15);
-                cm.Parameters.Add(p4);
-                p4.Value = entity.UserRole;
-
-                SqlParameter p5 = new SqlParameter("@USREMAIL", SqlDbType.VarChar, 70);
-                cm.Parameters.Add(p5);
-                p5.Value = entity.UserEmail;
-
-                SqlParameter p6 = new SqlParameter("@UPDTBY", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p6);
-                p6.Value = entity.UpdatedBy;
-
-                SqlParameter p7 = new SqlParameter("@UPDTDATE", SqlDbType.BigInt);
-                cm.Parameters.Add(p7);
-                p7.Value = entity.UpdatedDate;
-
-                SqlParameter p8 = new SqlParameter("@USRSTAT", SqlDbType.VarChar, 1);
-                cm.Parameters.Add(p8);
-                p8.Value = entity.UserStatus;
-
-                SqlParameter p9 = new SqlParameter("@LIFNR", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p9);
-                p9.Value = entity.SupplierID;
-
-                SqlParameter p10 = new SqlParameter("@PROFTYP", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p10);
-                p10.Value = entity.ProfileType;
-
-                cm.ExecuteNonQuery();
-
-                if (epTran == null)
-                    if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
+                throw new Exception("Record already exists.");
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            //Insert 
+            cm.CommandText = "INSERT INTO USER ([USERID],[USRNAM],[USRPWD],[USRROLE],[USREMAIL],[UPDTBY],[UPDTDATE],[USRSTAT]) VALUES(@USERID,@USRNAM,@USRPWD,@USRROLE,@USREMAIL,@UPDTBY,@UPDTDATE,@USRSTAT)";
+
+            SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.Char, 10);
+            cm.Parameters.Add(p1);
+            p1.Value = entity.UserId;
+
+            SqlParameter p2 = new SqlParameter("@USRNAM", SqlDbType.VarChar, 40);
+            cm.Parameters.Add(p2);
+            p2.Value = entity.UserName;
+
+            SqlParameter p3 = new SqlParameter("@USRPWD", SqlDbType.Char, 10);
+            cm.Parameters.Add(p3);
+            p3.Value = entity.UserPassword;
+
+            SqlParameter p4 = new SqlParameter("@USRROLE", SqlDbType.Char, 15);
+            cm.Parameters.Add(p4);
+            p4.Value = entity.UserRole;
+
+            SqlParameter p5 = new SqlParameter("@USREMAIL", SqlDbType.VarChar, 70);
+            cm.Parameters.Add(p5);
+            p5.Value = entity.UserEmail;
+
+            SqlParameter p6 = new SqlParameter("@UPDTBY", SqlDbType.VarChar, 10);
+            cm.Parameters.Add(p6);
+            p6.Value = entity.UpdatedBy;
+
+            SqlParameter p7 = new SqlParameter("@UPDTDATE", SqlDbType.DateTime);
+            cm.Parameters.Add(p7);
+            p7.Value = entity.UpdatedDate;
+
+            SqlParameter p8 = new SqlParameter("@USRSTAT", SqlDbType.Char, 1);
+            cm.Parameters.Add(p8);
+            p8.Value = entity.UserStatus;
+
+            cm.ExecuteNonQuery();
+
+            if (epTran == null)
+                if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
         }
         #endregion
 
         #region Update
         public override void Update(User entity)
         {
-            try{
-                Update(null, entity);
-            }
-            catch (Exception ex)
-            { throw ex; }
-
+            Update(null, entity);
         }
 
         public override void Update(EpTransaction epTran, User entity)
         {
-            try
+            SqlCommand cm = new SqlCommand();
+            cm.CommandType = CommandType.Text;
+
+            //set connection
+            SqlConnection connection;
+            if (epTran == null)
+                connection = DataManager.GetConnection();
+            else
+                connection = epTran.GetSqlConnection();
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+            cm.Connection = connection;
+
+            //set transaction
+            if (epTran != null)
+                cm.Transaction = epTran.GetSqlTransaction();
+
+            //Check whether record exists
+            User checkEntity = RetrieveByKey(epTran, entity.UserId);
+            if (checkEntity == null)
             {
-                SqlCommand cm = new SqlCommand();
-                cm.CommandType = CommandType.Text;
-
-                //set connection
-                SqlConnection connection;
-                if (epTran == null)
-                    connection = DataManager.GetConnection();
-                else
-                    connection = epTran.GetSqlConnection();
-                if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-                cm.Connection = connection;
-
-                //set transaction
-                if (epTran != null)
-                    cm.Transaction = epTran.GetSqlTransaction();
-
-                //Check whether record exists
-                User checkEntity = RetrieveByKey(epTran, entity.UserId);
-                if (checkEntity == null)
-                {
-                    throw new Exception("Record doesn't exist.");
-                }
-
-                //Update 
-                //cm.CommandText = "UPDATE USERS SET [USERID]=@USERID,[USRNAM]=@USRNAM,[USRPWD]=@USRPWD,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT,[LIFNR]=@LIFNR,[PROFTYP]=@PROFTYP WHERE USERID=@USERID";
-                cm.CommandText = "UPDATE USERS SET [USRNAM]=@USRNAM,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT,[LIFNR]=@LIFNR,[PROFTYP]=@PROFTYP WHERE USERID=@USERID";
-
-                SqlParameter p1 = new SqlParameter("@USRNAM", SqlDbType.VarChar, 40);
-                cm.Parameters.Add(p1);
-                p1.Value = entity.UserName;
-
-                SqlParameter p3 = new SqlParameter("@USRROLE", SqlDbType.VarChar, 15);
-                cm.Parameters.Add(p3);
-                p3.Value = entity.UserRole;
-
-                SqlParameter p4 = new SqlParameter("@USREMAIL", SqlDbType.VarChar, 70);
-                cm.Parameters.Add(p4);
-                p4.Value = entity.UserEmail;
-
-                SqlParameter p5 = new SqlParameter("@UPDTBY", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p5);
-                p5.Value = entity.UpdatedBy;
-
-                SqlParameter p6 = new SqlParameter("@UPDTDATE", SqlDbType.BigInt);
-                cm.Parameters.Add(p6);
-                p6.Value = entity.UpdatedDate;
-
-                SqlParameter p7 = new SqlParameter("@USRSTAT", SqlDbType.VarChar, 1);
-                cm.Parameters.Add(p7);
-                p7.Value = entity.UserStatus;
-
-                SqlParameter p8 = new SqlParameter("@LIFNR", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p8);
-                p8.Value = entity.SupplierID;
-
-                SqlParameter p9 = new SqlParameter("@PROFTYP", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p9);
-                p9.Value = entity.ProfileType;
-
-                SqlParameter p10 = new SqlParameter("@USERID", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p10);
-                p10.Value = entity.UserId;
-
-                cm.ExecuteNonQuery();
-
-                if (epTran == null)
-                    if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
+                throw new Exception("Record doesn't exist.");
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            //Update 
+            cm.CommandText = "UPDATE USER SET [USERID]=@USERID,[USRNAM]=@USRNAM,[USRPWD]=@USRPWD,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT WHERE USERID=@USERID";
+
+            SqlParameter p1 = new SqlParameter("@USRNAM", SqlDbType.VarChar, 40);
+            cm.Parameters.Add(p1);
+            p1.Value = entity.UserName;
+
+            SqlParameter p2 = new SqlParameter("@USRPWD", SqlDbType.Char, 10);
+            cm.Parameters.Add(p2);
+            p2.Value = entity.UserPassword;
+
+            SqlParameter p3 = new SqlParameter("@USRROLE", SqlDbType.Char, 15);
+            cm.Parameters.Add(p3);
+            p3.Value = entity.UserRole;
+
+            SqlParameter p4 = new SqlParameter("@USREMAIL", SqlDbType.VarChar, 70);
+            cm.Parameters.Add(p4);
+            p4.Value = entity.UserEmail;
+
+            SqlParameter p5 = new SqlParameter("@UPDTBY", SqlDbType.VarChar, 10);
+            cm.Parameters.Add(p5);
+            p5.Value = entity.UpdatedBy;
+
+            SqlParameter p6 = new SqlParameter("@UPDTDATE", SqlDbType.DateTime);
+            cm.Parameters.Add(p6);
+            p6.Value = entity.UpdatedDate;
+
+            SqlParameter p7 = new SqlParameter("@USRSTAT", SqlDbType.Char, 1);
+            cm.Parameters.Add(p7);
+            p7.Value = entity.UserStatus;
+
+            cm.ExecuteNonQuery();
+
+            if (epTran == null)
+                if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
         }
-
-        public override void UpdateStatus(EpTransaction epTran, string userId, string status, string updatedBy)
-        {
-            try
-            {
-                SqlCommand cm = new SqlCommand();
-                cm.CommandType = CommandType.Text;
-
-                //set connection
-                SqlConnection connection;
-                if (epTran == null)
-                    connection = DataManager.GetConnection();
-                else
-                    connection = epTran.GetSqlConnection();
-                if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-                cm.Connection = connection;
-
-                //set transaction
-                if (epTran != null)
-                    cm.Transaction = epTran.GetSqlTransaction();
-
-                //Check whether record exists
-                User checkEntity = RetrieveByKey(epTran, userId);
-                if (checkEntity == null)
-                {
-                    throw new Exception("Record doesn't exist.");
-                }
-
-                //Update 
-                cm.CommandText = "UPDATE USERS SET [UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT WHERE USERID=@USERID";
-
-                SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p1);
-                p1.Value = userId;
-
-                string d = DateTime.Now.ToString("dd") + DateTime.Now.ToString("MM") + DateTime.Now.ToString("yyyy");
-
-                SqlParameter p3 = new SqlParameter("@UPDTDATE", SqlDbType.BigInt);
-                cm.Parameters.Add(p3);
-                p3.Value = d;
-
-                SqlParameter p2 = new SqlParameter("@UPDTBY", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p2);
-                p2.Value = updatedBy;
-
-                SqlParameter p4 = new SqlParameter("@USRSTAT", SqlDbType.VarChar, 1);
-                cm.Parameters.Add(p4);
-                p4.Value = status;
-
-                cm.ExecuteNonQuery();
-
-                if (epTran == null)
-                    if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public override void UpdatePassword(EpTransaction epTran, string userId, string pswd, string updatedBy)
-        {
-            try
-            {
-                SqlCommand cm = new SqlCommand();
-                cm.CommandType = CommandType.Text;
-
-                //set connection
-                SqlConnection connection;
-                if (epTran == null)
-                    connection = DataManager.GetConnection();
-                else
-                    connection = epTran.GetSqlConnection();
-                if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-                cm.Connection = connection;
-
-                //set transaction
-                if (epTran != null)
-                    cm.Transaction = epTran.GetSqlTransaction();
-
-                //Check whether record exists
-                User checkEntity = RetrieveByKey(epTran, userId);
-                if (checkEntity == null)
-                {
-                    throw new Exception("Record doesn't exist.");
-                }
-
-                //Update 
-                cm.CommandText = "UPDATE USERS SET [UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRPWD]=@USRPWD WHERE USERID=@USERID";
-
-                SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p1);
-                p1.Value = userId;
-
-                SqlParameter p2 = new SqlParameter("@UPDTBY", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p2);
-                p2.Value = updatedBy;
-
-                string d = DateTime.Now.ToString("dd") + DateTime.Now.ToString("MM") + DateTime.Now.ToString("yyyy");
-
-                SqlParameter p3 = new SqlParameter("@UPDTDATE", SqlDbType.BigInt);
-                cm.Parameters.Add(p3);
-                p3.Value = d;
-
-                SqlParameter p4 = new SqlParameter("@USRPWD", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p4);
-                p4.Value = pswd;
-
-                cm.ExecuteNonQuery();
-
-                if (epTran == null)
-                    if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         #endregion
 
         #region Delete
         public override void Delete(User entity)
         {
-            try{
-                Delete(null, entity);
-            }
-            catch (Exception ex)
-            { throw ex; }
+            Delete(null, entity);
         }
 
         public override void Delete(EpTransaction epTran, User entity)
         {
-            try
+            SqlCommand cm = new SqlCommand();
+            cm.CommandType = CommandType.Text;
+
+            //set connection
+            SqlConnection connection;
+            if (epTran == null)
+                connection = DataManager.GetConnection();
+            else
+                connection = epTran.GetSqlConnection();
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+            cm.Connection = connection;
+
+            //set transaction
+            if (epTran != null)
+                cm.Transaction = epTran.GetSqlTransaction();
+
+            //Check whether record exists
+            User checkEntity = RetrieveByKey(epTran, entity.UserId);
+            if (checkEntity == null)
             {
-                SqlCommand cm = new SqlCommand();
-                cm.CommandType = CommandType.Text;
-
-                //set connection
-                SqlConnection connection;
-                if (epTran == null)
-                    connection = DataManager.GetConnection();
-                else
-                    connection = epTran.GetSqlConnection();
-                if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-                cm.Connection = connection;
-
-                //set transaction
-                if (epTran != null)
-                    cm.Transaction = epTran.GetSqlTransaction();
-
-                //Check whether record exists
-                User checkEntity = RetrieveByKey(epTran, entity.UserId);
-                if (checkEntity == null)
-                {
-                    throw new Exception("Record doesn't exist.");
-                }
-
-                //Update 
-                cm.CommandText = "DELETE FROM USERS WHERE USERID=@USERID";
-                SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.VarChar, 10);
-                cm.Parameters.Add(p1);
-                p1.Value = entity.UserId;
-
-                cm.ExecuteNonQuery();
-
-                if (epTran == null)
-                    if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
+                throw new Exception("Record doesn't exist.");
             }
-            catch (Exception ex)
-            { throw ex; }
+
+            //Update 
+            cm.CommandText = "DELETE FROM [USER] WHERE USERID=@USERID";
+            SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.Char, 10);
+            cm.Parameters.Add(p1);
+            p1.Value = entity.UserId;
+
+            cm.ExecuteNonQuery();
+
+            if (epTran == null)
+                if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
         }
         #endregion
 
         #region private methods
         private Collection<User> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
-        {            
+        {
             Collection<User> entities = new Collection<User>();
-            try{
 
-                SqlCommand cm = new SqlCommand();
-                cm.CommandType = CommandType.Text;
+            SqlCommand cm = new SqlCommand();
+            cm.CommandType = CommandType.Text;
 
-                //set connection
-                SqlConnection connection;
-                if (epTran == null)
-                    connection = DataManager.GetConnection();
-                else
-                    connection = epTran.GetSqlConnection();
-                if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-                cm.Connection = connection;
+            //set connection
+            SqlConnection connection;
+            if (epTran == null)
+                connection = DataManager.GetConnection();
+            else
+                connection = epTran.GetSqlConnection();
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+            cm.Connection = connection;
 
-                //set transaction
-                if (epTran != null)
-                    cm.Transaction = epTran.GetSqlTransaction();
+            //set transaction
+            if (epTran != null)
+                cm.Transaction = epTran.GetSqlTransaction();
 
-                //Retrieve Data
-                string selectCommand = "SELECT * FROM USERS";
-                if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
-                if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
+            //Retrieve Data
+            string selectCommand = "SELECT [USERID],[USRNAM],[USRPWD],[USRROLE],[USREMAIL],[UPDTBY],[UPDTDATE],[USRSTAT],[LIFNR],[PROFTYP] FROM [USER]";
+            if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
+            if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
-                cm.CommandText = selectCommand;
-                SqlDataReader rd = cm.ExecuteReader();
-                while (rd.Read())
-                {
-                    User entity = new User();
-                    entity.UserId = rd["USERID"].ToString();
-                    entity.UserName = rd["USRNAM"].ToString();
-                    entity.UserPassword = rd["USRPWD"].ToString();
-                    entity.UserRole= rd["USRROLE"].ToString();
-                    entity.UserEmail = rd["USREMAIL"].ToString();
-                    entity.UpdatedBy = rd["UPDTBY"].ToString();
-                    entity.UpdatedDate =  Convert.ToInt64(rd["UPDTDATE"]);
-                    entity.UserStatus = rd["USRSTAT"].ToString();
-                    entity.SupplierID = rd["LIFNR"].ToString();
-                    entity.ProfileType = rd["PROFTYP"].ToString();
+            cm.CommandText = selectCommand;
+            SqlDataReader rd = cm.ExecuteReader();
+            while (rd.Read())
+            {
+                User entity = new User();
+                entity.UserId = rd["USERID"].ToString();
+                entity.UserName = rd["USRNAM"].ToString();
+                entity.UserPassword = rd["USRPWD"].ToString();
+                entity.UserRole = rd["USRROLE"].ToString();
+                entity.UserEmail = rd["USREMAIL"].ToString();
+                entity.UpdatedBy = rd["UPDTBY"].ToString();
+                entity.UpdatedDate = Convert.ToInt64(rd["UPDTDATE"]);
+                entity.UserStatus = rd["USRSTAT"].ToString();
+                entity.SupplierID = rd["LIFNR"].ToString();
+                entity.ProfileType = rd["PROFTYP"].ToString();
 
-                    entities.Add(entity);
+                entities.Add(entity);
 
-                }
-                // close reader
-                rd.Close();
-
-                if (epTran == null)
-                    if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
             }
-            catch (Exception ex)
-            { throw ex; }
+            // close reader
+            rd.Close();
+
+            if (epTran == null)
+                if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
 
             return entities;
         }
         #endregion
-
-        #region public methods
-        public override DataTable RetrieveUserDetails(EpTransaction epTran, string userId)
-        {
-            DataSet ret = new DataSet();
-
-            try
-            {
-                //Collection<User> entities = new Collection<User>();
-
-                SqlCommand cm = new SqlCommand();
-                cm.CommandType = CommandType.Text;
-
-                //set connection
-                SqlConnection connection;
-                if (epTran == null)
-                    connection = DataManager.GetConnection();
-                else
-                    connection = epTran.GetSqlConnection();
-                if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-                cm.Connection = connection;
-
-                //set transaction
-                if (epTran != null)
-                    cm.Transaction = epTran.GetSqlTransaction();
-
-                //Retrieve Data
-                string selectCommand = "SELECT U.*,V.* FROM USERS U LEFT OUTER JOIN VNDMST V ON LTRIM(RTRIM(U.LIFNR))=LTRIM(RTRIM(V.LIFNR)) WHERE U.USERID='" + userId + "'";
-
-                cm.CommandText = selectCommand;
-
-                SqlDataAdapter ObjDataAdapter = new SqlDataAdapter();
-                ObjDataAdapter.SelectCommand = cm;
-                ObjDataAdapter.Fill(ret);
-                ObjDataAdapter.Dispose();
-                cm.Dispose();
-
-                if (epTran == null)
-                    if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return ret.Tables[0];
-        }
-
-        public override DataTable RetrieveSuppliers(EpTransaction epTran)
-        {
-            DataSet ret = new DataSet();
-
-            try
-            {
-                SqlCommand cm = new SqlCommand();
-                cm.CommandType = CommandType.Text;
-
-                //set connection
-                SqlConnection connection;
-                if (epTran == null)
-                    connection = DataManager.GetConnection();
-                else
-                    connection = epTran.GetSqlConnection();
-                if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-                cm.Connection = connection;
-
-                //set transaction
-                if (epTran != null)
-                    cm.Transaction = epTran.GetSqlTransaction();
-
-                //Retrieve Data
-                string selectCommand = "SELECT LTRIM(RTRIM(V.LIFNR)) AS SupplierID, '[' + LTRIM(RTRIM(V.LIFNR)) + '] ' + V.[NAME] AS SupplierName FROM VNDMST V";
-
-                cm.CommandText = selectCommand;
-
-                SqlDataAdapter ObjDataAdapter = new SqlDataAdapter();
-                ObjDataAdapter.SelectCommand = cm;
-                ObjDataAdapter.Fill(ret);
-                ObjDataAdapter.Dispose();
-                cm.Dispose();
-
-                if (epTran == null)
-                    if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return ret.Tables[0];
-        }
-        #endregion
-
-
     }
 }
