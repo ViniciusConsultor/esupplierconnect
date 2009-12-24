@@ -103,7 +103,7 @@
         <tr>
 	        <td valign="top" colspan="10" style="height: 20px">
                 <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="false" AutoGenerateColumns="False" 
-                   AllowSorting="false" CellPadding="2" OnRowDataBound="gvData_RowDataBound" >
+                   AllowSorting="false" CellPadding="2" >
                     <Columns>
                         <asp:TemplateField HeaderText="Text Sequence" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>

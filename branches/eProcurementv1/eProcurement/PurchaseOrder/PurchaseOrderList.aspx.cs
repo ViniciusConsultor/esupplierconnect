@@ -264,7 +264,6 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
             if (string.Compare(m_FuncFlag, "ACK_ORDER", false) == 0)
             {
                 url = "~/PurchaseOrder/PurchaseOrderACK.aspx?FunctionId=" + base.m_FunctionId;
-                url += "&SelectedOrderNumber=" + orderNo;
                 url += "&OrderNumber=" + m_SearchCriteriaVO.OrderNumber;
                 if (m_SearchCriteriaVO.FromDate.HasValue)
                 {
@@ -276,6 +275,8 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                 }
                 url += "&BuyerName=" + m_SearchCriteriaVO.BuyerName;
                 url += "&PageIdx=" + gvData.PageIndex.ToString();
+
+                Session[SessionKey.OrderNumber] = orderNo;
             }
             if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
             {
