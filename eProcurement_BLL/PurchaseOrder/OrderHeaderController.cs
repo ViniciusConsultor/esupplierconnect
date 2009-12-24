@@ -14,6 +14,41 @@ namespace eProcurement_BLL.PurchaseOrder
             this.mainController = mainController;
         }
 
+        public Collection<PurchaseOrderHeader> GetPendingAckPOList(string orderNumber, Nullable<long> fromDate, Nullable<long> toDate,string buyerName)
+        {
+            try
+            {
+                string whereCluase = "";
+                string orderCluase = "";
+                whereCluase = " LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
+                whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
+                whereCluase += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
+                if (orderNumber != "")
+                {
+                    whereCluase += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
+                }
+                if (buyerName != "")
+                {
+                    whereCluase += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
+                }  
+                if (fromDate.HasValue)
+                {
+                    whereCluase += " AND BEDAT >= " + fromDate.Value;
+                }
+                if (toDate.HasValue)
+                {
+                    whereCluase += " AND BEDAT <= " + toDate.Value;
+                }
+
+                orderCluase = " EBELN asc ";
+                return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereCluase, orderCluase);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
 
         
         /*
