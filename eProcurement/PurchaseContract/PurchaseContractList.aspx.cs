@@ -13,7 +13,7 @@ using System.Web.UI.HtmlControls;
 using eProcurement_BLL;
 using eProcurement_DAL;
 
-public partial class PurchaseContract_PurchaseContractList : System.Web.UI.Page
+public partial class PurchaseContract_PurchaseContractList :BaseForm 
 {
     protected void Page_Load(object sender, EventArgs e)
     {
