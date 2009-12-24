@@ -8,6 +8,14 @@ namespace eProcurement_BLL.PurchaseOrder
 {
     public class OrderHeaderController
     {
+        MainController mainController = null;
+        public OrderHeaderController(MainController mainController) 
+        {
+            this.mainController = mainController;
+        }
+
+
+        
         /*
       public static Collection<PurchaseOrderHeader> GetPendingAckPOList(string orderNumber,DateTime startDate,DateTime endDate,string status)
       {
