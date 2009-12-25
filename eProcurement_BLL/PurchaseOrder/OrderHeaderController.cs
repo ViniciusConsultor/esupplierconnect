@@ -72,7 +72,7 @@ namespace eProcurement_BLL.PurchaseOrder
             }
         }
 
-        public Collection<PurchaseOrderHeader> GetPendingConfirmPOList(string orderNumber, Nullable<long> fromDate, Nullable<long> toDate, string supplierId)
+        public Collection<PurchaseOrderHeader> GetPendingConfirmPOList(string orderNumber, Nullable<long> fromDate, Nullable<long> toDate, string buyerName, string supplierId)
         {
             try
             {
@@ -88,6 +88,91 @@ namespace eProcurement_BLL.PurchaseOrder
                 if (orderNumber != "")
                 {
                     whereCluase += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
+                }
+                if (buyerName != "")
+                {
+                    whereCluase += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
+                } 
+                if (supplierId != "")
+                {
+                    whereCluase += " AND LIFNR like '" + Utility.EscapeSQL(supplierId) + "' ";
+                }
+                if (fromDate.HasValue)
+                {
+                    whereCluase += " AND BEDAT >= " + fromDate.Value;
+                }
+                if (toDate.HasValue)
+                {
+                    whereCluase += " AND BEDAT <= " + toDate.Value;
+                }
+
+                orderCluase = " EBELN asc ";
+                return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereCluase, orderCluase);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
+        public Collection<PurchaseOrderHeader> EnquiryPOList(string orderNumber, Nullable<long> fromDate, Nullable<long> toDate, string buyerName, string supplierId,string status)
+        {
+            try
+            {
+                string whereCluase = "";
+                string orderCluase = "";
+
+                whereCluase = " isnull(STAT,'') <> '" + POStatus.Delete + "' ";
+
+                if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Supplier, true) == 0) 
+                {
+                    whereCluase += " AND LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
+                }
+                
+                if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Buyer, true) == 0)
+                {
+                    //pending filter by purchase group
+                }
+
+                if (status != "")
+                {
+                    //Pending Acknowledgement
+                    if (string.Compare(status, "PA", true) == 0) 
+                    {
+                        whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
+                    }
+
+                    //Pending Confirm Order Acknowledgement
+                    if (string.Compare(status, "PC", true) == 0)
+                    {
+                        whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
+                        whereCluase += " AND isnull(RECSTS,'') <> '" + PORecStatus.Accept + "' ";
+                    }
+
+                    //Accepted
+                    if (string.Compare(status, "AC", true) == 0)
+                    {
+                        whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
+                        whereCluase += " AND isnull(RECSTS,'') = '" + PORecStatus.Accept + "' ";
+                    }
+
+                    //Accepted
+                    if (string.Compare(status, "RE", true) == 0)
+                    {
+                        //whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
+                        whereCluase += " AND isnull(RECSTS,'') = '" + PORecStatus.Reject + "' ";
+                    }
+                   
+                }
+
+                if (orderNumber != "")
+                {
+                    whereCluase += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
+                }
+                if (buyerName != "")
+                {
+                    whereCluase += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
                 }
                 if (supplierId != "")
                 {
