@@ -274,10 +274,6 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p18);
             p18.Value = entity.RecordStatus;
 
-            SqlParameter p19 = new SqlParameter("@RECSTS", SqlDbType.Char, 1);
-            cm.Parameters.Add(p19);
-            p19.Value = entity.RecordStatus;
-
             SqlParameter p20 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p20);
             p20.Value = entity.AcknowledgementStatus;
@@ -412,9 +408,7 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p17);
             p17.Value = entity.AcknowledgementStatus;
 
-             SqlParameter p18 = new SqlParameter("@EBELN", SqlDbType.Char, 1);
-            cm.Parameters.Add(p18);
-            p18.Value = entity.AcknowledgementStatus;
+ 
 
             SqlParameter p19 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p19);
