@@ -37,6 +37,10 @@
       <TITLE>Enquiry Order (Buyer)</TITLE>
       <HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=B-0002</HREF>
     </ITEM>
+    <ITEM FID="B-0011">
+      <TITLE>View Shortage List</TITLE>
+      <HREF>~/PurchaseOrder/MaterialShortageList.aspx</HREF>
+    </ITEM>
 	</ITEM>
 	<ITEM>
 		<TITLE>User Profile</TITLE>

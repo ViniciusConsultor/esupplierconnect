@@ -24,4 +24,4 @@ Default skin template. The following skins are provided as examples only.
 <asp:Button  runat="server" ForeColor="buttontext"  CssClass="formbutton"/>
 <asp:CheckBox runat="server" CssClass="checkbox"/>
 <asp:Label runat="server" CssClass="label"></asp:Label>
-<asp:TextBox runat="server" CssClass="textbox" Width="400px"></asp:TextBox>
+<asp:TextBox runat="server" CssClass="textbox" Width="200px"></asp:TextBox>

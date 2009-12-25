@@ -14,20 +14,20 @@
         <asp:Label runat="server" ID="lblMessage" CssClass="" Visible="True"></asp:Label>
 </asp:Panel>
 <!--Search Criteria Panel-->
+<br />
  <asp:Panel ID="plSearch" runat="server" Visible="true">
     <table id="GreyTable" cellspacing="0" cellpadding="0" width="820" border="0">
         <tr>
-                <td align="left" nowrap Width="130px">
-                            <asp:Label ID="lblMAterialNo" runat="server" Text="Material Number"></asp:Label>
-                        </td> 
-                        <td  align="left" style="width: 100%;">
-                            <asp:TextBox runat="server" id="txtSupplier"></asp:TextBox>
-                            <img style="cursor: hand; vertical-align:middle" id="img1" height="20" src="../Images/Common/Search.gif" runat="server" />
-                            <asp:Button ID="btnFilter" runat="server" Text="Filter"/>
-                            <asp:Button ID="btnShowAll" runat="server" Text="Show All"/>
-                        </td>
-                    </tr>
-                    
+            <td align="left" nowrap Width="130px">
+                    <asp:Label ID="lblMAterialNo" runat="server" Text="Material Number"></asp:Label>
+            </td> 
+            <td  align="left" style="width: 100%;">
+                <asp:TextBox runat="server" id="txtSupplier"></asp:TextBox>
+                <img style="cursor: hand; vertical-align:middle" id="img1" height="20" src="../Images/Common/Search.gif" runat="server" />
+                <asp:Button ID="btnFilter" runat="server" Text="Filter"/>
+                <asp:Button ID="btnShowAll" runat="server" Text="Show All"/>
+            </td>
+        </tr>
     </table>
 </asp:Panel> 
     <br />
@@ -45,7 +45,7 @@
   <table cellspacing="0" cellpadding="0" width="820" border="0">
         <tr>
 	        <td valign="top" colspan="10" style="height: 17px">
-                <asp:Repeater ID="gvItem" runat="server">
+                <asp:Repeater ID="gvItem" runat="server" OnItemDataBound="gvItem_ItemDataBound">
                     <HeaderTemplate>
                         <table width="100%">
                          
@@ -55,7 +55,7 @@
 	                            <td rowspan =2 style="vertical-align:middle; text-align:center;" width="20%">Material Description</td>
 	                            <td rowspan =2 style="vertical-align:middle; text-align:center;" width="10%">Shortage/<BR>Quantity</td>
 	                            <td rowspan =2 style="vertical-align:middle; text-align:center;" width="8%">Unit of Masurement</td>
-	                            <td  colspan =3 style="vertical-align:middle; text-align:center;" width="8%">Material Stock</td>
+	                            <td colspan =3 style="vertical-align:middle; text-align:center;" width="8%">Material Stock</td>
 	                        </tr>
 	                       <tr class="gridHeader"  style="height:25px">
 	                           <td style="vertical-align:middle; text-align:center;" width="8%">Plant</td>
@@ -70,29 +70,19 @@
                                         <tr>
                                             <td>&nbsp;</td>
                                             <td Width="100%" nowrap="nowrap">
-                                                <asp:Label ID="lblItemSequence" runat="server" CssClass="" Text='<%# Eval("PurchaseItemSequenceNumber") %> '></asp:Label> 
+                                                <asp:Label ID="lblSN" runat="server" CssClass="" Text='<%#DataBinder.Eval(Container, "ItemIndex", "")%>'></asp:Label>
                                             </td>
                                            <td>&nbsp;</td>
                                         </tr>
-                                        <tr>
-                                            <td>&nbsp;</td>
-                                            <td Width="100%" nowrap="nowrap">
-                                              <a href="">Texts</a>
-                                            </td>
-                                           <td>&nbsp;</td>
-                                        </tr> 
                                     </table>  
 	                            </td>
 	                            <td>
                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
-                                          
                                             <td Width="100%" nowrap="nowrap">
                                                 <asp:Label ID="lblMaterialNumber" runat="server" CssClass="" Text='<%# Eval("MaterialNumber") %> '></asp:Label> 
                                             </td>
-                                          
                                         </tr>
-                                        
                                     </table>  
                                </td> 
                                 <td>
@@ -108,7 +98,7 @@
                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
                                             <td Width="100%" align="right">
-                                                <asp:Label ID="lblShortageQty" runat="server" CssClass="" Text='<%# Eval("ShortageQty") %>'></asp:Label>
+                                                <asp:Label ID="lblShortageQty" runat="server" CssClass="" Text='<%# Eval("shortageQuantity") %>'></asp:Label>
                                             </td>                                           
                                         </tr>
                                     </table> 
@@ -117,7 +107,7 @@
                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>                                            
                                             <td Width="100%" align="right">
-                                                <asp:Label ID="lblUOM" runat="server" CssClass="" Text='<%# Eval("UOM") %>'></asp:Label>
+                                                <asp:Label ID="lblUOM" runat="server" CssClass="" Text='<%# Eval("UnitOfMeasure") %>'></asp:Label>
                                             </td>                                           
                                         </tr>
                                     </table> 
@@ -166,7 +156,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblOrderNo" runat="server" CssClass="" Text='<%# Eval("OrderNo") %> '></asp:Label> 
+                                                                <asp:Label ID="lblOrderNo" runat="server" CssClass="" Text='<%# Eval("OrderNumber") %> '></asp:Label> 
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -236,7 +226,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblExpediteDate" runat="server" CssClass="" Text='<%# Eval("ExpediteDate") %> '></asp:Label> 
+                                                                <asp:Label ID="lblExpediteDate" runat="server" CssClass="" Text='<%# Eval("ExpeditDate") %> '></asp:Label> 
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
