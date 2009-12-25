@@ -322,7 +322,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            PurchaseOrderItem checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.PurchaseItemSequenceNumber);
+            PurchaseOrderItem checkEntity = RetrieveByKey(epTran, entity.PurchaseOrderNumber, entity.PurchaseItemSequenceNumber);
             if (checkEntity == null)
             {
                 throw new Exception("Record doesn't exist.");
@@ -411,6 +411,18 @@ namespace eProcurement_DAL
             SqlParameter p17 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p17);
             p17.Value = entity.AcknowledgementStatus;
+
+             SqlParameter p18 = new SqlParameter("@EBELN", SqlDbType.Char, 1);
+            cm.Parameters.Add(p18);
+            p18.Value = entity.AcknowledgementStatus;
+
+            SqlParameter p19 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
+            cm.Parameters.Add(p19);
+            p19.Value = entity.PurchaseOrderNumber;
+
+            SqlParameter p20 = new SqlParameter("@EBELP", SqlDbType.Char, 5);
+            cm.Parameters.Add(p20);
+            p20.Value = entity.PurchaseItemSequenceNumber;
 
             cm.ExecuteNonQuery();
 
