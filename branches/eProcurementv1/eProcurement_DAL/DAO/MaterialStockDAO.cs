@@ -425,22 +425,22 @@ namespace eProcurement_DAL
                 entity.MaterialNumber = rd["MATNR"].ToString();
                 entity.Plant = rd["WERKS"].ToString();
 
-                if (rd.IsDBNull(3))
+                if (rd.IsDBNull(2))
                     entity.MaterialDescription = null;
                 else
                     entity.MaterialDescription = rd["MAKTX"].ToString();
 
-                if (rd.IsDBNull(4))
+                if (rd.IsDBNull(3))
                     entity.UnrestrictedStock = null;
                 else
                     entity.UnrestrictedStock = System.Convert.ToDecimal(rd["LABST"].ToString());
 
-                if (rd.IsDBNull(5))
+                if (rd.IsDBNull(4))
                     entity.InspectionStock = null;
                 else
                     entity.InspectionStock = Convert.ToDecimal(rd["QINSP"].ToString());
 
-                if(rd.IsDBNull(6))
+                if(rd.IsDBNull(5))
                     entity.UnitOfMeasure = null;
                 else
                     entity.UnitOfMeasure= rd["MEINS"].ToString();
