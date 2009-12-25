@@ -14,92 +14,112 @@ namespace eProcurement_BLL.PurchaseOrder
             this.mainController = mainController;
         }
 
-        
-        /*
-       public static Collection<PurchaseOrderItem> GetPurchaseOrderItems(string orderNumber)
-       {
-           try
-           {
-               string whereCluase = "";
-               string orderCluase = "";
-               whereCluase = " EBELN = '" + Utility.EscapeSQL(orderNumber) + "'";
-               orderCluase = " EBELP asc ";
-               return PurchaseOrderItemDAO.RetrieveByQuery(whereCluase, orderCluase);
-           }
-           catch (Exception ex)
-           {
-               Utility.ExceptionLog(ex);
-               throw (ex);
-           }
-       }
+        public PurchaseOrderItem GetPurchaseOrderItem(string orderNumber,string itemSeq)
+        {
+            try
+            {
+                return mainController.GetDAOCreator().CreatePurchaseOrderItemDAO()
+                    .RetrieveByKey(orderNumber, itemSeq);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
 
-       public static Collection<PurchaseOrderItemSchedule> GetPurchaseOrderScheduleItems(string orderNumber, string ItemSequenceNo)
-       {
-           try
-           {
-               string whereCluase = "";
-               string orderCluase = "";
-               whereCluase = " EBELN = '" + Utility.EscapeSQL(orderNumber) + "' AND EBELP='" + Utility.EscapeSQL(ItemSequenceNo) + "' ";
-               orderCluase = " ETENR asc ";
-               return PurchaseOrderItemScheduleDAO.RetrieveByQuery(whereCluase, orderCluase);
-           }
-           catch (Exception ex)
-           {
-               Utility.ExceptionLog(ex);
-               throw (ex);
-           }
-       }
+        public Collection<PurchaseOrderItem> GetPurchaseOrderItems(string orderNumber)
+        {
+            try
+            {
+                string whereClause = " EBELN='" + Utility.EscapeSQL(orderNumber) + "' ";
+                whereClause += " AND isnull(STS2,'')<>'D' ";
+                string orderClause = " EBELP asc ";
 
-       public static Collection<PurchaseItemText> GetPurchaseItemTexts(string orderNumber, string ItemSequenceNo)
-       {
-           try
-           {
-               string whereCluase = "";
-               string orderCluase = "";
-               whereCluase = " EBELN = '" + Utility.EscapeSQL(orderNumber) + "' AND EBELP='" + Utility.EscapeSQL(ItemSequenceNo) + "' ";
-               orderCluase = " TXTITM asc ";
-               return PurchaseItemTextDAO.RetrieveByQuery(whereCluase, orderCluase);
-           }
-           catch (Exception ex)
-           {
-               Utility.ExceptionLog(ex);
-               throw (ex);
-           }
-       }
+                return mainController.GetDAOCreator().
+                    CreatePurchaseOrderItemDAO().RetrieveByQuery(whereClause, orderClause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
 
-       public static Collection<PurchaseOrderSubcontractComponent> GetPurchaseOrderSubcontractComponents(string orderNumber, string ItemSequenceNo)
-       {
-           try
-           {
-               string whereCluase = "";
-               string orderCluase = "";
-               whereCluase = " EBELN = '" + Utility.EscapeSQL(orderNumber) + "' AND EBELP='" + Utility.EscapeSQL(ItemSequenceNo) + "' ";
-               orderCluase = " COMPL asc ";
-               return PurchaseOrderSubcontractComponentDAO.RetrieveByQuery(whereCluase, orderCluase);
-           }
-           catch (Exception ex)
-           {
-               Utility.ExceptionLog(ex);
-               throw (ex);
-           }
-       }
+        public Collection<PurchaseOrderItemSchedule> GetPurchaseOrderItemSchedules(string orderNumber, string itemSeq)
+        {
+            try
+            {
+                string whereClause = " EBELN='" + Utility.EscapeSQL(orderNumber) + "' ";
+                whereClause += " AND EBELP='" + Utility.EscapeSQL(itemSeq) + "' ";
+                whereClause += " AND isnull(RECSTS,'')<>'D' ";
+                string orderClause = " ETENR asc ";
 
-       public static Collection<PurchaseOrderServiceItem> GetPurchaseOrderServiceItem(string orderNumber, string ItemSequenceNo)
-       {
-           try
-           {
-               string whereCluase = "";
-               string orderCluase = "";
-               whereCluase = " EBELN = '" + Utility.EscapeSQL(orderNumber) + "' AND EBELP='" + Utility.EscapeSQL(ItemSequenceNo) + "' ";
-               orderCluase = " LBLN1 asc ";
-               return PurchaseOrderServiceItemDAO.RetrieveByQuery(whereCluase, orderCluase);
-           }
-           catch (Exception ex)
-           {
-               Utility.ExceptionLog(ex);
-               throw (ex);
-           }
-       }    
-        */
+                return mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO()
+                    .RetrieveByQuery(whereClause, orderClause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
+        public Collection<PurchaseItemText> GetPurchaseItemTexts(string orderNumber, string itemSeq)
+        {
+            try
+            {
+                string whereClause = " EBELN='" + Utility.EscapeSQL(orderNumber) + "' ";
+                whereClause += " AND EBELP='" + Utility.EscapeSQL(itemSeq) + "' ";
+                whereClause += " AND isnull(RECSTS,'')<>'D' ";
+                string orderClause = " TXTITM asc ";
+
+                return mainController.GetDAOCreator().
+                    CreatePurchaseItemTextDAO().RetrieveByQuery(whereClause, orderClause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
+        public Collection<SubcontractorMaterial> GetPurchaseOrderSubcontractComponents(string orderNumber, string itemSeq)
+        {
+            try
+            {
+                string whereClause = " EBELN='" + Utility.EscapeSQL(orderNumber) + "' ";
+                whereClause += " AND EBELP='" + Utility.EscapeSQL(itemSeq) + "' ";
+                whereClause += " AND isnull(STS,'')<>'D' ";
+                string orderClause = " COMPL asc ";
+
+                return mainController.GetDAOCreator().CreateSubcontractorMaterialDAO()
+                    .RetrieveByQuery(whereClause, orderClause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
+        public Collection<PurchaseOrderServiceItem> GetPurchaseOrderServiceItems(string orderNumber, string itemSeq)
+        {
+            try
+            {
+                string whereClause = " EBELN='" + Utility.EscapeSQL(orderNumber) + "' ";
+                whereClause += " AND EBELP='" + Utility.EscapeSQL(itemSeq) + "' ";
+                whereClause += " AND isnull(RECSTS,'')<>'D' ";
+                string orderClause = " LBLN1 asc ";
+
+                return mainController.GetDAOCreator().
+                    CreatePurchaseOrderServiceItemDAO().RetrieveByQuery(whereClause, orderClause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }    
     }
 }

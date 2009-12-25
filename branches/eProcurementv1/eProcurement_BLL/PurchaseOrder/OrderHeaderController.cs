@@ -14,6 +14,28 @@ namespace eProcurement_BLL.PurchaseOrder
             this.mainController = mainController;
         }
 
+        public PurchaseOrderHeader GetPurchaseOrderHeader(string orderNumber)
+        {
+            return mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByKey(orderNumber);
+        }
+
+        public Collection<PurchaseHeaderText> GetPurchaseOrderHeaderText(string orderNumber)
+        {
+            try
+            {
+                string whereClause = " EBELN='" + Utility.EscapeSQL(orderNumber) + "' ";
+                whereClause += " AND isnull(RECSTS,'')<>'D' ";
+                string orderClause = " TXTITM asc ";
+                return mainController.GetDAOCreator().
+                    CreatePurchaseHeaderTextDAO().RetrieveByQuery(whereClause, orderClause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
         public Collection<PurchaseOrderHeader> GetPendingAckPOList(string orderNumber, Nullable<long> fromDate, Nullable<long> toDate,string buyerName)
         {
             try
@@ -50,68 +72,94 @@ namespace eProcurement_BLL.PurchaseOrder
             }
         }
 
+        public Collection<PurchaseOrderHeader> GetPendingConfirmPOList(string orderNumber, Nullable<long> fromDate, Nullable<long> toDate, string supplierId)
+        {
+            try
+            {
+                string whereCluase = "";
+                string orderCluase = "";
+                whereCluase = " isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
+                whereCluase += " AND isnull(RECSTS,'') <> '" + PORecStatus.Accept + "' ";
+                whereCluase += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
 
-        
-        /*
-      public static Collection<PurchaseOrderHeader> GetPendingAckPOList(string orderNumber,DateTime startDate,DateTime endDate,string status)
-      {
-          try
-          {
-              string whereCluase = "";
-              string orderCluase = "";
-              whereCluase = " ACKSTS = '" + POAckStatus.PendingAcknowledge + "'";
-              if (orderNumber != "") 
-              {
-                  whereCluase += " AND EBELN = '" + Utility.EscapeSQL(orderNumber) + "' ";
-              }
-              if (startDate != DateTime.MinValue)
-              {
-                  whereCluase += " AND BEDAT >= " + Utility.GetStoredDateValue(startDate);
-              }
-              if (endDate != DateTime.MinValue)
-              {
-                  whereCluase += " AND BEDAT <= " + Utility.GetStoredDateValue(endDate);
-              }
-                
-              orderCluase = " EBELN asc ";
-              return PurchaseOrderHeaderDAO.RetrieveByQuery(whereCluase, orderCluase);
-          }
-          catch (Exception ex)
-          {
-              Utility.ExceptionLog(ex);
-              throw (ex);
-          }
-      }
+                //pending filter by purchase group
 
-      public static Collection<PurchaseOrderHeaderText> GetPurchaseOrderHeaderText(string orderNumber)
-      {
-          try
-          {
-              string whereCluase = "";
-              string orderCluase = "";
-              whereCluase = " EBELN = '" + Utility.EscapeSQL(orderNumber) + "'";
-              orderCluase = " TXTITM asc ";
-              return PurchaseOrderHeaderTextDAO.RetrieveByQuery(whereCluase, orderCluase);
-          }
-          catch (Exception ex)
-          {
-              Utility.ExceptionLog(ex);
-              throw (ex);
-          }
-      }
 
-      public static void AcknowledgePurchaseOrder(PurchaseOrderHeader header,Collection<PurchaseOrderItemSchedule> schedules) 
-      {
+                if (orderNumber != "")
+                {
+                    whereCluase += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
+                }
+                if (supplierId != "")
+                {
+                    whereCluase += " AND LIFNR like '" + Utility.EscapeSQL(supplierId) + "' ";
+                }
+                if (fromDate.HasValue)
+                {
+                    whereCluase += " AND BEDAT >= " + fromDate.Value;
+                }
+                if (toDate.HasValue)
+                {
+                    whereCluase += " AND BEDAT <= " + toDate.Value;
+                }
+
+                orderCluase = " EBELN asc ";
+                return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereCluase, orderCluase);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
+        public void AcknowledgePurchaseOrder(Collection<PurchaseOrderItemSchedule> schedules) 
+        {
           try
           {
               EpTransaction tran = DataManager.BeginTransaction();
               try
               {
-                  PurchaseOrderHeaderDAO.Update(tran, header);
+                  string orderNumber = schedules[0].PurchaseOrderNumber;
+                  string itemSeq = "";
+                  string scheduleSeq = "";
 
-                  foreach (PurchaseOrderItemSchedule schedule in schedules)
+                  PurchaseOrderHeader header = mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO()
+                      .RetrieveByKey(tran,orderNumber);
+
+                  //Check whether the order has already been acknowledged 
+                  if (string.Compare(header.AcknowledgeStatus, POAckStatus.Yes, true) == 0) 
                   {
-                      PurchaseOrderItemScheduleDAO.Update(tran, schedule);
+                      throw new Exception("The order has already been acknowledged by other user."); 
+                  }
+
+                  //Update Order header
+                  header.AcknowledgeStatus = POAckStatus.Yes;
+                  header.RecordStatus = "";
+                  mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, header);
+
+                  //Update Order Item
+                  foreach (PurchaseOrderItemSchedule schedule in schedules) 
+                  {
+                      scheduleSeq = schedule.PurchaseOrderScheduleSequence;
+
+                      //Update Order Item
+                      if (string.Compare(itemSeq, schedule.PurchaseOrderItemSequence, false) != 0) 
+                      {
+                          PurchaseOrderItem item = mainController.GetDAOCreator().CreatePurchaseOrderItemDAO()
+                              .RetrieveByKey(tran, orderNumber, schedule.PurchaseOrderItemSequence);
+                          item.AcknowledgementStatus = POAckStatus.Yes;
+                          mainController.GetDAOCreator().CreatePurchaseOrderItemDAO().Update(tran, item);
+                          itemSeq = schedule.PurchaseOrderItemSequence;
+                      }
+
+                      //Update Order Item Schedule
+                      scheduleSeq = schedule.PurchaseOrderScheduleSequence;
+                      PurchaseOrderItemSchedule scheduleUpdt = mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO()
+                          .RetrieveByKey(tran, orderNumber, schedule.PurchaseOrderItemSequence, scheduleSeq);
+                      scheduleUpdt.AcknowledgementDate = schedule.AcknowledgementDate;
+                      mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO()
+                          .Update(tran, scheduleUpdt);
+
                   }
                   tran.Commit(); 
               }
@@ -130,7 +178,54 @@ namespace eProcurement_BLL.PurchaseOrder
               Utility.ExceptionLog(ex);
               throw (ex);
           }
-      }
-       * */
+        }
+
+        public void ConfirmOrderAcknowledgement(string orderNumber,bool accept)
+        {
+            try
+            {
+                EpTransaction tran = DataManager.BeginTransaction();
+                try
+                {
+
+                    PurchaseOrderHeader header = mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO()
+                        .RetrieveByKey(tran, orderNumber);
+
+                    //Check whether the order has already been acknowledged 
+                    if (!string.IsNullOrEmpty(header.RecordStatus.Trim()))
+                    {
+                        throw new Exception("The order has already been accepted or rejected by other user.");
+                    }
+
+                    //Update Order header
+                    header.AcknowledgeStatus = POAckStatus.No;
+                    if (accept)
+                        header.RecordStatus = PORecStatus.Accept;
+                    else 
+                    {
+                        header.AcknowledgeStatus = POAckStatus.No;
+                        header.RecordStatus = PORecStatus.Reject;
+                    }
+
+                    mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, header);
+
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw (ex);
+                }
+                finally
+                {
+                    tran.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
     }
 }
