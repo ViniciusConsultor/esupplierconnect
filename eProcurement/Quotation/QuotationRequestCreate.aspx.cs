@@ -78,8 +78,8 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionIdColl.Add("S-0001");
-                base.m_FunctionIdColl.Add("B-0001");
+                base.m_FunctionIdColl.Add("S-0010");
+                
 
                 string functionId = Request.QueryString["FunctionId"];
                 if (string.IsNullOrEmpty(functionId))
@@ -88,10 +88,10 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                 }
                 else
                 {
-                    if (string.Compare(functionId, "S-0001", true) == 0)
+                    if (string.Compare(functionId, "S-0010", true) == 0)
                     {
-                        m_FuncFlag = "QTR";
-                        base.m_FunctionId = "S-0001";
+                        m_FuncFlag = "CreateRFQ";
+                        base.m_FunctionId = "S-0010";
                     }
                    
                 }
@@ -123,17 +123,21 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     }
     private void InitItems()
     {
-        Collection<MaterialStock> items = mainController.GetDAOCreator().
+        Collection<MaterialStock> items = mainController.GetDAOCreator();
             CreateMaterialStockDAO().RetrieveAll();
+        
         ddlMaterialNo.DataSource = items;
+        ddlMaterialNo.DataTextField = "";
+        ddlMaterialNo.DataValueField ="";
         ddlMaterialNo.DataBind();
+        
 
     }
     private void InitPage()
     {
         try
         {
-            if (string.Compare(m_FuncFlag, "QTR", false) == 0)
+            if (string.Compare(m_FuncFlag, "CreateRFQ", false) == 0)
             {
                 lblSubPath.Text = "Quotation Request Create";
             }         
