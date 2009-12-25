@@ -113,6 +113,8 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                 }
                 base.Page_Load(sender, e);
                 /***************************************************/
+                imgSupplierSearch.Attributes.Add("onclick", "OpenSupplierDialog('" + txtSupplierId.ClientID + "')");
+                imgSupplierSearch.Attributes.Add("style", "cursor: hand");
 
                 //Initialize Page
                 InitPage();
