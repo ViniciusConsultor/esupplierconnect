@@ -6,7 +6,7 @@
 // ISS M.TECH SE16 Batch
 //
 // Note: 
-//    1. This class enables to provide methods for accessing database table [puitxt]  
+//    1. This class enables to provide methods for accessing database table [puritxt]  
 //       -Insert, Delete Update and Retrieve.
 //	  
 // Revision History:
@@ -29,7 +29,7 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    ///<summary>Data Access Object - Database table [puitxt]</summary>
+    ///<summary>Data Access Object - Database table [puritxt]</summary>
     public class PurchaseItemTextDAO : IPurchaseItemTextDAO
     {
         #region RetrieveAll
@@ -140,9 +140,9 @@ namespace eProcurement_DAL
         /// <summary>
         /// Retrieve a record from database table for the given primary key(s)
         /// </summary>
-        /// <param name="orderNumber">Order Number: puitxt.EBELN</param>
-        /// <param name="itemSequence">Item Sequence: puitxt.EBELP</param>
-        /// <param name="textSequence">Text Sequence: puitxt.TXTITM</param>
+        /// <param name="orderNumber">Order Number: puritxt.EBELN</param>
+        /// <param name="itemSequence">Item Sequence: puritxt.EBELP</param>
+        /// <param name="textSequence">Text Sequence: puritxt.TXTITM</param>
         /// <returns>
         /// PurchaseItemText Object
         /// </returns>
@@ -155,9 +155,9 @@ namespace eProcurement_DAL
         /// Retrieve a record from database table for the given primary key(s)
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
-        /// <param name="orderNumber">Order Number: puitxt.EBELN</param>
-        /// <param name="itemSequence">Item Sequence: puitxt.EBELP</param>
-        /// <param name="textSequence">Text Sequence: puitxt.TXTITM</param>
+        /// <param name="orderNumber">Order Number: puritxt.EBELN</param>
+        /// <param name="itemSequence">Item Sequence: puritxt.EBELP</param>
+        /// <param name="textSequence">Text Sequence: puritxt.TXTITM</param>
         /// <returns>
         /// PurchaseItemText Object
         /// </returns>
@@ -217,7 +217,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO puitxt ([EBELN],[EBELP],[TXTITM],[LTXT]) VALUES(@EBELN,@EBELP,@TXTITM,@LTXT)";
+            cm.CommandText = "INSERT INTO puritxt ([EBELN],[EBELP],[TXTITM],[LTXT]) VALUES(@EBELN,@EBELP,@TXTITM,@LTXT)";
             SqlParameter p1 = new SqlParameter("@LTXT", SqlDbType.NVarChar, 255);
             cm.Parameters.Add(p1);
             p1.Value = entity.LongText;
@@ -278,7 +278,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE puitxt SET LTXT=@LTXT,WHERE EBELN=@EBELN AND EBELP=@EBELP AND TXTITM=@TXTITM";
+            cm.CommandText = "UPDATE puritxt SET LTXT=@LTXT,WHERE EBELN=@EBELN AND EBELP=@EBELP AND TXTITM=@TXTITM";
             SqlParameter p1 = new SqlParameter("@LTXT", SqlDbType.NVarChar, 255);
             cm.Parameters.Add(p1);
             p1.Value = entity.LongText;
@@ -340,7 +340,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "DELETE FROM puitxt WHERE EBELN=@EBELN AND EBELP=@EBELP AND TXTITM=@TXTITM";
+            cm.CommandText = "DELETE FROM puritxt WHERE EBELN=@EBELN AND EBELP=@EBELP AND TXTITM=@TXTITM";
             SqlParameter p3 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p3);
             p3.Value = entity.OrderNumber;
@@ -388,7 +388,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [EBELN],[EBELP],[TXTITM],[LTXT] FROM puitxt";
+            string selectCommand = "SELECT [EBELN],[EBELP],[TXTITM],[LTXT] FROM puritxt";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
