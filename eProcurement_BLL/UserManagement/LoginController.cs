@@ -95,7 +95,7 @@ namespace eProcurement_BLL.UserManagement
                 loginUserVO.Role = user.UserRole;
                 if (!string.IsNullOrEmpty(user.SupplierID))
                 {
-                    Supplier supplier = mainController.GetDAOCreator().CreateSupplierDAO().RetrieveByKey(user.SupplierID);
+                    Supplier supplier = mainController.GetSupplierController().GetSupplier(user.SupplierID);
                     loginUserVO.SupplierName = supplier.SupplierName;
                     loginUserVO.SupplierAddr = supplier.SupplierAddress + " " + supplier.City + " " + supplier.PostalCode;
                 }
