@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageSimple.master" AutoEventWireup="true" CodeFile="PurchaseOrderHeaderText.aspx.cs" Inherits="PurchaseOrder_PurchaseOrderHeaderText" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageSimple.master" AutoEventWireup="true" CodeFile="PurchaseOrderHeaderText.aspx.cs" Inherits="PurchaseOrder_PurchaseOrderHeaderText" Title="eProcurement System"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
     <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
         <asp:TableHeaderRow>
@@ -143,7 +143,7 @@
         <tr>
             <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
             <td nowrap="nowrap">
-                <Input class="formbutton" type=button name="rtnbtn" value="Return" onclick="javascript:window.close();">
+                <Input class="formbutton" type=button name="rtnbtn" value="Close" onclick="javascript:window.close();">
             </td>
             <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
         </tr> 

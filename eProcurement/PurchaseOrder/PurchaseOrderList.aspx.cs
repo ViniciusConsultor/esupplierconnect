@@ -231,6 +231,12 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
 
         if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
         {
+            poColl = mainController.GetOrderHeaderController().GetPendingConfirmPOList
+            (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.FromDate, m_SearchCriteriaVO.ToDate, m_SearchCriteriaVO.SupplierId);
+        }
+
+        if (string.Compare(m_FuncFlag, "VIEW_ORDER", false) == 0)
+        {
             poColl = mainController.GetOrderHeaderController().GetPendingAckPOList
             (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.FromDate, m_SearchCriteriaVO.ToDate, m_SearchCriteriaVO.BuyerName);
         }
@@ -263,7 +269,7 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
             string url = "";
             if (string.Compare(m_FuncFlag, "ACK_ORDER", false) == 0)
             {
-                url = "~/PurchaseOrder/PurchaseOrderACK.aspx?FunctionId=" + base.m_FunctionId;
+                url = "~/PurchaseOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
                 url += "&OrderNumber=" + m_SearchCriteriaVO.OrderNumber;
                 if (m_SearchCriteriaVO.FromDate.HasValue)
                 {
@@ -280,7 +286,20 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
             }
             if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
             {
-               
+                url = "~/PurchaseOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
+                url += "&OrderNumber=" + m_SearchCriteriaVO.OrderNumber;
+                if (m_SearchCriteriaVO.FromDate.HasValue)
+                {
+                    url += "&FormDate=" + m_SearchCriteriaVO.FromDate.Value.ToString();
+                }
+                if (m_SearchCriteriaVO.ToDate.HasValue)
+                {
+                    url += "&ToDate=" + m_SearchCriteriaVO.ToDate.Value.ToString();
+                }
+                url += "&SupplierId=" + m_SearchCriteriaVO.SupplierId;
+                url += "&PageIdx=" + gvData.PageIndex.ToString();
+
+                Session[SessionKey.OrderNumber] = orderNo;
             }
 
             if(url!=null)

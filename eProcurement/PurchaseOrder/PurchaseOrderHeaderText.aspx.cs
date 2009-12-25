@@ -29,7 +29,7 @@ public partial class PurchaseOrder_PurchaseOrderHeaderText : BaseForm
             if (!IsPostBack)
             {
                 InitPOHeader();
-                InitwHeaderText();
+                InitHeaderText();
             }
         }
         catch (Exception ex)
@@ -43,14 +43,14 @@ public partial class PurchaseOrder_PurchaseOrderHeaderText : BaseForm
 
     private void InitPOHeader()
     {
-        PurchaseOrderHeader poHeader = mainController.GetDAOCreator().
-            CreatePurchaseOrderHeaderDAO().RetrieveByKey(Session[SessionKey.OrderNumber].ToString());
+        PurchaseOrderHeader poHeader = mainController.GetOrderHeaderController().
+              GetPurchaseOrderHeader(Session[SessionKey.OrderNumber].ToString());
         if (poHeader == null)
         {
             throw new Exception("Invalid Order Number.");
         }
 
-        Supplier supplier = mainController.GetDAOCreator().CreateSupplierDAO().RetrieveByKey(poHeader.SupplierId);
+        Supplier supplier = mainController.GetSupplierController().GetSupplier(poHeader.SupplierId);
 
         lblSupplierName.Text = supplier.SupplierName;
         lblSupplierAddress.Text = supplier.SupplierAddress;
@@ -74,13 +74,13 @@ public partial class PurchaseOrder_PurchaseOrderHeaderText : BaseForm
         lblRemarks.Text = poHeader.Remarks;
     }
 
-    private void InitwHeaderText()
+    private void InitHeaderText()
     {
         string whereClause = " EBELN='" + Session[SessionKey.OrderNumber].ToString() + "' ";
         whereClause += " AND isnull(RECSTS,'')<>'D' ";
         string orderClause = " TXTITM asc ";
-        Collection<PurchaseHeaderText> texts = mainController.GetDAOCreator().
-            CreatePurchaseHeaderTextDAO().RetrieveByQuery(whereClause, orderClause);
+        Collection<PurchaseHeaderText> texts = mainController.GetOrderHeaderController()
+            .GetPurchaseOrderHeaderText(Session[SessionKey.OrderNumber].ToString());
         gvData.DataSource = texts;
         gvData.DataBind();
     }
