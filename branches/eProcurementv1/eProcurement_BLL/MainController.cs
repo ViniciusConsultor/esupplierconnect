@@ -29,6 +29,7 @@ namespace eProcurement_BLL
         private LoginController loginController = null;
         private OrderHeaderController orderHeaderController = null;
         private OrderItemController orderItemController = null;
+        private SupplierController supplierController = null;
 
         public MainController()
         {
@@ -70,6 +71,13 @@ namespace eProcurement_BLL
             if (this.orderItemController == null)
                 this.orderItemController = new OrderItemController(this);
             return this.orderItemController;
+        }
+
+        public SupplierController GetSupplierController()
+        {
+            if (this.supplierController == null)
+                this.supplierController = new SupplierController(this);
+            return this.supplierController;
         }
 
     }
