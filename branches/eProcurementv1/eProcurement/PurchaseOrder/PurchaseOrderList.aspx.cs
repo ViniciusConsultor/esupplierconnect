@@ -45,6 +45,7 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
         public Nullable<long> ToDate;
         public string SupplierId;
         public string BuyerName;
+        public string Status;
     }
 
     //Store Search Criteria 
@@ -81,7 +82,9 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                 //Access control
                 /***************************************************/
                 base.m_FunctionIdColl.Add("S-0001");
+                base.m_FunctionIdColl.Add("S-0002");
                 base.m_FunctionIdColl.Add("B-0001");
+                base.m_FunctionIdColl.Add("B-0002");
                   
                 string functionId = Request.QueryString["FunctionId"];
                 if (string.IsNullOrEmpty(functionId)) 
@@ -90,15 +93,22 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                 }
                 else
                 {
+                    base.m_FunctionId = functionId;
                     if (string.Compare(functionId, "S-0001", true) == 0)
                     {
-                        m_FuncFlag = "ACK_ORDER";
-                        base.m_FunctionId = "S-0001";
+                        m_FuncFlag = "ACK_ORDER"; 
                     }
                     if (string.Compare(functionId, "B-0001", true) == 0)
                     {
                         m_FuncFlag = "ACPT_ORDER_ACKMT";
-                        base.m_FunctionId = "B-0001";
+                    }
+                    if (string.Compare(functionId, "S-0002", true) == 0)
+                    {
+                        m_FuncFlag = "VIEW_ORDER_SUPPLIER";
+                    }
+                    if (string.Compare(functionId, "B-0002", true) == 0)
+                    {
+                        m_FuncFlag = "VIEW_ORDER_BUYER";
                     }
                 }
                 base.Page_Load(sender, e);
@@ -124,6 +134,7 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                             searchCriteriaVO.ToDate = null;
                         searchCriteriaVO.SupplierId = Request.QueryString["SupplierId"];
                         searchCriteriaVO.BuyerName = Request.QueryString["BuyerName"];
+                        searchCriteriaVO.Status = Request.QueryString["Status"];
                         m_SearchCriteriaVO = searchCriteriaVO;
 
                         if (!string.IsNullOrEmpty(Request.QueryString["PageIdx"])) 
@@ -154,19 +165,82 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                 lblSubPath.Text = "Acknowledge Order";
                 plshSupplier.Visible = false;
                 plshBuyer.Visible = true;
+                plshStatus.Visible = false;
             }
 
             if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
             {
                 lblSubPath.Text = "Accept Order Acknowledgement";
                 plshSupplier.Visible = true;
-                plshBuyer.Visible = false;
+                plshBuyer.Visible = true;
+                plshStatus.Visible = false;
+            }
+
+            if (string.Compare(m_FuncFlag, "VIEW_ORDER_SUPPLIER", false) == 0)
+            {
+                lblSubPath.Text = "Enquire Order";
+                plshSupplier.Visible = false;
+                plshBuyer.Visible = true;
+                plshStatus.Visible = true;
+                InitStatusList();
+            }
+
+            if (string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
+            {
+                lblSubPath.Text = "Enquire Order";
+                plshSupplier.Visible = true;
+                plshBuyer.Visible = true;
+                plshStatus.Visible = true;
+                InitStatusList();
             }
         }
         catch (Exception ex)
         {
             throw (ex);
         }
+    }
+
+    private void InitStatusList()
+    {
+        ddlStatus.Items.Clear();
+        
+        ListItem liAdd;
+        string sText, sValue;
+
+        liAdd = new ListItem();
+        sText = "- All -";
+        sValue = "";
+        liAdd.Text = sText;
+        liAdd.Value = sValue;
+        ddlStatus.Items.Add(liAdd);
+
+        liAdd = new ListItem();
+        sText = "Pending Acknowledgement";
+        sValue = "PA";
+        liAdd.Text = sText;
+        liAdd.Value = sValue;
+        ddlStatus.Items.Add(liAdd);
+
+        liAdd = new ListItem();
+        sText = "Pending Confirm Order Acknowledgement";
+        sValue = "PC";
+        liAdd.Text = sText;
+        liAdd.Value = sValue;
+        ddlStatus.Items.Add(liAdd);
+
+        liAdd = new ListItem();
+        sText = "Accepted";
+        sValue = "AC";
+        liAdd.Text = sText;
+        liAdd.Value = sValue;
+        ddlStatus.Items.Add(liAdd);
+
+        liAdd = new ListItem();
+        sText = "Rejected";
+        sValue = "RE";
+        liAdd.Text = sText;
+        liAdd.Value = sValue;
+        ddlStatus.Items.Add(liAdd);
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
@@ -209,6 +283,7 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
             searchCriteriaVO.ToDate = null;
         searchCriteriaVO.SupplierId = txtSupplierId.Text.Trim();
         searchCriteriaVO.BuyerName = txtBuyer.Text.Trim();
+        searchCriteriaVO.Status = ddlStatus.SelectedValue; 
         m_SearchCriteriaVO = searchCriteriaVO;
     }
 
@@ -232,13 +307,14 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
         if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
         {
             poColl = mainController.GetOrderHeaderController().GetPendingConfirmPOList
-            (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.FromDate, m_SearchCriteriaVO.ToDate, m_SearchCriteriaVO.SupplierId);
+            (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.FromDate, m_SearchCriteriaVO.ToDate, m_SearchCriteriaVO.BuyerName, m_SearchCriteriaVO.SupplierId);
         }
 
-        if (string.Compare(m_FuncFlag, "VIEW_ORDER", false) == 0)
+        if (string.Compare(m_FuncFlag, "VIEW_ORDER_SUPPLIER", false) == 0 ||
+            string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
         {
-            poColl = mainController.GetOrderHeaderController().GetPendingAckPOList
-            (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.FromDate, m_SearchCriteriaVO.ToDate, m_SearchCriteriaVO.BuyerName);
+            poColl = mainController.GetOrderHeaderController().EnquiryPOList
+            (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.FromDate, m_SearchCriteriaVO.ToDate, m_SearchCriteriaVO.BuyerName, m_SearchCriteriaVO.SupplierId, m_SearchCriteriaVO.Status);
         }
         return poColl;
     }
@@ -297,6 +373,26 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                     url += "&ToDate=" + m_SearchCriteriaVO.ToDate.Value.ToString();
                 }
                 url += "&SupplierId=" + m_SearchCriteriaVO.SupplierId;
+                url += "&PageIdx=" + gvData.PageIndex.ToString();
+
+                Session[SessionKey.OrderNumber] = orderNo;
+            }
+            if (string.Compare(m_FuncFlag, "VIEW_ORDER_SUPPLIER", false) == 0 ||
+                string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
+            {
+                url = "~/PurchaseOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
+                url += "&OrderNumber=" + m_SearchCriteriaVO.OrderNumber;
+                if (m_SearchCriteriaVO.FromDate.HasValue)
+                {
+                    url += "&FormDate=" + m_SearchCriteriaVO.FromDate.Value.ToString();
+                }
+                if (m_SearchCriteriaVO.ToDate.HasValue)
+                {
+                    url += "&ToDate=" + m_SearchCriteriaVO.ToDate.Value.ToString();
+                }
+                url += "&SupplierId=" + m_SearchCriteriaVO.SupplierId;
+                url += "&BuyerName=" + m_SearchCriteriaVO.BuyerName;
+                url += "&Status=" + m_SearchCriteriaVO.Status;
                 url += "&PageIdx=" + gvData.PageIndex.ToString();
 
                 Session[SessionKey.OrderNumber] = orderNo;

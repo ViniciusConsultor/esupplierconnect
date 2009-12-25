@@ -65,6 +65,17 @@
                             </td>
                         </tr>
                         </asp:Panel> 
+                        <asp:Panel runat="server" ID="plshStatus" Visible="false">
+                        <tr>
+                            <td align="left" >
+                                <asp:Label ID="Label4" runat="server" Width="130px" Text="Status"></asp:Label>
+                            </td> 
+                            <td  align="left" style="width: 100%" colspan=4>
+                                <asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="false">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                        </asp:Panel> 
                         <tr>
                             <td colspan="9" style="text-align: right">
                                 <asp:Button ID="btnSearch" runat="server" Text="Search"  OnClick="btnSearch_Click"/>

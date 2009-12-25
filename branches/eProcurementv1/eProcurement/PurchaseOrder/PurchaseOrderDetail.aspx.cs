@@ -98,15 +98,22 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
                 }
                 else
                 {
+                    base.m_FunctionId = functionId;
                     if (string.Compare(functionId, "S-0001", true) == 0)
                     {
                         m_FuncFlag = "ACK_ORDER";
-                        base.m_FunctionId = "S-0001";
                     }
                     if (string.Compare(functionId, "B-0001", true) == 0)
                     {
                         m_FuncFlag = "ACPT_ORDER_ACKMT";
-                        base.m_FunctionId = "B-0001";
+                    }
+                    if (string.Compare(functionId, "S-0002", true) == 0)
+                    {
+                        m_FuncFlag = "VIEW_ORDER";
+                    }
+                    if (string.Compare(functionId, "B-0002", true) == 0)
+                    {
+                        m_FuncFlag = "VIEW_ORDER";
                     }
                 }
                 base.Page_Load(sender, e);
