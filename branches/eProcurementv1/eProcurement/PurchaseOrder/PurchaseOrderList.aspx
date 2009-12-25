@@ -51,7 +51,7 @@
                             </td> 
                             <td  align="left" style="width: 100%;" colspan=4>
                                 <asp:TextBox runat="server" id="txtSupplierId" Width="200px"></asp:TextBox>
-                                <img style="cursor: hand; vertical-align:middle" id="imgSupplierSearch" height="20" src="../Images/Common/Search.gif" runat="server" />
+                                <asp:Image runat="server" ID="imgSupplierSearch" ImageUrl="~/Images/Common/Search.gif" height="20"/>
                             </td>
                         </tr>
                         </asp:Panel> 
@@ -234,5 +234,22 @@
         </tr>
     </table>
     </asp:Panel>
+    
+    <script language="javascript" type="text/javascript">    
+        function OpenSupplierDialog(txtSupplierId)
+        {
+            var customerRefNo = document.getElementById(txtSupplierId).value;        
+            
+            var MyArgs;
+            var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:600px;dialogWidth:720px;dialogHide:true";
+            
+            MyArgs = window.showModalDialog("../Dialog/SearchSupplier.aspx", MyArgs, WinSettings);
+                        
+            if(MyArgs != null)
+            {
+                document.getElementById(txtSupplierId).value = MyArgs[0].toString();
+            }
+        }
+    </script>
 </asp:Content>
 
