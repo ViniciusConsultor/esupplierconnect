@@ -1,9 +1,9 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageSimple.master" AutoEventWireup="true" CodeFile="PurchaseOrderItemText.aspx.cs" Inherits="PurchaseOrder_PurchaseOrderItemText" Title="eProcurement System"%>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageSimple.master" AutoEventWireup="true" CodeFile="PurchaseOrderComponents.aspx.cs" Inherits="PurchaseOrder_PurchaseOrderComponents"  Title="eProcurement System"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
 <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
         <asp:TableHeaderRow>
             <asp:TableCell CssClass="navigation" VerticalAlign="Middle">
-                <asp:Label ForeColor="White" ID="lblSubPath" runat="server">Purchase Order Item Line Text</asp:Label></asp:TableCell>
+                <asp:Label ForeColor="White" ID="lblSubPath" runat="server">Purchase Order Subcontractor Components</asp:Label></asp:TableCell>
         </asp:TableHeaderRow>
     </asp:Table>
     <asp:Panel ID="plMessage" runat="server" Visible="false">
@@ -260,13 +260,13 @@
                 <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="false" AutoGenerateColumns="False" 
                    AllowSorting="false" CellPadding="2">
                     <Columns>
-                        <asp:TemplateField HeaderText="Text Sequence Number" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Sequence Number" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblTextSerialNumber" runat="server" CssClass="" Text='<%# Eval("TextSequence") %>'></asp:Label>
+                                            <asp:Label ID="lblComponentSequenceNumber" runat="server" CssClass="" Text='<%# Eval("ComponentSequence") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -274,19 +274,61 @@
                             </ItemTemplate> 
                             <ItemStyle Wrap="false" Width="20%"/>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Long Text" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Material Number" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
-                                        <td Width="100%" wrap="wrap">
-                                            <asp:Label ID="lblLongText" runat="server" CssClass="" Text=' <%# Eval("LongText") %> '></asp:Label>
+                                        <td Width="100%" nowrap="nowrap">
+                                            <asp:Label ID="lblMaterialNumber" runat="server" CssClass="" Text='<%# Eval("MaterialNumber") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
                                 </table>  
                             </ItemTemplate> 
-                            <ItemStyle Wrap="false" Width="80%"/>
+                            <ItemStyle Wrap="false" Width="20%"/>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Material Description" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td Width="100%" nowrap="nowrap">
+                                            <asp:Label ID="lblMaterialDescription" runat="server" CssClass="" Text='<%# Eval("MaterialDescription") %>'></asp:Label>
+                                        </td>
+                                       <td>&nbsp;</td>
+                                    </tr>
+                                </table>  
+                            </ItemTemplate> 
+                            <ItemStyle Wrap="false" Width="30%"/>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Component Quantity" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td Width="100%" nowrap="nowrap" align="right">
+                                            <asp:Label ID="lblComponentQuantity" runat="server" CssClass="" Text='<%# Eval("ComponentQuantity") %>'></asp:Label>
+                                        </td>
+                                       <td>&nbsp;</td>
+                                    </tr>
+                                </table>  
+                            </ItemTemplate> 
+                            <ItemStyle Wrap="false" Width="10%"/>
+                        </asp:TemplateField>
+                         <asp:TemplateField HeaderText="Unit of Measure" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td Width="100%" nowrap="nowrap" align="right">
+                                            <asp:Label ID="lblUnitOfMeasure" runat="server" CssClass="" Text='<%# Eval("UnitOfMeasure") %>'></asp:Label>
+                                        </td>
+                                       <td>&nbsp;</td>
+                                    </tr>
+                                </table>  
+                            </ItemTemplate> 
+                            <ItemStyle Wrap="false" Width="20%"/>
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
@@ -304,4 +346,6 @@
         </tr> 
     </table>
 </asp:Content>
+
+
 

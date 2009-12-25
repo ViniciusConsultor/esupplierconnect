@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageSimple.master" AutoEventWireup="true" CodeFile="PurchaseOrderDetail.aspx.cs" Inherits="PurchaseOrder_PurchaseOrderDetail" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageSimple.master" AutoEventWireup="true" CodeFile="PurchaseOrderDetail.aspx.cs" Inherits="PurchaseOrder_PurchaseOrderDetail" Title="eProcurement System" %>
 <%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
     <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
@@ -104,7 +104,7 @@
 	</table> 
 	<table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
-	        <td valign="top" colspan="10" style="height: 20px">
+	        <td valign="top" colspan="10" style="height: 20px"> 
                 <asp:Repeater ID="gvItem" runat="server" OnItemDataBound="gvItem_ItemDataBound">
                     <HeaderTemplate>
                         <table width="100%">
@@ -135,7 +135,6 @@
                                         <tr>
                                             <td>&nbsp;</td>
                                             <td Width="100%" nowrap="nowrap">
-                                              <a href="">Texts</a>
                                             </td>
                                            <td>&nbsp;</td>
                                         </tr> 
@@ -257,11 +256,27 @@
 	                        </tr>
 	                        <tr>
 	                            <td>
-	                            
+	                                <table border=0 cellpadding=0 cellspacing =0>
+	                                    <tr>
+	                                        <td>
+	                                            <asp:HyperLink runat="server" ID="hlItemText" Text='Texts'></asp:HyperLink>
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>
+	                                            <asp:HyperLink runat="server" ID="hlComponent" Text='Comps'></asp:HyperLink> 
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>
+	                                            <asp:HyperLink runat="server" ID="hlService" Text='Servs'></asp:HyperLink> 
+	                                        </td>
+	                                    </tr>
+	                                </table>
 	                            </td>     
 	                            <td colspan="9" Width="100%" nowrap="nowrap">
 	                                <asp:GridView BorderWidth="0" ShowHeader="true" AllowPaging="false" width="100%" ID="gvSchedule" runat="server" 
-                                    AutoGenerateColumns="False">
+                                    AutoGenerateColumns="False" OnRowCreated="gvSchedule_RowCreated" OnRowDataBound="gvSchedule_RowDataBound" >
                                         <HeaderStyle  Height="10px" ForeColor="white"  BackColor="#a9a9a9"/>
                                         <AlternatingRowStyle CssClass=""/>
                                         <Columns>
@@ -285,7 +300,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblScheduleDate" runat="server" CssClass="" Text='27/09/2009 '></asp:Label> 
+                                                                <asp:Label ID="lblScheduleDate" runat="server" CssClass="" Text=''></asp:Label> 
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -299,7 +314,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" align="right">
-                                                                <asp:Label ID="lblScheduleQuantity" runat="server" CssClass="" Text='300'></asp:Label>
+                                                                <asp:Label ID="lblScheduleQuantity" runat="server" CssClass="" Text='<%# Eval("DeliveryScheduleQuantity") %> '></asp:Label>
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -313,7 +328,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblDeliveryDate" runat="server" CssClass="" Text='27/09/2009 '></asp:Label> 
+                                                                <asp:Label ID="lblDeliveryDate" runat="server" CssClass="" Text=''></asp:Label> 
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -327,7 +342,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" align="right">
-                                                                <asp:Label ID="lblDeliveryQuantity" runat="server" CssClass="" Text='100'></asp:Label>
+                                                                <asp:Label ID="lblDeliveryQuantity" runat="server" CssClass="" Text='<%# Eval("DeliveredQuantity") %> '></asp:Label>
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -335,13 +350,13 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Width="10%"/>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Ack Date 1" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                            <asp:TemplateField HeaderText="Acknowledge Date" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblAcknowledgeDate1" runat="server" CssClass="" Text='27/09/2009 '></asp:Label> 
+                                                                <asp:Label ID="lblAcknowledgeDate" runat="server" CssClass="" Text='<%# Eval("AcknowledgementDate") %> '></asp:Label> 
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -349,41 +364,13 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Wrap="false" Width="12%"/>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Ack Date 2" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                            <asp:TemplateField HeaderText="Acknowledge Date" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblAcknowledgeDate2" runat="server" CssClass="" Text=' '></asp:Label> 
-                                                            </td>
-                                                           <td>&nbsp;</td>
-                                                        </tr>
-                                                    </table>  
-                                                </ItemTemplate> 
-                                                <ItemStyle Wrap="false" Width="12%"/>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Promise Date 1" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
-                                                <ItemTemplate>
-                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                        <tr>
-                                                            <td>&nbsp;</td>
-                                                            <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblPromiseDate1" runat="server" CssClass="" Text='27/09/2009'></asp:Label> 
-                                                            </td>
-                                                           <td>&nbsp;</td>
-                                                        </tr>
-                                                    </table>  
-                                                </ItemTemplate> 
-                                                <ItemStyle Wrap="false" Width="12%"/>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Promise Date 2" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
-                                                <ItemTemplate>
-                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                        <tr>
-                                                            <td>&nbsp;</td>
-                                                            <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblPromiseDate2" runat="server" CssClass="" Text=' '></asp:Label> 
+                                                                 <DatePicker:DatePicker ID="dtAcknowledgeDate" runat="server" />
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -411,11 +398,19 @@
         <tr>
             <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
             <td nowrap="nowrap">
-               <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click"/>
+               <asp:Button ID="btnAccept" runat="server" Text="Accept" onclick="btnAcceptReject_Click"/>
             </td>
-            <td nowrap="nowrap">&nbsp;&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+             <td nowrap="nowrap">
+               <asp:Button ID="btnReject" runat="server" Text="Reject" onclick="btnAcceptReject_Click"/>
+            </td>
+            <td nowrap="nowrap">&nbsp;</td>
             <td nowrap="nowrap">
-               <asp:Button ID="btnSubmit" runat="server" Text="Submit" onclick="btnSubmit_Click"/>
+               <asp:Button ID="btnAcknowledge" runat="server" Text="Acknowledge" onclick="btnAcknowledge_Click"/>
+            </td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">
+               <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click"/>
             </td>
             <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
         </tr> 
@@ -423,33 +418,32 @@
     <br />
 	<script language="javascript" type="text/javascript">    
     
-        function ShowHeaderText(orderNumber)
+        function ShowHeaderText()
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderHeaderText.aspx?" + Math.random()*5 + "&OrderNumber=" + orderNumber , MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("PurchaseOrderHeaderText.aspx", MyArgs, WinSettings);
         }
         
-        function ShowItemText(orderNumber,itemNo)
+        function ShowItemText(itemNo)
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderItemText.aspx?" + Math.random()*5 + "&OrderNumber=" + orderNumber + "&ItemNo=" + itemNo, MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("PurchaseOrderItemText.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
         }
-        function ShowComponent(orderNumber,itemNo)
+        function ShowComponent(itemNo)
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderComponents.aspx?" + Math.random()*5 + "&OrderNumber=" + orderNumber + "&ItemNo=" + itemNo, MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("PurchaseOrderComponents.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
             
         }
-         function ShowService(orderNumber,itemNo)
+         function ShowService(itemNo)
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderServices.aspx?" + Math.random()*5 + "&OrderNumber=" + orderNumber + "&ItemNo=" + itemNo, MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("PurchaseOrderServices.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
             
         }
     </script>	
 </asp:Content>
-

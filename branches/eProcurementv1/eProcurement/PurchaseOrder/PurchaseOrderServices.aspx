@@ -1,9 +1,9 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageSimple.master" AutoEventWireup="true" CodeFile="PurchaseOrderItemText.aspx.cs" Inherits="PurchaseOrder_PurchaseOrderItemText" Title="eProcurement System"%>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageSimple.master" AutoEventWireup="true" CodeFile="PurchaseOrderServices.aspx.cs" Inherits="PurchaseOrder_PurchaseOrderServices"  Title="eProcurement System"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
 <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
         <asp:TableHeaderRow>
             <asp:TableCell CssClass="navigation" VerticalAlign="Middle">
-                <asp:Label ForeColor="White" ID="lblSubPath" runat="server">Purchase Order Item Line Text</asp:Label></asp:TableCell>
+                <asp:Label ForeColor="White" ID="lblSubPath" runat="server">Purchase Order Service Item</asp:Label></asp:TableCell>
         </asp:TableHeaderRow>
     </asp:Table>
     <asp:Panel ID="plMessage" runat="server" Visible="false">
@@ -257,36 +257,67 @@
     <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
 	        <td valign="top" colspan="10" style="height: 20px">
-                <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="false" AutoGenerateColumns="False" 
-                   AllowSorting="false" CellPadding="2">
+                <asp:GridView Width="100%" ID="gvData" runat="server" AutoGenerateColumns="False" CellPadding="2">
                     <Columns>
-                        <asp:TemplateField HeaderText="Text Sequence Number" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Service Item">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblTextSerialNumber" runat="server" CssClass="" Text='<%# Eval("TextSequence") %>'></asp:Label>
+                                            <asp:Label ID="lblServiceSequenceNumber" runat="server" CssClass="" Text='<%# Eval("ServiceLineNumber") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
                                 </table>  
                             </ItemTemplate> 
-                            <ItemStyle Wrap="false" Width="20%"/>
+                            <ItemStyle Wrap="False" Width="10%"/>
+                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Long Text" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Service Description">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
-                                        <td Width="100%" wrap="wrap">
-                                            <asp:Label ID="lblLongText" runat="server" CssClass="" Text=' <%# Eval("LongText") %> '></asp:Label>
+                                        <td Width="100%" nowrap="nowrap">
+                                            <asp:Label ID="lblServiceText" runat="server" CssClass="" Text='<%# Eval("ServiceDescription") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
                                 </table>  
                             </ItemTemplate> 
-                            <ItemStyle Wrap="false" Width="80%"/>
+                            <ItemStyle Wrap="False" Width="40%"/>
+                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Job Quantity">
+                            <ItemTemplate>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td Width="100%" nowrap="nowrap">
+                                            <asp:Label ID="lblJobQuantity" runat="server" CssClass="" Text='<%# Eval("ServiceQuantity") %>'></asp:Label>
+                                        </td>
+                                       <td>&nbsp;</td>
+                                    </tr>
+                                </table>  
+                            </ItemTemplate> 
+                            <ItemStyle Wrap="False" Width="15%"/>
+                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Service Price">
+                            <ItemTemplate>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td Width="100%" nowrap="nowrap" align="right">
+                                            <asp:Label ID="lblSrvPrice" runat="server" CssClass="" Text='<%# Eval("ServicePrice") %>'></asp:Label>
+                                        </td>
+                                       <td>&nbsp;</td>
+                                    </tr>
+                                </table>  
+                            </ItemTemplate> 
+                            <ItemStyle Wrap="False" Width="15%"/>
+                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
@@ -304,4 +335,7 @@
         </tr> 
     </table>
 </asp:Content>
+
+
+
 

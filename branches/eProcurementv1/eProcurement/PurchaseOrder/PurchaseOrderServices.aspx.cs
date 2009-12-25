@@ -13,7 +13,7 @@ using System.Web.UI.HtmlControls;
 using eProcurement_BLL;
 using eProcurement_DAL;
 
-public partial class PurchaseOrder_PurchaseOrderItemText : BaseForm
+public partial class PurchaseOrder_PurchaseOrderServices : BaseForm
 {
     private MainController mainController = null;
 
@@ -55,7 +55,7 @@ public partial class PurchaseOrder_PurchaseOrderItemText : BaseForm
 
                 InitPOHeader();
                 InitItem();
-                InitItemText();
+                InitItemServices();
             }
         }
         catch (Exception ex)
@@ -70,7 +70,7 @@ public partial class PurchaseOrder_PurchaseOrderItemText : BaseForm
     private void InitPOHeader()
     {
         PurchaseOrderHeader poHeader = mainController.GetOrderHeaderController().
-             GetPurchaseOrderHeader(Session[SessionKey.OrderNumber].ToString());
+            GetPurchaseOrderHeader(Session[SessionKey.OrderNumber].ToString());
         if (poHeader == null)
         {
             throw new Exception("Invalid Order Number.");
@@ -115,16 +115,11 @@ public partial class PurchaseOrder_PurchaseOrderItemText : BaseForm
 
     }
 
-    private void InitItemText()
+    private void InitItemServices()
     {
-        string whereClause = " EBELN='" + Session[SessionKey.OrderNumber].ToString() + "' ";
-        whereClause += " AND EBELP='" + m_ItemSeq + "' ";
-        whereClause += " AND isnull(RECSTS,'')<>'D' ";
-        string orderClause = " TXTITM asc ";
-
-        Collection<PurchaseItemText> texts = mainController.GetOrderItemController()
-            .GetPurchaseItemTexts(Session[SessionKey.OrderNumber].ToString(), m_ItemSeq); 
-        gvData.DataSource = texts;
+        Collection<PurchaseOrderServiceItem> serviceItems = mainController.GetOrderItemController()
+            .GetPurchaseOrderServiceItems(Session[SessionKey.OrderNumber].ToString(), m_ItemSeq);
+        gvData.DataSource = serviceItems;
         gvData.DataBind();
     }
 }
