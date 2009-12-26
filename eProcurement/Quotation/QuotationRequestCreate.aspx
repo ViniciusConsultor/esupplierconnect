@@ -25,7 +25,7 @@
                             <span class="redtxt">*</span> 
                         </td> 
                         <td  align="left" colspan="3" style="width: 100%; height: 20px;">
-                            <asp:TextBox runat="server" id="txtRequisitionNo"></asp:TextBox>
+                            <asp:TextBox runat="server" id="txtRequisitionNo" AutoPostBack="True" OnTextChanged="txtRequisitionNo_TextChanged"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
