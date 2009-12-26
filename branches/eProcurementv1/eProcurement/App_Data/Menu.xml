@@ -54,15 +54,15 @@
 		<TITLE>User Profile</TITLE>
 		<HREF></HREF>
 		<!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
-		<ITEM FID="F-U001">
+		<ITEM FID="U-0001">
 			<TITLE>User List</TITLE>
 			<HREF>~/UserManagement/UserList.aspx</HREF>
 		</ITEM>
-		<ITEM FID="F-U002">
+		<ITEM FID="U-0002">
 			<TITLE>My Profile</TITLE>
 			<HREF>~/UserManagement/User.aspx</HREF>
 		</ITEM>
-		<ITEM FID="F-U003">
+		<ITEM FID="U-0003">
 			<TITLE>Change My Password</TITLE>
 			<HREF>~/UserManagement/UserPassword.aspx</HREF>
 		</ITEM>
