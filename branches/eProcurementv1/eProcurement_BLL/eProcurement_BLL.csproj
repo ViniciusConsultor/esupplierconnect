@@ -49,6 +49,8 @@
     <Compile Include="Supplier\SupplierController.cs" />
     <Compile Include="UserManagement\LoginController.cs" />
     <Compile Include="UserManagement\LoginUserVO.cs" />
+    <Compile Include="UserManagement\PasswordGenerator.cs" />
+    <Compile Include="UserManagement\UserController.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
