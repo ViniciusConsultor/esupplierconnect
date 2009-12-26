@@ -1344,7 +1344,7 @@ function IsNumeric(sText)
     /* Calendar end */
 </script>
 <div>
-    <asp:TextBox ID="CalendarDate"  runat="server" MaxLength="10" Width="90px"  OnTextChanged="CalendarDate_OnTextChanged"></asp:TextBox> 
+    <asp:TextBox ID="CalendarDate"  runat="server" MaxLength="10" Width="80px"  OnTextChanged="CalendarDate_OnTextChanged"></asp:TextBox> 
     <asp:Image ID="calendarImage" runat="server" ImageUrl="~/Calendar/img/icon_calendar.gif"/>
 
     <iframe id="myFrame" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"
