@@ -331,6 +331,17 @@
                      </td> 
                </tr> 
           </table> 
+          <br />
+             <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                <tr>
+                    <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
+                    <td nowrap="nowrap">
+                       <asp:Button ID="btnSumbit" runat="server" Text="Sumbit" onclick="btnSumbit_Click"/>
+                    </td>
+                    <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
+                </tr> 
+            </table>
+            <br />
     </asp:Panel>
 </asp:Panel> 
   <script language="javascript" type="text/javascript">    
