@@ -34,6 +34,8 @@ namespace eProcurement_DAL
         private SubcontractorMaterialDAO subcontractorMaterialDAO = null;
         private SupplierDAO supplierDAO = null;
         private UserDAO userDAO = null;
+        private ContractItemDAO contractItemDAO = null;
+        private ContractHeaderDAO contractHeaderDAO = null;
 
         public override IAccessMatrixDAO CreateAccessMatrixDAO() 
         {
@@ -194,6 +196,20 @@ namespace eProcurement_DAL
             if (this.userDAO == null)
                 this.userDAO = new UserDAO();
             return this.userDAO;
+        }
+
+        public override IContractHeaderDAO CreateContractHeaderDAO()
+        {
+            if (this.contractHeaderDAO == null)
+                this.contractHeaderDAO = new ContractHeaderDAO();
+            return this.contractHeaderDAO;
+        }
+
+        public override IContractItemDAO CreateContractItemDAO()
+        {
+            if (this.contractItemDAO == null)
+                this.contractItemDAO = new ContractItemDAO();
+            return this.contractItemDAO;
         }
     }
 }
