@@ -108,7 +108,7 @@ namespace eProcurement_DAL
                 }
 
                 //Insert 
-                cm.CommandText = "INSERT INTO USERS ([USERID],[USRNAM],[USRPWD],[USRROLE],[USREMAIL],[UPDTBY],[UPDTDATE],[USRSTAT],[LIFNR],[PROFTYP]) VALUES(@USERID,@USRNAM,@USRPWD,@USRROLE,@USREMAIL,@UPDTBY,@UPDTDATE,@USRSTAT,@LIFNR,@PROFTYP)";
+                cm.CommandText = "INSERT INTO [USER] ([USERID],[USRNAM],[USRPWD],[USRROLE],[USREMAIL],[UPDTBY],[UPDTDATE],[USRSTAT],[LIFNR],[PROFTYP]) VALUES(@USERID,@USRNAM,@USRPWD,@USRROLE,@USREMAIL,@UPDTBY,@UPDTDATE,@USRSTAT,@LIFNR,@PROFTYP)";
 
                 SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.VarChar, 10);
                 cm.Parameters.Add(p1);
@@ -197,7 +197,7 @@ namespace eProcurement_DAL
 
                 //Update 
                 //cm.CommandText = "UPDATE USERS SET [USERID]=@USERID,[USRNAM]=@USRNAM,[USRPWD]=@USRPWD,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT,[LIFNR]=@LIFNR,[PROFTYP]=@PROFTYP WHERE USERID=@USERID";
-                cm.CommandText = "UPDATE USERS SET [USRNAM]=@USRNAM,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT,[LIFNR]=@LIFNR,[PROFTYP]=@PROFTYP WHERE USERID=@USERID";
+                cm.CommandText = "UPDATE [USER] SET [USRNAM]=@USRNAM,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT,[LIFNR]=@LIFNR,[PROFTYP]=@PROFTYP WHERE USERID=@USERID";
 
                 SqlParameter p1 = new SqlParameter("@USRNAM", SqlDbType.VarChar, 40);
                 cm.Parameters.Add(p1);
@@ -279,7 +279,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "DELETE FROM [USERS] WHERE USERID=@USERID";
+            cm.CommandText = "DELETE FROM [USER] WHERE USERID=@USERID";
             SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.UserId;
@@ -313,7 +313,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [USERID],[USRNAM],[USRPWD],[USRROLE],[USREMAIL],[UPDTBY],[UPDTDATE],[USRSTAT],[LIFNR],[PROFTYP] FROM [USERS]";
+            string selectCommand = "SELECT [USERID],[USRNAM],[USRPWD],[USRROLE],[USREMAIL],[UPDTBY],[UPDTDATE],[USRSTAT],[LIFNR],[PROFTYP] FROM [USER]";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
