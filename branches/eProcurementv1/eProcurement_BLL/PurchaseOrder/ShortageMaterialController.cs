@@ -14,6 +14,19 @@ namespace eProcurement_BLL
             this.mainController = mainController;
         }
 
+        public void ProcessShortageMaterialList()
+        {
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
         public Collection<ShortageMaterialVO> GetShortageMaterialList(string materialNumber)
         {
             try
