@@ -216,28 +216,62 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     }
     protected void btnAssign_Click(object sender, EventArgs e)
     {
+        //lstRequisition
+        //lstSupplier
+        QuotationHeader qtoHeader;
+        QuotationItem qtoItem;
+        Int16 RequisitionItem, SupplierItem, requestSequence;
+        requestSequence = 0;
+        for (RequisitionItem = 0 ; RequisitionItem < lstRequisition.Items.Count -1;  RequisitionItem++)
+        {
+            if (lstRequisition.Items[RequisitionItem].Selected)
+            {
+                for (SupplierItem = 0; SupplierItem < lstSupplier.Items.Count - 1; SupplierItem++)
+                {
 
-        //
-        //Request Number from the list
-        //Supplier Id from the list
-        //Expiry Date
-        //Quotation Number	(blank)
-        //Quotation Date	(blank)
-        //Record Status	CHAR	1	Yes	[R]equest / [A]cknowledge / [A]cceptance / [R]ejected  R
+                    if (lstSupplier.Items[RequisitionItem].Selected)
+                    {
+                        /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                         * Request for Quotation Header a.k.a Quotation Header                        
+                         *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/                        
+                        //Record Status	CHAR	1	Yes	[R]equest / [A]cknowledge / [A]cceptance / [R]ejected  R
+                        qtoHeader.RequisitionNumber = lstRequisition.Items[RequisitionItem].Text;
+                        qtoHeader.SupplierId = lstSupplier.Items[SupplierItem].Text;
+                        qtoHeader.ExpiryDate = dtpExpiry.SelectedDate;
+                        qtoHeader.QuotationNumber = "";
+                        qtoHeader.QuotationDate = "";
+                        qtoHeader.RecordStatus = "R";  //[R]equest / [A]cknowledge / [A]cceptance / [R]ejected
+
+                        /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                         *Request for Quotation Items a.k.a Quotation Items                        
+                         *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+                        qtoItem.RequestNumber = lstRequisition.Items[RequisitionItem].Text;
+                        qtoItem.RequestSequence = requestSequence;
+                        qtoItem.MaterialNumber = ddlMaterialNo.SelectedValue;
+                        qtoItem.MaterialDescription = txtMaterialDesc.Text;
+
+                        RequisitionItem item;
+
+
+                        //Plant	 from Requisition Items
+                        //Required Quantity	from Requisition Items
+                        //Unit of Measure	from Requisition Items
+                        //Net Price	(Required Quantity * Price Unit)
+                        //Price Unit	from Requisition Items
+                        //Net Value	((net price / price unit) * re qty =net value)
+                        //Record Status	[R]equest / [A]cknowledge / [A]cceptance / [R]ejected (R)
+
+                    }
+                    requestSequence++;
+
+                }
+            }
+
+        }
+
+
+        
 						
-        //Item						
-        //Request Number 
-        //Request Sequence	1,2,3
-        //Material Number	(from the drop down)
-        //Material Description	(from the text )
-
-        //Plant	 from Requisition Items
-        //Required Quantity	from Requisition Items
-        //Unit of Measure	from Requisition Items
-        //Net Price	(Required Quantity * Price Unit)
-        //Price Unit	from Requisition Items
-        //Net Value	((net price / price unit) * re qty =net value)
-        //Record Status	[R]equest / [A]cknowledge / [A]cceptance / [R]ejected (R)
 
 
     }
