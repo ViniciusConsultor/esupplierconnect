@@ -16,17 +16,24 @@
 <!--Search Criteria Panel-->
 <br />
 <asp:Panel ID="plProcess" runat="server" Visible="true">
-    <table id="Table1" cellspacing="0" cellpadding="0" width="820" border="0">
-        <tr>
-            <td align="left" nowrap>
-                    <asp:Label ID="Label1" runat="server" Text="Click [Process] button to process Material Shortage List"></asp:Label>
-            </td> 
-            <td align="left" nowrap>&nbsp;&nbsp;&nbsp;</td> 
-            <td  align="left" style="width: 100%;">
-                <asp:Button ID="btnProcess" runat="server" Text="Process" OnClick="btnProcess_Click"/>
-            </td>
-        </tr>
-    </table>
+    <table id="Table1" cellspacing="0" cellpadding="0" width="100%" border="0">
+            <tr>
+                <td valign="top" style="height: 8px">
+                   <table id="Table2" cellspacing="0" cellpadding="1" width="100%" border="0">
+                        <tr>
+                            <td align="left" >
+                                <asp:Label ID="Label4" runat="server" Text="Click [Process] Button to process Material Shortage List"></asp:Label>
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td style="text-align: left">
+                                <asp:Button ID="btnProcess" runat="server" Text="Process" OnClick="btnProcess_Click"/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
 </asp:Panel> 
  <asp:Panel ID="plView" runat="server" Visible="true">
     <table id="GreyTable" cellspacing="0" cellpadding="0" width="820" border="0">
