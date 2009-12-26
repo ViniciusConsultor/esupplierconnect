@@ -28,6 +28,7 @@ namespace eProcurement_BLL
         public const string Acknowledge = "K";
         public const string Accept = "A";
         public const string Reject = "R";
+        public const string New = "";
 
         public static string GetDesc(string status)
         {
