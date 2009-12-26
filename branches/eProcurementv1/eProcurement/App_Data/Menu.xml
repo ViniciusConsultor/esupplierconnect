@@ -49,6 +49,14 @@
       <TITLE>Acknowledge Order by Buyer</TITLE>
       <HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=B-0004</HREF>
     </ITEM>
+    <ITEM FID="B-0013">
+      <TITLE>Expedite Deliveries</TITLE>
+      <HREF>~/Expediting/ExpediteDeliveries.aspx</HREF>
+    </ITEM>
+    <ITEM FID="B-0014">
+      <TITLE>Accept Expedite Acknowledgement</TITLE>
+      <HREF>~/Expediting/AcceptExpediteAckmt.aspx</HREF>
+    </ITEM>
 	</ITEM>
 	<ITEM>
 		<TITLE>User Profile</TITLE>
