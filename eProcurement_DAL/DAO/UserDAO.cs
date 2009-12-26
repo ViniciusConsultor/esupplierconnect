@@ -64,7 +64,7 @@ namespace eProcurement_DAL
         public override User RetrieveByKey(EpTransaction epTran, string userID)
         {
             User entity = null;
-            string whereClause = " USERID='" + DataManager.EscapeSQL(userID) + "' ";
+            string whereClause = " LTRIM(RTRIM(USERID))='" + DataManager.EscapeSQL(userID) + "' ";
 
             Collection<User> entities = Retrieve(epTran, whereClause, "");
             if (entities.Count > 0)
@@ -112,7 +112,7 @@ namespace eProcurement_DAL
 
                 SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.VarChar, 10);
                 cm.Parameters.Add(p1);
-                p1.Value = entity.UserId;
+                p1.Value = entity.UserId.Trim();
 
                 SqlParameter p2 = new SqlParameter("@USRNAM", SqlDbType.VarChar, 40);
                 cm.Parameters.Add(p2);
@@ -197,7 +197,7 @@ namespace eProcurement_DAL
 
                 //Update 
                 //cm.CommandText = "UPDATE USERS SET [USERID]=@USERID,[USRNAM]=@USRNAM,[USRPWD]=@USRPWD,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT,[LIFNR]=@LIFNR,[PROFTYP]=@PROFTYP WHERE USERID=@USERID";
-                cm.CommandText = "UPDATE [USER] SET [USRNAM]=@USRNAM,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT,[LIFNR]=@LIFNR,[PROFTYP]=@PROFTYP WHERE USERID=@USERID";
+                cm.CommandText = "UPDATE [USER] SET [USRNAM]=@USRNAM,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT,[LIFNR]=@LIFNR,[PROFTYP]=@PROFTYP WHERE LTRIM(RTRIM(USERID))=@USERID";
 
                 SqlParameter p1 = new SqlParameter("@USRNAM", SqlDbType.VarChar, 40);
                 cm.Parameters.Add(p1);
@@ -279,7 +279,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "DELETE FROM [USER] WHERE USERID=@USERID";
+            cm.CommandText = "DELETE FROM [USER] WHERE LTRIM(RTRIM(USERID))=@USERID";
             SqlParameter p1 = new SqlParameter("@USERID", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.UserId;
@@ -322,7 +322,7 @@ namespace eProcurement_DAL
             while (rd.Read())
             {
                 User entity = new User();
-                entity.UserId = rd["USERID"].ToString();
+                entity.UserId = rd["USERID"].ToString().Trim();
                 entity.UserName = rd["USRNAM"].ToString();
                 entity.UserPassword = rd["USRPWD"].ToString();
                 entity.UserRole = rd["USRROLE"].ToString();
