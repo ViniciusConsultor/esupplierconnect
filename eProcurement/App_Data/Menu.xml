@@ -39,11 +39,11 @@
     </ITEM>
     <ITEM FID="B-0011">
       <TITLE>View Shortage List</TITLE>
-      <HREF>~/PurchaseOrder/MaterialShortageList.aspx?FunctionId=B-0011</HREF>
+      <HREF>~/Expediting/MaterialShortageList.aspx?FunctionId=B-0011</HREF>
     </ITEM>
     <ITEM FID="B-0010">
       <TITLE>Process Shortage List</TITLE>
-      <HREF>~/PurchaseOrder/MaterialShortageList.aspx?FunctionId=B-0010</HREF>
+      <HREF>~/Expediting/MaterialShortageList.aspx?FunctionId=B-0010</HREF>
     </ITEM>
     <ITEM FID="B-0004">
       <TITLE>Acknowledge Order by Buyer</TITLE>
