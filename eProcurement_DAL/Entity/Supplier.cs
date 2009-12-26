@@ -1,9 +1,28 @@
+//------------------------------------------------------------------------------
+// 
+// Team         : Team 03
+// Author       : Ei Ei Thu
+// Created Date : 19/09/2009
+// ISS M.TECH SE16 Batch
+//
+// Note: 
+//    1. This class contains field mapping to database table [puitxt].
+//	  
+// Revision History:
+//    1.0:
+//      Author  : Ei Ei Thu
+//      Date    : 19/09/2009   
+//      Comments: Created class 
+//    
+// Copyright 2008-2010 ISS/Fujitec
+//------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace eProcurement_DAL
 {
+    ///<summary>Entity Object (Purchase Item Text) - Database table [puitxt]</summary>
     [Serializable]
     public class Supplier
     {
