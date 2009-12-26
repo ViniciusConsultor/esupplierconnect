@@ -6,6 +6,9 @@ using System.Text;
 using System.Reflection;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
 
 namespace eProcurement_BLL
 {
