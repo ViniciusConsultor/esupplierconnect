@@ -123,12 +123,10 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     }
     private void InitItems()
     {
-        Collection<MaterialStock> items = mainController.GetDAOCreator();
-            CreateMaterialStockDAO().RetrieveAll();
-        
+        Collection<MaterialStock> items = mainController.GetDAOCreator().CreateMaterialStockDAO().RetrieveAll();        
         ddlMaterialNo.DataSource = items;
-        ddlMaterialNo.DataTextField = "";
-        ddlMaterialNo.DataValueField ="";
+        ddlMaterialNo.DataTextField = "MaterialDescription";
+        ddlMaterialNo.DataValueField = "materialNumber";
         ddlMaterialNo.DataBind();
         
 
@@ -165,14 +163,21 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        string whereClause = " MATNR='" + ddlMaterialNo.SelectedItem.Value.ToString() + "' ";
-        whereClause += " AND BANFN ='" + txtRequisitionNo.Text + "'";
-        string orderClause = " BNFPO asc ";
+        string materialNO = ddlMaterialNo.SelectedItem.Value.ToString();
+        Collection<QuotationItem> items = mainController.GetQuotationController().GetQuotationList().GetQuotationList(materialNO);
 
-        Collection<ShortageMaterial> items = mainController.GetDAOCreator().
-            CreateShortageMaterialDAO().RetrieveByQuery(whereClause, orderClause);
-        gvItem.DataSource = items;
-        gvItem.DataBind();
+        lstRequisition.Items.Clear();
+        lstRequisition.DataSource = items;
+        lstRequisition.DataTextField = "BANFN";
+        lstRequisition.DataValueField = "BANFN";
+        lstRequisition.DataBind();
+
+        Collection<Supplier> SupplierList = mainController.GetSupplierController().GetSupplierList();
+        lstSupplier.Items.Clear();
+        lstSupplier.DataSource = SupplierList;
+        lstSupplier.DataTextField = "LIFNR";
+        lstSupplier.DataValueField = "NAME";
+        lstSupplier.DataBind();        
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
