@@ -46,6 +46,8 @@
     <Compile Include="PurchaseOrder\PurchaseExpeditingVO.cs" />
     <Compile Include="PurchaseOrder\ShortageMaterialController.cs" />
     <Compile Include="PurchaseOrder\ShortageMaterialVO.cs" />
+    <Compile Include="Quotation\QuotationController.cs" />
+    <Compile Include="Requisition\RequisitionController.cs" />
     <Compile Include="Supplier\SupplierController.cs" />
     <Compile Include="UserManagement\LoginController.cs" />
     <Compile Include="UserManagement\LoginUserVO.cs" />
