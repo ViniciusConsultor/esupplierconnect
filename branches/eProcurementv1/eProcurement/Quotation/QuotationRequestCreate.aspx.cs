@@ -214,4 +214,31 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
         txtMaterialDesc.Text = ""; 
 
     }
+    protected void btnAssign_Click(object sender, EventArgs e)
+    {
+
+        //
+        //Request Number from the list
+        //Supplier Id from the list
+        //Expiry Date
+        //Quotation Number	(blank)
+        //Quotation Date	(blank)
+        //Record Status	CHAR	1	Yes	[R]equest / [A]cknowledge / [A]cceptance / [R]ejected  R
+						
+        //Item						
+        //Request Number 
+        //Request Sequence	1,2,3
+        //Material Number	(from the drop down)
+        //Material Description	(from the text )
+
+        //Plant	 from Requisition Items
+        //Required Quantity	from Requisition Items
+        //Unit of Measure	from Requisition Items
+        //Net Price	(Required Quantity * Price Unit)
+        //Price Unit	from Requisition Items
+        //Net Value	((net price / price unit) * re qty =net value)
+        //Record Status	[R]equest / [A]cknowledge / [A]cceptance / [R]ejected (R)
+
+
+    }
 }

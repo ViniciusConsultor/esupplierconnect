@@ -65,8 +65,16 @@
                             &nbsp;<asp:ListBox ID="lstSupplier" runat="server" Width="211px" SelectionMode="Multiple"></asp:ListBox></td>
                     </tr>
                     <tr>
+                        <td align="left" style="width : 130px">
+                         <asp:Label ID="lblExpiryDate" Text="Expiry Date" runat="server"></asp:Label>
+                        </td>
+                        <td align="left"  colspan ="3" style="width:500px">
+                             <DatePicker:DatePicker ID="dtpExpiry" runat="server" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="4" style="text-align: right">
-                            <asp:Button ID="btnAssign" runat="server" Text="Assign"/>
+                            <asp:Button ID="btnAssign" runat="server" Text="Assign" OnClick="btnAssign_Click"/>
                         </td>
                     </tr>
                 </table>
