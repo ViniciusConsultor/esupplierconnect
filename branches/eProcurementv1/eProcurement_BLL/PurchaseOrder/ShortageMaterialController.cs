@@ -14,14 +14,17 @@ namespace eProcurement_BLL
             this.mainController = mainController;
         }
 
-        public Collection<ShortageMaterialVO> GetShortageMaterialList()
+        public Collection<ShortageMaterialVO> GetShortageMaterialList(string materialNumber)
         {
             try
             {
                 Collection<ShortageMaterialVO> stMaterialVOs = new Collection<ShortageMaterialVO>();
+                string whereClause = "";
+                if (materialNumber != "")
+                    whereClause = " MATNR = '" + Utility.EscapeSQL(materialNumber) + "' ";
                 string orderClause = " MATNR asc ";
                 Collection<ShortageMaterial> stMaterials = mainController.GetDAOCreator().CreateShortageMaterialDAO()
-                    .RetrieveAll(orderClause);
+                    .RetrieveByQuery(whereClause,orderClause);
                 foreach (ShortageMaterial stMaterial in stMaterials) 
                 {
                     ShortageMaterialVO stMaterialVO = new ShortageMaterialVO();
