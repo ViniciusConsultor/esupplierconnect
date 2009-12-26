@@ -128,6 +128,8 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
         ddlMaterialNo.DataTextField = "materialNumber";
         ddlMaterialNo.DataValueField = "materialNumber";
         ddlMaterialNo.DataBind();
+        ddlMaterialNo.Items.Add(new ListItem("", "0"));
+        ddlMaterialNo.SelectedValue = "0";
         
 
     }
@@ -164,7 +166,9 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         string materialNO = ddlMaterialNo.SelectedItem.Value.ToString().Trim() ;
-        Collection<RequisitionItem> items = mainController.GetRequisitionController().GetRequisitionList(materialNO);
+        string RequisitionNo = txtRequisitionNo.Text.ToString().Trim();
+
+        Collection<RequisitionItem> items = mainController.GetRequisitionController().GetRequisitionList(materialNO, RequisitionNo);
 
         lstRequisition.Items.Clear();
         lstRequisition.DataSource = items;
@@ -192,6 +196,22 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
 
         if (items.Count >0 )
         { txtMaterialDesc.Text = items[0].MaterialDescription; }
+
+    }
+    protected void txtRequisitionNo_TextChanged(object sender, EventArgs e)
+    {
+        string RequisitionNo = txtRequisitionNo.Text.ToString().Trim();      
+
+        
+        Collection<RequisitionItem> items = mainController.GetRequisitionController().GetRequisitionList(RequisitionNo);
+
+        ddlMaterialNo.DataSource = items;
+        ddlMaterialNo.DataTextField = "materialNumber";
+        ddlMaterialNo.DataValueField = "materialNumber";
+        ddlMaterialNo.DataBind();
+        ddlMaterialNo.Items.Add(new ListItem("", "0"));
+        ddlMaterialNo.SelectedValue = "0";
+        txtMaterialDesc.Text = ""; 
 
     }
 }
