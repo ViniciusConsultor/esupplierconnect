@@ -19,12 +19,6 @@ namespace eProcurement_BLL.UserManagement
             this.mainController = mainController;
         }
 
-
-        //public Collection<User> ValidateUser(string userId, string pswd)
-        //{
-        //    return UserDAO.RetrieveByQuery("[USERID]='" + userId + "' AND [USRPWD]='" + pswd + "'");
-        //}
-
         public Collection<User> GetUsers()
         {
             return mainController.GetDAOCreator().CreateUserDAO().RetrieveAll(); //UserDAO.RetrieveAll();
