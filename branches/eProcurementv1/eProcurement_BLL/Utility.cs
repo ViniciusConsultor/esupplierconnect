@@ -220,5 +220,27 @@ namespace eProcurement_BLL
             return strReturn;
         }
 
+        #region Sent Email
+
+        public static void SentEmail(string from, string to, string subject, string body, string emailServer)
+        {
+            try
+            {
+                if (to.Length > 0)
+                {
+                    MailMessage message = new MailMessage(from, to, subject, body);
+                    message.IsBodyHtml = false;
+                    message.Priority = MailPriority.Normal;
+
+                    SmtpClient client = new SmtpClient(emailServer);
+                    client.UseDefaultCredentials = true;
+                    client.Send(message);
+                }
+            }
+            catch (Exception ex)
+            { throw ex; }
+        }
+
+        #endregion
     }
 }
