@@ -35,6 +35,9 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
                 /***************************************************/
             }
 
+            imgMaterialSearch.Attributes.Add("onclick", "OpenMaterialDialog('" + txtMaterialNumber.ClientID + "')");
+            imgMaterialSearch.Attributes.Add("style", "cursor: hand");
+
             ShowData();
         }
         catch (Exception ex)
@@ -46,9 +49,41 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
         }
     }
 
+    protected void btnFilter_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            CheckSessionTimeOut();
+            ShowData();
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
+        }
+    }
+
+    protected void btnShowAll_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            CheckSessionTimeOut();
+            txtMaterialNumber.Text = "";
+            ShowData();
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
+        }
+    }
+
     private void ShowData()
     {
-        Collection<ShortageMaterialVO> stMaterialVOs = mainController.GetShortageMaterialController().GetShortageMaterialList();
+        string materialNumber = txtMaterialNumber.Text.Trim();
+        Collection<ShortageMaterialVO> stMaterialVOs = mainController.GetShortageMaterialController().GetShortageMaterialList(materialNumber);
         gvItem.DataSource = stMaterialVOs;
         gvItem.DataBind();
         lblCount.Text = string.Format("{0} record(s) found. ", stMaterialVOs.Count.ToString());
@@ -70,5 +105,13 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
         }
     }
 
+    protected void gvMaterialDtl_RowDataBound(Object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            Label lblStatus = (Label)e.Row.FindControl("lblStatus");
+            lblStatus.Text = ExpediteStatus.GetDesc(lblStatus.Text);  
+        }
+    }
 
 }

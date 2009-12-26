@@ -78,7 +78,7 @@
                         </asp:Panel> 
                         <tr>
                             <td colspan="9" style="text-align: right">
-                                <asp:Button ID="btnSearch" runat="server" Text="Search"  OnClick="btnSearch_Click"/>
+                                <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"/>
                             </td>
                         </tr>
                     </table>
