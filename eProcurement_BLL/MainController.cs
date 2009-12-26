@@ -34,6 +34,8 @@ namespace eProcurement_BLL
         private ShortageMaterialController shortageMaterialController = null;
         private QuotationController quotationController = null;
         private RequisitionController requisitionController = null;
+        private NotificationController notificationController = null;
+        private DeliveryOrderController deliveryOrderController = null;
         
         
         
@@ -112,6 +114,20 @@ namespace eProcurement_BLL
             if (this.requisitionController == null)
                 this.requisitionController = new RequisitionController(this);
             return this.requisitionController;
+        }
+
+        public NotificationController GetNotificationController()
+        {
+            if (this.notificationController == null)
+                this.notificationController = new NotificationController(this);
+            return this.notificationController;
+        }
+
+        public DeliveryOrderController GetDeliveryOrderController()
+        {
+            if (this.deliveryOrderController == null)
+                this.deliveryOrderController = new DeliveryOrderController(this);
+            return this.deliveryOrderController;
         }
         
 
