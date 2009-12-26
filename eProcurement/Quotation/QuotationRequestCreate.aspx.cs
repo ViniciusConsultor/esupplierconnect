@@ -76,37 +76,37 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
 
             if (!IsPostBack)
             {
-                //Access control
-                /***************************************************/
-                base.m_FunctionIdColl.Add("S-0010");
+                //////////////////////////Access control
+                /////////////////////////***************************************************/
+                ////////////////////////base.m_FunctionIdColl.Add("S-0010");
                 
 
-                string functionId = Request.QueryString["FunctionId"];
-                if (string.IsNullOrEmpty(functionId))
-                {
-                    throw new Exception("Invalid Function Id.");
-                }
-                else
-                {
-                    if (string.Compare(functionId, "S-0010", true) == 0)
-                    {
-                        m_FuncFlag = "CreateRFQ";
-                        base.m_FunctionId = "S-0010";
-                    }
+                ////////////////////////string functionId = Request.QueryString["FunctionId"];
+                ////////////////////////if (string.IsNullOrEmpty(functionId))
+                ////////////////////////{
+                ////////////////////////    throw new Exception("Invalid Function Id.");
+                ////////////////////////}
+                ////////////////////////else
+                ////////////////////////{
+                ////////////////////////    if (string.Compare(functionId, "S-0010", true) == 0)
+                ////////////////////////    {
+                ////////////////////////        m_FuncFlag = "CreateRFQ";
+                ////////////////////////        base.m_FunctionId = "S-0010";
+                ////////////////////////    }
                    
-                }
-                base.Page_Load(sender, e);
-                /***************************************************/
+                ////////////////////////}
+                ////////////////////////base.Page_Load(sender, e);
+                /////////////////////////***************************************************/
 
-                //Initialize Page
-                InitPage();
+                //////////////////////////Initialize Page
+                ////////////////////////InitPage();
 
-                //Check access right
-                if (CheckAccessRight() == false)
-                    GotoTimeOutPage();
+                //////////////////////////Check access right
+                ////////////////////////if (CheckAccessRight() == false)
+                ////////////////////////    GotoTimeOutPage();
 
-                //store querystring in viewstate, it will be used to pass back to list page
-                string queryString = Request.QueryString.ToString();
+                //////////////////////////store querystring in viewstate, it will be used to pass back to list page
+                ////////////////////////string queryString = Request.QueryString.ToString();
                 
 
                 
@@ -125,7 +125,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     {
         Collection<MaterialStock> items = mainController.GetDAOCreator().CreateMaterialStockDAO().RetrieveAll();        
         ddlMaterialNo.DataSource = items;
-        ddlMaterialNo.DataTextField = "MaterialDescription";
+        ddlMaterialNo.DataTextField = "materialNumber";
         ddlMaterialNo.DataValueField = "materialNumber";
         ddlMaterialNo.DataBind();
         
@@ -163,24 +163,35 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        string materialNO = ddlMaterialNo.SelectedItem.Value.ToString();
-        Collection<QuotationItem> items = mainController.GetQuotationController().GetQuotationList().GetQuotationList(materialNO);
+        string materialNO = ddlMaterialNo.SelectedItem.Value.ToString().Trim() ;
+        Collection<RequisitionItem> items = mainController.GetRequisitionController().GetRequisitionList(materialNO);
 
         lstRequisition.Items.Clear();
         lstRequisition.DataSource = items;
-        lstRequisition.DataTextField = "BANFN";
-        lstRequisition.DataValueField = "BANFN";
+        lstRequisition.DataTextField = "RequisitionNumber";
+        lstRequisition.DataValueField = "RequisitionNumber";
         lstRequisition.DataBind();
 
         Collection<Supplier> SupplierList = mainController.GetSupplierController().GetSupplierList();
         lstSupplier.Items.Clear();
         lstSupplier.DataSource = SupplierList;
-        lstSupplier.DataTextField = "LIFNR";
-        lstSupplier.DataValueField = "NAME";
+        lstSupplier.DataTextField = "supplierName";
+        lstSupplier.DataValueField = "supplierID";
         lstSupplier.DataBind();        
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         //
+    }
+    protected void ddlMaterialNo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        string materialNO = ddlMaterialNo.SelectedItem.Value.ToString().Trim();
+        string whereClause = " MATNR='" + materialNO + "' ";
+
+        Collection<MaterialStock> items = mainController.GetDAOCreator().CreateMaterialStockDAO().RetrieveByQuery(whereClause);        
+
+        if (items.Count >0 )
+        { txtMaterialDesc.Text = items[0].MaterialDescription; }
+
     }
 }
