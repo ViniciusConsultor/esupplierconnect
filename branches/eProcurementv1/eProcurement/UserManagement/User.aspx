@@ -1,14 +1,77 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="User.aspx.cs" Inherits="UserManagement_User" Title="User Management" %>
 
-<%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server"><asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
-    <asp:TableHeaderRow>
-        <asp:TableCell CssClass="navigation" VerticalAlign="Middle">
-            <asp:Label ForeColor="White" ID="lblSubPath" runat="server">User List</asp:Label></asp:TableCell>
-    </asp:TableHeaderRow>
-    </asp:Table> <asp:Panel ID="plMessage" runat="server" Visible="false">
-        <asp:Label runat="server" ID="lblMessage" CssClass="" Visible="True"></asp:Label>
-    </asp:Panel> <asp:Panel CssClass="GreyTable" ID="plSearch" runat="server" Visible="true" width="100%"><table id="GreyTable" cellspacing="0" cellpadding="0" width="100%" border="0"><tr><td valign="top" style="height: 8px"><table id="tblSearch" cellspacing="0" cellpadding="1" width="100%" border="0"><tr><td align="left" ><asp:Label ID="Label4" runat="server" Width="130px" Text="User ID"></asp:Label> </td><td  align="left" style="width: 70%" ><asp:Label runat="server" id="lblUserID"></asp:Label> </td></tr><tr><td align="left" ><asp:Label ID="Label3" runat="server" Width="130px" Text="User Name"></asp:Label> </td><td  align="left" style="width: 70%"><asp:TextBox runat="server" id="txtUserName"></asp:TextBox> </td></tr><tr><td align="left" ><asp:Label ID="lblPassword" runat="server" Text="Password" Width="130px"></asp:Label> </td><td  align="left" style="width: 70%"><asp:TextBox runat="server" id="txtPassword" textmode="Password"></asp:TextBox> </td></tr><tr><td align="left" ><asp:Label ID="lblConfirmPSWD" runat="server" Width="130px" Text="Confirm Password"></asp:Label> </td><td  align="left" style="width: 70%;" ><asp:TextBox runat="server" id="txtConfirmPSWD" textmode="Password"></asp:TextBox> </td></tr><tr><td align="left" ><asp:Label ID="Label2" runat="server" Width="130px" Text="Email"></asp:Label> </td><td  align="left" style="width: 70%" ><asp:TextBox runat="server" id="txtEmail"></asp:TextBox> </td></tr><tr style="display:none"><td align="left" ><asp:Label ID="lbl1" runat="server" Width="130px" Text="Role"></asp:Label> </td><td  align="left" style="width: 100%" colspan=4><asp:DropDownList ID="ddlRole" runat="server" AutoPostBack="false">                                    
-                                </asp:DropDownList> </td></tr><tr><td align="left" ><asp:Label ID="Label1" runat="server" Width="130px" Text="Email"></asp:Label> </td><td  align="left" style="width: 70%" ><asp:RadioButton ID="rdoStatusYes" Text="Yes" runat="server" Checked="true" GroupName="Status" /> <asp:RadioButton ID="rdoStatusNo" Text="No" runat="server" GroupName="Status" /> </td></tr><tr><td colspan="9" style="text-align: right"><asp:Button ID="btnSave" runat="server" Text="Save"/> <asp:Button ID="btnCancel" runat="server" Text="Cancel"/> </td></tr></table></td></tr></table></asp:Panel> 
+<asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
+    <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
+        <asp:TableHeaderRow>
+            <asp:TableCell CssClass="navigation" VerticalAlign="Middle">
+                <asp:Label ForeColor="White" ID="lblSubPath" runat="server">User List</asp:Label></asp:TableCell>
+        </asp:TableHeaderRow>
+    </asp:Table> 
+    <asp:Panel ID="plMessage" runat="server" Visible="false"></asp:Panel> 
+    <asp:Panel CssClass="GreyTable" ID="plSearch" runat="server" Visible="true" width="100%">
+    <table id="GreyTable" cellspacing="0" cellpadding="0" width="100%" border="0">
+        <tr><td valign="top" style="height: 8px">
+            <table id="tblSearch" cellspacing="0" cellpadding="1" width="100%" border="0">
+                <tr>
+                    <td align="left" ><asp:Label ID="Label4" runat="server" Width="130px" Text="User ID"></asp:Label></td>
+                    <td align="left" style="width: 70%" >
+                        <asp:Label runat="server" id="lblUserID" />
+                        <asp:TextBox runat="server" id="txtUserID" Visible="false" MaxLength="10" />
+                        <asp:RequiredFieldValidator ID="rfvUserID" runat="server" Display="Dynamic" ControlToValidate="txtUserID" ErrorMessage="Please enter user id."></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" ><asp:Label ID="Label3" runat="server" Width="130px" Text="User Name"></asp:Label> </td>
+                    <td align="left" style="width: 70%"><asp:TextBox runat="server" id="txtUserName" MaxLength="40" ></asp:TextBox> 
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" Display="Dynamic" ControlToValidate="txtUserName" ErrorMessage="Please enter user name."></asp:RequiredFieldValidator>
+                    </td>
+                </tr>                
+                <tr>
+                    <td align="left" ><asp:Label ID="Label2" runat="server" Width="130px" Text="Email"></asp:Label> </td>
+                    <td  align="left" style="width: 70%" ><asp:TextBox runat="server" id="txtEmail" MaxLength="70"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" Display="Dynamic" ControlToValidate="txtEmail" ErrorMessage="Please enter email."></asp:RequiredFieldValidator>
+                    </td>
+                </tr>                
+                <tr>
+                    <td align="left" ><asp:Label ID="lbl1" runat="server" Width="130px" Text="Role"></asp:Label> </td>
+                    <td  align="left" style="width: 100%" colspan="4">
+                        <asp:Label ID="lblRole" runat="server" Font-Bold="false" Visible="false" />
+                        <asp:DropDownList ID="ddlRole" runat="server" OnSelectedIndexChanged="ddlRole_SelectedIndexChanged" Visible="false"></asp:DropDownList>
+                        <%--<asp:XmlDataSource ID="dsXML" runat="server" DataFile="~/App_Data/UserRoles.xml"></asp:XmlDataSource>--%>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" ><asp:Label ID="lblproftype" runat="server" Width="130px" Text="Profile Type"></asp:Label> </td>
+                    <td  align="left" style="width: 100%" colspan="4">
+                        <asp:Label ID="lblType" runat="server" Font-Bold="false" Visible="false" />
+                        <asp:DropDownList ID="ddlType" runat="server" AutoPostBack="false" Visible="false"></asp:DropDownList>                        
+                    </td>
+                </tr>   
+                <tr>
+                    <td align="left" ><asp:Label ID="Label5" runat="server" Width="130px" Text="Supplier ID"></asp:Label> </td>
+                    <td  align="left" style="width: 100%" colspan="4">
+                        <asp:Label ID="lblSupplierID" runat="server" Font-Bold="false" Visible="false" />
+                        <asp:DropDownList ID="ddlSupplierID" runat="server" AppendDataBoundItems="true" AutoPostBack="false" Visible="false">
+                            <asp:ListItem Selected="true" Text="[None]" Value="" />
+                        </asp:DropDownList>                        
+                    </td>
+                </tr>   
+                <tr>
+                    <td align="left" ><asp:Label ID="Label1" runat="server" Width="130px" Text="Account Active?"></asp:Label> </td>
+                    <td  align="left" style="width: 70%" >
+                        <asp:RadioButton ID="rdoStatusYes" Text="Yes" runat="server" Checked="true" GroupName="Status" /> 
+                        <asp:RadioButton ID="rdoStatusNo" Text="No" runat="server" GroupName="Status" /> 
+                    </td>
+                </tr>
+                <tr><td colspan="9">
+                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" Visible="false" />
+                    <asp:Button ID="btncancel" runat="server" Text="Back" OnClientClick="javascript:history.go(-1);" />                    
+                    <asp:Label ID="lblError" runat="server" CssClass="labelErrorMessage" />
+                    <asp:Label runat="server" ID="lblMessage" CssClass=""></asp:Label>
+                </td>
+                </tr>
+            </table>
+        </td></tr>
+    </table>
+    </asp:Panel> 
 </asp:Content>
-
