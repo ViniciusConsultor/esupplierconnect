@@ -59,6 +59,14 @@
     </ITEM>
 	</ITEM>
 	<ITEM>
+		<TITLE>Quotation Processing</TITLE>
+		<HREF></HREF>
+		<ITEM FID="S-0010">
+			<TITLE>Create RFQ</TITLE>
+			<HREF>~/"~/Quotation/QuotationRequestCreate.aspx"?FunctionId=S-0010</HREF>
+		</ITEM>
+	</ITEM>	
+	<ITEM>
 		<TITLE>User Profile</TITLE>
 		<HREF></HREF>
 		<!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
