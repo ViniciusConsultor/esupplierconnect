@@ -32,6 +32,10 @@ namespace eProcurement_BLL
         private OrderItemController orderItemController = null;
         private SupplierController supplierController = null;
         private ShortageMaterialController shortageMaterialController = null;
+        private QuotationController quotationController = null;
+        private RequisitionController requisitionController = null;
+        
+        
         
 
         public MainController()
@@ -96,6 +100,20 @@ namespace eProcurement_BLL
                 this.shortageMaterialController = new ShortageMaterialController(this);
             return this.shortageMaterialController;
         }
+
+        public QuotationController GetQuotationController()
+        {
+            if (this.quotationController == null)
+                this.quotationController = new QuotationController(this);
+            return this.quotationController;
+        }
+        public RequisitionController GetRequisitionController()
+        {
+            if (this.requisitionController == null)
+                this.requisitionController = new RequisitionController(this);
+            return this.requisitionController;
+        }
+        
 
     }
 }

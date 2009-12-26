@@ -39,6 +39,23 @@ namespace eProcurement_BLL
                 throw (ex);
             }
         }
+        public Collection<Supplier> GetSupplierList()
+        {
+            try
+            {
+                string whereCluase = "";
+                string orderCluase = "";
+                whereCluase = "";               
+
+                orderCluase = " LIFNR asc ";
+                return this.mainController.GetDAOCreator().CreateSupplierDAO().RetrieveByQuery(whereCluase, orderCluase);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
 
     }
 }
