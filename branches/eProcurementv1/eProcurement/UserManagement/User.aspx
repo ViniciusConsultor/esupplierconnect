@@ -15,7 +15,7 @@
                 <tr>
                     <td align="left" ><asp:Label ID="Label4" runat="server" Width="130px" Text="User ID"></asp:Label></td>
                     <td align="left" style="width: 70%" >
-                        <asp:Label runat="server" id="lblUserID" />
+                        <asp:Label runat="server" id="lblUserID" /><asp:Label runat="server" id="lblPSWD" Visible="false" />
                         <asp:TextBox runat="server" id="txtUserID" Visible="false" MaxLength="10" />
                         <asp:RequiredFieldValidator ID="rfvUserID" runat="server" Display="Dynamic" ControlToValidate="txtUserID" ErrorMessage="Please enter user id."></asp:RequiredFieldValidator>
                     </td>

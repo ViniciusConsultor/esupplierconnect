@@ -33,12 +33,12 @@ public partial class UserManagement_User : BaseForm
             base.Page_Load(sender, e);
             /***************************************************/
 
-            LoadRolesTypes();
-            LoadSupplierID();
-
             string type = Request.QueryString["Type"];
 
             ViewState.Add("Type", type);
+
+            LoadRolesTypes();
+            LoadSupplierID();
 
             if (type == null)
             {
@@ -131,7 +131,7 @@ public partial class UserManagement_User : BaseForm
             User u = new User();
             u.UserId = newUserId;
             u.UserName = txtUserName.Text;
-            u.UserPassword = pg.Generate();
+            u.UserPassword = Convert.ToString(ViewState["Type"]) == "New" ? pg.Generate() : lblPSWD.Text;
             u.UserEmail = txtEmail.Text;
 
             u.UserRole = ddlRole.Visible == true ? ddlRole.SelectedItem.Text : lblRole.Text;
@@ -205,6 +205,7 @@ public partial class UserManagement_User : BaseForm
         User u = this.mainController.GetDAOCreator().CreateUserDAO().RetrieveByKey(userId);
 
         lblUserID.Text = userId.Trim();
+        lblPSWD.Text = u.UserPassword;
         txtUserName.Text = u.UserName;
         txtEmail.Text = u.UserEmail;
 
@@ -263,8 +264,25 @@ public partial class UserManagement_User : BaseForm
 
         if (loginUser.Role == UserRole.Administrator)
         {
-            ddlRole.Visible = true;
-            lblRole.Visible = false;
+            if (loginUser.ProfileType == ProfileType.System)
+            {
+                ddlRole.Visible = true;
+                lblRole.Visible = false;
+            }
+            else
+            {
+                if (Convert.ToString(ViewState["Type"]) == string.Empty)
+                {
+                    ddlRole.Visible = false;
+                    lblRole.Visible = true;
+                }
+                else
+                {
+                    ddlRole.Visible = true;
+                    lblRole.Visible = false;
+
+                }
+            }
         }
         else
         {
