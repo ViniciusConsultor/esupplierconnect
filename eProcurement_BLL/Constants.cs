@@ -13,7 +13,8 @@ namespace eProcurement_BLL
     public class PORecStatus
     {
         public const string Accept = "A";
-        public const string Reject = "R";
+        public const string Reject1 = "1";
+        public const string Reject2 = "2";
     }
 
     public class POStatus
