@@ -51,5 +51,7 @@ namespace eProcurement_DAL
         public abstract ISubcontractorMaterialDAO CreateSubcontractorMaterialDAO();
         public abstract ISupplierDAO CreateSupplierDAO();
         public abstract IUserDAO CreateUserDAO();
+        public abstract IContractHeaderDAO CreateContractHeaderDAO();
+        public abstract IContractItemDAO CreateContractItemDAO();
     }
 }
