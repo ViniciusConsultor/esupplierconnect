@@ -102,7 +102,7 @@ public partial class UserManagement_User : BaseForm
 
             LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
 
-            string d = DateTime.Now.ToString("dd") + DateTime.Now.ToString("MM") + DateTime.Now.ToString("yyyy");
+            string d = DateTime.Now.ToString("yyyy") + DateTime.Now.ToString("MM") + DateTime.Now.ToString("dd");
 
             lblError.Text = "";
             lblMessage.Text = "";
