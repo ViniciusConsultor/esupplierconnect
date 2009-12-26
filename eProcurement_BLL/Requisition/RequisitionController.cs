@@ -21,14 +21,18 @@ namespace eProcurement_BLL
             return mainController.GetDAOCreator().CreateRequisitionItemDAO().RetrieveByKey(RequisitionNO, RequisitionSeq);           
         }
 
-        public Collection<RequisitionItem> GetRequisitionList(string MaterialNo)
+        public Collection<RequisitionItem> GetRequisitionList(string MaterialNo, string RequisitionNo)
         {
             try
             {
-                string whereCluase = "";                
-                whereCluase = " MATNR like '" + Utility.EscapeSQL(MaterialNo) + "'";
+                string whereCluase = "";
+
+                whereCluase = " MATNR = '" + Utility.EscapeSQL(MaterialNo) + "' AND EBELN = '" + RequisitionNo + "'" ;
+
                 //orderCluase = " BANFN asc ";
                 return this.mainController.GetDAOCreator().CreateRequisitionItemDAO().RetrieveByQuery(whereCluase);
+                
+
             }
             catch (Exception ex)
             {
@@ -36,7 +40,25 @@ namespace eProcurement_BLL
                 throw (ex);
             }
         }
+        public Collection<RequisitionItem> GetRequisitionList(string RequisitionNo)
+        {
+            try
+            {
+                string whereCluase = "";
 
+                whereCluase = " EBELN like '" + RequisitionNo + "%'";
+
+                //orderCluase = " BANFN asc ";
+                return this.mainController.GetDAOCreator().CreateRequisitionItemDAO().RetrieveByQuery(whereCluase);
+
+
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
 
     }
 }
