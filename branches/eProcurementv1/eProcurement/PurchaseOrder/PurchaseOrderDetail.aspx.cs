@@ -382,16 +382,19 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
                 bAccept = true;
             }
 
-            mainController.GetOrderHeaderController().ConfirmOrderAcknowledgement(Session[SessionKey.OrderNumber].ToString(), bAccept);
+            int iReturn = mainController.GetOrderHeaderController().ConfirmOrderAcknowledgement(Session[SessionKey.OrderNumber].ToString(), bAccept);
 
             btnAccept.Enabled = false;
             btnReject.Enabled = false;
             plMessage.Visible = true;
             string sMessage = "";
-            if(bAccept)
+            if (iReturn==1)
                 sMessage = "Purchase Order has been accepted successfully.";
-            else
+            else if (iReturn==2)
+                sMessage = "Purchase Order has been rejected successfully.";
+            else 
                 sMessage = "Purchase Order has been rejected for 2nd acknowledgement.";
+
             displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information); 
 
         }
