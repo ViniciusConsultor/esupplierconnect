@@ -389,7 +389,8 @@ namespace eProcurement_BLL.PurchaseOrder
                         .RetrieveByKey(tran, orderNumber);
 
                     //Check whether the order has already been acknowledged 
-                    if (!string.IsNullOrEmpty(header.RecordStatus.Trim()))
+                    if (string.Compare(header.RecordStatus.Trim(),PORecStatus.Accept,true)==0 ||
+                        string.Compare(header.RecordStatus.Trim(),PORecStatus.Reject2,true)==0)
                     {
                         throw new Exception("The order has already been accepted or rejected by other user.");
                     }
