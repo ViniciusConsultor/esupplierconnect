@@ -72,6 +72,7 @@ namespace eProcurement_BLL
         public const string Buyer = "Buyer";
         public const string Supplier = "Supplier";
         public const string WarehouseUser = "WHUser";
+        public const string System = "System";
     }
 
     public class UserRole
