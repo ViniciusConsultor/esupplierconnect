@@ -68,22 +68,6 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
         }
     }
 
-    protected void btnProcess_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            CheckSessionTimeOut();
-
-           
-        }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
-        }
-    }
-
     protected void btnFilter_Click(object sender, EventArgs e)
     {
         try
@@ -154,4 +138,60 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
             } 
         }
     }
+
+    protected void btnSumbit_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            CheckSessionTimeOut();
+
+
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
+        }
+    }
+
+    #region validation
+    private string ValidateInput()
+    {
+        System.Text.StringBuilder strErrorMsg = new System.Text.StringBuilder(string.Empty);
+        bool bIsValid = true;
+        int iCount = 0;
+        foreach (RepeaterItem rowItem in gvItem.Items)
+        {
+            GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
+            foreach (GridViewRow rowSchedule in gvSchedule.Rows)
+            {
+                UserControls_DatePicker dtpAck = (UserControls_DatePicker)rowSchedule.FindControl("dtAcknowledgeDate");
+                iCount++;
+                if (dtpAck.Text == "")
+                {
+                    bIsValid = false;
+                    strErrorMsg.Append(MakeListItem("Please select a value for Acknowledge Date."));
+                }
+                else
+                {
+                    if (!dtpAck.IsValidDate)
+                    {
+                        bIsValid = false;
+                        strErrorMsg.Append(MakeListItem("Please select a valid value for Acknowledge Date."));
+                    }
+                }
+                if (!bIsValid)
+                    break;
+            }
+        }
+
+        if (iCount == 0)
+        {
+            strErrorMsg.Append(MakeListItem("You didn't acknowledge any order."));
+        }
+
+        return strErrorMsg.ToString();
+    }
+    #endregion
 }
