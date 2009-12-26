@@ -197,11 +197,15 @@ namespace eProcurement_DAL
 
                 //Update 
                 //cm.CommandText = "UPDATE USERS SET [USERID]=@USERID,[USRNAM]=@USRNAM,[USRPWD]=@USRPWD,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT,[LIFNR]=@LIFNR,[PROFTYP]=@PROFTYP WHERE USERID=@USERID";
-                cm.CommandText = "UPDATE [USER] SET [USRNAM]=@USRNAM,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT,[LIFNR]=@LIFNR,[PROFTYP]=@PROFTYP WHERE LTRIM(RTRIM(USERID))=@USERID";
+                cm.CommandText = "UPDATE [USER] SET [USRNAM]=@USRNAM,[USRPWD]=@USRPWD,[USRROLE]=@USRROLE,[USREMAIL]=@USREMAIL,[UPDTBY]=@UPDTBY,[UPDTDATE]=@UPDTDATE,[USRSTAT]=@USRSTAT,[LIFNR]=@LIFNR,[PROFTYP]=@PROFTYP WHERE LTRIM(RTRIM(USERID))=@USERID";
 
                 SqlParameter p1 = new SqlParameter("@USRNAM", SqlDbType.VarChar, 40);
                 cm.Parameters.Add(p1);
                 p1.Value = entity.UserName;
+
+                SqlParameter p2 = new SqlParameter("@USRPWD", SqlDbType.VarChar, 10);
+                cm.Parameters.Add(p2);
+                p2.Value = entity.UserPassword;
 
                 SqlParameter p3 = new SqlParameter("@USRROLE", SqlDbType.VarChar, 15);
                 cm.Parameters.Add(p3);
