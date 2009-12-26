@@ -115,6 +115,10 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
                     {
                         m_FuncFlag = "VIEW_ORDER";
                     }
+                    if (string.Compare(functionId, "B-0004", true) == 0)
+                    {
+                        m_FuncFlag = "ACK_ORDER_BUYER";
+                    }
                 }
                 base.Page_Load(sender, e);
                 /***************************************************/
@@ -151,6 +155,13 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
             {
                 lblSubPath.Text = "Acknowledge Order";
                 btnReject.Visible =false;
+                btnAccept.Visible = false;
+            }
+
+            if (string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
+            {
+                lblSubPath.Text = "Acknowledge Order by Buyer";
+                btnReject.Visible = false;
                 btnAccept.Visible = false;
             }
 
@@ -334,8 +345,16 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
                  }
              }
 
-             mainController.GetOrderHeaderController().AcknowledgePurchaseOrder(schedules);   
+             if (string.Compare(m_FuncFlag, "ACK_ORDER", false) == 0)
+             {
+                 mainController.GetOrderHeaderController().AcknowledgePurchaseOrder(schedules);  
+             }
 
+             if (string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
+             {
+                 mainController.GetOrderHeaderController().AcknowledgePurchaseOrderByBuyer(schedules);  
+             }
+       
              btnAcknowledge.Enabled = false;
              plMessage.Visible = true;
              string sMessage = "Purchase Order has been acknowledged successfully.";

@@ -110,6 +110,10 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                     {
                         m_FuncFlag = "VIEW_ORDER_BUYER";
                     }
+                    if (string.Compare(functionId, "B-0004", true) == 0)
+                    {
+                        m_FuncFlag = "ACK_ORDER_BUYER";
+                    }
                 }
                 base.Page_Load(sender, e);
                 /***************************************************/
@@ -166,6 +170,14 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
             {
                 lblSubPath.Text = "Acknowledge Order";
                 plshSupplier.Visible = false;
+                plshBuyer.Visible = true;
+                plshStatus.Visible = false;
+            }
+
+            if (string.Compare(m_FuncFlag, "ACK_ORDER_BUYER", false) == 0)
+            {
+                lblSubPath.Text = "Acknowledge Order by Buyer";
+                plshSupplier.Visible = true;
                 plshBuyer.Visible = true;
                 plshStatus.Visible = false;
             }
@@ -306,6 +318,12 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
            (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.FromDate, m_SearchCriteriaVO.ToDate, m_SearchCriteriaVO.BuyerName);
         }
 
+        if (string.Compare(m_FuncFlag, "ACK_ORDER_BUYER", false) == 0)
+        {
+            poColl = mainController.GetOrderHeaderController().GetPendingAckByBuyerPOList
+           (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.FromDate, m_SearchCriteriaVO.ToDate, m_SearchCriteriaVO.BuyerName, m_SearchCriteriaVO.SupplierId);
+        }
+
         if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
         {
             poColl = mainController.GetOrderHeaderController().GetPendingConfirmPOList
@@ -362,7 +380,8 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
 
                 Session[SessionKey.OrderNumber] = orderNo;
             }
-            if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
+            if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0 ||
+                string.Compare(m_FuncFlag, "ACK_ORDER_BUYER", false) == 0)
             {
                 url = "~/PurchaseOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
                 url += "&OrderNumber=" + m_SearchCriteriaVO.OrderNumber;
