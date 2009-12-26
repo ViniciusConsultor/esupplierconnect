@@ -86,14 +86,14 @@ namespace eProcurement_BLL.UserManagement
                 }
                 
                 LoginUserVO loginUserVO = new LoginUserVO();
-                loginUserVO.UserId = user.UserId;
+                loginUserVO.UserId = user.UserId.Trim();
                 loginUserVO.UserName = user.UserName;
                 loginUserVO.LastLoginDateTime = DateTime.Now;
                 loginUserVO.EmailAddr = user.UserEmail;
                 loginUserVO.ProfileType = user.ProfileType;
-                loginUserVO.SupplierId = user.SupplierID;
+                loginUserVO.SupplierId = user.SupplierID.Trim();
                 loginUserVO.Role = user.UserRole;
-                if (!string.IsNullOrEmpty(user.SupplierID))
+                if (!string.IsNullOrEmpty(user.SupplierID.Trim()))
                 {
                     Supplier supplier = mainController.GetSupplierController().GetSupplier(user.SupplierID);
                     loginUserVO.SupplierName = supplier.SupplierName;
