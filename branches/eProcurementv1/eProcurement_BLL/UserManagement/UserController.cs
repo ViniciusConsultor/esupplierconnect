@@ -97,7 +97,7 @@ namespace eProcurement_BLL.UserManagement
 
                 u.UserStatus = status;
                 u.UpdatedBy = updatedBy;
-
+                u.UpdatedDate = Convert.ToInt64(DateTime.Now.ToString("yyyy") + DateTime.Now.ToString("MM") + DateTime.Now.ToString("dd"));
                 mainController.GetDAOCreator().CreateUserDAO().Update(u);
             }
             catch (Exception ex)
@@ -114,6 +114,7 @@ namespace eProcurement_BLL.UserManagement
 
                 u.UserPassword = pswd;
                 u.UpdatedBy = updatedBy;
+                u.UpdatedDate = Convert.ToInt64(DateTime.Now.ToString("yyyy") + DateTime.Now.ToString("MM") + DateTime.Now.ToString("dd"));
 
                 mainController.GetDAOCreator().CreateUserDAO().Update(u);
             }
