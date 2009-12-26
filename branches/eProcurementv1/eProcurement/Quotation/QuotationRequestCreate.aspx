@@ -34,7 +34,7 @@
                             <span class="redtxt">*</span> 
                         </td> 
                         <td  align="left" colspan="3" style="width: 100%">
-                            <asp:DropDownList ID="ddlMaterialNo" runat="server" AutoPostBack="false">                             
+                            <asp:DropDownList ID="ddlMaterialNo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMaterialNo_SelectedIndexChanged">                             
                             </asp:DropDownList>
                         </td>
                     </tr>
@@ -43,7 +43,7 @@
                             <asp:Label ID="Label6" runat="server" Text="Material Desc"></asp:Label>
                         </td> 
                         <td  align="left" colspan="3" style="width: 100%">
-                            <asp:TextBox runat="server" id="txtMaterialDesc"></asp:TextBox>
+                            <asp:TextBox runat="server" id="txtMaterialDesc" ReadOnly="True"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
