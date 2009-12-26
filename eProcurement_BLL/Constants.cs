@@ -21,6 +21,34 @@ namespace eProcurement_BLL
         public const string Delete = "D";
     }
 
+    public class ExpediteStatus
+    {
+        public const string Expedite = "E";
+        public const string Acknowledge = "K";
+        public const string Accept = "A";
+        public const string Reject = "R";
+
+        public static string GetDesc(string status)
+        {
+            string sCompare = "";
+            if (!string.IsNullOrEmpty(status)) sCompare = status.Trim();
+
+            switch (sCompare)
+            {
+                case Expedite:
+                    return "Expedite";
+                case Acknowledge:
+                    return "Acknowledge";
+                case Accept:
+                    return "Accept";
+                case Reject:
+                    return "Reject";
+                default:
+                    return "-";
+            }
+        }
+    }
+
     public class SystemMessageType
     {
         public const string Information = "I";
