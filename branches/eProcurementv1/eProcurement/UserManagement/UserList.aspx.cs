@@ -24,6 +24,13 @@ public partial class UserManagement_UserList : BaseForm
 
         if (!Page.IsPostBack)
         {
+            //Access control
+            /***************************************************/
+            base.m_FunctionIdColl.Add("U-0001");
+
+            base.Page_Load(sender, e);
+            /***************************************************/
+
             LoadUsers();
         }
     }

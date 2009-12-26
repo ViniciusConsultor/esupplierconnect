@@ -4,7 +4,7 @@
     <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
         <asp:TableHeaderRow>
             <asp:TableCell CssClass="navigation" VerticalAlign="Middle">
-                <asp:Label ForeColor="White" ID="lblSubPath" runat="server">User List</asp:Label></asp:TableCell>
+                <asp:Label ForeColor="White" ID="lblSubPath" runat="server">User Profile</asp:Label></asp:TableCell>
         </asp:TableHeaderRow>
     </asp:Table> 
     <asp:Panel ID="plMessage" runat="server" Visible="false"></asp:Panel> 
@@ -44,9 +44,11 @@
                     <td align="left" ><asp:Label ID="lblproftype" runat="server" Width="130px" Text="Profile Type"></asp:Label> </td>
                     <td  align="left" style="width: 100%" colspan="4">
                         <asp:Label ID="lblType" runat="server" Font-Bold="false" Visible="false" />
-                        <asp:DropDownList ID="ddlType" runat="server" AutoPostBack="false" Visible="false"></asp:DropDownList>                        
+                        <asp:DropDownList ID="ddlType" runat="server" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" AutoPostBack="true" Visible="false"></asp:DropDownList>                        
                     </td>
-                </tr>   
+                </tr>
+                <asp:Panel ID="pnlAdmin" runat="server" Visible="false" >
+                <asp:Panel ID="pnlSupplier" runat="server" Visible="false" >
                 <tr>
                     <td align="left" ><asp:Label ID="Label5" runat="server" Width="130px" Text="Supplier ID"></asp:Label> </td>
                     <td  align="left" style="width: 100%" colspan="4">
@@ -56,6 +58,7 @@
                         </asp:DropDownList>                        
                     </td>
                 </tr>   
+                </asp:Panel>
                 <tr>
                     <td align="left" ><asp:Label ID="Label1" runat="server" Width="130px" Text="Account Active?"></asp:Label> </td>
                     <td  align="left" style="width: 70%" >
@@ -63,11 +66,12 @@
                         <asp:RadioButton ID="rdoStatusNo" Text="No" runat="server" GroupName="Status" /> 
                     </td>
                 </tr>
+                </asp:Panel>   
                 <tr><td colspan="9">
                     <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" Visible="false" />
                     <asp:Button ID="btncancel" runat="server" Text="Back" OnClientClick="javascript:history.go(-1);" />                    
                     <asp:Label ID="lblError" runat="server" CssClass="labelErrorMessage" />
-                    <asp:Label runat="server" ID="lblMessage" CssClass=""></asp:Label>
+                    <asp:Label ID="lblMessage"  runat="server" CssClass=""></asp:Label>
                 </td>
                 </tr>
             </table>

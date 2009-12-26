@@ -26,6 +26,13 @@ public partial class UserManagement_UserPassword : BaseForm
 
         if (!Page.IsPostBack)
         {
+            //Access control
+            /***************************************************/
+            base.m_FunctionIdColl.Add("U-0003");
+
+            base.Page_Load(sender, e);
+            /***************************************************/
+
             LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
             lblUserID.Text = loginUser.UserId;
         }
@@ -33,6 +40,9 @@ public partial class UserManagement_UserPassword : BaseForm
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
+        lblMessage.Text = "";
+        lblError.Text = "";
+
         try
         {
             if (ValidPassword(lblUserID.Text, txtCurrPassword.Text))
