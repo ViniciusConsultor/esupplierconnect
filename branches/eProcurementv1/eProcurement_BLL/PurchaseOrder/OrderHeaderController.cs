@@ -189,6 +189,7 @@ namespace eProcurement_BLL.PurchaseOrder
                     {
                         whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
                         whereCluase += " AND isnull(RECSTS,'') <> '" + PORecStatus.Accept + "' ";
+                        whereCluase += " AND isnull(RECSTS,'') <> '" + PORecStatus.Reject2 + "' ";
                     }
 
                     //Accepted
@@ -202,7 +203,7 @@ namespace eProcurement_BLL.PurchaseOrder
                     if (string.Compare(status, "RE", true) == 0)
                     {
                         //whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
-                        whereCluase += " AND isnull(RECSTS,'') = '" + PORecStatus.Reject + "' ";
+                        whereCluase += " AND isnull(RECSTS,'') = '" + PORecStatus.Reject2 + "' ";
                     }
                    
                 }
@@ -260,7 +261,7 @@ namespace eProcurement_BLL.PurchaseOrder
 
                   //Update Order header
                   header.AcknowledgeStatus = POAckStatus.Yes;
-                  header.RecordStatus = "";
+                  //header.RecordStatus = "";
                   mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, header);
 
                   //Update Order Item
@@ -374,11 +375,12 @@ namespace eProcurement_BLL.PurchaseOrder
           }
         }
         
-
-        public void ConfirmOrderAcknowledgement(string orderNumber,bool accept)
+        public int ConfirmOrderAcknowledgement(string orderNumber,bool accept)
         {
             try
             {
+                int iReturn = 0;
+                
                 EpTransaction tran = DataManager.BeginTransaction();
                 try
                 {
@@ -393,18 +395,30 @@ namespace eProcurement_BLL.PurchaseOrder
                     }
 
                     //Update Order header
-                    header.AcknowledgeStatus = POAckStatus.No;
                     if (accept)
+                    {
                         header.RecordStatus = PORecStatus.Accept;
+                        iReturn=1;
+                    }
                     else 
                     {
-                        header.AcknowledgeStatus = POAckStatus.No;
-                        header.RecordStatus = PORecStatus.Reject;
+                        if (string.Compare(header.RecordStatus, PORecStatus.Reject1, true) == 0)
+                        {
+                            header.RecordStatus = PORecStatus.Reject2;
+                            iReturn = 2;
+                        }
+                        else 
+                        {
+                            header.AcknowledgeStatus = POAckStatus.No;
+                            header.RecordStatus = PORecStatus.Reject1;
+                            iReturn = 3;
+                        } 
                     }
 
                     mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, header);
 
                     tran.Commit();
+                    return iReturn;
                 }
                 catch (Exception ex)
                 {
