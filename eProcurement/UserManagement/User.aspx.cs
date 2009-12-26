@@ -26,6 +26,13 @@ public partial class UserManagement_User : BaseForm
 
         if (!Page.IsPostBack)
         {
+            //Access control
+            /***************************************************/
+            base.m_FunctionIdColl.Add("U-0002");
+
+            base.Page_Load(sender, e);
+            /***************************************************/
+
             LoadRolesTypes();
             LoadSupplierID();
 
@@ -36,14 +43,15 @@ public partial class UserManagement_User : BaseForm
             if (type == null)
             {
                 LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
-                GetUser(loginUser.UserId); //Session["EditUserID"]));
+                GetUser(loginUser.UserId); 
                 btnSave.Visible = true;
                 rfvUserID.Enabled = false;
             }
             else if (type == "Edit")
             {
-                GetUser(Convert.ToString(Request.QueryString["UserID"])); //Session["EditUserID"]));
+                GetUser(Convert.ToString(Request.QueryString["UserID"])); 
                 btnSave.Visible = true;
+                pnlAdmin.Visible = true;
                 rfvUserID.Enabled = false;
             }
             else if (type == "New")
@@ -51,6 +59,7 @@ public partial class UserManagement_User : BaseForm
                 txtUserID.Visible = true;
                 lblUserID.Visible = false;
                 btnSave.Visible = true;
+                pnlAdmin.Visible = true;
                 rfvUserID.Enabled = true;
                 rdoStatusYes.Enabled = false;
                 rdoStatusNo.Enabled = false;
@@ -92,6 +101,14 @@ public partial class UserManagement_User : BaseForm
         }
     }
 
+    protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddlType.Items.Count > 0)
+        {
+            pnlSupplier.Visible = ddlType.SelectedValue == "Supplier" ? true : false;         
+        }
+    }
+
     protected void btnSave_Click(object sender, EventArgs e)
     {
         try
@@ -123,12 +140,21 @@ public partial class UserManagement_User : BaseForm
             u.UpdatedBy = loginUser.UserId;
             u.UpdatedDate = Convert.ToInt64(d);
 
-            u.SupplierID = ddlSupplierID.Visible == true ? ddlSupplierID.SelectedValue : loginUser.SupplierId;
+            bool chkAdmin = false;
+            chkAdmin = (ddlSupplierID.Visible && pnlAdmin.Visible);
+
+            u.SupplierID = chkAdmin == true ? ddlSupplierID.SelectedValue : loginUser.SupplierId;
+
+            if (u.ProfileType == ProfileType.Buyer)
+                u.SupplierID = "";
 
             if (rdoStatusYes.Checked == true)
                 u.UserStatus = "A";
             else
                 u.UserStatus = "V";
+
+            if (u.ProfileType == ProfileType.Supplier && u.SupplierID == string.Empty)
+                throw new Exception("<br />Please choose Supplier ID.");
 
             if (Convert.ToString(ViewState["Type"]) == "New")
             {
@@ -148,18 +174,19 @@ public partial class UserManagement_User : BaseForm
                         "Password: " + u.UserPassword + "<br /><br /><br /><br />" +
                         "[This is system auto-generated email. Please do not reply.]";
 
+                    //comment it for testing purpose
                     //Utility.SentEmail("SupplierConnect@Fujitec", u.UserEmail, title, body, emailServer);
 
-                    lblMessage.Text = "New user created and notification email has been send to the user.";
+                    lblMessage.Text = "<br />New user created and notification email has been send to the user.";
                 }
                 else
-                    throw new Exception("UserID already exists.");
+                    throw new Exception("<br />UserID already exists.");
             }
-            else if (Convert.ToString(ViewState["Type"]) == "Edit")
+            else if (Convert.ToString(ViewState["Type"]) == "Edit" || Convert.ToString(ViewState["Type"])== string.Empty)
             {
-                //UserController.UpdateUser(u);
                 this.mainController.GetDAOCreator().CreateUserDAO().Update(u);
-                lblMessage.Text = "User data has been updated successfully.";
+                GetUser(u.UserId);
+                lblMessage.Text = "<br />User data has been updated successfully.";
             }
         }
         catch (Exception ex)
@@ -177,7 +204,7 @@ public partial class UserManagement_User : BaseForm
         //User u = UserController.GetUser(userId);
         User u = this.mainController.GetDAOCreator().CreateUserDAO().RetrieveByKey(userId);
 
-        lblUserID.Text = userId;
+        lblUserID.Text = userId.Trim();
         txtUserName.Text = u.UserName;
         txtEmail.Text = u.UserEmail;
 
@@ -186,8 +213,9 @@ public partial class UserManagement_User : BaseForm
         ddlRole.SelectedValue = u.UserRole;
         ddlType.SelectedValue = u.ProfileType;
 
-        lblSupplierID.Text = u.SupplierID;
-        ddlSupplierID.SelectedValue = u.SupplierID;
+        lblSupplierID.Text = u.SupplierID.Trim();
+        ddlSupplierID.SelectedValue = u.SupplierID.Trim();
+        pnlSupplier.Visible = ddlType.SelectedValue == ProfileType.Supplier ? true : false;
 
         if (u.UserStatus == UserStatus.Active)
         {

@@ -37,7 +37,7 @@
                             </td>
                             <td align="left" style="width: 70%">
                                 <asp:TextBox runat="server" id="txtNewPassword" MaxLength="10" textmode="Password"></asp:TextBox> 
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" Display="Dynamic" ControlToValidate="txtNewPassword" ErrorMessage="<br />Please enter current password."></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" Display="Dynamic" ControlToValidate="txtNewPassword" ErrorMessage="<br />Please enter new password."></asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
