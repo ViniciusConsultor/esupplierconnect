@@ -103,13 +103,11 @@
                             <tr class="gridHeader" style="height:25px">
 	                            <td style="vertical-align:middle; text-align:center;" width="5%">Itm<BR>Seq</td>
 	                            <td style="vertical-align:middle; text-align:center;" width="20%">Material/<BR>Description</td>
-	                            <td style="vertical-align:middle; text-align:center;" width="10%">Req Qty/<BR>Unit Measure</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="10%">Req Qty</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="8%">UnitMeasure</td>
 	                            <td style="vertical-align:middle; text-align:center;" width="8%">Est.<BR>Price</td>
-	                            <td style="vertical-align:middle; text-align:center;" width="8%">Unit<BR>Price</td>
-	                            <td style="vertical-align:middle; text-align:center;" width="8%">Order<BR>Date</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="8%">Unit<BR>Price</td>	                            
 	                            <td style="vertical-align:middle; text-align:center;" width="8%">Plant</td>
-	                            <td style="vertical-align:middle; text-align:center;" width="8%">Curr.ID</td>
-	                            <td style="vertical-align:middle; text-align:center;" width="15%">Total<BR>Value</td>
 	                        </tr>
                     </HeaderTemplate>
                     <ItemTemplate>
@@ -117,81 +115,77 @@
 	                            <td>
 	                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>                                            
-                                            <td >
-                                                <asp:Label ID="lblItemSequence" runat="server" CssClass="" Text='<%# Eval("PurchaseItemSequenceNumber") %> '></asp:Label> 
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" nowrap="nowrap">
+                                                <asp:Label ID="lblItemSequence" runat="server" CssClass="" Text='<%# Eval("RequestSequence") %> '></asp:Label> 
                                             </td>                                           
+                                            <td>&nbsp;</td>
                                         </tr>                                        
                                     </table>  
 	                            </td>
 	                            <td>
                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
+                                            <td>&nbsp;</td>
                                             <td Width="100%" nowrap="nowrap">
-                                                <asp:Label ID="lblMaterialNumber" runat="server" CssClass="" Text='<%# Eval("MaterialNumber") %> '></asp:Label> 
+                                                <asp:Label ID="lblMaterialNumber" runat="server" CssClass="" Text='<%# Eval("MaterialDescription") %> '></asp:Label> 
                                             </td>
+                                            <td>&nbsp;</td>
                                         </tr>                                        
                                     </table>  
                                </td> 
                                 <td>
                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
-                                            <td Width="100%" align="right">
-                                                <asp:Label ID="lblOrderQuantity" runat="server" CssClass="" Text='<%# Eval("OrderQuantity") %>'></asp:Label>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" nowrap="nowrap">
+                                                <asp:Label ID="lblOrderQuantity" runat="server" CssClass="" Text='<%# Eval("RequiredQuantity")%>'></asp:Label>
                                             </td>
+                                            <td>&nbsp;</td>
+                                        </tr>                                        
+                                    </table> 
+                                </td>                                
+                                <td>
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" nowrap="nowrap">
+                                                <asp:Label ID="Label2" runat="server" CssClass="" Text='<%# Eval("UnitMeasure")%>'></asp:Label>
+                                            </td>
+                                            <td>&nbsp;</td>
                                         </tr>                                        
                                     </table> 
                                 </td>
                                  <td>
                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
-                                            <td style="width : 100%"align="right">
-                                                <asp:Label ID="lblPricePer" runat="server" CssClass="" Text='<%# Eval("PricePerUnit") %>'></asp:Label>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" nowrap="nowrap">
+                                                <asp:Label ID="lblPricePer" runat="server" CssClass="" Text='<%# Eval("PriceUnit") %>'></asp:Label>
                                             </td>
+                                            <td>&nbsp;</td>
                                         </tr>
                                     </table> 
                                 </td>
                                 <td>
                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
-                                            <td style="width : 100%" align="right">
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" nowrap="nowrap">
                                                 <asp:Label ID="lblNetPrice" runat="server" CssClass="" Text='<%# Eval("NetPrice") %>'></asp:Label>
                                             </td>
+                                            <td>&nbsp;</td>
                                         </tr>
                                     </table> 
                                 </td>
                                 <td>
                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
-                                            <td style="width : 100%" align="right">
-                                                <asp:Label ID="Label6" runat="server" CssClass="" Text='<%# Eval("NetPrice") %>'></asp:Label>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%" nowrap="nowrap">
+                                                <asp:Label ID="Label1" runat="server" CssClass="" Text='<%# Eval("Plant") %>'></asp:Label>
                                             </td>
-                                        </tr>
-                                    </table> 
-                                </td>
-                                <td>
-                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                        <tr>
-                                            <td style="width : 100%" align="right">
-                                                <asp:Label ID="Label1" runat="server" CssClass="" Text='<%# Eval("PLANT") %>'></asp:Label>
-                                            </td>
-                                        </tr>
-                                    </table> 
-                                </td>
-                                <td>
-                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                        <tr>
-                                            <td style="width : 100%" align="right">
-                                                <asp:Label ID="Label2" runat="server" CssClass="" Text='<%# Eval("CURRID") %>'></asp:Label>
-                                            </td>
-                                        </tr>
-                                    </table> 
-                                </td>
-                                <td>
-                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                        <tr>
-                                            <td style="width : 100%" align="right">
-                                                <asp:Label ID="Label7" runat="server" CssClass="" Text='<%# Eval("TotalValue") %>'></asp:Label>
-                                            </td>
+                                            <td>&nbsp;</td>
                                         </tr>
                                     </table> 
                                 </td>
