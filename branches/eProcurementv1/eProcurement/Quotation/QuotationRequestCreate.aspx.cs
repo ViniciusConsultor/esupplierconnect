@@ -17,7 +17,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
 
 {
     private MainController mainController = null;
-
+    Collection<RequisitionItem> requisitionItemList;
     private string m_FuncFlag
     {
         get
@@ -152,7 +152,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     {
         try
         {
-            string url = "~/Quotation/QuotationRequestCreate.aspx";
+            string url = "~/Quotation/QuotationRequestCreate.aspx?FunctionId=S-0010";
             Response.Redirect(url);
         }
         catch (Exception ex)
@@ -253,6 +253,8 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
         }//end for Requisition
 
     }
+
+    
     protected void ddlMaterialNo_SelectedIndexChanged(object sender, EventArgs e)
     {
         string materialNO = ddlMaterialNo.SelectedItem.Value.ToString().Trim();
@@ -284,9 +286,10 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     {
         //lstRequisition
         //lstSupplier
-        Collection<QuotationHeader> quotationHdrList;
-        Collection<QuotationItem> quotationItemList;
-         
+        Collection<QuotationHeader> quotationHdrList = new Collection<QuotationHeader>() ;
+        Collection<QuotationItem> quotationItemList = new Collection<QuotationItem>();
+        requisitionItemList = new Collection<RequisitionItem>();
+
         QuotationHeader qtoHeader=new QuotationHeader ();
         QuotationItem qtoItem=new QuotationItem ();
         Int16 RequisitionItem, SupplierItem, requestSequence;
@@ -294,11 +297,11 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
         SupplierItem=0;
         requestSequence=0;
         
-            for (RequisitionItem = 0; RequisitionItem < lstRequisition.Items.Count - 1; RequisitionItem++)
+            for (RequisitionItem = 0; RequisitionItem < lstRequisition.Items.Count ; RequisitionItem++)
         {
             if (lstRequisition.Items[RequisitionItem].Selected)
             {
-                for (SupplierItem = 0; SupplierItem < lstSupplier.Items.Count - 1; SupplierItem++)
+                for (SupplierItem = 0; SupplierItem < lstSupplier.Items.Count ; SupplierItem++)
                 {       
                     if (lstSupplier.Items[RequisitionItem].Selected)
                     {
@@ -307,11 +310,11 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                         *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
                         qtoHeader.RequestNumber = lstRequisition.Items[RequisitionItem].Text;
                         qtoHeader.SupplierId = lstSupplier.Items[SupplierItem].Text;
-                        //qtoHeader.ExpiryDate = dtpExpiry.SelectedDate;
-                        //qtoHeader.QuotationNumber = "";
-                        //qtoHeader.QuotationDate = "";
-                        //qtoHeader.RecordStatus = "R";  //[R]equest / [A]cknowledge / [A]cceptance / [R]ejected
-                        //quotationHdrList.Add(qtoHeader);                
+                        qtoHeader.ExpiryDate = Int64.Parse(dtpExpiry.SelectedDate.Day.ToString()  + dtpExpiry.SelectedDate.Month.ToString()  + dtpExpiry.SelectedDate.Year.ToString() )  ;
+                        qtoHeader.QuotationNumber = "";
+                        qtoHeader.QuotationDate = Int64.Parse("000000");
+                        qtoHeader.RecordStatus = "R";  //[R]equest / [A]cknowledge / [A]cceptance / [R]ejected
+                        quotationHdrList.Add(qtoHeader);                
 
                         requestSequence = 1;
                         /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -325,9 +328,10 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                         RequisitionItem item;
                         string requisitionNO = lstRequisition.Items[RequisitionItem].Text.Trim() ;
                         Collection<RequisitionItem> items = mainController.GetRequisitionController().GetRequisitionList(requisitionNO);
-
+                        
                         if (items.Count > 0)
                         {
+                            requisitionItemList.Add(items[0]);    
                             qtoItem.Plant = items[0].Plant;
                             qtoItem.RequiredQuantity = items[0].RequiredQuantity;
                             qtoItem.UnitMeasure = items[0].UnitOfMeasure;
@@ -335,8 +339,10 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                             qtoItem.PriceUnit = items[0].UnitPrice;
                             qtoItem.NetValue = (items[0].UnitPrice * items[0].RequiredQuantity);   //Net Value	((net price / price unit) * re qty =net value)
                             qtoItem.RecordStatus = "R"; //Record Status	[R]equest / [A]cknowledge / [A]cceptance / [R]ejected (R)
+                            
                         }
-                        //quotationItemList.Add (qtoItem);
+                        quotationItemList.Add (qtoItem);
+                        
                     }//end if supplier selected
                     //requestSequence++;
                 }//end for supplier
@@ -345,7 +351,25 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
         }//end for Requisition
 
         //add into grid        
-        //gvItem.DataSource = quotationHdrList;
-        //gvItem.DataBind();
+        gvItem.DataSource = quotationItemList;
+        gvItem.DataBind();
+        
+        //gvRequisition / =requisitionItemList
     }
+    ////////protected void gvItem_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    ////////{
+        
+        
+    ////////    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+    ////////    {
+    ////////        GridView gvRequisition = (GridView)e.Item.FindControl("gvRequisition");
+    ////////        if (requisitionItemList.Count > 0)
+    ////////        {
+    ////////            gvRequisition.DataSource = requisitionItemList;
+    ////////            gvRequisition.DataBind();
+    ////////        }
+    ////////    }
+    ////////}
+
+    
 }
