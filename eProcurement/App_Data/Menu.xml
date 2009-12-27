@@ -63,7 +63,7 @@
 		<HREF></HREF>
 		<ITEM FID="S-0010">
 			<TITLE>Create RFQ</TITLE>
-			<HREF>~/"~/Quotation/QuotationRequestCreate.aspx"?FunctionId=S-0010</HREF>
+			<HREF>~/Quotation/QuotationRequestCreate.aspx?FunctionId=S-0010</HREF>
 		</ITEM>
 	</ITEM>	
 	<ITEM>
