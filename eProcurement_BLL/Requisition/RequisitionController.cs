@@ -27,7 +27,7 @@ namespace eProcurement_BLL
             {
                 string whereCluase = "";
 
-                whereCluase = " MATNR = '" + Utility.EscapeSQL(MaterialNo) + "' AND EBELN = '" + RequisitionNo + "'" ;
+                whereCluase = " MATNR like '" + Utility.EscapeSQL(MaterialNo) + "%' AND EBELN like '" + RequisitionNo + "%'" ;
 
                 //orderCluase = " BANFN asc ";
                 return this.mainController.GetDAOCreator().CreateRequisitionItemDAO().RetrieveByQuery(whereCluase);
