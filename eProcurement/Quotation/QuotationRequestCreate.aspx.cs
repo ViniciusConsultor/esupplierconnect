@@ -186,23 +186,25 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
 
+        //lstRequisition
+        //lstSupplier
+        //Collection<QuotationHeader> quotationHdrList = new Collection<QuotationHeader>();
+        //Collection<QuotationItem> quotationItemList = new Collection<QuotationItem>();
+        requisitionItemList = new Collection<RequisitionItem>();
+
         QuotationHeader qtoHeader = new QuotationHeader();
         QuotationItem qtoItem = new QuotationItem();
-
         Int16 RequisitionItem, SupplierItem, requestSequence;
+        RequisitionItem = 0;
+        SupplierItem = 0;
+        requestSequence = 0;
 
-        for (RequisitionItem = 0; RequisitionItem < lstRequisition.Items.Count - 1; RequisitionItem++)
+        for (RequisitionItem = 0; RequisitionItem < lstRequisition.Items.Count; RequisitionItem++)
         {
             if (lstRequisition.Items[RequisitionItem].Selected)
             {
-                
-
-                for (SupplierItem = 0; SupplierItem < lstSupplier.Items.Count - 1; SupplierItem++)
+                for (SupplierItem = 0; SupplierItem < lstSupplier.Items.Count; SupplierItem++)
                 {
-
-                    
-                    requestSequence = 1;
-
                     if (lstSupplier.Items[RequisitionItem].Selected)
                     {
                         /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -210,17 +212,18 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                         *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
                         qtoHeader.RequestNumber = lstRequisition.Items[RequisitionItem].Text;
                         qtoHeader.SupplierId = lstSupplier.Items[SupplierItem].Text;
-                        //qtoHeader.ExpiryDate = dtpExpiry.SelectedDate;
+                        qtoHeader.ExpiryDate = Int64.Parse(dtpExpiry.SelectedDate.Day.ToString() + dtpExpiry.SelectedDate.Month.ToString() + dtpExpiry.SelectedDate.Year.ToString());
                         qtoHeader.QuotationNumber = "";
-                        //qtoHeader.QuotationDate = "";
+                        qtoHeader.QuotationDate = Int64.Parse("000000");
                         qtoHeader.RecordStatus = "R";  //[R]equest / [A]cknowledge / [A]cceptance / [R]ejected
                         //quotationHdrList.Add(qtoHeader);
 
+                        requestSequence = 1;
                         /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                          *Request for Quotation Items a.k.a Quotation Items                        
                          *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
                         qtoItem.RequestNumber = lstRequisition.Items[RequisitionItem].Text.Trim();
-                        qtoItem.RequestSequence = requestSequence.ToString ();
+                        qtoItem.RequestSequence = requestSequence.ToString();
                         qtoItem.MaterialNumber = ddlMaterialNo.SelectedValue;
                         qtoItem.MaterialDescription = txtMaterialDesc.Text;
 
@@ -230,6 +233,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
 
                         if (items.Count > 0)
                         {
+                            requisitionItemList.Add(items[0]);
                             qtoItem.Plant = items[0].Plant;
                             qtoItem.RequiredQuantity = items[0].RequiredQuantity;
                             qtoItem.UnitMeasure = items[0].UnitOfMeasure;
@@ -237,20 +241,20 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                             qtoItem.PriceUnit = items[0].UnitPrice;
                             qtoItem.NetValue = (items[0].UnitPrice * items[0].RequiredQuantity);   //Net Value	((net price / price unit) * re qty =net value)
                             qtoItem.RecordStatus = "R"; //Record Status	[R]equest / [A]cknowledge / [A]cceptance / [R]ejected (R)
+
                         }
+                        //quotationItemList.Add(qtoItem);
 
                     }//end if supplier selected
-                    requestSequence++;
-
-                }//end for supplier 
-
-
-            }//end if Requisition selected 
-
-            //mainController.GetDAOCreator().CreateQuotationHeaderDAO().Insert (qtoHeader);
-            //mainController.GetDAOCreator().CreateQuotationItemDAO().Insert(qtoItem);
-
+                    //requestSequence++;
+                }//end for supplier
+            }//end if selected Requisition
+            mainController.GetDAOCreator().CreateQuotationHeaderDAO().Insert(qtoHeader);
+            mainController.GetDAOCreator().CreateQuotationItemDAO().Insert(qtoItem);
         }//end for Requisition
+            
+
+        
 
     }
 
