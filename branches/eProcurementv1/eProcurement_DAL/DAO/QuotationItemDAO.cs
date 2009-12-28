@@ -396,9 +396,9 @@ namespace eProcurement_DAL
                 else
                     entity.NetValue = Convert.ToDecimal(rd["netWR"]);
 
-                if (rd.IsDBNull(11))
-                    entity.RecordStatus = null;
-                else
+                //if (rd.IsDBNull(11))                
+                //    entity.RecordStatus = null;
+                //else
                     entity.RecordStatus = rd["RECSTS"].ToString(); 
                
                 entities.Add(entity);
