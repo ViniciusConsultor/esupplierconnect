@@ -55,7 +55,7 @@
     </ITEM>
     <ITEM FID="B-0014">
       <TITLE>Accept Expedite Acknowledgement</TITLE>
-      <HREF>~/Expediting/AcceptExpediteAckmt.aspx</HREF>
+      <HREF>~/Expediting/ConfirmExpeditingAckmt.aspx</HREF>
     </ITEM>
 	</ITEM>
 	<ITEM>
