@@ -36,7 +36,7 @@ namespace eProcurement_BLL
         private RequisitionController requisitionController = null;
         private NotificationController notificationController = null;
         private DeliveryOrderController deliveryOrderController = null;
-        
+        private PurchaseExpeditingController purchaseExpeditingController = null;
         
         
 
@@ -129,6 +129,14 @@ namespace eProcurement_BLL
                 this.deliveryOrderController = new DeliveryOrderController(this);
             return this.deliveryOrderController;
         }
+
+        public PurchaseExpeditingController GetPurchaseExpeditingController()
+        {
+            if (this.purchaseExpeditingController == null)
+                this.purchaseExpeditingController = new PurchaseExpeditingController(this);
+            return this.purchaseExpeditingController;
+        }
+        
         
 
     }
