@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="ExpediteDeliveries.aspx.cs" Inherits="Expediting_ExpediteDeliveries" Title="eProcurement System" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="ConfirmExpeditingAckmt.aspx.cs" Inherits="Expediting_ConfirmExpeditingAckmt" Title="eProcurement System" %>
 <%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
 <%@ Register Src="~/UserControls/DualList.ascx" TagName="DualList" TagPrefix="DualList" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
@@ -6,7 +6,7 @@
 <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
     <asp:TableHeaderRow>
         <asp:TableCell CssClass="navigation" VerticalAlign="Middle">
-            <asp:Label ForeColor="White" ID="lblSubPath" runat="server">Expedite Delieries</asp:Label></asp:TableCell>
+            <asp:Label ForeColor="White" ID="lblSubPath" runat="server">Confirm Purchase Expediting Acknowledgement</asp:Label></asp:TableCell>
     </asp:TableHeaderRow>
 </asp:Table>
 <!--Message Panel-->
@@ -277,30 +277,38 @@
                                                     </ItemTemplate> 
                                                     <ItemStyle Wrap="false" Width="10%"/>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Promise<BR>Date1" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <asp:TemplateField HeaderText="Promise Date" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                     <ItemTemplate>
                                                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                             <tr>
                                                                 <td>&nbsp;</td>
                                                                 <td Width="100%" nowrap="nowrap">
-                                                                    <asp:Label ID="lblPromiseDate1" runat="server" CssClass="" Text='<%# Eval("PromiseDate1") %> '></asp:Label> 
+                                                                    1. <asp:Label ID="lblPromiseDate1" runat="server" CssClass="" Text='<%# Eval("PromiseDate1") %> '></asp:Label> 
                                                                 </td>
-                                                               <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td Width="100%" nowrap="nowrap">
+                                                                    2. <asp:Label ID="lblPromiseDate2" runat="server" CssClass="" Text='<%# Eval("PromiseDate2") %> '></asp:Label> 
+                                                                </td>
+                                                                <td>&nbsp;</td>
                                                             </tr>
                                                         </table>  
                                                     </ItemTemplate> 
                                                     <ItemStyle Wrap="false" Width="10%"/>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Promise<BR>Date2" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <asp:TemplateField HeaderText="Accept/<BR>Reject" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                     <ItemTemplate>
                                                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                             <tr>
-                                                                <td>&nbsp;</td>
                                                                 <td Width="100%" nowrap="nowrap">
-                                                                    <asp:Label ID="lblPromiseDate2" runat="server" CssClass="" Text='<%# Eval("PromiseDate2") %> '></asp:Label> 
+                                                                   <asp:DropDownList ID="ddlDecision" runat="server" AutoPostBack="false" Width="80px">
+                                                                        <asp:ListItem Value="" Text=""></asp:ListItem> 
+                                                                        <asp:ListItem Value="A" Text="Accept"></asp:ListItem> 
+                                                                        <asp:ListItem Value="R" Text="Reject"></asp:ListItem> 
+                                                                   </asp:DropDownList>
                                                                 </td>
-                                                               <td>&nbsp;</td>
-                                                            </tr>
                                                         </table>  
                                                     </ItemTemplate> 
                                                     <ItemStyle Wrap="false" Width="10%"/>
@@ -312,6 +320,7 @@
                                                                 <td>&nbsp;</td>
                                                                 <td Width="100%" nowrap="nowrap">
                                                                     <asp:Label ID="lblStatus" runat="server" CssClass="" Text='<%# Eval("RecordStatus") %> '></asp:Label> 
+                                                                    <asp:HiddenField ID="hdStatus" Visible="false" runat="server" Value=' <%# Eval("RecordStatus")%> '></asp:HiddenField>
                                                                 </td>
                                                                <td>&nbsp;</td>
                                                             </tr>
@@ -363,5 +372,3 @@
         }
     </script>
 </asp:Content>
-
-

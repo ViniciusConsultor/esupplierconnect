@@ -13,7 +13,8 @@ using System.Web.UI.HtmlControls;
 using eProcurement_BLL;
 using eProcurement_DAL;
 
-public partial class Expediting_ExpediteDeliveries : BaseForm
+
+public partial class Expediting_ConfirmExpeditingAckmt : BaseForm
 {
     private MainController mainController = null;
 
@@ -49,7 +50,7 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionId = "B-0013";
+                base.m_FunctionId = "B-0014";
                 base.Page_Load(sender, e);
                 /***************************************************/
 
@@ -128,25 +129,35 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
+            HiddenField hdStatus = (HiddenField)e.Row.FindControl("hdStatus");
+            string sStatus = hdStatus.Value.Trim();
             Label lblStatus = (Label)e.Row.FindControl("lblStatus");
-            string sStatus = lblStatus.Text.Trim();
-            CheckBox ckExpedite = (CheckBox)e.Row.FindControl("ckExpedite");
-            TextBox txtExpediteQty = (TextBox)e.Row.FindControl("txtExpediteQty");
             lblStatus.Text = ExpediteStatus.GetDesc(sStatus);
-
+            
             UserControls_DatePicker dtExpeditDate = (UserControls_DatePicker)e.Row.FindControl("dtExpeditDate");
             HiddenField hdExpeditDate = (HiddenField)e.Row.FindControl("hdExpeditDate");
-            if (!string.IsNullOrEmpty(hdExpeditDate.Value)) 
+            if (!string.IsNullOrEmpty(hdExpeditDate.Value))
             {
-                dtExpeditDate.SelectedDate = GetDateTimeFormStoredValue(Convert.ToInt64(hdExpeditDate.Value));  
-            } 
+                dtExpeditDate.SelectedDate = GetDateTimeFormStoredValue(Convert.ToInt64(hdExpeditDate.Value));
+            }
 
-            if (string.Compare(sStatus, ExpediteStatus.New, true) != 0) 
+            CheckBox ckExpedite = (CheckBox)e.Row.FindControl("ckExpedite");
+            TextBox txtExpediteQty = (TextBox)e.Row.FindControl("txtExpediteQty");
+            DropDownList ddlDecision = (DropDownList)e.Row.FindControl("ddlDecision");
+            
+            if (string.Compare(sStatus, ExpediteStatus.Acknowledge, true) == 0)
+            {
+                ckExpedite.Checked = true;
+                ckExpedite.Enabled = false;
+                
+            }
+            else 
             {
                 ckExpedite.Enabled = false;
+                ddlDecision.Visible = false;
                 txtExpediteQty.Enabled = false;
                 dtExpeditDate.Enabled = false;
-            } 
+            }
         }
     }
 
@@ -176,7 +187,9 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
                     Label lblScheduleSequence = (Label)rowSchedule.FindControl("lblScheduleSequence");
 
                     CheckBox ckExpedite = (CheckBox)rowSchedule.FindControl("ckExpedite");
-                    if (ckExpedite.Checked)
+                    DropDownList ddlDecision = (DropDownList)rowSchedule.FindControl("ddlDecision");
+
+                    if (ckExpedite.Checked && ddlDecision.SelectedValue != "")
                     {
                         UserControls_DatePicker dtExpeditDate = (UserControls_DatePicker)rowSchedule.FindControl("dtExpeditDate");
                         TextBox txtExpediteQty = (TextBox)rowSchedule.FindControl("txtExpediteQty");
@@ -187,13 +200,14 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
                         expediting.ScheduleSequence = lblScheduleSequence.Text;
                         expediting.ExpeditDate = GetStoredDateValue(dtExpeditDate.SelectedDate);
                         expediting.ExpediteQuantity = Convert.ToDecimal(txtExpediteQty.Text.Trim());
+                        expediting.RecordStatus = ddlDecision.SelectedValue;
                         expeditings.Add(expediting);
                     }
                 }
             }
 
-            mainController.GetPurchaseExpeditingController().CreatePurchaseExpediting(expeditings); 
-            
+            mainController.GetPurchaseExpeditingController().ConfirmExpeditingAcknowledgement(expeditings);
+
             ShowData();
 
             plMessage.Visible = true;
@@ -218,11 +232,13 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
         {
             GridView gvMaterialDtl = (GridView)rowItem.FindControl("gvMaterialDtl");
             Label lblItemSN = (Label)rowItem.FindControl("lblSN");
-            
+
             foreach (GridViewRow rowSchedule in gvMaterialDtl.Rows)
             {
                 CheckBox ckExpedite = (CheckBox)rowSchedule.FindControl("ckExpedite");
-                if (ckExpedite.Checked) 
+                DropDownList ddlDecision = (DropDownList)rowSchedule.FindControl("ddlDecision");
+
+                if (ckExpedite.Checked && ddlDecision.SelectedValue !="")
                 {
                     iCount++;
 
