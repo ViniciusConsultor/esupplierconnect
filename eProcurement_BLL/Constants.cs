@@ -38,13 +38,13 @@ namespace eProcurement_BLL
             switch (sCompare)
             {
                 case Expedite:
-                    return "Expedite";
+                    return "Expedited";
                 case Acknowledge:
-                    return "Acknowledge";
+                    return "Acknowledged";
                 case Accept:
-                    return "Accept";
+                    return "Accepted";
                 case Reject:
-                    return "Reject";
+                    return "Rejected";
                 default:
                     return "-";
             }
