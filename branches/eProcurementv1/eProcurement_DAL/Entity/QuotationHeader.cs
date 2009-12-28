@@ -13,7 +13,7 @@ namespace eProcurement_DAL
             get { return requestNumber; }
             set { requestNumber = value; }
         }
-
+        
         string supplierId;
         public string SupplierId
         {
