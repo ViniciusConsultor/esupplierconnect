@@ -489,7 +489,7 @@ namespace eProcurement_DAL
                 if (rd.IsDBNull(5))
                     entity.ExpediteQuantity = null;
                 else
-                    entity.ExpediteQuantity = Convert.ToDecimal(rd["AMTPR"]);
+                    entity.ExpediteQuantity = Convert.ToDecimal(rd["WEMNG"].ToString());
 
                 entity.UnitMeasure = rd["VBELN"].ToString();
 
