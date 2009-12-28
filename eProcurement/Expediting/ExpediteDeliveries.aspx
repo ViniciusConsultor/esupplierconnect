@@ -150,6 +150,20 @@
                                             <HeaderStyle  Height="10px" ForeColor="white"  BackColor="#a9a9a9"/>
                                             <AlternatingRowStyle CssClass=""/>
                                             <Columns>
+	                                           <asp:TemplateField HeaderText="SN" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                    <ItemTemplate>
+                                                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                            <tr>
+                                                                <td></td>
+                                                                <td Width="100%" nowrap="nowrap">
+                                                                    <asp:Label ID="lblScheduleSN" runat="server" CssClass="" Text='<%# Container.DataItemIndex + 1 %>'></asp:Label> 
+                                                                </td>
+                                                               <td></td>
+                                                            </tr>
+                                                        </table> 
+                                                    </ItemTemplate> 
+                                                    <ItemStyle Wrap="false" Width="5%"/>
+                                                </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Order<BR>No" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                     <ItemTemplate>
                                                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -164,7 +178,7 @@
                                                     </ItemTemplate> 
                                                     <ItemStyle Wrap="false" Width="5%"/>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Item<BR>Sequ" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                                                <asp:TemplateField HeaderText="Item<BR>Seq" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                     <ItemTemplate>
                                                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                             <tr>
@@ -234,23 +248,11 @@
                                                     </ItemTemplate> 
                                                     <ItemStyle Wrap="false" Width="10%"/>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
-                                                    <ItemTemplate>
-                                                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                            <tr>
-                                                                <td Width="100%" nowrap="nowrap">
-                                                                    <asp:CheckBox runat="server" ID="ckExpedite" />
-                                                                </td>
-                                                            </tr>
-                                                        </table>  
-                                                    </ItemTemplate> 
-                                                    <ItemStyle Wrap="false" Width="1%"/>
-                                                </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Expedite<br>Qty" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                                                     <ItemTemplate>
                                                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                                             <tr>
-                                                                <td>&nbsp;</td>
+                                                                <td><asp:CheckBox runat="server" ID="ckExpedite" /></td>
                                                                 <td Width="100%" align="right">
                                                                     <asp:TextBox ID="txtExpediteQty" Width ="50px" MaxLength="14" style="text-align:right" runat="server" Text='<%# Eval("ExpediteQuantity") %> '></asp:TextBox>
                                                                 </td>
@@ -267,6 +269,7 @@
                                                                 <td>&nbsp;</td>
                                                                 <td Width="100%" nowrap="nowrap">
                                                                     <DatePicker:DatePicker ID="dtExpeditDate" runat="server" />
+                                                                    <asp:HiddenField ID="hdExpeditDate" Visible="false" runat="server" Value=' <%# Eval("ExpeditDate")%> '></asp:HiddenField>
                                                                 </td>
                                                                <td>&nbsp;</td>
                                                             </tr>

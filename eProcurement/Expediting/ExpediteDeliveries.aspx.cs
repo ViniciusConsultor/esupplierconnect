@@ -118,7 +118,7 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
             lblSN.Text = Convert.ToString(Convert.ToInt32(lblSN.Text) + 1);
 
             Collection<PurchaseExpeditingVO> purchaseExpdVOs = mainController.GetShortageMaterialController()
-                .GetPurchaseExpeditingList(lblMaterialNumber.Text);
+                .GetPurchaseExpeditingList(lblMaterialNumber.Text.Trim());
             gvMaterialDtl.DataSource = purchaseExpdVOs;
             gvMaterialDtl.DataBind();
         }
@@ -131,10 +131,21 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
             Label lblStatus = (Label)e.Row.FindControl("lblStatus");
             string sStatus = lblStatus.Text.Trim();
             CheckBox ckExpedite = (CheckBox)e.Row.FindControl("ckExpedite");
+            TextBox txtExpediteQty = (TextBox)e.Row.FindControl("txtExpediteQty");
             lblStatus.Text = ExpediteStatus.GetDesc(sStatus);
+
+            UserControls_DatePicker dtExpeditDate = (UserControls_DatePicker)e.Row.FindControl("dtExpeditDate");
+            HiddenField hdExpeditDate = (HiddenField)e.Row.FindControl("hdExpeditDate");
+            if (!string.IsNullOrEmpty(hdExpeditDate.Value)) 
+            {
+                dtExpeditDate.SelectedDate = GetDateTimeFormStoredValue(Convert.ToInt64(hdExpeditDate.Value));  
+            } 
+
             if (string.Compare(sStatus, ExpediteStatus.New, true) != 0) 
             {
                 ckExpedite.Enabled = false;
+                txtExpediteQty.Enabled = false;
+                dtExpeditDate.Enabled = false;
             } 
         }
     }
@@ -145,7 +156,49 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
         {
             CheckSessionTimeOut();
 
+            string strErrorMsg = ValidateInput();
 
+            if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
+            {
+                plMessage.Visible = true;
+                displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
+                return;
+            }
+
+            Collection<PurchaseExpediting> expeditings = new Collection<PurchaseExpediting>();
+            foreach (RepeaterItem rowItem in gvItem.Items)
+            {
+                GridView gvMaterialDtl = (GridView)rowItem.FindControl("gvMaterialDtl");
+                foreach (GridViewRow rowSchedule in gvMaterialDtl.Rows)
+                {
+                    Label lblOrderNo = (Label)rowSchedule.FindControl("lblOrderNo");
+                    Label lblItemSequence = (Label)rowSchedule.FindControl("lblItemSequence");
+                    Label lblScheduleSequence = (Label)rowSchedule.FindControl("lblScheduleSequence");
+
+                    CheckBox ckExpedite = (CheckBox)rowSchedule.FindControl("ckExpedite");
+                    if (ckExpedite.Checked)
+                    {
+                        UserControls_DatePicker dtExpeditDate = (UserControls_DatePicker)rowSchedule.FindControl("dtExpeditDate");
+                        TextBox txtExpediteQty = (TextBox)rowSchedule.FindControl("txtExpediteQty");
+
+                        PurchaseExpediting expediting = new PurchaseExpediting();
+                        expediting.OrderNumber = lblOrderNo.Text;
+                        expediting.ItemSequence = lblItemSequence.Text;
+                        expediting.ScheduleSequence = lblScheduleSequence.Text;
+                        expediting.ExpeditDate = GetStoredDateValue(dtExpeditDate.SelectedDate);
+                        expediting.ExpediteQuantity = Convert.ToDecimal(txtExpediteQty.Text.Trim());
+                        expeditings.Add(expediting);
+                    }
+                }
+            }
+
+            mainController.GetPurchaseExpeditingController().CreatePurchaseExpediting(expeditings); 
+            
+            ShowData();
+
+            plMessage.Visible = true;
+            string sMessage = "Purchase Orders have been expedited successfully.";
+            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information);
         }
         catch (Exception ex)
         {
@@ -163,32 +216,55 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
         int iCount = 0;
         foreach (RepeaterItem rowItem in gvItem.Items)
         {
-            GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
-            foreach (GridViewRow rowSchedule in gvSchedule.Rows)
+            GridView gvMaterialDtl = (GridView)rowItem.FindControl("gvMaterialDtl");
+            Label lblItemSN = (Label)rowItem.FindControl("lblSN");
+            
+            foreach (GridViewRow rowSchedule in gvMaterialDtl.Rows)
             {
-                UserControls_DatePicker dtpAck = (UserControls_DatePicker)rowSchedule.FindControl("dtAcknowledgeDate");
-                iCount++;
-                if (dtpAck.Text == "")
+                CheckBox ckExpedite = (CheckBox)rowSchedule.FindControl("ckExpedite");
+                if (ckExpedite.Checked) 
                 {
-                    bIsValid = false;
-                    strErrorMsg.Append(MakeListItem("Please select a value for Acknowledge Date."));
-                }
-                else
-                {
-                    if (!dtpAck.IsValidDate)
+                    iCount++;
+
+                    Label lblScheduleSN = (Label)rowSchedule.FindControl("lblScheduleSN");
+
+                    string strSN = " for the record " + lblItemSN.Text + "-" + lblScheduleSN.Text + ".";
+
+                    UserControls_DatePicker dtExpeditDate = (UserControls_DatePicker)rowSchedule.FindControl("dtExpeditDate");
+                    TextBox txtExpediteQty = (TextBox)rowSchedule.FindControl("txtExpediteQty");
+                    if (txtExpediteQty.Text.Trim() == "")
                     {
                         bIsValid = false;
-                        strErrorMsg.Append(MakeListItem("Please select a valid value for Acknowledge Date."));
+                        strErrorMsg.Append(MakeListItem("Please select a valid value for Expedit Qty" + strSN));
+                    }
+                    else
+                    {
+                        if (!IsNumeric(txtExpediteQty.Text.Trim()))
+                        {
+                            bIsValid = false;
+                            strErrorMsg.Append(MakeListItem("Please enter a valid Expedite Qty" + strSN));
+                        }
+                    }
+                    if (dtExpeditDate.Text == "")
+                    {
+                        bIsValid = false;
+                        strErrorMsg.Append(MakeListItem("Please select a valid value for Expedit Date" + strSN));
+                    }
+                    else
+                    {
+                        if (!dtExpeditDate.IsValidDate)
+                        {
+                            bIsValid = false;
+                            strErrorMsg.Append(MakeListItem("Please select a valid value for Expedit Date" + strSN));
+                        }
                     }
                 }
-                if (!bIsValid)
-                    break;
             }
         }
 
         if (iCount == 0)
         {
-            strErrorMsg.Append(MakeListItem("You didn't acknowledge any order."));
+            strErrorMsg.Append(MakeListItem("No Record is selected."));
         }
 
         return strErrorMsg.ToString();
