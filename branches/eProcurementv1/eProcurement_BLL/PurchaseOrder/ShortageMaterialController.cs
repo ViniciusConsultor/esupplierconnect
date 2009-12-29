@@ -67,51 +67,6 @@ namespace eProcurement_BLL
             }
         }
 
-        public Collection<PurchaseExpeditingVO> GetPurchaseExpeditingList(string materialNumber)
-        {
-            try
-            {
-                Collection<PurchaseExpeditingVO> vos = new Collection<PurchaseExpeditingVO>();
-
-                string whereClause = " MATNR='" + Utility.EscapeSQL(materialNumber) + "' ";
-                string orderClause = " EBELN asc, EBELP asc, ETENR asc ";
-
-                Collection<PurchaseExpediting> items = mainController.GetDAOCreator().CreatePurchaseExpeditingDAO()
-                    .RetrieveByQuery(whereClause, orderClause);
-
-                foreach (PurchaseExpediting item in items) 
-                {
-                    PurchaseExpeditingVO vo = new PurchaseExpeditingVO();
-                    vo.ExpeditDate = item.ExpeditDate;
-                    vo.ExpediteQuantity = item.ExpediteQuantity;
-                    vo.ItemSequence = item.ItemSequence;
-                    vo.MaterialNumber = item.MaterialNumber;
-                    vo.OrderNumber = item.OrderNumber;
-                    vo.PromiseDate1 = item.PromiseDate1;
-                    vo.PromiseDate2 = item.PromiseDate2;
-                    vo.RecordStatus = item.RecordStatus;
-                    vo.ScheduleSequence = item.ScheduleSequence;
-                    vo.UnitMeasure = item.UnitMeasure;
-
-                    PurchaseOrderItemSchedule schedule = mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO()
-                        .RetrieveByKey(item.OrderNumber, item.ItemSequence, item.ScheduleSequence);
-                    if (schedule != null) 
-                    {
-                        vo.DeliveryScheduleQuantity = schedule.DeliveryScheduleQuantity;
-                        vo.OrderItemScheduleDate = schedule.OrderItemScheduleDate; 
-                    }
-                    vos.Add(vo); 
-                }
-
-                return vos;
-
-            }
-            catch (Exception ex)
-            {
-                Utility.ExceptionLog(ex);
-                throw (ex);
-            }
-        }
     }
 
 }
