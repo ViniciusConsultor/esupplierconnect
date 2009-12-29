@@ -44,6 +44,7 @@
     <Compile Include="DAO\MaterialStockDAO.cs" />
     <Compile Include="DAO\NotificationDAO.cs" />
     <Compile Include="DAO\PurchaseExpeditingDAO.cs" />
+    <Compile Include="DAO\PurchaseExpeditingViewDAO.cs" />
     <Compile Include="DAO\PurchaseHeaderTextDAO.cs" />
     <Compile Include="DAO\PurchaseItemTextDAO.cs" />
     <Compile Include="DAO\PurchaseOrderHeaderDAO.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Entity\MaterialStock.cs" />
     <Compile Include="Entity\Notification.cs" />
     <Compile Include="Entity\PurchaseExpediting.cs" />
+    <Compile Include="Entity\PurchaseExpeditingView.cs" />
     <Compile Include="Entity\PurchaseHeaderText.cs" />
     <Compile Include="Entity\PurchaseItemText.cs" />
     <Compile Include="Entity\PurchaseOrderHeader.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="IDAO\IMaterialStockDAO.cs" />
     <Compile Include="IDAO\INotificationDAO.cs" />
     <Compile Include="IDAO\IPurchaseExpeditingDAO.cs" />
+    <Compile Include="IDAO\IPurchaseExpeditingViewDAO.cs" />
     <Compile Include="IDAO\IPurchaseHeaderTextDAO.cs" />
     <Compile Include="IDAO\IPurchaseItemTextDAO.cs" />
     <Compile Include="IDAO\IPurchaseOrderHeaderDAO.cs" />
