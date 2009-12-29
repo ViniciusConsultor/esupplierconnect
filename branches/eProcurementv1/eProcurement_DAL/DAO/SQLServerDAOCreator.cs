@@ -36,6 +36,8 @@ namespace eProcurement_DAL
         private UserDAO userDAO = null;
         private ContractItemDAO contractItemDAO = null;
         private ContractHeaderDAO contractHeaderDAO = null;
+        private PurchaseExpeditingViewDAO purchaseExpeditingViewDAO = null;
+        
 
         public override IAccessMatrixDAO CreateAccessMatrixDAO() 
         {
@@ -210,6 +212,13 @@ namespace eProcurement_DAL
             if (this.contractItemDAO == null)
                 this.contractItemDAO = new ContractItemDAO();
             return this.contractItemDAO;
+        }
+
+        public override IPurchaseExpeditingViewDAO CreatePurchaseExpeditingViewDAO() 
+        {
+            if (this.purchaseExpeditingViewDAO == null)
+                this.purchaseExpeditingViewDAO = new PurchaseExpeditingViewDAO();
+            return this.purchaseExpeditingViewDAO;
         }
     }
 }

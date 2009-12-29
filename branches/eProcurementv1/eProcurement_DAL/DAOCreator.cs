@@ -53,5 +53,6 @@ namespace eProcurement_DAL
         public abstract IUserDAO CreateUserDAO();
         public abstract IContractHeaderDAO CreateContractHeaderDAO();
         public abstract IContractItemDAO CreateContractItemDAO();
+        public abstract IPurchaseExpeditingViewDAO CreatePurchaseExpeditingViewDAO();
     }
 }
