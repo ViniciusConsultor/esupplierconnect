@@ -211,7 +211,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO purhdr ([EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[STAT],[RECSTS],[ACKSTS]) VALUES(@EBELN,@LIFNR,@BEDAT,@AMTPR,@GSTPR,@WAERS,@ZTERM,@BUYER,@AD_TLNMBR,@VERKF,@ADRNR_TXT,@REMARK,@STAT,@RECSTS,@ACKSTS)";
+            cm.CommandText = "INSERT INTO purhdr ([EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[STAT],[RECSTS],[ACKSTS],[ACKBY],[TELPHN]) VALUES(@EBELN,@LIFNR,@BEDAT,@AMTPR,@GSTPR,@WAERS,@ZTERM,@BUYER,@AD_TLNMBR,@VERKF,@ADRNR_TXT,@REMARK,@STAT,@RECSTS,@ACKSTS,@ACKBY,@TELPHN)";
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.OrderNumber;
@@ -266,6 +266,14 @@ namespace eProcurement_DAL
             SqlParameter p15 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p15);
             p15.Value = entity.AcknowledgeStatus;
+            SqlParameter p16 = new SqlParameter("@ACKBY", SqlDbType.VarChar, 10);
+            cm.Parameters.Add(p16);
+            p16.Value = entity.AcknowledgeBy;
+            cm.ExecuteNonQuery();
+            SqlParameter p17 = new SqlParameter("@TELPHN", SqlDbType.VarChar, 20);
+            cm.Parameters.Add(p17);
+            p17.Value = entity.BuyerPhone;
+            cm.ExecuteNonQuery();
 
             cm.ExecuteNonQuery();
 
@@ -315,7 +323,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE purhdr SET LIFNR=@LIFNR,BEDAT=@BEDAT,AMTPR=@AMTPR,GSTPR=@GSTPR,WAERS=@WAERS,ZTERM=@ZTERM,BUYER=@BUYER,AD_TLNMBR=@AD_TLNMBR,VERKF=@VERKF,ADRNR_TXT=@ADRNR_TXT,REMARK=@REMARK,STAT=@STAT,RECSTS=@RECSTS,ACKSTS=@ACKSTS WHERE EBELN=@EBELN";
+            cm.CommandText = "UPDATE purhdr SET LIFNR=@LIFNR,BEDAT=@BEDAT,AMTPR=@AMTPR,GSTPR=@GSTPR,WAERS=@WAERS,ZTERM=@ZTERM,BUYER=@BUYER,AD_TLNMBR=@AD_TLNMBR,VERKF=@VERKF,ADRNR_TXT=@ADRNR_TXT,REMARK=@REMARK,STAT=@STAT,RECSTS=@RECSTS,ACKSTS=@ACKSTS,[ACKBY]=@ACKBY,[TELPHN]=@TELPHN WHERE EBELN=@EBELN";
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.OrderNumber;
@@ -370,6 +378,16 @@ namespace eProcurement_DAL
             SqlParameter p15 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p15);
             p15.Value = entity.AcknowledgeStatus;
+            cm.ExecuteNonQuery();
+
+            SqlParameter p16 = new SqlParameter("@ACKBY", SqlDbType.VarChar, 10);
+            cm.Parameters.Add(p16);
+            p16.Value = entity.AcknowledgeBy;
+            cm.ExecuteNonQuery();
+
+            SqlParameter p17 = new SqlParameter("@TELPHN", SqlDbType.VarChar, 20);
+            cm.Parameters.Add(p17);
+            p17.Value = entity.BuyerPhone;
             cm.ExecuteNonQuery();
 
             if (epTran == null)
@@ -460,7 +478,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[STAT],[RECSTS],[ACKSTS] FROM purhdr";
+            string selectCommand = "SELECT [EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[STAT],[RECSTS],[ACKSTS],[ACKBY],[TELPHN] FROM purhdr";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -498,6 +516,8 @@ namespace eProcurement_DAL
                 entity.OrderStatus = rd["STAT"].ToString();
                 entity.RecordStatus = rd["RECSTS"].ToString();
                 entity.AcknowledgeStatus = rd["ACKSTS"].ToString();
+                entity.AcknowledgeBy = rd["ACKBY"].ToString();
+                entity.BuyerPhone = rd["TELPHN"].ToString();
                 entities.Add(entity);
 
             }

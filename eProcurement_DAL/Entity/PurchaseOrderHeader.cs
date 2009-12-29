@@ -146,5 +146,21 @@ namespace eProcurement_DAL
             get { return acknowledgeStatus; }
             set { acknowledgeStatus = value; }
         }
+
+        ///<summary>Database mapping to column purhdr.ACKBY</summary>
+        string acknowledgeBy;
+        public string AcknowledgeBy
+        {
+            get { return acknowledgeBy; }
+            set { acknowledgeBy = value; }
+        }
+
+        ///<summary>Database mapping to column purhdr.TELPHN</summary>
+        string buyerPhone;
+        public string BuyerPhone
+        {
+            get { return buyerPhone; }
+            set { buyerPhone = value; }
+        }
     }
 }
