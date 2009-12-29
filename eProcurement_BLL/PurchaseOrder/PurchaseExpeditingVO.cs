@@ -23,5 +23,19 @@ namespace eProcurement_BLL
             get { return deliveryScheduleQuantity; }
             set { deliveryScheduleQuantity = value; }
         }
+
+        Nullable<long> deliveryDate;
+        public Nullable<long> DeliveryDate
+        {
+            get { return deliveryDate; }
+            set { deliveryDate = value; }
+        }
+
+        Nullable<decimal> deliveredQuantity;
+        public Nullable<decimal> DeliveredQuantity
+        {
+            get { return deliveredQuantity; }
+            set { deliveredQuantity = value; }
+        }
     }
 }
