@@ -261,7 +261,7 @@ namespace eProcurement_BLL.PurchaseOrder
 
                   //Update Order header
                   header.AcknowledgeStatus = POAckStatus.Yes;
-                  //header.RecordStatus = "";
+                  header.AcknowledgeBy  = mainController.GetLoginUserVO().UserId;
                   mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, header);
 
                   //Update Order Item
@@ -330,6 +330,7 @@ namespace eProcurement_BLL.PurchaseOrder
                   //Update Order header
                   header.AcknowledgeStatus = POAckStatus.Yes;
                   header.RecordStatus = PORecStatus.Accept;
+                  header.AcknowledgeBy = mainController.GetLoginUserVO().UserId;
                   mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, header);
 
                   //Update Order Item

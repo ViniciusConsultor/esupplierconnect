@@ -7,6 +7,7 @@ using eProcurement_DAL;
 
 namespace eProcurement_BLL
 {
+    [Serializable]
     public class PurchaseExpeditingVO : PurchaseExpediting
     {
         Nullable<long> orderItemScheduleDate;
