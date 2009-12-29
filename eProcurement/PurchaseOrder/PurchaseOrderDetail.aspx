@@ -101,7 +101,29 @@
                 </table> 
 		    </td>
 		</tr> 
-	</table> 
+	</table> <br />
+     <table cellspacing="0" cellpadding="0" width="100%" border="0">
+        <tr>
+            <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
+            <td nowrap="nowrap">
+               <asp:Button ID="btnAccept1" runat="server" Text="Accept" onclick="btnAcceptReject_Click"/>
+            </td>
+            <td nowrap="nowrap">&nbsp;</td>
+             <td nowrap="nowrap">
+               <asp:Button ID="btnReject1" runat="server" Text="Reject" onclick="btnAcceptReject_Click"/>
+            </td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">
+               <asp:Button ID="btnAcknowledge1" runat="server" Text="Acknowledge" onclick="btnAcknowledge_Click"/>
+            </td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">
+               <asp:Button ID="btnReturn1" runat="server" Text="Return" onclick="btnReturn_Click"/>
+            </td>
+            <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
+        </tr> 
+    </table>
+    <br />
 	<table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
 	        <td valign="top" colspan="10" style="height: 20px"> 

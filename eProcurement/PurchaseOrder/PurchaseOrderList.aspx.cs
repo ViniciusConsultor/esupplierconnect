@@ -196,6 +196,7 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                 plshSupplier.Visible = false;
                 plshBuyer.Visible = true;
                 plshStatus.Visible = true;
+                lblFldRequired.Visible = true;
                 InitStatusList();
             }
 
@@ -205,6 +206,7 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                 plshSupplier.Visible = true;
                 plshBuyer.Visible = true;
                 plshStatus.Visible = true;
+                lblFldRequired.Visible = true;
                 InitStatusList();
             }
         }
@@ -472,6 +474,51 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                 return strErrorMsg.ToString();
             }
         }
+
+        if (string.Compare(m_FuncFlag, "VIEW_ORDER_SUPPLIER", false) == 0 ||
+            string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
+        {
+            if (txtOrderNumber.Text.Trim() == "")
+            {
+                if (dtpFrom.Text == "")
+                {
+                    strErrorMsg.Append(MakeListItem("Please select a value for Order Date From."));
+                }
+
+                if (dtpTo.Text == "")
+                {
+
+                    strErrorMsg.Append(MakeListItem("Please select a value for Order Date To."));
+                }
+
+                if (string.Compare(m_FuncFlag, "VIEW_ORDER_SUPPLIER", false) == 0) 
+                {
+                    if (dtpTo.SelectedDate.CompareTo(dtpFrom.SelectedDate.AddMonths(3)) > 0)
+                    {
+                        strErrorMsg.Append(MakeListItem("Please select less than 3 months date range for Order Date."));
+                    }     
+                }
+                if (string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
+                {
+                    if (txtSupplierId.Text.Trim() == "")
+                    {
+                        if (dtpTo.SelectedDate.CompareTo(dtpFrom.SelectedDate.AddMonths(1)) > 0)
+                        {
+                            strErrorMsg.Append(MakeListItem("Please select less than 1 month date range for Order Date."));
+                        }
+                    }
+                    else 
+                    {
+                        if (dtpTo.SelectedDate.CompareTo(dtpFrom.SelectedDate.AddMonths(3)) > 0)
+                        {
+                            strErrorMsg.Append(MakeListItem("Please select less than 3 months date range for Order Date."));
+                        }
+                    } 
+                }
+          
+            }  
+        }
+
         return strErrorMsg.ToString();
     }
     #endregion

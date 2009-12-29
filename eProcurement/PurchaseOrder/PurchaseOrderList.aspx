@@ -24,8 +24,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align="left" >
+                            <td align="left" nowrap>
                                 <asp:Label ID="lblTitleIspDate" runat="server" Text="Order Date" Width="130px"></asp:Label>
+                                <asp:Label ID="lblFldRequired" CssClass ="redtxt" runat="server" Text="*" Width="5px" Visible="false"></asp:Label>
                             </td> 
                             <td  align="left" style="width: 100%" colspan=4>
                                 <table id="tblDates" cellpadding="0" cellspacing="0">
