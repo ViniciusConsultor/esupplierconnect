@@ -25,6 +25,10 @@
 			<TITLE>Acknowledge Order</TITLE>
 			<HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=S-0001</HREF>
 		</ITEM>
+    <ITEM FID="S-0013">
+      <TITLE>Acknowledge Expedite Deliveries</TITLE>
+      <HREF>~/Expediting/AckExpeditingList.aspx</HREF>
+    </ITEM>
 		<ITEM FID="B-0001">
 			<TITLE>Accept Order Acknowledgement</TITLE>
 			<HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=B-0001</HREF>
