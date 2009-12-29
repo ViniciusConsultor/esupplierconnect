@@ -139,6 +139,33 @@ namespace eProcurement_BLL.DeliveryOrder
         }
 
 
+        /// <summary>
+        /// public Collection<eProcurement_DAL.DeliveryOrder> RetrieveByQueryDeliveryOrder(string ordernumber, string itemsequence, string deliverynumber,string supplierid)
+        /// </summary>
+        /// <param name="ordernumber">ordernumber goes here</param>
+        /// <param name="itemsequence">itemsequence goes here</param>
+        /// <param name="deliverynumber">deliverynumber goes here</param>
+        /// <param name="supplierid">supplierid goes here</param>
+        /// <returns>Collection<eProcurement_DAL.DeliveryOrder> returns here</returns>
+        public Collection<eProcurement_DAL.DeliveryOrder> RetrieveByQueryDeliveryOrder(string ordernumber, string materialnumber, string deliverynumber,string supplierid)
+        {
+            try
+            {
+                string whereclause = " EBELN='" + Utility.EscapeSQL(ordernumber) + "' ";
+                whereclause += " AND MATNR='" + Utility.EscapeSQL(materialnumber) + "' ";
+                whereclause += "  AND VBELN='" + Utility.EscapeSQL(deliverynumber) + "' ";
+                whereclause += "  AND LIFNR='" + Utility.EscapeSQL(supplierid) + "' ";
+
+                return mainController.GetDAOCreator().CreateDeliveryOrderDAO().RetrieveByQuery(whereclause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
+
 
 
        
