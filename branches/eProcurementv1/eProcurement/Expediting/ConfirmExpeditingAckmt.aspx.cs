@@ -118,7 +118,7 @@ public partial class Expediting_ConfirmExpeditingAckmt : BaseForm
             Label lblMaterialNumber = (Label)e.Item.FindControl("lblMaterialNumber");
             lblSN.Text = Convert.ToString(Convert.ToInt32(lblSN.Text) + 1);
 
-            Collection<PurchaseExpeditingVO> purchaseExpdVOs = mainController.GetShortageMaterialController()
+            Collection<PurchaseExpeditingVO> purchaseExpdVOs = mainController.GetPurchaseExpeditingController()
                 .GetPurchaseExpeditingList(lblMaterialNumber.Text.Trim());
             gvMaterialDtl.DataSource = purchaseExpdVOs;
             gvMaterialDtl.DataBind();
