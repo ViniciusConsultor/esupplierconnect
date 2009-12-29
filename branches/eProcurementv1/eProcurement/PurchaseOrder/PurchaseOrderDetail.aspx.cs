@@ -156,19 +156,24 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
                 lblSubPath.Text = "Acknowledge Order";
                 btnReject.Visible =false;
                 btnAccept.Visible = false;
+                btnReject1.Visible = false;
+                btnAccept1.Visible = false;
             }
 
-            if (string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
+            if (string.Compare(m_FuncFlag, "ACK_ORDER_BUYER", false) == 0)
             {
                 lblSubPath.Text = "Acknowledge Order by Buyer";
                 btnReject.Visible = false;
                 btnAccept.Visible = false;
+                btnReject1.Visible = false;
+                btnAccept1.Visible = false;
             }
 
             if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
             {
                 lblSubPath.Text = "Accept Order Acknowledgement";
                 btnAcknowledge.Visible = false;
+                btnAcknowledge1.Visible = false;
             }
 
             if (string.Compare(m_FuncFlag, "VIEW_ORDER", false) == 0)
@@ -177,6 +182,9 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
                 btnAcknowledge.Visible = false;
                 btnReject.Visible = false;
                 btnAccept.Visible = false;
+                btnAcknowledge1.Visible = false;
+                btnReject1.Visible = false;
+                btnAccept1.Visible = false;
             }
         }
         catch (Exception ex)
@@ -350,12 +358,13 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
                  mainController.GetOrderHeaderController().AcknowledgePurchaseOrder(schedules);  
              }
 
-             if (string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
+             if (string.Compare(m_FuncFlag, "ACK_ORDER_BUYER", false) == 0)
              {
                  mainController.GetOrderHeaderController().AcknowledgePurchaseOrderByBuyer(schedules);  
              }
        
              btnAcknowledge.Enabled = false;
+             btnAcknowledge1.Enabled = false;
              plMessage.Visible = true;
              string sMessage = "Purchase Order has been acknowledged successfully.";
              displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information);     
@@ -377,7 +386,7 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
 
             bool bAccept = false;
             Button btn = (Button)sender;
-            if (string.Compare(btn.ID, "btnAccept", false) == 0)
+            if (string.Compare(btn.ID, "btnAccept", false) == 0 || string.Compare(btn.ID, "btnAccept1", false) == 0)
             {
                 bAccept = true;
             }
@@ -386,6 +395,8 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
 
             btnAccept.Enabled = false;
             btnReject.Enabled = false;
+            btnAccept1.Enabled = false;
+            btnReject1.Enabled = false;
             plMessage.Visible = true;
             string sMessage = "";
             if (iReturn==1)
