@@ -9,9 +9,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class DeliveryOrder_CreateDeliveryOrder : System.Web.UI.Page
+public partial class DeliveryOrder_CreateDeliveryOrder : BaseForm
 {
-    protected void Page_Load(object sender, EventArgs e)
+    new protected void Page_Load(object sender, EventArgs e)
     {
 
     }
