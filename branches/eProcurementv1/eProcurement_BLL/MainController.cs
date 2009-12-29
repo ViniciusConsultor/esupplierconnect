@@ -6,6 +6,8 @@ using System.Text;
 using eProcurement_DAL;
 using eProcurement_BLL.UserManagement;
 using eProcurement_BLL.PurchaseOrder;
+using eProcurement_BLL.Notification;
+using eProcurement_BLL.DeliveryOrder;
 
 namespace eProcurement_BLL
 {
