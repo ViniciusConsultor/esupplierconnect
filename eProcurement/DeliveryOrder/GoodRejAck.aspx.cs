@@ -46,7 +46,7 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
         }
     }
 
-    protected void Page_Load(object sender, EventArgs e)
+    new protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
