@@ -269,11 +269,9 @@ namespace eProcurement_DAL
             SqlParameter p16 = new SqlParameter("@ACKBY", SqlDbType.VarChar, 10);
             cm.Parameters.Add(p16);
             p16.Value = entity.AcknowledgeBy;
-            cm.ExecuteNonQuery();
             SqlParameter p17 = new SqlParameter("@TELPHN", SqlDbType.VarChar, 20);
             cm.Parameters.Add(p17);
             p17.Value = entity.BuyerPhone;
-            cm.ExecuteNonQuery();
 
             cm.ExecuteNonQuery();
 
@@ -378,16 +376,13 @@ namespace eProcurement_DAL
             SqlParameter p15 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p15);
             p15.Value = entity.AcknowledgeStatus;
-            cm.ExecuteNonQuery();
-
             SqlParameter p16 = new SqlParameter("@ACKBY", SqlDbType.VarChar, 10);
             cm.Parameters.Add(p16);
             p16.Value = entity.AcknowledgeBy;
-            cm.ExecuteNonQuery();
-
             SqlParameter p17 = new SqlParameter("@TELPHN", SqlDbType.VarChar, 20);
             cm.Parameters.Add(p17);
             p17.Value = entity.BuyerPhone;
+
             cm.ExecuteNonQuery();
 
             if (epTran == null)
