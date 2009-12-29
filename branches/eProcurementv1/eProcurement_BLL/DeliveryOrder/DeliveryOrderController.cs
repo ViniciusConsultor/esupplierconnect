@@ -29,15 +29,16 @@ namespace eProcurement_BLL.DeliveryOrder
     public class DeliveryOrderController
     {
         MainController mainController = null;
+
         /// <summary>
         /// public DeliveryOrderController(MainController maincontroller)
         /// Parameterized Constructor - To initialize MainController
         /// </summary>
         /// <param name="maincontroller">main controller goes here</param>
-        public void DeliveryOrderController(MainController maincontroller)
+        public DeliveryOrderController(MainController maincontroller)
         {
 
-            this.mainController = mainController;
+            this.mainController = maincontroller;
         
         }
         /// <summary>
@@ -49,7 +50,7 @@ namespace eProcurement_BLL.DeliveryOrder
         {
             try
             {
-                mainController.GetDAOCreator().CreateDeliveryOrderDAO().Insert(DeliveryOrder);
+                mainController.GetDAOCreator().CreateDeliveryOrderDAO().Insert(deliveryorder);
             }
             catch (Exception ex)
             {
@@ -114,24 +115,7 @@ namespace eProcurement_BLL.DeliveryOrder
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="supplierid"></param>
-        /// <returns></returns>
-        public Collection<eProcurement_DAL.DeliveryOrder> RetrieveAllDeliveryOrderBy(string supplierid)
-        {
-            try
-            {
-                string whereClause = ""
-                return mainController.GetDAOCreator().CreateDeliveryOrderDAO().RetrieveByQuery(su;
-            }
-            catch (Exception ex)
-            {
-                Utility.ExceptionLog(ex);
-                throw (ex);
-            }
-        }
+        
 
         /// <summary>
         /// public eProcurement_DAL.DeliveryOrder RetrieveByKeyDeliveryOrder(string ordernumber, string itemsequence, string deliverynumber)
