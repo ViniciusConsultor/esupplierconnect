@@ -12,10 +12,14 @@
 			<TITLE>Acknowledge Contract</TITLE>
 			<HREF>~/PurchaseContract/PurchaseContractList.aspx</HREF>
 		</ITEM>
-		<ITEM FID="S-0003">
-			<TITLE>Enquiry Contract</TITLE>
-			<HREF>~/PurchaseContract/PurchaseContractList.aspx</HREF>
+		<ITEM FID="S-0008">
+			<TITLE>Enquiry Contract (Supplier)</TITLE>
+			<HREF>~/PurchaseContract/EnquiryPurchaseContractList.aspx?FunctionId=S-0008</HREF>
 		</ITEM>
+    <ITEM FID="B-0005">
+      <TITLE>Enquiry Contract (Buyer)</TITLE>
+      <HREF>~/PurchaseContract/EnquiryPurchaseContractList.aspx?FunctionId=B-0005</HREF>
+    </ITEM>
 	</ITEM>
 	<ITEM>
 		<TITLE>Order Processing</TITLE>
@@ -60,6 +64,10 @@
     <ITEM FID="B-0014">
       <TITLE>Accept Expedite Acknowledgement</TITLE>
       <HREF>~/Expediting/ConfirmExpeditingAckmt.aspx</HREF>
+    </ITEM>
+    <ITEM FID="S-0013">
+      <TITLE>Acknowledge Expedite Deliveries</TITLE>
+      <HREF>~/Expediting/AckExpeditingList.aspx</HREF>
     </ITEM>
 	</ITEM>
 	<ITEM>
