@@ -257,6 +257,13 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
         liAdd.Text = sText;
         liAdd.Value = sValue;
         ddlStatus.Items.Add(liAdd);
+
+        liAdd = new ListItem();
+        sText = "Completed";
+        sValue = "CP";
+        liAdd.Text = sText;
+        liAdd.Value = sValue;
+        ddlStatus.Items.Add(liAdd);
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
