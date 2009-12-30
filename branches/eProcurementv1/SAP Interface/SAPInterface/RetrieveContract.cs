@@ -11,7 +11,7 @@ namespace SAPInterface
 	/// System : eProcurement System
 	/// Module : eProcurement and SAP Interface 
 	/// Author : Chetan Potnis
-	/// Dated  : 05/08/2009
+	/// Dated  : 15/11/2009
 	/// Class  : RetrieveContract
 	/// ---------------------------------------------------------------------------------
 	/// </summary>
@@ -77,7 +77,7 @@ namespace SAPInterface
 			}
 		}
 
-		public ZCONTRACT_HDRTable GetContracteHeader()
+		public ZCONTRACT_HDRTable GetContractHeader()
 		{
 			return contractHeader;
 		}

@@ -124,7 +124,32 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "RetireveMaterialRequirement.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "RetrieveContract.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RetrieveMaterialStock.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RetrievePurchaseOrder.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RetrieveRequisition.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RetrieveSupplier.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -187,6 +212,226 @@
                     SubType = "Component"
                     BuildAction = "Compile"
                     AutoGen = "True"
+                />
+                <File
+                    RelPath = "SAPProxy3.sapwsdl"
+                    BuildAction = "None"
+                    Generator = "SAPConnectorGenerator"
+                    LastGenOutput = "SAPProxy3.cs"
+                />
+                <File
+                    RelPath = "SAPProxy3.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "ZORDER_COMP.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_COMPTable.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_HDR.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_HDRTable.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_HDRTXT.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_HDRTXTTable.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_HISTORY.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_HISTORYTable.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_ITM.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_ITMTable.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_ITMTXT.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_ITMTXTTable.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_SCH.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_SCHTable.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_SRV.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_SRVTable.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_SRVTSK.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_SRVTSKTable.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SAPProxy4.sapwsdl"
+                    BuildAction = "None"
+                    Generator = "SAPConnectorGenerator"
+                    LastGenOutput = "SAPProxy4.cs"
+                />
+                <File
+                    RelPath = "SAPProxy4.cs"
+                    DependentUpon = "SAPProxy4.sapwsdl"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "ZMATL_REQUIRE.cs"
+                    DependentUpon = "SAPProxy4.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZMATL_REQUIRETable.cs"
+                    DependentUpon = "SAPProxy4.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZMATL_STOCK.cs"
+                    DependentUpon = "SAPProxy4.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZMATL_STOCKTable.cs"
+                    DependentUpon = "SAPProxy4.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SAPProxy5.sapwsdl"
+                    BuildAction = "None"
+                    Generator = "SAPConnectorGenerator"
+                    LastGenOutput = "SAPProxy5.cs"
+                />
+                <File
+                    RelPath = "SAPProxy5.cs"
+                    DependentUpon = "SAPProxy5.sapwsdl"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "ZSUPPLIER.cs"
+                    DependentUpon = "SAPProxy5.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZSUPPLIERTable.cs"
+                    DependentUpon = "SAPProxy5.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SAPProxy6.sapwsdl"
+                    BuildAction = "None"
+                    Generator = "SAPConnectorGenerator"
+                    LastGenOutput = "SAPProxy6.cs"
+                />
+                <File
+                    RelPath = "SAPProxy6.cs"
+                    DependentUpon = "SAPProxy6.sapwsdl"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "ZREQN_HDR.cs"
+                    DependentUpon = "SAPProxy6.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZREQN_HDRTable.cs"
+                    DependentUpon = "SAPProxy6.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZREQN_ITM.cs"
+                    DependentUpon = "SAPProxy6.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZREQN_ITMTable.cs"
+                    DependentUpon = "SAPProxy6.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "TempForm.cs"
