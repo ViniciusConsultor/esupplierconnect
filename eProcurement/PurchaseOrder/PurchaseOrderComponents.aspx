@@ -17,7 +17,7 @@
 		    <td width="50%">
 		        <table id="Table1" cellspacing="0" cellpadding="0" width="100%" border="0">
                     <tr >
-                        <td class="DetailsTableCaption">Supplier Address</td> 
+                        <td class="DetailsTableCaption">Supplier</td> 
                     </tr> 
                     <tr>
                         <td><asp:Label runat="server" ID="lblSupplierName" CssClass="labelValue">SupplierName</asp:Label></td> 

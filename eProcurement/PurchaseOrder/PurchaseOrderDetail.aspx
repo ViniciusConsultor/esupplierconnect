@@ -18,7 +18,7 @@
 		    <td width="50%">
 		        <table id="Table1" cellspacing="0" cellpadding="0" width="100%" border="0">
                     <tr >
-                        <td class="DetailsTableCaption">Supplier Address</td> 
+                        <td class="DetailsTableCaption">Supplier</td> 
                     </tr> 
                     <tr>
                         <td><asp:Label runat="server" ID="lblSupplierName" CssClass="labelValue">SupplierName</asp:Label></td> 
@@ -322,7 +322,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblScheduleDate" runat="server" CssClass="" Text=''></asp:Label> 
+                                                                <asp:Label ID="lblScheduleDate" runat="server" CssClass="" Text= '<%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("OrderItemScheduleDate")))) %>'></asp:Label> 
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -350,7 +350,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblDeliveryDate" runat="server" CssClass="" Text=''></asp:Label> 
+                                                                <asp:Label ID="lblDeliveryDate" runat="server" CssClass="" Text='<%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("DeliveryDate")))) %>'></asp:Label> 
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -378,7 +378,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap">
-                                                                <asp:Label ID="lblAcknowledgeDate" runat="server" CssClass="" Text='<%# Eval("AcknowledgementDate") %> '></asp:Label> 
+                                                                <asp:Label ID="lblAcknowledgeDate" runat="server" CssClass="" Text= '<%# Eval("AcknowledgementDate") %>'></asp:Label> 
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>

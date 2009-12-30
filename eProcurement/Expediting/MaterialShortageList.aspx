@@ -218,7 +218,7 @@
                                                             <tr>
                                                                 <td>&nbsp;</td>
                                                                 <td Width="100%" nowrap="nowrap">
-                                                                    <asp:Label ID="lblScheduleDate" runat="server" CssClass="" Text='<%# Eval("OrderItemScheduleDate") %> '></asp:Label> 
+                                                                    <asp:Label ID="lblScheduleDate" runat="server" CssClass="" Text='<%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("OrderItemScheduleDate")))) %>'></asp:Label> 
                                                                 </td>
                                                                <td>&nbsp;</td>
                                                             </tr>
@@ -246,7 +246,7 @@
                                                             <tr>
                                                                 <td>&nbsp;</td>
                                                                 <td Width="100%" nowrap="nowrap">
-                                                                    <asp:Label ID="lblExpeditDate" runat="server" CssClass="" Text='<%# Eval("ExpeditDate") %> '></asp:Label> 
+                                                                    <asp:Label ID="lblExpeditDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("ExpeditDate")))) %>'></asp:Label> 
                                                                 </td>
                                                                <td>&nbsp;</td>
                                                             </tr>
@@ -288,7 +288,7 @@
                                                             <tr>
                                                                 <td>&nbsp;</td>
                                                                 <td Width="100%" nowrap="nowrap">
-                                                                    <asp:Label ID="lblPromiseDate1" runat="server" CssClass="" Text='<%# Eval("PromiseDate1") %> '></asp:Label> 
+                                                                    <asp:Label ID="lblPromiseDate1" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("PromiseDate1")))) %>' ></asp:Label> 
                                                                 </td>
                                                                <td>&nbsp;</td>
                                                             </tr>
@@ -302,7 +302,7 @@
                                                             <tr>
                                                                 <td>&nbsp;</td>
                                                                 <td Width="100%" nowrap="nowrap">
-                                                                    <asp:Label ID="lblPromiseDate2" runat="server" CssClass="" Text='<%# Eval("PromiseDate2") %> '></asp:Label> 
+                                                                    <asp:Label ID="lblPromiseDate2" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("PromiseDate2")))) %>'></asp:Label> 
                                                                 </td>
                                                                <td>&nbsp;</td>
                                                             </tr>

@@ -18,7 +18,7 @@
 		    <td width="50%">
 		        <table id="Table1" cellspacing="0" cellpadding="0" width="100%" border="0">
                     <tr >
-                        <td class="DetailsTableCaption">Supplier Address</td> 
+                        <td class="DetailsTableCaption">Supplier</td> 
                     </tr> 
                     <tr>
                         <td><asp:Label runat="server" ID="lblSupplierName" CssClass="labelValue">SupplierName</asp:Label></td> 
@@ -315,7 +315,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap" align="center">
-                                                                <asp:Label ID="lblScheduleDate" runat="server" CssClass="" Text=''></asp:Label> 
+                                                                <asp:Label ID="lblScheduleDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("OrderItemScheduleDate")))) %>'></asp:Label> 
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -357,7 +357,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap" align="center">
-                                                                <asp:Label ID="lblDeliveryDate" runat="server" CssClass="" Text=''></asp:Label> 
+                                                                <asp:Label ID="lblDeliveryDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("DeliveryDate")))) %>'></asp:Label> 
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -399,7 +399,7 @@
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap" align="center">
-                                                                <asp:Label ID="lblExpeditDate" runat="server" CssClass="" Text='<%# Eval("ExpeditDate") %> '></asp:Label>
+                                                                <asp:Label ID="lblExpeditDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("ExpeditDate")))) %>'></asp:Label>
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -416,7 +416,7 @@
                                                                 <asp:HiddenField ID="hdFirst" Visible="false" runat="server" Value=''></asp:HiddenField>
                                                                 <asp:HiddenField ID="hdStatus" Visible="false" runat="server" Value=' <%# Eval("RecordStatus")%> '></asp:HiddenField>
                                                                 <DatePicker:DatePicker ID="dtPromiseDate1" runat="server" />
-                                                                <asp:Label ID="lblPromiseDate1" runat="server" CssClass="" Text='<%# Eval("PromiseDate1") %> '></asp:Label>
+                                                                <asp:Label ID="lblPromiseDate1" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("PromiseDate1")))) %>'></asp:Label>
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
@@ -431,7 +431,7 @@
                                                             <td>&nbsp;</td>
                                                             <td Width="100%" nowrap="nowrap" align="center">
                                                                 <DatePicker:DatePicker ID="dtPromiseDate2" runat="server" />
-                                                               <asp:Label ID="lblPromiseDate2" runat="server" CssClass="" Text='<%# Eval("PromiseDate2") %> '></asp:Label>
+                                                               <asp:Label ID="lblPromiseDate2" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("PromiseDate2")))) %>'></asp:Label>
                                                             </td>
                                                            <td>&nbsp;</td>
                                                         </tr>
