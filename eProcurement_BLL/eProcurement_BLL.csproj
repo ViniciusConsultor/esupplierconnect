@@ -38,8 +38,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="DeliveryOrder\DeliveryOrderController.cs" />
     <Compile Include="Log\LogHelper.cs" />
     <Compile Include="MainController.cs" />
+    <Compile Include="Notification\NotificationController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrder\OrderHeaderController.cs" />
     <Compile Include="PurchaseOrder\OrderItemController.cs" />
@@ -61,6 +63,9 @@
       <Project>{27E99553-CBFF-48C1-A103-10830F3A52EB}</Project>
       <Name>eProcurement_DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lib\log4net.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
