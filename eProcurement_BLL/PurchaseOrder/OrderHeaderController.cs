@@ -79,7 +79,7 @@ namespace eProcurement_BLL.PurchaseOrder
             {
                 string whereClause = "";
                 string orderClause = "";
-                whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
+                whereClause += " isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
                 whereClause += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
                 whereClause += " AND isnull(STAT,'') <> '" + POStatus.Complete + "' ";
                 //pending filter by purchase group

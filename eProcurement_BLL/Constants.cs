@@ -66,6 +66,7 @@ namespace eProcurement_BLL
     {
         public const string LOGIN_USER = "LOGIN_USER";
         public const string OrderNumber = "ORDER_NO";
+        public const string ContractNumber = "CONTRACT_NO";
         public const string OrderItemSeqNumber = "ORDER_ITEM_SEQ_NUMBER";
         public const string OrderScheduleSeq = "ORDER_SCHEDULE_SEQ";
     }

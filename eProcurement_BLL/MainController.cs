@@ -8,6 +8,7 @@ using eProcurement_BLL.UserManagement;
 using eProcurement_BLL.PurchaseOrder;
 using eProcurement_BLL.Notification;
 using eProcurement_BLL.DeliveryOrder;
+using eProcurement_BLL.PurchaseContract;
 
 namespace eProcurement_BLL
 {
@@ -39,7 +40,7 @@ namespace eProcurement_BLL
         private NotificationController notificationController = null;
         private DeliveryOrderController deliveryOrderController = null;
         private PurchaseExpeditingController purchaseExpeditingController = null;
-        
+        private PurchaseContractController purchaseContractController = null;
         
 
         public MainController()
@@ -137,6 +138,13 @@ namespace eProcurement_BLL
             if (this.purchaseExpeditingController == null)
                 this.purchaseExpeditingController = new PurchaseExpeditingController(this);
             return this.purchaseExpeditingController;
+        }
+
+        public PurchaseContractController GetPurchaseContractController()
+        {
+            if (this.purchaseContractController == null)
+                this.purchaseContractController = new PurchaseContractController(this);
+            return this.purchaseContractController;
         }
         
         
