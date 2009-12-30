@@ -11,7 +11,7 @@ namespace SAPInterface
 	/// System : eProcurement System
 	/// Module : eProcurement and SAP Interface 
 	/// Author : Chetan Potnis
-	/// Dated  : 05/08/2009
+	/// Dated  : 02/12/2009
 	/// Class  : ClearPurchaseData
 	/// --------------------------------------------------------------------------------
 	/// </summary>
@@ -71,5 +71,32 @@ namespace SAPInterface
 			}
 		}
 
+		public void ClearPurchaseOrderData ()
+		{
+			try
+			{
+				this.OpenConnection();
+				clearPurchaseProxy.Zremoveorder();
+				this.CloseConnection();
+			}
+			catch(Exception ex)
+			{
+				throw(ex);
+			}
+		}
+
+		public void ClearRequisitionData ()
+		{
+			try
+			{
+				this.OpenConnection();
+				clearPurchaseProxy.Zremoverequisition();
+				this.CloseConnection();
+			}
+			catch(Exception ex)
+			{
+				throw(ex);
+			}
+		}
 	}
 }
