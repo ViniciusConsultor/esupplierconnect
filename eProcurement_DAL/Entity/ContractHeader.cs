@@ -118,5 +118,13 @@ namespace eProcurement_DAL
             get { return internalReference; }
             set { internalReference = value; }
         }
+
+        ///<summary>Database mapping to column purhdr.ACKSTS</summary>
+        string acknowledgeStatus;
+        public string AcknowledgeStatus
+        {
+            get { return acknowledgeStatus; }
+            set { acknowledgeStatus = value; }
+        }
     }
 }

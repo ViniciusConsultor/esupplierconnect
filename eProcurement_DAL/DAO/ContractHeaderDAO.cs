@@ -106,7 +106,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO conthdr ([EBELN],[BEDAT],[BSTYP],[BSART],[ERNAM],[LIFNR],[ZTERM],[EKGRP],[WAERS],[WKURS],[KDATB],[KDATE],[VERKF],[TELF1],[KTWRT],[IHERZ]) VALUES(@EBELN,@BEDAT,@BSTYP,@BSART,@ERNAM,@LIFNR,@ZTERM,@EKGRP,@WAERS,@WKURS,@KDATB,@KDATE,@VERKF,@TELF1,@KTWRT,@IHERZ)";
+            cm.CommandText = "INSERT INTO conthdr ([EBELN],[BEDAT],[BSTYP],[BSART],[ERNAM],[LIFNR],[ZTERM],[EKGRP],[WAERS],[WKURS],[KDATB],[KDATE],[VERKF],[TELF1],[KTWRT],[IHERZ],[ACKSTS]) VALUES(@EBELN,@BEDAT,@BSTYP,@BSART,@ERNAM,@LIFNR,@ZTERM,@EKGRP,@WAERS,@WKURS,@KDATB,@KDATE,@VERKF,@TELF1,@KTWRT,@IHERZ,@ACKSTS)";
             
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.VarChar, 10);
             cm.Parameters.Add(p1);
@@ -187,6 +187,10 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p16);
             p16.Value = entity.InternalReference;
 
+            SqlParameter p17 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
+            cm.Parameters.Add(p17);
+            p17.Value = entity.AcknowledgeStatus;
+
             cm.ExecuteNonQuery();
 
             if (epTran == null)
@@ -226,7 +230,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE conthdr set [BEDAT]=@BEDAT,[BSTYP]=@BSTYP,[BSART]=@BSART,[ERNAM]=@ERNAM,[LIFNR]=@LIFNR,[ZTERM]=@ZTERM,[EKGRP]=@EKGRP,[WAERS]=@WAERS,[WKURS]=@WKURS,[KDATB]=@KDATB,[KDATE]=@KDATE,[VERKF]=@VERKF,[TELF1]=@TELF1,[KTWRT]=@KTWRT,[IHERZ]=@IHERZ WHERE EBELN=@EBELN";
+            cm.CommandText = "UPDATE conthdr set [BEDAT]=@BEDAT,[BSTYP]=@BSTYP,[BSART]=@BSART,[ERNAM]=@ERNAM,[LIFNR]=@LIFNR,[ZTERM]=@ZTERM,[EKGRP]=@EKGRP,[WAERS]=@WAERS,[WKURS]=@WKURS,[KDATB]=@KDATB,[KDATE]=@KDATE,[VERKF]=@VERKF,[TELF1]=@TELF1,[KTWRT]=@KTWRT,[IHERZ]=@IHERZ,[ACKSTS]=@ACKSTS WHERE EBELN=@EBELN";
 
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.VarChar, 10);
             cm.Parameters.Add(p1);
@@ -307,6 +311,9 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p16);
             p16.Value = entity.InternalReference;
 
+            SqlParameter p17 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
+            cm.Parameters.Add(p17);
+            p17.Value = entity.AcknowledgeStatus;
 
             cm.ExecuteNonQuery();
 
@@ -381,7 +388,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [EBELN],[BEDAT],[BSTYP],[BSART],[ERNAM],[LIFNR],[ZTERM],[EKGRP],[WAERS],[WKURS],[KDATB],[KDATE],[VERKF],[TELF1],[KTWRT],[IHERZ] FROM conthdr";
+            string selectCommand = "SELECT [EBELN],[BEDAT],[BSTYP],[BSART],[ERNAM],[LIFNR],[ZTERM],[EKGRP],[WAERS],[WKURS],[KDATB],[KDATE],[VERKF],[TELF1],[KTWRT],[IHERZ],[ACKSTS] FROM conthdr";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -429,6 +436,7 @@ namespace eProcurement_DAL
                     entity.ContractValue = Convert.ToInt64(rd["KTWRT"]);
 
                 entity.InternalReference = rd["IHERZ"].ToString();
+                entity.AcknowledgeStatus = rd["ACKSTS"].ToString();
 
                 entities.Add(entity);
 
