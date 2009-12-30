@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions targetNamespace="urn:sap-com:document:sap:rfc:functions" xmlns:s0="urn:sap-com:document:sap:rfc:functions" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:sap-com:document:sap:rfc:functions" xmlns:s0="urn:sap-com:document:sap:rfc:functions" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="ZRETRIEVEREQUIREMENT">
+        <xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+          <xsd:all>
+            <xsd:element name="MATERIAL_REQUIREMENT">
+              <xsd:annotation>
+                <xsd:documentation>Material Requirement Details - Work Area</xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="item" minOccurs="0" maxOccurs="unbounded" type="s0:ZMATL_REQUIRE" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZRETRIEVEREQUIREMENT.Response">
+        <xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+          <xsd:all>
+            <xsd:element name="MATERIAL_REQUIREMENT">
+              <xsd:annotation>
+                <xsd:documentation>Material Requirement Details - Work Area</xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="item" minOccurs="0" maxOccurs="unbounded" type="s0:ZMATL_REQUIRE" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZRETRIEVEREQUIREMENT.Exception">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Name">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="RECORDNOTFOUND" />
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="Text" minOccurs="0" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+            <xsd:element name="Message" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="ID">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="20" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="Number">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:pattern value="\d+" />
+                        <xsd:maxLength value="3" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Attributes" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="V1" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="V2" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="V3" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="V4" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ZMATL_REQUIRE">
+        <xsd:sequence>
+          <xsd:element name="MATNR" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:annotation>
+              <xsd:documentation>Material Number</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="18" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="WERKS" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:annotation>
+              <xsd:documentation>Plant</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="4" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="BDMNG" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:annotation>
+              <xsd:documentation>Requirement Quantity</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:decimal">
+                <xsd:totalDigits value="13" />
+                <xsd:fractionDigits value="3" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="BDTER" minOccurs="0" type="s0:date" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:annotation>
+              <xsd:documentation>Requirements Date for the Component</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MEINS" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:annotation>
+              <xsd:documentation>Base Unit of Measure</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="3" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="date">
+        <xsd:union memberTypes="xsd:date s0:genericDate" />
+      </xsd:simpleType>
+      <xsd:simpleType name="genericDate">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value="....-..-.." />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="ZRETRIEVESTOCK">
+        <xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+          <xsd:all>
+            <xsd:element name="MATERIAL_STOCK">
+              <xsd:annotation>
+                <xsd:documentation>Material Stock Balance Details - Work Area</xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="item" minOccurs="0" maxOccurs="unbounded" type="s0:ZMATL_STOCK" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZRETRIEVESTOCK.Response">
+        <xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+          <xsd:all>
+            <xsd:element name="MATERIAL_STOCK">
+              <xsd:annotation>
+                <xsd:documentation>Material Stock Balance Details - Work Area</xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="item" minOccurs="0" maxOccurs="unbounded" type="s0:ZMATL_STOCK" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZRETRIEVESTOCK.Exception">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Name">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="RECORDNOTFOUND" />
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="Text" minOccurs="0" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+            <xsd:element name="Message" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="ID">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="20" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="Number">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:pattern value="\d+" />
+                        <xsd:maxLength value="3" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Attributes" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="V1" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="V2" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="V3" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="V4" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50" />
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ZMATL_STOCK">
+        <xsd:sequence>
+          <xsd:element name="MATNR" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:annotation>
+              <xsd:documentation>Material Number</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="18" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="WERKS" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:annotation>
+              <xsd:documentation>Plant</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="4" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="MAKTX" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:annotation>
+              <xsd:documentation>Material Description</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="40" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="LABST" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:annotation>
+              <xsd:documentation>Valuated stock with unrestricted use</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:decimal">
+                <xsd:totalDigits value="13" />
+                <xsd:fractionDigits value="3" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="INSME" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:annotation>
+              <xsd:documentation>Stock in quality inspection</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:decimal">
+                <xsd:totalDigits value="13" />
+                <xsd:fractionDigits value="3" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="MEINS" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:annotation>
+              <xsd:documentation>Base Unit of Measure</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="3" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:portType name="dummy.PortType">
+    <wsdl:operation name="ZRETRIEVEREQUIREMENT">
+      <wsdl:input message="s0:ZRETRIEVEREQUIREMENT.Input" />
+      <wsdl:output message="s0:ZRETRIEVEREQUIREMENT.Output" />
+      <wsdl:fault message="s0:ZRETRIEVEREQUIREMENT.Exception" name="ZRETRIEVEREQUIREMENT.Exception" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+    </wsdl:operation>
+    <wsdl:operation name="ZRETRIEVESTOCK">
+      <wsdl:input message="s0:ZRETRIEVESTOCK.Input" />
+      <wsdl:output message="s0:ZRETRIEVESTOCK.Output" />
+      <wsdl:fault message="s0:ZRETRIEVESTOCK.Exception" name="ZRETRIEVESTOCK.Exception" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="dummy.SAPBinding" type="s0:dummy.PortType" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <s0:binding style="rfc" />
+    <wiz:GeneratorSettings xmlns:wiz="urn:sap:mw:dotnet:wizard">
+      <wiz:ProxyType>Client</wiz:ProxyType>
+      <wiz:ClassName>SAPProxy4</wiz:ClassName>
+      <wiz:Beautify>True</wiz:Beautify>
+      <wiz:CreateAsyncs>False</wiz:CreateAsyncs>
+      <wiz:CreateQRFC>False</wiz:CreateQRFC>
+      <wiz:CreateTRFC>False</wiz:CreateTRFC>
+      <wiz:ShowTypes>True</wiz:ShowTypes>
+      <wiz:MapBapiExceptions>False</wiz:MapBapiExceptions>
+    </wiz:GeneratorSettings>
+    <wsdl:operation name="ZRETRIEVEREQUIREMENT">
+      <ifr:container xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+        <ifr:descriptor>
+          <ifr:description language="EN">Retrieve Material Requirement</ifr:description>
+        </ifr:descriptor>
+        <ifr:properties>
+          <ifr:sourceSystem />
+          <ifr:sourceClient>300</ifr:sourceClient>
+          <ifr:release>620 </ifr:release>
+          <ifr:package>Z001</ifr:package>
+          <ifr:akhNode />
+          <ifr:released>no</ifr:released>
+          <ifr:outbound>false</ifr:outbound>
+          <ifr:synchronous>true</ifr:synchronous>
+          <ifr:asynchronous>false</ifr:asynchronous>
+          <ifr:unicode1>true</ifr:unicode1>
+          <ifr:unicode2>true</ifr:unicode2>
+        </ifr:properties>
+        <ifr:definition>
+          <ifr:exceptions>
+            <ifr:exception name="RECORDNOTFOUND">
+              <ifr:descriptor>
+                <ifr:description language="EN">Material Requirement not available</ifr:description>
+              </ifr:descriptor>
+            </ifr:exception>
+          </ifr:exceptions>
+          <ifr:parameters>
+            <ifr:parameter name="MATERIAL_REQUIREMENT">
+              <ifr:descriptor>
+                <ifr:description language="EN">Material Requirement Details - Work Area</ifr:description>
+              </ifr:descriptor>
+              <ifr:definition>
+                <ifr:complexType name="ZMATL_REQUIRE" type="structure" xlink:role="type" xlink:href="/Content?TYPE=type&amp;NAME=ZMATL_REQUIRE" xmlns:ifr="urn:sap-com:ifr:v2:metamodel" xmlns:xlink="http://www.w3.org/1999/xlink" />
+              </ifr:definition>
+              <ifr:properties>
+                <ifr:direction>inout</ifr:direction>
+                <ifr:class>tables</ifr:class>
+                <ifr:type>structure</ifr:type>
+                <ifr:optional>false</ifr:optional>
+                <ifr:basedOnDictionaryReference>true</ifr:basedOnDictionaryReference>
+              </ifr:properties>
+            </ifr:parameter>
+          </ifr:parameters>
+        </ifr:definition>
+      </ifr:container>
+    </wsdl:operation>
+    <s0:type name="ZMATL_REQUIRE">
+      <ifr:container xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+        <ifr:descriptor>
+          <ifr:description language="EN">Material Requirement Details - Work Area</ifr:description>
+        </ifr:descriptor>
+        <ifr:properties>
+          <ifr:sourceSystem />
+          <ifr:sourceClient>300</ifr:sourceClient>
+          <ifr:release>620 </ifr:release>
+          <ifr:category>structure</ifr:category>
+          <ifr:unicode1>true</ifr:unicode1>
+          <ifr:unicode2>true</ifr:unicode2>
+          <ifr:isFlatStructure>true</ifr:isFlatStructure>
+        </ifr:properties>
+        <ifr:definition>
+          <ifr:internalLength1>40</ifr:internalLength1>
+          <ifr:internalLength2>74</ifr:internalLength2>
+          <ifr:fields>
+            <ifr:field name="MATNR" category="simple" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+              <ifr:descriptor>
+                <ifr:description language="EN">Material Number</ifr:description>
+              </ifr:descriptor>
+              <ifr:properties>
+                <ifr:helpValuesSupported>true</ifr:helpValuesSupported>
+                <ifr:offset1>0</ifr:offset1>
+                <ifr:offset2>0</ifr:offset2>
+              </ifr:properties>
+              <ifr:definition>
+                <ifr:scalarType name="MATNR">
+                  <ifr:properties>
+                    <ifr:helpValuesSupported>true</ifr:helpValuesSupported>
+                    <ifr:fixedValuesListDefined>false</ifr:fixedValuesListDefined>
+                    <ifr:mixedCaseSupported>false</ifr:mixedCaseSupported>
+                    <ifr:signedNumber>false</ifr:signedNumber>
+                  </ifr:properties>
+                  <ifr:definition>
+                    <ifr:type>CHAR</ifr:type>
+                    <ifr:abapType>C</ifr:abapType>
+                    <ifr:length>18</ifr:length>
+                    <ifr:internalLength1>18</ifr:internalLength1>
+                    <ifr:internalLength2>36</ifr:internalLength2>
+                    <ifr:decimals>0</ifr:decimals>
+                    <ifr:outputLength>18</ifr:outputLength>
+                    <ifr:conversionExit>MATN1</ifr:conversionExit>
+                  </ifr:definition>
+                </ifr:scalarType>
+              </ifr:definition>
+            </ifr:field>
+            <ifr:field name="WERKS" category="simple" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+              <ifr:descriptor>
+                <ifr:description language="EN">Plant</ifr:description>
+              </ifr:descriptor>
+              <ifr:properties>
+                <ifr:helpValuesSupported>true</ifr:helpValuesSupported>
+                <ifr:offset1>18</ifr:offset1>
+                <ifr:offset2>36</ifr:offset2>
+              </ifr:properties>
+              <ifr:definition>
+                <ifr:scalarType name="WERKS_D">
+                  <ifr:properties>
+                    <ifr:helpValuesSupported>true</ifr:helpValuesSupported>
+                    <ifr:fixedValuesListDefined>false</ifr:fixedValuesListDefined>
+                    <ifr:mixedCaseSupported>false</ifr:mixedCaseSupported>
+                    <ifr:signedNumber>false</ifr:signedNumber>
+                  </ifr:properties>
+                  <ifr:definition>
+                    <ifr:type>CHAR</ifr:type>
+                    <ifr:abapType>C</ifr:abapType>
+                    <ifr:length>4</ifr:length>
+                    <ifr:internalLength1>4</ifr:internalLength1>
+                    <ifr:internalLength2>8</ifr:internalLength2>
+                    <ifr:decimals>0</ifr:decimals>
+                    <ifr:outputLength>4</ifr:outputLength>
+                  </ifr:definition>
+                </ifr:scalarType>
+              </ifr:definition>
+            </ifr:field>
+            <ifr:field name="BDMNG" category="simple" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+              <ifr:descriptor>
+                <ifr:description language="EN">Requirement Quantity</ifr:description>
+              </ifr:descriptor>
+              <ifr:properties>
+                <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                <ifr:referenceField>MEINS</ifr:referenceField>
+                <ifr:referenceTable>MDRS</ifr:referenceTable>
+                <ifr:offset1>22</ifr:offset1>
+                <ifr:offset2>44</ifr:offset2>
+              </ifr:properties>
+              <ifr:definition>
+                <ifr:scalarType name="BDMNG">
+                  <ifr:properties>
+                    <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                    <ifr:fixedValuesListDefined>false</ifr:fixedValuesListDefined>
+                    <ifr:mixedCaseSupported>false</ifr:mixedCaseSupported>
+                    <ifr:signedNumber>false</ifr:signedNumber>
+                  </ifr:properties>
+                  <ifr:definition>
+                    <ifr:type>QUAN</ifr:type>
+                    <ifr:abapType>P</ifr:abapType>
+                    <ifr:length>13</ifr:length>
+                    <ifr:internalLength1>7</ifr:internalLength1>
+                    <ifr:internalLength2>7</ifr:internalLength2>
+                    <ifr:decimals>3</ifr:decimals>
+                    <ifr:outputLength>17</ifr:outputLength>
+                  </ifr:definition>
+                </ifr:scalarType>
+              </ifr:definition>
+            </ifr:field>
+            <ifr:field name="BDTER" category="simple" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+              <ifr:descriptor>
+                <ifr:description language="EN">Requirements Date for the Component</ifr:description>
+              </ifr:descriptor>
+              <ifr:properties>
+                <ifr:helpValuesSupported>true</ifr:helpValuesSupported>
+                <ifr:offset1>29</ifr:offset1>
+                <ifr:offset2>52</ifr:offset2>
+              </ifr:properties>
+              <ifr:definition>
+                <ifr:scalarType name="BDTER">
+                  <ifr:properties>
+                    <ifr:helpValuesSupported>true</ifr:helpValuesSupported>
+                    <ifr:fixedValuesListDefined>false</ifr:fixedValuesListDefined>
+                    <ifr:mixedCaseSupported>false</ifr:mixedCaseSupported>
+                    <ifr:signedNumber>false</ifr:signedNumber>
+                  </ifr:properties>
+                  <ifr:definition>
+                    <ifr:type>DATS</ifr:type>
+                    <ifr:abapType>D</ifr:abapType>
+                    <ifr:length>8</ifr:length>
+                    <ifr:internalLength1>8</ifr:internalLength1>
+                    <ifr:internalLength2>16</ifr:internalLength2>
+                    <ifr:decimals>0</ifr:decimals>
+                    <ifr:outputLength>10</ifr:outputLength>
+                  </ifr:definition>
+                </ifr:scalarType>
+              </ifr:definition>
+            </ifr:field>
+            <ifr:field name="MEINS" category="simple" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+              <ifr:descriptor>
+                <ifr:description language="EN">Base Unit of Measure</ifr:description>
+              </ifr:descriptor>
+              <ifr:properties>
+                <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                <ifr:offset1>37</ifr:offset1>
+                <ifr:offset2>68</ifr:offset2>
+              </ifr:properties>
+              <ifr:definition>
+                <ifr:scalarType name="MEINS">
+                  <ifr:properties>
+                    <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                    <ifr:fixedValuesListDefined>false</ifr:fixedValuesListDefined>
+                    <ifr:mixedCaseSupported>false</ifr:mixedCaseSupported>
+                    <ifr:signedNumber>false</ifr:signedNumber>
+                  </ifr:properties>
+                  <ifr:definition>
+                    <ifr:type>UNIT</ifr:type>
+                    <ifr:abapType>C</ifr:abapType>
+                    <ifr:length>3</ifr:length>
+                    <ifr:internalLength1>3</ifr:internalLength1>
+                    <ifr:internalLength2>6</ifr:internalLength2>
+                    <ifr:decimals>0</ifr:decimals>
+                    <ifr:outputLength>3</ifr:outputLength>
+                    <ifr:conversionExit>CUNIT</ifr:conversionExit>
+                  </ifr:definition>
+                </ifr:scalarType>
+              </ifr:definition>
+            </ifr:field>
+          </ifr:fields>
+        </ifr:definition>
+      </ifr:container>
+    </s0:type>
+    <wsdl:operation name="ZRETRIEVESTOCK">
+      <ifr:container xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+        <ifr:descriptor>
+          <ifr:description language="EN">Retrieve Material Stock</ifr:description>
+        </ifr:descriptor>
+        <ifr:properties>
+          <ifr:sourceSystem />
+          <ifr:sourceClient>300</ifr:sourceClient>
+          <ifr:release>620 </ifr:release>
+          <ifr:package>Z001</ifr:package>
+          <ifr:akhNode />
+          <ifr:released>no</ifr:released>
+          <ifr:outbound>false</ifr:outbound>
+          <ifr:synchronous>true</ifr:synchronous>
+          <ifr:asynchronous>false</ifr:asynchronous>
+          <ifr:unicode1>true</ifr:unicode1>
+          <ifr:unicode2>true</ifr:unicode2>
+        </ifr:properties>
+        <ifr:definition>
+          <ifr:exceptions>
+            <ifr:exception name="RECORDNOTFOUND">
+              <ifr:descriptor>
+                <ifr:description language="EN">Material Stock not available</ifr:description>
+              </ifr:descriptor>
+            </ifr:exception>
+          </ifr:exceptions>
+          <ifr:parameters>
+            <ifr:parameter name="MATERIAL_STOCK">
+              <ifr:descriptor>
+                <ifr:description language="EN">Material Stock Balance Details - Work Area</ifr:description>
+              </ifr:descriptor>
+              <ifr:definition>
+                <ifr:complexType name="ZMATL_STOCK" type="structure" xlink:role="type" xlink:href="/Content?TYPE=type&amp;NAME=ZMATL_STOCK" xmlns:ifr="urn:sap-com:ifr:v2:metamodel" xmlns:xlink="http://www.w3.org/1999/xlink" />
+              </ifr:definition>
+              <ifr:properties>
+                <ifr:direction>inout</ifr:direction>
+                <ifr:class>tables</ifr:class>
+                <ifr:type>structure</ifr:type>
+                <ifr:optional>false</ifr:optional>
+                <ifr:basedOnDictionaryReference>true</ifr:basedOnDictionaryReference>
+              </ifr:properties>
+            </ifr:parameter>
+          </ifr:parameters>
+        </ifr:definition>
+      </ifr:container>
+    </wsdl:operation>
+    <s0:type name="ZMATL_STOCK">
+      <ifr:container xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+        <ifr:descriptor>
+          <ifr:description language="EN">Material Stock Balance Details - Work Area</ifr:description>
+        </ifr:descriptor>
+        <ifr:properties>
+          <ifr:sourceSystem />
+          <ifr:sourceClient>300</ifr:sourceClient>
+          <ifr:release>620 </ifr:release>
+          <ifr:category>structure</ifr:category>
+          <ifr:unicode1>true</ifr:unicode1>
+          <ifr:unicode2>true</ifr:unicode2>
+          <ifr:isFlatStructure>true</ifr:isFlatStructure>
+        </ifr:properties>
+        <ifr:definition>
+          <ifr:internalLength1>79</ifr:internalLength1>
+          <ifr:internalLength2>144</ifr:internalLength2>
+          <ifr:fields>
+            <ifr:field name="MATNR" category="simple" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+              <ifr:descriptor>
+                <ifr:description language="EN">Material Number</ifr:description>
+              </ifr:descriptor>
+              <ifr:properties>
+                <ifr:helpValuesSupported>true</ifr:helpValuesSupported>
+                <ifr:offset1>0</ifr:offset1>
+                <ifr:offset2>0</ifr:offset2>
+              </ifr:properties>
+              <ifr:definition>
+                <ifr:scalarType name="MATNR">
+                  <ifr:properties>
+                    <ifr:helpValuesSupported>true</ifr:helpValuesSupported>
+                    <ifr:fixedValuesListDefined>false</ifr:fixedValuesListDefined>
+                    <ifr:mixedCaseSupported>false</ifr:mixedCaseSupported>
+                    <ifr:signedNumber>false</ifr:signedNumber>
+                  </ifr:properties>
+                  <ifr:definition>
+                    <ifr:type>CHAR</ifr:type>
+                    <ifr:abapType>C</ifr:abapType>
+                    <ifr:length>18</ifr:length>
+                    <ifr:internalLength1>18</ifr:internalLength1>
+                    <ifr:internalLength2>36</ifr:internalLength2>
+                    <ifr:decimals>0</ifr:decimals>
+                    <ifr:outputLength>18</ifr:outputLength>
+                    <ifr:conversionExit>MATN1</ifr:conversionExit>
+                  </ifr:definition>
+                </ifr:scalarType>
+              </ifr:definition>
+            </ifr:field>
+            <ifr:field name="WERKS" category="simple" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+              <ifr:descriptor>
+                <ifr:description language="EN">Plant</ifr:description>
+              </ifr:descriptor>
+              <ifr:properties>
+                <ifr:helpValuesSupported>true</ifr:helpValuesSupported>
+                <ifr:offset1>18</ifr:offset1>
+                <ifr:offset2>36</ifr:offset2>
+              </ifr:properties>
+              <ifr:definition>
+                <ifr:scalarType name="WERKS_D">
+                  <ifr:properties>
+                    <ifr:helpValuesSupported>true</ifr:helpValuesSupported>
+                    <ifr:fixedValuesListDefined>false</ifr:fixedValuesListDefined>
+                    <ifr:mixedCaseSupported>false</ifr:mixedCaseSupported>
+                    <ifr:signedNumber>false</ifr:signedNumber>
+                  </ifr:properties>
+                  <ifr:definition>
+                    <ifr:type>CHAR</ifr:type>
+                    <ifr:abapType>C</ifr:abapType>
+                    <ifr:length>4</ifr:length>
+                    <ifr:internalLength1>4</ifr:internalLength1>
+                    <ifr:internalLength2>8</ifr:internalLength2>
+                    <ifr:decimals>0</ifr:decimals>
+                    <ifr:outputLength>4</ifr:outputLength>
+                  </ifr:definition>
+                </ifr:scalarType>
+              </ifr:definition>
+            </ifr:field>
+            <ifr:field name="MAKTX" category="simple" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+              <ifr:descriptor>
+                <ifr:description language="EN">Material Description</ifr:description>
+              </ifr:descriptor>
+              <ifr:properties>
+                <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                <ifr:offset1>22</ifr:offset1>
+                <ifr:offset2>44</ifr:offset2>
+              </ifr:properties>
+              <ifr:definition>
+                <ifr:scalarType name="MAKTX">
+                  <ifr:properties>
+                    <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                    <ifr:fixedValuesListDefined>false</ifr:fixedValuesListDefined>
+                    <ifr:mixedCaseSupported>true</ifr:mixedCaseSupported>
+                    <ifr:signedNumber>false</ifr:signedNumber>
+                  </ifr:properties>
+                  <ifr:definition>
+                    <ifr:type>CHAR</ifr:type>
+                    <ifr:abapType>C</ifr:abapType>
+                    <ifr:length>40</ifr:length>
+                    <ifr:internalLength1>40</ifr:internalLength1>
+                    <ifr:internalLength2>80</ifr:internalLength2>
+                    <ifr:decimals>0</ifr:decimals>
+                    <ifr:outputLength>40</ifr:outputLength>
+                  </ifr:definition>
+                </ifr:scalarType>
+              </ifr:definition>
+            </ifr:field>
+            <ifr:field name="LABST" category="simple" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+              <ifr:descriptor>
+                <ifr:description language="EN">Valuated stock with unrestricted use</ifr:description>
+              </ifr:descriptor>
+              <ifr:properties>
+                <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                <ifr:referenceField>MEINS</ifr:referenceField>
+                <ifr:referenceTable>MARA</ifr:referenceTable>
+                <ifr:offset1>62</ifr:offset1>
+                <ifr:offset2>124</ifr:offset2>
+              </ifr:properties>
+              <ifr:definition>
+                <ifr:scalarType name="LABST">
+                  <ifr:properties>
+                    <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                    <ifr:fixedValuesListDefined>false</ifr:fixedValuesListDefined>
+                    <ifr:mixedCaseSupported>false</ifr:mixedCaseSupported>
+                    <ifr:signedNumber>true</ifr:signedNumber>
+                  </ifr:properties>
+                  <ifr:definition>
+                    <ifr:type>QUAN</ifr:type>
+                    <ifr:abapType>P</ifr:abapType>
+                    <ifr:length>13</ifr:length>
+                    <ifr:internalLength1>7</ifr:internalLength1>
+                    <ifr:internalLength2>7</ifr:internalLength2>
+                    <ifr:decimals>3</ifr:decimals>
+                    <ifr:outputLength>18</ifr:outputLength>
+                  </ifr:definition>
+                </ifr:scalarType>
+              </ifr:definition>
+            </ifr:field>
+            <ifr:field name="INSME" category="simple" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+              <ifr:descriptor>
+                <ifr:description language="EN">Stock in quality inspection</ifr:description>
+              </ifr:descriptor>
+              <ifr:properties>
+                <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                <ifr:referenceField>MEINS</ifr:referenceField>
+                <ifr:referenceTable>MARA</ifr:referenceTable>
+                <ifr:offset1>69</ifr:offset1>
+                <ifr:offset2>131</ifr:offset2>
+              </ifr:properties>
+              <ifr:definition>
+                <ifr:scalarType name="INSME">
+                  <ifr:properties>
+                    <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                    <ifr:fixedValuesListDefined>false</ifr:fixedValuesListDefined>
+                    <ifr:mixedCaseSupported>false</ifr:mixedCaseSupported>
+                    <ifr:signedNumber>true</ifr:signedNumber>
+                  </ifr:properties>
+                  <ifr:definition>
+                    <ifr:type>QUAN</ifr:type>
+                    <ifr:abapType>P</ifr:abapType>
+                    <ifr:length>13</ifr:length>
+                    <ifr:internalLength1>7</ifr:internalLength1>
+                    <ifr:internalLength2>7</ifr:internalLength2>
+                    <ifr:decimals>3</ifr:decimals>
+                    <ifr:outputLength>18</ifr:outputLength>
+                  </ifr:definition>
+                </ifr:scalarType>
+              </ifr:definition>
+            </ifr:field>
+            <ifr:field name="MEINS" category="simple" xmlns:ifr="urn:sap-com:ifr:v2:metamodel">
+              <ifr:descriptor>
+                <ifr:description language="EN">Base Unit of Measure</ifr:description>
+              </ifr:descriptor>
+              <ifr:properties>
+                <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                <ifr:offset1>76</ifr:offset1>
+                <ifr:offset2>138</ifr:offset2>
+              </ifr:properties>
+              <ifr:definition>
+                <ifr:scalarType name="MEINS">
+                  <ifr:properties>
+                    <ifr:helpValuesSupported>false</ifr:helpValuesSupported>
+                    <ifr:fixedValuesListDefined>false</ifr:fixedValuesListDefined>
+                    <ifr:mixedCaseSupported>false</ifr:mixedCaseSupported>
+                    <ifr:signedNumber>false</ifr:signedNumber>
+                  </ifr:properties>
+                  <ifr:definition>
+                    <ifr:type>UNIT</ifr:type>
+                    <ifr:abapType>C</ifr:abapType>
+                    <ifr:length>3</ifr:length>
+                    <ifr:internalLength1>3</ifr:internalLength1>
+                    <ifr:internalLength2>6</ifr:internalLength2>
+                    <ifr:decimals>0</ifr:decimals>
+                    <ifr:outputLength>3</ifr:outputLength>
+                    <ifr:conversionExit>CUNIT</ifr:conversionExit>
+                  </ifr:definition>
+                </ifr:scalarType>
+              </ifr:definition>
+            </ifr:field>
+          </ifr:fields>
+        </ifr:definition>
+      </ifr:container>
+    </s0:type>
+  </wsdl:binding>
+  <wsdl:binding name="dummy.Binding" type="s0:dummy.PortType" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+  </wsdl:binding>
+  <wsdl:message name="ZRETRIEVEREQUIREMENT.Input">
+    <wsdl:part name="parameters" element="s0:ZRETRIEVEREQUIREMENT" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+  </wsdl:message>
+  <wsdl:message name="ZRETRIEVEREQUIREMENT.Output">
+    <wsdl:part name="parameters" element="s0:ZRETRIEVEREQUIREMENT.Response" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+  </wsdl:message>
+  <wsdl:message name="ZRETRIEVEREQUIREMENT.Exception">
+    <wsdl:part name="parameters" element="s0:ZRETRIEVEREQUIREMENT.Exception" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+  </wsdl:message>
+  <wsdl:message name="ZRETRIEVESTOCK.Input">
+    <wsdl:part name="parameters" element="s0:ZRETRIEVESTOCK" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+  </wsdl:message>
+  <wsdl:message name="ZRETRIEVESTOCK.Output">
+    <wsdl:part name="parameters" element="s0:ZRETRIEVESTOCK.Response" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+  </wsdl:message>
+  <wsdl:message name="ZRETRIEVESTOCK.Exception">
+    <wsdl:part name="parameters" element="s0:ZRETRIEVESTOCK.Exception" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+  </wsdl:message>
+</wsdl:definitions>
