@@ -40,30 +40,31 @@ namespace eProcurement_BLL.PurchaseOrder
         {
             try
             {
-                string whereCluase = "";
-                string orderCluase = "";
-                whereCluase = " LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
-                whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
-                whereCluase += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
+                string whereClause = "";
+                string orderClause = "";
+                whereClause = " LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
+                whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
+                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
+                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Complete + "' ";
                 if (orderNumber != "")
                 {
-                    whereCluase += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
+                    whereClause += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
                 }
                 if (buyerName != "")
                 {
-                    whereCluase += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
+                    whereClause += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
                 }  
                 if (fromDate.HasValue)
                 {
-                    whereCluase += " AND BEDAT >= " + fromDate.Value;
+                    whereClause += " AND BEDAT >= " + fromDate.Value;
                 }
                 if (toDate.HasValue)
                 {
-                    whereCluase += " AND BEDAT <= " + toDate.Value;
+                    whereClause += " AND BEDAT <= " + toDate.Value;
                 }
 
-                orderCluase = " EBELN asc ";
-                return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereCluase, orderCluase);
+                orderClause = " EBELN asc ";
+                return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereClause, orderClause);
             }
             catch (Exception ex)
             {
@@ -76,35 +77,36 @@ namespace eProcurement_BLL.PurchaseOrder
         {
             try
             {
-                string whereCluase = "";
-                string orderCluase = "";
-                whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
-                whereCluase += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
+                string whereClause = "";
+                string orderClause = "";
+                whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
+                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
+                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Complete + "' ";
                 //pending filter by purchase group
 
                 if (supplierId != "")
                 {
-                    whereCluase += " AND LIFNR like '" + Utility.EscapeSQL(supplierId) + "' ";
+                    whereClause += " AND LIFNR like '" + Utility.EscapeSQL(supplierId) + "' ";
                 }
                 if (orderNumber != "")
                 {
-                    whereCluase += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
+                    whereClause += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
                 }
                 if (buyerName != "")
                 {
-                    whereCluase += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
+                    whereClause += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
                 }  
                 if (fromDate.HasValue)
                 {
-                    whereCluase += " AND BEDAT >= " + fromDate.Value;
+                    whereClause += " AND BEDAT >= " + fromDate.Value;
                 }
                 if (toDate.HasValue)
                 {
-                    whereCluase += " AND BEDAT <= " + toDate.Value;
+                    whereClause += " AND BEDAT <= " + toDate.Value;
                 }
 
-                orderCluase = " EBELN asc ";
-                return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereCluase, orderCluase);
+                orderClause = " EBELN asc ";
+                return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereClause, orderClause);
             }
             catch (Exception ex)
             {
@@ -117,38 +119,39 @@ namespace eProcurement_BLL.PurchaseOrder
         {
             try
             {
-                string whereCluase = "";
-                string orderCluase = "";
-                whereCluase = " isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
-                whereCluase += " AND isnull(RECSTS,'') <> '" + PORecStatus.Accept + "' ";
-                whereCluase += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
+                string whereClause = "";
+                string orderClause = "";
+                whereClause = " isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
+                whereClause += " AND isnull(RECSTS,'') <> '" + PORecStatus.Accept + "' ";
+                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
+                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Complete + "' ";
 
                 //pending filter by purchase group
 
 
                 if (orderNumber != "")
                 {
-                    whereCluase += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
+                    whereClause += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
                 }
                 if (buyerName != "")
                 {
-                    whereCluase += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
+                    whereClause += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
                 } 
                 if (supplierId != "")
                 {
-                    whereCluase += " AND LIFNR like '" + Utility.EscapeSQL(supplierId) + "' ";
+                    whereClause += " AND LIFNR like '" + Utility.EscapeSQL(supplierId) + "' ";
                 }
                 if (fromDate.HasValue)
                 {
-                    whereCluase += " AND BEDAT >= " + fromDate.Value;
+                    whereClause += " AND BEDAT >= " + fromDate.Value;
                 }
                 if (toDate.HasValue)
                 {
-                    whereCluase += " AND BEDAT <= " + toDate.Value;
+                    whereClause += " AND BEDAT <= " + toDate.Value;
                 }
 
-                orderCluase = " EBELN asc ";
-                return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereCluase, orderCluase);
+                orderClause = " EBELN asc ";
+                return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereClause, orderClause);
             }
             catch (Exception ex)
             {
@@ -161,14 +164,14 @@ namespace eProcurement_BLL.PurchaseOrder
         {
             try
             {
-                string whereCluase = "";
-                string orderCluase = "";
+                string whereClause = "";
+                string orderClause = "";
 
-                whereCluase = " isnull(STAT,'') <> '" + POStatus.Delete + "' ";
+                whereClause = " isnull(STAT,'') <> '" + POStatus.Delete + "' ";
 
                 if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Supplier, true) == 0) 
                 {
-                    whereCluase += " AND LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
+                    whereClause += " AND LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
                 }
                 
                 if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Buyer, true) == 0)
@@ -181,56 +184,63 @@ namespace eProcurement_BLL.PurchaseOrder
                     //Pending Acknowledgement
                     if (string.Compare(status, "PA", true) == 0) 
                     {
-                        whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
+                        whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
                     }
 
                     //Pending Confirm Order Acknowledgement
                     if (string.Compare(status, "PC", true) == 0)
                     {
-                        whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
-                        whereCluase += " AND isnull(RECSTS,'') <> '" + PORecStatus.Accept + "' ";
-                        whereCluase += " AND isnull(RECSTS,'') <> '" + PORecStatus.Reject2 + "' ";
+                        whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
+                        whereClause += " AND isnull(RECSTS,'') <> '" + PORecStatus.Accept + "' ";
+                        whereClause += " AND isnull(RECSTS,'') <> '" + PORecStatus.Reject2 + "' ";
                     }
 
                     //Accepted
                     if (string.Compare(status, "AC", true) == 0)
                     {
-                        whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
-                        whereCluase += " AND isnull(RECSTS,'') = '" + PORecStatus.Accept + "' ";
+                        whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
+                        whereClause += " AND isnull(RECSTS,'') = '" + PORecStatus.Accept + "' ";
                     }
 
-                    //Accepted
+                    //Reject
                     if (string.Compare(status, "RE", true) == 0)
                     {
-                        //whereCluase += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
-                        whereCluase += " AND isnull(RECSTS,'') = '" + PORecStatus.Reject2 + "' ";
+                        //whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
+                        whereClause += " AND isnull(RECSTS,'') = '" + PORecStatus.Reject2 + "' ";
+                    }
+
+                    //Complete
+                    if (string.Compare(status, "CP", true) == 0)
+                    {
+                        //whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
+                        whereClause += " AND isnull(STAT,'') = '" + POStatus.Complete + "' ";
                     }
                    
                 }
 
                 if (orderNumber != "")
                 {
-                    whereCluase += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
+                    whereClause += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
                 }
                 if (buyerName != "")
                 {
-                    whereCluase += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
+                    whereClause += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
                 }
                 if (supplierId != "")
                 {
-                    whereCluase += " AND LIFNR like '" + Utility.EscapeSQL(supplierId) + "' ";
+                    whereClause += " AND LIFNR like '" + Utility.EscapeSQL(supplierId) + "' ";
                 }
                 if (fromDate.HasValue)
                 {
-                    whereCluase += " AND BEDAT >= " + fromDate.Value;
+                    whereClause += " AND BEDAT >= " + fromDate.Value;
                 }
                 if (toDate.HasValue)
                 {
-                    whereCluase += " AND BEDAT <= " + toDate.Value;
+                    whereClause += " AND BEDAT <= " + toDate.Value;
                 }
 
-                orderCluase = " EBELN asc ";
-                return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereCluase, orderCluase);
+                orderClause = " EBELN asc ";
+                return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereClause, orderClause);
             }
             catch (Exception ex)
             {
