@@ -20,6 +20,7 @@ namespace eProcurement_BLL
     public class POStatus
     {
         public const string Delete = "D";
+        public const string Complete = "C";
     }
 
     public class ExpediteStatus
