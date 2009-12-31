@@ -1,6 +1,6 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="QuotationRequestList.aspx.cs" Inherits="Quotation_QuotationRequestList" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="QuotationRequestList.aspx.cs" Inherits="Quotation_QuotationRequestList" Title="Quotation Request List" %>
 <%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
-<%@ Register Src="~/UserControls/DualList.ascx" TagName="DualList" TagPrefix="DualList" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
 <!--Page title-->
 <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
@@ -69,6 +69,7 @@
                         </td> 
                         <td  align="left" style="width: 100%">
                             <asp:TextBox runat="server" id="txtQuotationNo"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" Display="Dynamic" ControlToValidate="txtQuotationNo" ErrorMessage="Please enter Quotation Number."></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
@@ -76,24 +77,25 @@
                             <asp:Label ID="lbl1" runat="server" Text="Request No."></asp:Label>
                         </td> 
                         <td  align="left" style="width: 100%">
-                            <asp:DropDownList ID="ddlRequestNo" runat="server" AutoPostBack="false">
-                                <asp:ListItem value="0" Text=""></asp:ListItem>
-                                <asp:ListItem value="1" Text="Text 1"></asp:ListItem>
+                            <asp:DropDownList ID="ddlRequestNo" runat="server" AppendDataBoundItems="true" AutoPostBack="false">
+                                <asp:ListItem value="" Text="- All -"></asp:ListItem>
                             </asp:DropDownList>
                         </td>
                     </tr>
+                    <asp:Panel ID="pnlSupplier" runat="server" Visible="false">
                     <tr>
                         <td align="left" nowrap Width="130px">
                             <asp:Label ID="Label10" runat="server" Text="Supplier"></asp:Label>
                         </td> 
                         <td  align="left" style="width: 100%;">
-                            <asp:TextBox runat="server" id="txtSupplier"></asp:TextBox>
-                            <img style="cursor: hand; vertical-align:middle" id="img1" height="20" src="../Images/Common/Search.gif" runat="server" />
+                            <asp:TextBox runat="server" id="txtSupplierId"></asp:TextBox>
+                            <img style="cursor: hand; vertical-align:middle" id="imgSupplierSearch" height="20" src="../Images/Common/Search.gif" runat="server" />
                         </td>
                     </tr>
+                    </asp:Panel>
                     <tr>
                         <td colspan="2" style="text-align: right">
-                            <asp:Button ID="btnSearch" runat="server" Text="Search"/>
+                            <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
                         </td>
                     </tr>
                 </table>
@@ -101,8 +103,8 @@
         </tr>
     </table>
 </asp:Panel> 
-    <br />
-    <!--Search Result Panel-->
+<br />
+<!--Search Result Panel-->
 <asp:Panel ID="plResult" runat="server" > 
     <!--Display Result Number-->
     <table cellspacing="0" cellpadding="0" width="100%" border="0">
@@ -116,7 +118,7 @@
     <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
 	        <td valign="top" colspan="10" style="height: 20px">
-                <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellPadding="2">
+                <asp:GridView Width="100%" ID="gvData" runat="server" OnPageIndexChanging ="gvData_PageIndexChanging" OnRowDataBound="gvData_RowDataBound" AllowPaging="True" AutoGenerateColumns="False" CellPadding="2">
                     <Columns>
                         <asp:TemplateField HeaderText="S/N">
                             <ItemTemplate>
@@ -139,7 +141,8 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:LinkButton runat="server" ID="lbhlOrderNo" Text=' <%# Eval("OrderNumber") %> '></asp:LinkButton>  
+                                            <asp:HyperLink runat="server" ID="lbhlQuoNo" Text='<%# Eval("QuotationNumber") %>' ></asp:HyperLink>  
+                                            <asp:LinkButton runat="server" ID="lbhlQuotationNo" Text=' <%# Eval("QuotationNumber") %> ' OnClick="lbhlQuotationNo_OnClick" Visible="false"></asp:LinkButton>  
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -154,7 +157,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblOrderDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("OrderDate")))) %> '></asp:Label>
+                                            <asp:Label ID="lblQuotationDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("QuotationDate")))) %> '></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -184,7 +187,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" align="right">
-                                            <asp:Label ID="lblAmount" runat="server" CssClass="" Text='<%# Eval("OrderAmount") %>'></asp:Label>
+                                            <asp:Label ID="lblReqNo" runat="server" CssClass="" Text='<%# Eval("RequestNumber") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -199,7 +202,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" align="right">
-                                            <asp:Label ID="lblGSTAmount" runat="server" CssClass="" Text='<%# Eval("GstAmount") %>'></asp:Label>
+                                            <asp:Label ID="lblExpiryDate" runat="server" CssClass="" Text='<%# Eval("ExpiryDate") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -214,6 +217,24 @@
         </tr>
     </table>
 </asp:Panel>
+
+    <script language="javascript" type="text/javascript">    
+        function OpenSupplierDialog(txtSupplierId)
+        {
+            var customerRefNo = document.getElementById(txtSupplierId).value;        
+            
+            var MyArgs;
+            var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:600px;dialogWidth:720px;dialogHide:true";
+            
+            MyArgs = window.showModalDialog("../Dialog/SearchSupplier.aspx", MyArgs, WinSettings);
+                        
+            if(MyArgs != null)
+            {
+                document.getElementById(txtSupplierId).value = MyArgs[0].toString();
+            }
+        }
+    </script>
+
 </asp:Content>
 
 

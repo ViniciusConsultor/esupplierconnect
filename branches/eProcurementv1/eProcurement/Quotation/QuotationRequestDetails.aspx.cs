@@ -15,47 +15,36 @@ using eProcurement_DAL;
 
 public partial class Quotation_QuotationRequestDetails : BaseForm
 {
+
+    private MainController mainController = null;
+
     new protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
+            //Instantiate MainController
+            this.mainController = new MainController(base.LoginUser);
+
             plMessage.Visible = false;
             lblMessage.Text = string.Empty;
+
             if (!IsPostBack)
             {
-                PurchaseOrderHeader poHeader = new PurchaseOrderHeader();
-                poHeader.OrderNumber = "0000000001"; 
-                poHeader.SupplierId = "Supplier 1";
-                poHeader.OrderDate = GetStoredDateValue(DateTime.Now);
-                poHeader.OrderAmount = 1000;
-                poHeader.GstAmount = Convert.ToDecimal(1000 * 0.07);
-                poHeader.CurrencyCode = "SGD";
-                poHeader.PaymentTerms = "PaymentTerms 1";
-                poHeader.BuyerName = "BuyerName 1";
-                poHeader.SalesPerson = "SalesPerson 1";
-                poHeader.ShipmentAddress = "Fujitec Singapore Corpn, Ltd. 204 Bedok South Avenue 1 Singapore 469333";
-                poHeader.Remarks = "Remarks";
+                //Access control
+                /***************************************************/
+                base.m_FunctionIdColl.Add("Q-0001");
 
-                //m_Items = new Collection<PurchaseOrderItem>();
-                //m_Schedules = new Collection<PurchaseOrderItemSchedule>();
+                base.Page_Load(sender, e);
+                /***************************************************/
 
-                Supplier supplier = new Supplier();
-                supplier.SupplierName = "CPP GLOBAL PRODUCTS P L";
-                supplier.SupplierAddress = "NO.27 DEFU AVENUE 2";
-                supplier.PostalCode = "539226";
-                supplier.CountryCode = "Singapore";
+                string reqNumber = Request.QueryString["RequestNumber"];
+                ViewState.Add("RequestNumber", reqNumber);
 
-                lblOrderNumber.Text = poHeader.OrderNumber;
-                if (poHeader.OrderDate.HasValue)
-                    lblExpiryDate.Text = GetShortDate(GetDateTimeFormStoredValue(poHeader.OrderDate.Value));
+                if (reqNumber != null)
+                    GetQuotation();
                 else
-                    lblExpiryDate.Text = "";
-                lblOrderDate.Text = poHeader.SupplierId;
-                lblRequestNo.Text = poHeader.OrderAmount.ToString();
-                lblSupplierID.Text = poHeader.GstAmount.ToString() ;
-                hlHeaderText.NavigateUrl = "javascript:ShowHeaderText('" + poHeader.OrderNumber + "')";
+                    throw new Exception("Invalid Quotation");
 
-                ShowItems();
             }
         }
         catch (Exception ex)
@@ -65,53 +54,6 @@ public partial class Quotation_QuotationRequestDetails : BaseForm
             string sMessage = ex.Message;
             displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
         }
-    }
-
-
-    protected void gvItem_ItemDataBound(Object sender,RepeaterItemEventArgs e)
-    {
-        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-        {
-            GridView gvSchedule = (GridView)e.Item.FindControl("gvSchedule");
-            Collection<PurchaseOrderItemSchedule> schedules = new Collection<PurchaseOrderItemSchedule>();
-            int iCount = 2;
-            for (int i = 1; i <= iCount; i++)
-            {
-                PurchaseOrderItemSchedule obj = new PurchaseOrderItemSchedule();
-
-                obj.PurchaseOrderScheduleSequence = "0" + i;
-                schedules.Add(obj);
-            }
-            gvSchedule.DataSource = schedules;
-            gvSchedule.DataBind();
-        }
-     }
-
-    private void ShowItems()
-    {
-        //Collection<PurchaseOrderItem> items = PurchaseOrderItemController.GetPurchaseOrderItems(m_Header.OrderNumber);
-        Collection<PurchaseOrderItem> items=new Collection<PurchaseOrderItem>();
-        int iCount = 2;
-        for (int i = 1; i <= iCount; i++)
-        {
-            PurchaseOrderItem obj = new PurchaseOrderItem();
-
-            obj.PurchaseItemSequenceNumber = "000" + i;
-            obj.MaterialNumber = "M000" + i;
-            obj.ShortText = "Material " + i;
-            obj.OrderQuantity = 1000;
-            obj.PricePerUnit  = 100;
-            obj.UnitofMeasure  = "PCS";
-            obj.NetPrice  = 300;
-            obj.Remarks = "Remarks XXXXX " + i;
-            obj.DeliveredQuantity  = 100;
-            obj.LongTextDescription = "Long Text Description " + i;
-            obj.StorageLocation = "Storage Location XXXXX " + i;
-            items.Add(obj);
-        }
-        gvItem.DataSource = items;
-        gvItem.DataBind();
-
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -133,7 +75,8 @@ public partial class Quotation_QuotationRequestDetails : BaseForm
     {
         try
         {
-           
+            string url = "~/Quotation/QuotationRequestList.aspx";
+            Response.Redirect(url);
         }
         catch (Exception ex)
         {
@@ -143,4 +86,38 @@ public partial class Quotation_QuotationRequestDetails : BaseForm
             displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
         }
     }
+
+    #region Private Methods
+
+    private void GetQuotation()
+    {
+        try
+        {
+            string reqNumber = Convert.ToString(ViewState["RequestNumber"]);
+            QuotationHeader quoHeader = this.mainController.GetDAOCreator().CreateQuotationHeaderDAO().RetrieveByKey(reqNumber);
+            
+            if (quoHeader != null)
+            {
+                lblRequestNo.Text = quoHeader.RequestNumber.ToString();
+                lblQuotationNumber.Text = quoHeader.QuotationNumber.ToString();
+                lblQuotationDate.Text = GetShortDate(GetDateTimeFormStoredValue(quoHeader.QuotationDate.Value));
+                lblExpiryDate.Text = GetShortDate(GetDateTimeFormStoredValue(quoHeader.ExpiryDate.Value));
+                lblSupplierID.Text = quoHeader.SupplierId;
+            }
+
+            Collection<QuotationItem> quoItem = this.mainController.GetDAOCreator().CreateQuotationItemDAO().RetrieveByQuery(" EBELN='" + reqNumber + "' ", " EBELP ");
+            gvItem.DataSource = quoItem;
+            gvItem.DataBind();
+
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            string sMessage = ex.Message;
+            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
+        }
+    }
+
+    #endregion
 }
