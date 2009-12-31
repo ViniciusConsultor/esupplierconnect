@@ -20,7 +20,7 @@ public partial class UserManagement_UserPassword : BaseForm
 
     #region Events Handlers
 
-    protected void Page_Load(object sender, EventArgs e)
+    new protected void Page_Load(object sender, EventArgs e)
     {
         this.mainController = new MainController();
 
@@ -45,6 +45,8 @@ public partial class UserManagement_UserPassword : BaseForm
 
         try
         {
+            CheckSessionTimeOut();
+
             if (ValidPassword(lblUserID.Text, txtCurrPassword.Text))
             {
                 this.mainController.GetUserController().UpdateUserPassword(lblUserID.Text, txtNewPassword.Text, lblUserID.Text);                

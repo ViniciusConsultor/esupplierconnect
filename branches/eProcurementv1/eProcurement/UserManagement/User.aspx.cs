@@ -20,7 +20,7 @@ public partial class UserManagement_User : BaseForm
 
     #region Event Handlers
 
-    protected void Page_Load(object sender, EventArgs e)
+    new protected void Page_Load(object sender, EventArgs e)
     {
         this.mainController = new MainController();
 
@@ -47,14 +47,14 @@ public partial class UserManagement_User : BaseForm
                 btnSave.Visible = true;
                 rfvUserID.Enabled = false;
             }
-            else if (type == "Edit")
+            else if (string.Compare(type, "Edit", true) == 0)            
             {
                 GetUser(Convert.ToString(Request.QueryString["UserID"])); 
                 btnSave.Visible = true;
                 pnlAdmin.Visible = true;
                 rfvUserID.Enabled = false;
             }
-            else if (type == "New")
+            else if (string.Compare(type, "New", true) == 0)
             {
                 txtUserID.Visible = true;
                 lblUserID.Visible = false;
@@ -75,9 +75,9 @@ public partial class UserManagement_User : BaseForm
 
             LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
 
-            if (loginUser.Role == UserRole.Administrator && loginUser.ProfileType == ProfileType.System)
+            if ((string.Compare(loginUser.Role, UserRole.Administrator, true) == 0) && (string.Compare(loginUser.ProfileType, ProfileType.System, true) == 0))
             {
-                if (ddlRole.SelectedValue == UserRole.Administrator)
+                if (string.Compare(ddlRole.SelectedValue, UserRole.Administrator, true) == 0)
                 {
                     ddlType.Items.Add(new ListItem(ProfileType.Buyer, ProfileType.Buyer));
                     ddlType.Items.Add(new ListItem(ProfileType.Supplier, ProfileType.Supplier));
@@ -105,7 +105,7 @@ public partial class UserManagement_User : BaseForm
     {
         if (ddlType.Items.Count > 0)
         {
-            pnlSupplier.Visible = ddlType.SelectedValue == "Supplier" ? true : false;         
+            pnlSupplier.Visible = ddlType.SelectedValue == ProfileType.Supplier ? true : false;         
         }
     }
 
@@ -113,13 +113,16 @@ public partial class UserManagement_User : BaseForm
     {
         try
         {
+            CheckSessionTimeOut();
+
             string newUserId = string.Empty;
 
             newUserId = txtUserID.Visible == true ? txtUserID.Text : lblUserID.Text;
 
             LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
-
-            string d = DateTime.Now.ToString("yyyy") + DateTime.Now.ToString("MM") + DateTime.Now.ToString("dd");
+            
+            //string d = DateTime.Now.ToString("yyyy") + DateTime.Now.ToString("MM") + DateTime.Now.ToString("dd");
+            long d = GetStoredDateValue(DateTime.Now);
 
             lblError.Text = "";
             lblMessage.Text = "";
@@ -138,7 +141,7 @@ public partial class UserManagement_User : BaseForm
             u.ProfileType = ddlType.Visible == true ? ddlType.SelectedItem.Text : lblType.Text;
 
             u.UpdatedBy = loginUser.UserId;
-            u.UpdatedDate = Convert.ToInt64(d);
+            u.UpdatedDate = d; //Convert.ToInt64(d);
 
             bool chkAdmin = false;
             chkAdmin = (ddlSupplierID.Visible && pnlAdmin.Visible);
@@ -156,13 +159,14 @@ public partial class UserManagement_User : BaseForm
             if (u.ProfileType == ProfileType.Supplier && u.SupplierID == string.Empty)
                 throw new Exception("<br />Please choose Supplier ID.");
 
-            if (Convert.ToString(ViewState["Type"]) == "New")
+            if ((string.Compare(Convert.ToString(ViewState["Type"]), "New", true) == 0))
             {
                 if (!ExistingUser(newUserId))
                 {
                     //UserController.InsertUser(u);
                     this.mainController.GetDAOCreator().CreateUserDAO().Insert(u);
 
+                    string from = "SupplierConnect@Fujitec";
                     string emailServer = "exchangeServerName";
                     string title = "Password for New User Registration at SupplierConnect@Fujitec";
                     string body = "Hello " + u.UserName + ",<br /><br />" +
@@ -175,14 +179,14 @@ public partial class UserManagement_User : BaseForm
                         "[This is system auto-generated email. Please do not reply.]";
 
                     //comment it for testing purpose
-                    //Utility.SentEmail("SupplierConnect@Fujitec", u.UserEmail, title, body, emailServer);
+                    Utility.SentEmail(from, u.UserEmail, title, body, emailServer);
 
                     lblMessage.Text = "<br />New user created and notification email has been send to the user.";
                 }
                 else
                     throw new Exception("<br />UserID already exists.");
             }
-            else if (Convert.ToString(ViewState["Type"]) == "Edit" || Convert.ToString(ViewState["Type"])== string.Empty)
+            else if ((string.Compare(Convert.ToString(ViewState["Type"]), "Edit", true) == 0) || (string.Compare(Convert.ToString(ViewState["Type"]), string.Empty, true) == 0))
             {
                 this.mainController.GetDAOCreator().CreateUserDAO().Update(u);
                 GetUser(u.UserId);
@@ -218,7 +222,7 @@ public partial class UserManagement_User : BaseForm
         ddlSupplierID.SelectedValue = u.SupplierID.Trim();
         pnlSupplier.Visible = ddlType.SelectedValue == ProfileType.Supplier ? true : false;
 
-        if (u.UserStatus == UserStatus.Active)
+        if (string.Compare(u.UserStatus, UserStatus.Active, true) == 0)
         {
             rdoStatusYes.Checked = true;
             rdoStatusNo.Checked = false;
@@ -245,7 +249,7 @@ public partial class UserManagement_User : BaseForm
 
         LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
 
-        if (loginUser.Role == UserRole.Administrator && loginUser.ProfileType == ProfileType.System)
+        if ((string.Compare(loginUser.Role, UserRole.Administrator, true) == 0) && (string.Compare(loginUser.ProfileType, ProfileType.System, true) == 0))
         {
             ddlRole.Items.Add(new ListItem(UserRole.Administrator, UserRole.Administrator));
             ddlRole.AutoPostBack = true;
@@ -264,14 +268,14 @@ public partial class UserManagement_User : BaseForm
 
         if (loginUser.Role == UserRole.Administrator)
         {
-            if (loginUser.ProfileType == ProfileType.System)
+            if (string.Compare(loginUser.ProfileType, ProfileType.System, true) == 0)
             {
                 ddlRole.Visible = true;
                 lblRole.Visible = false;
             }
             else
             {
-                if (Convert.ToString(ViewState["Type"]) == string.Empty)
+                if (string.Compare(Convert.ToString(ViewState["Type"]), string.Empty, true) == 0)
                 {
                     ddlRole.Visible = false;
                     lblRole.Visible = true;
@@ -305,7 +309,7 @@ public partial class UserManagement_User : BaseForm
         ddlSupplierID.DataBind();
 
         LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
-        if (loginUser.Role == UserRole.Administrator && loginUser.ProfileType == ProfileType.System)
+        if ((string.Compare(loginUser.Role, UserRole.Administrator, true) == 0) && (string.Compare(loginUser.ProfileType, ProfileType.System, true) == 0))
         {
             ddlSupplierID.Visible = true;
             lblSupplierID.Visible = false;
