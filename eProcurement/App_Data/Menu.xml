@@ -77,7 +77,11 @@
 			<TITLE>Create RFQ</TITLE>
 			<HREF>~/Quotation/QuotationRequestCreate.aspx?FunctionId=S-0010</HREF>
 		</ITEM>
-	</ITEM>	
+		<ITEM FID="Q-0001">
+			<TITLE>Quotation List</TITLE>
+			<HREF>~/Quotation/QuotationRequestList.aspx</HREF>
+		</ITEM>		
+	</ITEM>		
 	<ITEM>
 		<TITLE>User Profile</TITLE>
 		<HREF></HREF>
