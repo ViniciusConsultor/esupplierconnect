@@ -86,10 +86,11 @@ public partial class DeliveryOrder_EnquireDeliveryOrders : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionIdColl.Add("S-0007");
+                base.m_FunctionIdColl.Add("S-0005");
+                base.m_FunctionIdColl.Add("W-0001");
                 
 
-                string functionId = Request.QueryString["FunctionId"];
+                /*string functionId = Request.QueryString["FunctionId"];
                 if (string.IsNullOrEmpty(functionId))
                 {
                     throw new Exception("Invalid Function Id.");
@@ -97,12 +98,19 @@ public partial class DeliveryOrder_EnquireDeliveryOrders : BaseForm
                 else
                 {
                     base.m_FunctionId = functionId;
-                    if (string.Compare(functionId, "S-0007", true) == 0)
+                    if (string.Compare(functionId, "S-0005", true) == 0)
                     {
                         m_FuncFlag = "ENQ_DELIVERYORDER";
                     }
+
+                    if (string.Compare(functionId, "W-0001", true) == 0)
+                    {
+                        m_FuncFlag = "ENQ_DELIVERYORDER";
+                    }
+
+
                    
-                }
+                } */
                 base.Page_Load(sender, e);
                 /***************************************************/
                 
@@ -124,6 +132,33 @@ public partial class DeliveryOrder_EnquireDeliveryOrders : BaseForm
     {
         try
         {
+
+            Collection<DeliveryOrder> doColl = new Collection<DeliveryOrder>();
+
+            doColl = mainController.GetDeliveryOrderController().RetrieveAllDeliveryOrder();
+
+
+            ddlDeliveryNo.DataSource = doColl;
+            ddlDeliveryNo.DataTextField = "DeliveryNumber";
+            ddlDeliveryNo.DataValueField = "DeliveryNumber";
+            ddlDeliveryNo.DataBind();
+
+
+            ddlOrderNo.DataSource = doColl;
+            ddlOrderNo.DataTextField = "OrderNumber";
+            ddlOrderNo.DataValueField = "OrderNumber";
+            ddlOrderNo.DataBind();
+
+
+            ddlMaterialNo.DataSource = doColl;
+            ddlMaterialNo.DataTextField = "MaterialNumber";
+            ddlMaterialNo.DataValueField = "MaterialNumber";
+            ddlMaterialNo.DataBind();
+
+
+
+
+            
             
         }
         catch (Exception ex)
@@ -164,37 +199,32 @@ public partial class DeliveryOrder_EnquireDeliveryOrders : BaseForm
         searchCriteriaVO.OrderNumber = ddlOrderNo.SelectedValue.ToString();
         searchCriteriaVO.MaterialNumber = ddlMaterialNo.SelectedValue.ToString();
         searchCriteriaVO.DeliveryNumber = ddlDeliveryNo.SelectedValue.ToString();
+        searchCriteriaVO.SupplierID = this.mainController.GetLoginUserVO().SupplierId.ToString();
+        searchCriteriaVO.FromDate = GetStoredDateValue(dtpFrom.SelectedDate);
+        searchCriteriaVO.ToDate = GetStoredDateValue(dtpTo.SelectedDate);
 
-        if (dtpFrom.Text != "")
-            searchCriteriaVO.FromDate = GetStoredDateValue(dtpFrom.SelectedDate);
-        else
-            searchCriteriaVO.FromDate = null;
-        if (dtpTo.Text != "")
-            searchCriteriaVO.ToDate = GetStoredDateValue(dtpTo.SelectedDate);
-        else
-            searchCriteriaVO.ToDate = null;
        
         m_SearchCriteriaVO = searchCriteriaVO;
     }
 
     private void ShowData()
     {
-        Collection<DeliveryOrder> poColl = GetData();
-        gvData.DataSource = poColl;
+        Collection<DeliveryOrder> doColl = GetData();
+        gvData.DataSource = doColl;
         gvData.DataBind();
-        lblCount.Text = string.Format("{0} record(s) found. ", poColl.Count.ToString());
+        lblCount.Text = string.Format("{0} record(s) found. ", doColl.Count.ToString());
     }
 
     private Collection<DeliveryOrder> GetData()
     {
         Collection<DeliveryOrder> doColl = new Collection<DeliveryOrder>();
-        if (string.Compare(m_FuncFlag, "ENQ_DELIVERYORDER", false) == 0)
-        {
-            poColl = mainController.GetDeliveryOrderController().RetrieveByQueryDeliveryOrder(m_SearchCriteriaVO.OrderNumber,m_SearchCriteriaVO.MaterialNumber,m_SearchCriteriaVO.DeliveryNumber,m_SearchCriteriaVO.SupplierID);
-        }
+       // if (string.Compare(m_FuncFlag, "ENQ_DELIVERYORDER", false) == 0)
+       // {
+            doColl = mainController.GetDeliveryOrderController().RetrieveByQueryDeliveryOrder(m_SearchCriteriaVO.OrderNumber,m_SearchCriteriaVO.MaterialNumber,m_SearchCriteriaVO.DeliveryNumber,m_SearchCriteriaVO.SupplierID,m_SearchCriteriaVO.FromDate,m_SearchCriteriaVO.ToDate);
+       // }
 
         
-        return poColl;
+        return doColl;
     }
 
     protected void gvData_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -213,82 +243,7 @@ public partial class DeliveryOrder_EnquireDeliveryOrders : BaseForm
         }
     }
 
-    protected void hlOrderNo_OnClick(object sender, System.EventArgs e)
-    {
-        try
-        {
-            CheckSessionTimeOut();
-            LinkButton lbhlOrderNo = (LinkButton)sender;
-            string orderNo = lbhlOrderNo.Attributes["OrderNo"].ToString();
-            string url = "";
-            if (string.Compare(m_FuncFlag, "ACK_ORDER", false) == 0)
-            {
-                url = "~/PurchaseOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
-                url += "&OrderNumber=" + m_SearchCriteriaVO.OrderNumber;
-                if (m_SearchCriteriaVO.FromDate.HasValue)
-                {
-                    url += "&FormDate=" + m_SearchCriteriaVO.FromDate.Value.ToString();
-                }
-                if (m_SearchCriteriaVO.ToDate.HasValue)
-                {
-                    url += "&ToDate=" + m_SearchCriteriaVO.ToDate.Value.ToString();
-                }
-                url += "&BuyerName=" + m_SearchCriteriaVO.BuyerName;
-                url += "&PageIdx=" + gvData.PageIndex.ToString();
-
-                Session[SessionKey.OrderNumber] = orderNo;
-            }
-            if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
-            {
-                url = "~/PurchaseOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
-                url += "&OrderNumber=" + m_SearchCriteriaVO.OrderNumber;
-                if (m_SearchCriteriaVO.FromDate.HasValue)
-                {
-                    url += "&FormDate=" + m_SearchCriteriaVO.FromDate.Value.ToString();
-                }
-                if (m_SearchCriteriaVO.ToDate.HasValue)
-                {
-                    url += "&ToDate=" + m_SearchCriteriaVO.ToDate.Value.ToString();
-                }
-                url += "&SupplierId=" + m_SearchCriteriaVO.SupplierId;
-                url += "&PageIdx=" + gvData.PageIndex.ToString();
-
-                Session[SessionKey.OrderNumber] = orderNo;
-            }
-            if (string.Compare(m_FuncFlag, "VIEW_ORDER_SUPPLIER", false) == 0 ||
-                string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
-            {
-                url = "~/PurchaseOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
-                url += "&OrderNumber=" + m_SearchCriteriaVO.OrderNumber;
-                if (m_SearchCriteriaVO.FromDate.HasValue)
-                {
-                    url += "&FormDate=" + m_SearchCriteriaVO.FromDate.Value.ToString();
-                }
-                if (m_SearchCriteriaVO.ToDate.HasValue)
-                {
-                    url += "&ToDate=" + m_SearchCriteriaVO.ToDate.Value.ToString();
-                }
-                url += "&SupplierId=" + m_SearchCriteriaVO.SupplierId;
-                url += "&BuyerName=" + m_SearchCriteriaVO.BuyerName;
-                url += "&Status=" + m_SearchCriteriaVO.Status;
-                url += "&PageIdx=" + gvData.PageIndex.ToString();
-
-                Session[SessionKey.OrderNumber] = orderNo;
-            }
-
-            if (url != null)
-                Response.Redirect(url);
-        }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            string sMessage = ex.Message;
-            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
-        }
-    }
-
-
+   
     #region validation
     private string ValidateInput()
     {
