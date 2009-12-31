@@ -18,7 +18,7 @@ public partial class UserManagement_UserList : BaseForm
 {
     private MainController mainController = null;
 
-    protected void Page_Load(object sender, EventArgs e)
+    new protected void Page_Load(object sender, EventArgs e)
     {
         this.mainController = new MainController();
 
@@ -46,6 +46,8 @@ public partial class UserManagement_UserList : BaseForm
 
         try
         {
+            CheckSessionTimeOut();
+
             LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
 
             PasswordGenerator pg = new PasswordGenerator();
@@ -79,6 +81,8 @@ public partial class UserManagement_UserList : BaseForm
 
         try
         {
+            CheckSessionTimeOut();
+
             LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
 
             foreach (GridViewRow row in gvData.Rows)
@@ -115,9 +119,9 @@ public partial class UserManagement_UserList : BaseForm
 
         LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
 
-        if (loginUser.Role == UserRole.Administrator && loginUser.ProfileType == ProfileType.System) //System Admin
-            users = this.mainController.GetUserController().GetUsers(loginUser.UserId);        
-        else if (loginUser.Role == UserRole.Administrator && loginUser.ProfileType != ProfileType.System) //Other Admin
+        if ((string.Compare(loginUser.Role, UserRole.Administrator, true) == 0) && (string.Compare(loginUser.ProfileType, ProfileType.System, true) == 0)) //System Admin
+            users = this.mainController.GetUserController().GetUsers(loginUser.UserId);
+        else if ((string.Compare(loginUser.Role, UserRole.Administrator, true) == 0) && (loginUser.ProfileType != ProfileType.System)) //Other Admin
             users = this.mainController.GetUserController().GetUsers(loginUser.UserId, loginUser.SupplierId);
 
         gvData.DataSource = users;
