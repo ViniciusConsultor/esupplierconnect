@@ -323,6 +323,8 @@ namespace eProcurement_DAL
                 else
                     entity.RecordStatus = rd["RECSTS"].ToString();
 
+                entities.Add(entity);
+
             }
             // close reader
             rd.Close();

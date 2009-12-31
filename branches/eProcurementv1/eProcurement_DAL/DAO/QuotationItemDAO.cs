@@ -356,49 +356,49 @@ namespace eProcurement_DAL
                 entity.RequestNumber = rd["EBELN"].ToString();
                 entity.RequestSequence = rd["EBELP"].ToString();
 
-                if (rd.IsDBNull(3))
+                if (rd.IsDBNull(2))
                     entity.MaterialNumber = null;
                 else
                     entity.MaterialNumber = rd["MATNR"].ToString();
                 
-                if (rd.IsDBNull(4))
+                if (rd.IsDBNull(3))
                     entity.MaterialDescription = null;
                 else
                     entity.MaterialDescription = rd["TXZ01"].ToString();
 
-                if (rd.IsDBNull(5))
+                if (rd.IsDBNull(4))
                     entity.Plant = null;
                 else
                     entity.Plant = rd["WERKS"].ToString(); 
 
-                if (rd.IsDBNull(6))
+                if (rd.IsDBNull(5))
                     entity.RequiredQuantity = null;
                 else
                     entity.RequiredQuantity = Convert.ToDecimal(rd["KTMNG"]);
 
-                if (rd.IsDBNull(7))
+                if (rd.IsDBNull(6))
                     entity.UnitMeasure = null;
                 else
                     entity.UnitMeasure = rd["MEINS"].ToString(); 
 
-                if (rd.IsDBNull(8))
+                if (rd.IsDBNull(7))
                     entity.NetPrice = null;
                 else
                     entity.NetPrice = Convert.ToDecimal(rd["NETPR"]);
 
-                if (rd.IsDBNull(9))
+                if (rd.IsDBNull(8))
                     entity.PriceUnit = null;
                 else
                     entity.PriceUnit = Convert.ToDecimal(rd["PEINH"]);
 
-                if (rd.IsDBNull(10))
+                if (rd.IsDBNull(9))
                     entity.NetValue = null;
                 else
-                    entity.NetValue = Convert.ToDecimal(rd["netWR"]);
+                    entity.NetValue = Convert.ToDecimal(rd["NETWR"]);
 
-                //if (rd.IsDBNull(11))                
-                //    entity.RecordStatus = null;
-                //else
+                if (rd.IsDBNull(10))
+                    entity.RecordStatus = null;
+                else
                     entity.RecordStatus = rd["RECSTS"].ToString(); 
                
                 entities.Add(entity);
