@@ -147,14 +147,28 @@ namespace eProcurement_BLL.DeliveryOrder
         /// <param name="deliverynumber">deliverynumber goes here</param>
         /// <param name="supplierid">supplierid goes here</param>
         /// <returns>Collection<eProcurement_DAL.DeliveryOrder> returns here</returns>
-        public Collection<eProcurement_DAL.DeliveryOrder> RetrieveByQueryDeliveryOrder(string ordernumber, string materialnumber, string deliverynumber,string supplierid)
+        public Collection<eProcurement_DAL.DeliveryOrder> RetrieveByQueryDeliveryOrder(string ordernumber, string materialnumber, string deliverynumber, string supplierid, Nullable<long> fromdate, Nullable<long> todate)
         {
             try
             {
-                string whereclause = " EBELN='" + Utility.EscapeSQL(ordernumber) + "' ";
-                whereclause += " AND MATNR='" + Utility.EscapeSQL(materialnumber) + "' ";
-                whereclause += "  AND VBELN='" + Utility.EscapeSQL(deliverynumber) + "' ";
-                whereclause += "  AND LIFNR='" + Utility.EscapeSQL(supplierid) + "' ";
+                string whereclause = "LIFNR='" + Utility.EscapeSQL(supplierid) + "' ";
+
+                if(ordernumber != "")
+                     whereclause += "AND EBELN like'" + Utility.EscapeSQL(ordernumber) + "' ";
+
+                if(materialnumber != "")
+                    whereclause += " AND MATNR like'" + Utility.EscapeSQL(materialnumber) + "' ";
+
+                if(deliverynumber != "")
+                    whereclause += "  AND VBELN like'" + Utility.EscapeSQL(deliverynumber) + "' ";
+
+                if (fromdate.HasValue)
+                    whereclause += " AND BEDAT >= " + fromdate.Value;
+
+               if (todate.HasValue)
+                   whereclause += " AND BEDAT <= " + todate.Value;
+            
+
 
                 return mainController.GetDAOCreator().CreateDeliveryOrderDAO().RetrieveByQuery(whereclause);
             }
