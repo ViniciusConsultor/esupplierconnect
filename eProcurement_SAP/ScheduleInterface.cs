@@ -61,7 +61,7 @@ namespace eProcurement_SAP
 
         private void btn_start_Click(object sender, EventArgs e)
         {
-            MainInterfaceController mainControl = new MainInterfaceController();
+            InterfaceMainController mainControl = new InterfaceMainController();
         }
 
         private void btn_exit_Click(object sender, EventArgs e)

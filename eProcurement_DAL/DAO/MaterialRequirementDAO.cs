@@ -66,7 +66,7 @@ namespace eProcurement_DAL
             MaterialRequirement entity = null;
             string whereClause = " MATNR='" + DataManager.EscapeSQL(materialNumber) + "' ";
             whereClause += "AND WERKS='" + DataManager.EscapeSQL(plant) + "' ";
-            whereClause += "AND AEDAT=" + requiredDate + " ";
+            whereClause += "AND BDTER=" + requiredDate + " ";
 
             Collection<MaterialRequirement> entities = Retrieve(epTran, whereClause, "");
             if (entities.Count > 0)
@@ -108,7 +108,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO MTLREQ ([MATNR],[WERKS],[AEDAT],[REQDQT],[MEINS]) VALUES(@MATNR,@WERKS,@AEDAT,@REQDQT,@MEINS)";
+            cm.CommandText = "INSERT INTO MTLREQ ([MATNR],[WERKS],[BDTER],[BDMNG],[MEINS]) VALUES(@MATNR,@WERKS,@AEDAT,@REQDQT,@MEINS)";
 
             SqlParameter p1 = new SqlParameter("@MATNR", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
@@ -175,7 +175,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE MTLREQ SET [MATNR]=@MATNR,[WERKS]=@WERKS,[AEDAT]=@AEDAT,[REQDQT]=@REQDQT,[MEINS]=@MEINS WHERE MATNR=@MATNR";
+            cm.CommandText = "UPDATE MTLREQ SET [MATNR]=@MATNR,[WERKS]=@WERKS,[BDTER]=@AEDAT,[BDMNG]=@REQDQT,[MEINS]=@MEINS WHERE MATNR=@MATNR";
 
             SqlParameter p1 = new SqlParameter("@MATNR", SqlDbType.VarChar, 18);
             cm.Parameters.Add(p1);
@@ -242,7 +242,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "DELETE FROM MTLREQ WHERE MATNR=@MATNR AND WERKS=@WERKS AND AEDAT=@AEDAT";
+            cm.CommandText = "DELETE FROM MTLREQ WHERE MATNR=@MATNR AND WERKS=@WERKS AND BDTER=@AEDAT";
             SqlParameter p1 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
             cm.Parameters.Add(p1);
             p1.Value = entity.MaterialNumber;
@@ -287,7 +287,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [MATNR],[WERKS],[AEDAT],[REQDQT],[MEINS] FROM MTLREQ";
+            string selectCommand = "SELECT [MATNR],[WERKS],[BDTER],[BDMNG],[MEINS] FROM MTLREQ";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -302,12 +302,12 @@ namespace eProcurement_DAL
                 if (rd.IsDBNull(2))
                     entity.RequiredDate = null;
                 else
-                    entity.RequiredDate = Convert.ToInt64(rd["AEDAT"]);
+                    entity.RequiredDate = Convert.ToInt64(rd["BDTER"]);
 
                 if (rd.IsDBNull(3))
                     entity.RequiredQuantity = null;
                 else
-                    entity.RequiredQuantity = Convert.ToDecimal(rd["REQDQT"]);
+                    entity.RequiredQuantity = Convert.ToDecimal(rd["BDMNG"]);
 
                 entity.UnitOfMeasure = rd["MEINS"].ToString();
 

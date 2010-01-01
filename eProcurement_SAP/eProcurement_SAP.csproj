@@ -37,7 +37,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Project_eProduction\Required_Dependencies\SAP.Connector.dll</HintPath>
     </Reference>
-    <Reference Include="SAPInterface, Version=1.0.3511.25032, Culture=neutral">
+    <Reference Include="SAPInterface, Version=1.0.3653.37330, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SAP Interface\SAPInterface\bin\Release\SAPInterface.dll</HintPath>
     </Reference>
@@ -55,9 +55,14 @@
       <DependentUpon>InterfaceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="SAPController\ContractInterfaceController.cs" />
+    <Compile Include="SAPController\InterfaceContractController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SAPController\MainInterfaceController.cs" />
+    <Compile Include="SAPController\InterfaceMainController.cs" />
+    <Compile Include="SAPController\InterfaceOrderController.cs" />
+    <Compile Include="SAPController\InterfaceRequirementController.cs" />
+    <Compile Include="SAPController\InterfaceRequisitionController.cs" />
+    <Compile Include="SAPController\InterfaceMaterialController.cs" />
+    <Compile Include="SAPController\InterfaceSupplierController.cs" />
     <Compile Include="ScheduleInterface.cs">
       <SubType>Form</SubType>
     </Compile>

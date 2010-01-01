@@ -106,7 +106,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO vndmst ([LIFNR],[PASSWD],[ANRED],[NAME],[ADDRESS],[PSTLZ],[KORT],[REGIO],[LAND1],[TELF1],[TELF2],[TELFX],[SPREQ],[EMAIL],[RECSTS]) VALUES(@LIFNR,@PASSWD,@ANRED,@NAME,@ADDRESS,@PSTLZ,@KORT,@REGIO,@LAND1,@TELF1,@TELF2,@TELFX,@SPREQ,@EMAIL,@RECSTS))";
+            cm.CommandText = "INSERT INTO vndmst ([LIFNR],[PASSWD],[ANRED],[NAME],[ADDRESS],[PSTLZ],[KORT],[REGIO],[LAND1],[TELF1],[TELF2],[TELFX],[SPREQ],[EMAIL],[RECSTS]) VALUES(@LIFNR,@PASSWD,@ANRED,@NAME,@ADDRESS,@PSTLZ,@KORT,@REGIO,@LAND1,@TELF1,@TELF2,@TELFX,@SPREQ,@EMAIL,@RECSTS)";
             SqlParameter p1 = new SqlParameter("@LIFNR", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.SupplierID;
@@ -146,7 +146,7 @@ namespace eProcurement_DAL
             SqlParameter p13 = new SqlParameter("@SPREQ", SqlDbType.Char, 3);
             cm.Parameters.Add(p13);
             p13.Value = entity.UserField;
-            SqlParameter p14 = new SqlParameter("@EMAIL", SqlDbType.VarChar, 100);
+            SqlParameter p14 = new SqlParameter("@EMAIL", SqlDbType.VarChar, 241);
             cm.Parameters.Add(p14);
             p14.Value = entity.EmailID;
             SqlParameter p15 = new SqlParameter("@RECSTS", SqlDbType.Char, 1);

@@ -57,6 +57,13 @@ namespace eProcurement_DAL
             get { return releaseDate; }
             set { releaseDate = value; }
         }
+
+        string createBy;
+        public string CreateBy
+        {
+            get { return createBy; }
+            set { createBy = value; }
+        }
         
     }
 }

@@ -54,17 +54,18 @@ namespace eProcurement_DAL
         }
         #endregion
         #region RetrieveByKey
-        public override SubcontractorMaterial RetrieveByKey(string orderNumber, string ItemSequence, string ComponentSequence)
+        public override SubcontractorMaterial RetrieveByKey(string orderNumber, string ItemSequence, string ComponentSequence, string Material)
         {
             return RetrieveByKey(null, orderNumber, ItemSequence, ComponentSequence);
         }
 
-        public override SubcontractorMaterial RetrieveByKey(EpTransaction epTran, string orderNumber, string ItemSequence, string ComponentSequence)
+        public override SubcontractorMaterial RetrieveByKey(EpTransaction epTran, string orderNumber, string ItemSequence, string ComponentSequence, string Material)
         {
             SubcontractorMaterial entity = null;
             string whereClause = " EBELN='" + DataManager.EscapeSQL(orderNumber) + "' ";
             whereClause += "AND EBELP='" + DataManager.EscapeSQL(ItemSequence) + "' ";
             whereClause += "AND COMPL='" + DataManager.EscapeSQL(ComponentSequence) + "'";
+            whereClause += "AND MATNR='" + DataManager.EscapeSQL(Material) + "'";
 
             Collection<SubcontractorMaterial> entities = Retrieve(epTran, whereClause, "");
             if (entities.Count > 0)
@@ -98,7 +99,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            SubcontractorMaterial checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.ItemSequence, entity.ComponentSequence);
+            SubcontractorMaterial checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.ItemSequence, entity.ComponentSequence, entity.MaterialNumber);
             if (checkEntity != null)
             {
                 throw new Exception("Record already exists.");
@@ -134,7 +135,7 @@ namespace eProcurement_DAL
             p7.Value = entity.UnitOfMeasure;
             SqlParameter p8 = new SqlParameter("@STS", SqlDbType.Char, 1);
             cm.Parameters.Add(p8);
-            p8.Value = entity.UnitOfMeasure;
+            p8.Value = entity.ItemStatus;
             SqlParameter p9 = new SqlParameter("@RECSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p9);
             p9.Value = entity.RecordStatus;
@@ -155,6 +156,7 @@ namespace eProcurement_DAL
         {
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
+            cm.Parameters.Clear();
 
             //set connection
             SqlConnection connection;
@@ -170,14 +172,14 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            SubcontractorMaterial checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.ItemSequence, entity.ComponentSequence);
+            SubcontractorMaterial checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.ItemSequence, entity.ComponentSequence, entity.MaterialNumber);
             if (checkEntity == null)
             {
                 throw new Exception("Record doesn't exist.");
             }
 
             //Update 
-            cm.CommandText = "UPDATE PURSBC SET MATNR=@MATNR,MAKTX=@MAKTX,BDMNG=@BDMNG,MEINS=@MEINS,STS=@STS,RECSTS=@RECSTS WHERE EBELN=@EBELN AND EBELP=@EBELP AND COMPL=@COMPL";
+            cm.CommandText = "UPDATE PURSBC SET MATNR=@MATNR,MAKTX=@MAKTX,BDMNG=@BDMNG,MEINS=@MEINS,STS=@STS,RECSTS=@RECSTS WHERE EBELN=@EBELN AND EBELP=@EBELP AND COMPL=@COMPL AND MATNR = @MATNR";
             SqlParameter p1 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
             cm.Parameters.Add(p1);
             p1.Value = entity.MaterialNumber;
@@ -232,14 +234,14 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            SubcontractorMaterial checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.ItemSequence, entity.ComponentSequence);
+            SubcontractorMaterial checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.ItemSequence, entity.ComponentSequence, entity.MaterialNumber);
             if (checkEntity == null)
             {
                 throw new Exception("Record doesn't exist.");
             }
 
             //Update 
-            cm.CommandText = "DELETE FROM PURSBC WHERE EBELN=@EBELN AND EBELP=@EBELP AND COMPL=@COMPL";
+            cm.CommandText = "DELETE FROM PURSBC WHERE EBELN=@EBELN AND EBELP=@EBELP AND COMPL=@COMPL AND MATNR = @MATNR";
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.OrderNumber;
@@ -249,6 +251,9 @@ namespace eProcurement_DAL
             SqlParameter p3 = new SqlParameter("@COMPL", SqlDbType.Char, 5);
             cm.Parameters.Add(p3);
             p3.Value = entity.ComponentSequence;
+            SqlParameter p4 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
+            cm.Parameters.Add(p4);
+            p4.Value = entity.MaterialNumber;
             cm.ExecuteNonQuery();
 
             if (epTran == null)

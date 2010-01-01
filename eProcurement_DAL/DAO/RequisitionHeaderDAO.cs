@@ -129,7 +129,7 @@ namespace eProcurement_DAL
 
             SqlParameter p5 = new SqlParameter("@STATU", SqlDbType.Char, 1);
             cm.Parameters.Add(p5);
-            p4.Value = entity.Status;
+            p5.Value = entity.Status;
 
             SqlParameter p6 = new SqlParameter("@FRGZU", SqlDbType.Char, 2);
             cm.Parameters.Add(p6);
@@ -183,36 +183,39 @@ namespace eProcurement_DAL
             //Update 
             cm.CommandText = "UPDATE reqhdr set [BSART]=@BSART,[BSTYP]=@BSTYP,[BADAT]=@BADAT,[STATU]=@STATU,[FRGZU]=@FRGZU,[FRGDT]=@FRGDT WHERE BANFN=@BANFN";
 
-            SqlParameter p1 = new SqlParameter("@BSART", SqlDbType.Char, 10);
+            SqlParameter p1 = new SqlParameter("@BANFN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.RequisitionNumber;
 
-            SqlParameter p2 = new SqlParameter("@BSTYP", SqlDbType.Char, 4);
+            SqlParameter p2 = new SqlParameter("@BSART", SqlDbType.Char, 4);
             cm.Parameters.Add(p2);
             p2.Value = entity.DocumentType;
 
-            SqlParameter p3 = new SqlParameter("@BADAT", SqlDbType.Char, 1);
+            SqlParameter p3 = new SqlParameter("@BSTYP", SqlDbType.Char, 1);
             cm.Parameters.Add(p3);
             p3.Value = entity.RequisitionCategory;
 
-            SqlParameter p4 = new SqlParameter("@STATU", SqlDbType.BigInt, 8);
+            SqlParameter p4 = new SqlParameter("@BADAT", SqlDbType.BigInt, 8);
             cm.Parameters.Add(p4);
             if (entity.RequisitionDate.HasValue)
                 p4.Value = entity.RequisitionDate;
             else
                 p4.Value = DBNull.Value;
 
-            SqlParameter p5 = new SqlParameter("@FRGSU", SqlDbType.Char, 1);
+            SqlParameter p5 = new SqlParameter("@STATU", SqlDbType.Char, 1);
             cm.Parameters.Add(p5);
             p5.Value = entity.Status;
 
-            SqlParameter p6 = new SqlParameter("@FRGDT", SqlDbType.Char, 2);
+            SqlParameter p6 = new SqlParameter("@FRGZU", SqlDbType.Char, 2);
             cm.Parameters.Add(p6);
             p6.Value = entity.ReleaseStatus;
 
-            SqlParameter p7 = new SqlParameter("@ZTERM", SqlDbType.BigInt, 8);
+            SqlParameter p7 = new SqlParameter("@FRGDT", SqlDbType.BigInt, 8);
             cm.Parameters.Add(p7);
-            p7.Value = entity.ReleaseDate;
+            if (entity.ReleaseDate.HasValue)
+                p7.Value = entity.ReleaseDate;
+            else
+                p7.Value = DBNull.Value;
 
             cm.ExecuteNonQuery();
 

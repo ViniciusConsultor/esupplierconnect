@@ -10,9 +10,9 @@ namespace eProcurement_SAP
 {
     public partial class InterfaceForm : Form
     {
-        private MainInterfaceController mainController;
+        private InterfaceMainController mainController;
 
-        public InterfaceForm(MainInterfaceController mainController)
+        public InterfaceForm(InterfaceMainController mainController)
         {
             InitializeComponent();
             this.mainController = mainController;
@@ -23,32 +23,279 @@ namespace eProcurement_SAP
             try
             {
                 mainController.ProcessPurchaseContract();
-                this.btn_vchdr.Enabled = true;
-                this.btn_vcitm.Enabled = true;
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = true;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.btn_vchdr.Enabled = false;
-                this.btn_vcitm.Enabled = false;
+                this.label1.Text = "Error during retrieving of Purchase Contract Details...";
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
+            }
+        }
+
+
+        private void btn_orders_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                mainController.ProcessPurchaseOrder();
+                groupBox1.Enabled = true;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.label1.Text = "Error during retrieving of Purchase Details...";
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
+            }
+        }
+
+        private void btn_reqn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                mainController.ProcessRequisition();
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = true;
+                groupBox5.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.label1.Text = "Error during retrieving of Requisition Details...";
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
+            }
+        }
+
+        private void btn_supp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                mainController.ProcessSupplier();
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.label1.Text = "Error during retrieving of Supplier Details...";
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
+            }
+        }
+
+        private void btn_reqmt_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                mainController.ProcessMaterialRequirement();
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = true;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.label1.Text = "Error during retrieving of Requirement Details...";
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
+            }
+        }
+
+        private void btn_stock_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                mainController.ProcessMaterialStock();
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = true;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.label1.Text = "Error during retrieving of Material Stock Details...";
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
             }
         }
 
         private void btn_vchdr_Click(object sender, EventArgs e)
         {
-            PurchaseGrid.DataSource = mainController.GetContractHeader();
+            mainController.GetContractHeader();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
         }
 
         private void btn_vcitm_Click(object sender, EventArgs e)
         {
-            PurchaseGrid.DataSource = mainController.GetContractItem();
+            mainController.GetContractItem();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
         }
 
         private void btn_exit_Click(object sender, EventArgs e)
         {
             this.Dispose();
             this.Close();
+        }
+
+        private void btn_vpohdr_Click(object sender, EventArgs e)
+        {
+            mainController.GetOrderHeader();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vpoitm_Click(object sender, EventArgs e)
+        {
+            mainController.GetOrderItem();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vposch_Click(object sender, EventArgs e)
+        {
+            mainController.GetOrderSchedule();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vpocmp_Click(object sender, EventArgs e)
+        {
+            mainController.GetOrderComponent();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vposrv_Click(object sender, EventArgs e)
+        {
+            mainController.GetOrderService();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vsrvtsk_Click(object sender, EventArgs e)
+        {
+            mainController.GetServiceTask();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vhdrtxt_Click(object sender, EventArgs e)
+        {
+            mainController.GetHeaderText();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vitmtxt_Click(object sender, EventArgs e)
+        {
+            mainController.GetItemText();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vrhdr_Click(object sender, EventArgs e)
+        {
+            mainController.GetRequisitionHeader();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vritm_Click(object sender, EventArgs e)
+        {
+            mainController.GetRequisitionItem();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vstk_Click(object sender, EventArgs e)
+        {
+            mainController.GetMaterial();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vreqmt_Click(object sender, EventArgs e)
+        {
+            mainController.GetRequirement();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
+        private void btn_vsupp_Click(object sender, EventArgs e)
+        {
+            mainController.GetSupplier();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
         }
 
         public ProgressBar getProgressBar()

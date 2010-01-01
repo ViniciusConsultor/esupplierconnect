@@ -35,6 +35,22 @@ namespace eProcurement_DAL
             set{ orderNumber = value;}
         }
 
+        ///<summary>Database mapping to column purhdr.BSTYP</summary>
+        string orderType;
+        public string OrderType
+        {
+            get { return orderType; }
+            set { orderType = value; }
+        }
+
+        ///<summary>Database mapping to column purhdr.BSART</summary>
+        string orderCategory;
+        public string OrderCategory
+        {
+            get { return orderCategory; }
+            set { orderCategory = value; }
+        }
+
         ///<summary>Database mapping to column purhdr.LIFNR</summary>
         string supplierId;
         public string SupplierId
@@ -162,5 +178,30 @@ namespace eProcurement_DAL
             get { return buyerPhone; }
             set { buyerPhone = value; }
         }
+
+        ///<summary>Database mapping to column purhdr.CREATEBY</summary>
+        string createby;
+        public string CreateBy
+        {
+            get { return createby; }
+            set { createby = value; }
+        }
+
+        ///<summary>Database mapping to column purhdr.CREATEBY</summary>
+        string purchaseGroup;
+        public string PurchaseGroup
+        {
+            get { return purchaseGroup; }
+            set { purchaseGroup = value; }
+        }
+
+        ///<summary>Database mapping to column purhdr.CREATEBY</summary>
+        string purchaseOrg;
+        public string PurchaseOrg
+        {
+            get { return purchaseOrg; }
+            set { purchaseOrg = value; }
+        }
+
     }
 }

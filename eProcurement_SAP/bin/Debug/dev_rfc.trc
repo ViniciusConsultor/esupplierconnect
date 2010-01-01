@@ -1,0 +1,134 @@
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:500 Error in program 'SAPCPIC': ======> Value for ID 'PASSWD' not found
+>TS> Fri Jan 01 16:37:50 2010
+T:500 Error in program 'SAPCPIC': ======> Value for ID 'PASSWD' not found
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:3680 Error in program 'SAPCPIC': ======> Value for ID 'PASSWD' not found
+>TS> Fri Jan 01 16:40:19 2010
+T:3680 Error in program 'SAPCPIC': ======> Value for ID 'PASSWD' not found
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:5432 Error in program 'SAPCPIC': ======> Value for ID 'PASSWD' not found
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:6104 Error in program 'eProcurement_SAP': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:5996 Error in program 'eProcurement_SAP': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:4924 Error in program 'eProcurement_SAP': ======> Connect to SAP gateway failed
+Connect_PM  GWHOST=SAPPR3, GWSERV=sapgw00, ASHOST=SAPPR3, SYSNR=00
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       hostname 'SAPPR3' unknown
+
+TIME        Fri Jan 01 17:32:13 2010
+RELEASE     640
+COMPONENT   NI (network interface)
+VERSION     37
+RC          -2
+MODULE      ninti.c
+LINE        336
+DETAIL      NiPGetHostByName2: hostname 'SAPPR3' not found
+SYSTEM CALL gethostbyname_r
+COUNTER     1
+
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:3920 Error in program 'eProcurement_SAP': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:1784 Error in program 'eProcurement_SAP': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:4060 Error in program 'eProcurement_SAP': ======> Error in the module RSQL accessing the database interface. &INCLUDE &P9
+T:4060 Error in program 'eProcurement_SAP': <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+T:4060 Error in program 'eProcurement_SAP': <* RfcCallReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:4912 Error in program 'eProcurement_SAP': ======> Error in the module RSQL accessing the database interface. &INCLUDE &P9
+T:4912 Error in program 'eProcurement_SAP': <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+T:4912 Error in program 'eProcurement_SAP': <* RfcCallReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:852 Error in program 'eProcurement_SAP': ======> Error in the module RSQL accessing the database interface. &INCLUDE &P9
+T:852 Error in program 'eProcurement_SAP': <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+T:852 Error in program 'eProcurement_SAP': <* RfcCallReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:5936 Error in program 'eProcurement_SAP': ======> Error in the module RSQL accessing the database interface. &INCLUDE &P9
+T:5936 Error in program 'eProcurement_SAP': <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+T:5936 Error in program 'eProcurement_SAP': <* RfcCallReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:1044 Error in program 'eProcurement_SAP': ======> Error in the module RSQL accessing the database interface. &INCLUDE &P9
+T:1044 Error in program 'eProcurement_SAP': <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+T:1044 Error in program 'eProcurement_SAP': <* RfcCallReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:2452 Error in program 'eProcurement_SAP': ======> Error in the module RSQL accessing the database interface. &INCLUDE &P9
+T:2452 Error in program 'eProcurement_SAP': <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+T:2452 Error in program 'eProcurement_SAP': <* RfcCallReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:5124 Error in program 'eProcurement_SAP': ======> Error in the module RSQL accessing the database interface. &INCLUDE &P9
+T:5124 Error in program 'eProcurement_SAP': <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+T:5124 Error in program 'eProcurement_SAP': <* RfcCallReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:440 Error in program 'eProcurement_SAP': ======> Error in the module RSQL accessing the database interface. &INCLUDE &P9
+T:440 Error in program 'eProcurement_SAP': <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+T:440 Error in program 'eProcurement_SAP': <* RfcCallReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:4356 Error in program 'eProcurement_SAP': ======> Error in the module RSQL accessing the database interface. &INCLUDE &P9
+T:4356 Error in program 'eProcurement_SAP': <* RfcReceive [1] : returns 3:RFC_SYS_EXCEPTION
+T:4356 Error in program 'eProcurement_SAP': <* RfcCallReceive [1] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:1660 Error in program 'eProcurement_SAP': ======> Connect to SAP gateway failed
+Connect_PM  GWHOST=SAPPR3, GWSERV=sapgw00, ASHOST=SAPPR3, SYSNR=00
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       partner not reached (host 82.98.86.171, service 3300)
+
+TIME        Fri Jan 01 23:39:08 2010
+RELEASE     640
+COMPONENT   NI (network interface)
+VERSION     37
+RC          -10
+MODULE      nixxi_r.cpp
+LINE        8724
+DETAIL      NiPConnect2
+SYSTEM CALL SiPeekPendConn
+ERRNO       10060
+ERRNO TEXT  WSAETIMEDOUT: Connection timed out
+COUNTER     1
+
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:1660 Error in program 'eProcurement_SAP': ======> Connect to SAP gateway failed
+Connect_PM  GWHOST=SAPPR3, GWSERV=sapgw00, ASHOST=SAPPR3, SYSNR=00
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       partner not reached (host 82.98.86.171, service 3300)
+
+TIME        Fri Jan 01 23:43:49 2010
+RELEASE     640
+COMPONENT   NI (network interface)
+VERSION     37
+RC          -10
+MODULE      nixxi_r.cpp
+LINE        8715
+DETAIL      NiPConnect2
+SYSTEM CALL SiPeekPendConn
+ERRNO       10060
+ERRNO TEXT  WSAETIMEDOUT: Connection timed out
+COUNTER     2
+
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:1084 Error in program 'eProcurement_SAP': ======> 00024No connect to database, session terminated€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€

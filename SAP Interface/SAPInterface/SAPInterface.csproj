@@ -124,12 +124,12 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "RetireveMaterialRequirement.cs"
+                    RelPath = "RetrieveContract.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "RetrieveContract.cs"
+                    RelPath = "RetrieveMaterialRequirement.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

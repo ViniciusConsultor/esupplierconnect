@@ -119,7 +119,6 @@ namespace eProcurement_DAL
             set { internalReference = value; }
         }
 
-        ///<summary>Database mapping to column purhdr.ACKSTS</summary>
         string acknowledgeStatus;
         public string AcknowledgeStatus
         {

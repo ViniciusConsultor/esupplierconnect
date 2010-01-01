@@ -1,0 +1,15 @@
+C:\ePurchasing\eProcurement_SAP\bin\Debug\eProcurement_SAP.exe.config
+C:\ePurchasing\eProcurement_SAP\obj\Debug\ResolveAssemblyReference.cache
+C:\ePurchasing\eProcurement_SAP\obj\Debug\eProcurement_SAP.InterfaceForm.resources
+C:\ePurchasing\eProcurement_SAP\obj\Debug\eProcurement_SAP.ScheduleInterface.resources
+C:\ePurchasing\eProcurement_SAP\obj\Debug\eProcurement_SAP.csproj.GenerateResource.Cache
+C:\ePurchasing\eProcurement_SAP\bin\Debug\eProcurement_SAP.exe
+C:\ePurchasing\eProcurement_SAP\bin\Debug\eProcurement_SAP.pdb
+C:\ePurchasing\eProcurement_SAP\bin\Debug\eProcurement_BLL.dll
+C:\ePurchasing\eProcurement_SAP\bin\Debug\eProcurement_DAL.dll
+C:\ePurchasing\eProcurement_SAP\bin\Debug\SAPInterface.dll
+C:\ePurchasing\eProcurement_SAP\bin\Debug\log4net.dll
+C:\ePurchasing\eProcurement_SAP\bin\Debug\eProcurement_BLL.pdb
+C:\ePurchasing\eProcurement_SAP\bin\Debug\eProcurement_DAL.pdb
+C:\ePurchasing\eProcurement_SAP\obj\Debug\eProcurement_SAP.exe
+C:\ePurchasing\eProcurement_SAP\obj\Debug\eProcurement_SAP.pdb
