@@ -22,7 +22,7 @@ using System.Text;
 
 namespace eProcurement_DAL
 {
-    ///<summary>Entity Object (Purchase Item Text) - Database table [puitxt]</summary>
+    ///<summary>Entity Object (Supplier) - Database table [VNDMST]</summary>
     [Serializable]
     public class Supplier
     {
@@ -113,7 +113,7 @@ namespace eProcurement_DAL
         string userField;
         public string UserField
         {
-            get { return UserField; }
+            get { return userField; }
             set { userField = value; }
         }
 

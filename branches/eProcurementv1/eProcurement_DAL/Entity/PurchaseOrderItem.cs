@@ -78,6 +78,13 @@ namespace eProcurement_DAL
             set { netPrice = value; }
         }
 
+        Nullable<decimal> netValue;
+        public Nullable<decimal> NetValue
+        {
+            get { return netValue; }
+            set { netValue = value; }
+        }
+
         string remarks;
         public string Remarks
         {
@@ -104,6 +111,13 @@ namespace eProcurement_DAL
         {
             get { return orderNumber; }
             set { orderNumber = value; }
+        }
+
+        string costCenter;
+        public string CostCenter
+        {
+            get { return costCenter; }
+            set { costCenter = value; }
         }
 
         string storageLocation;

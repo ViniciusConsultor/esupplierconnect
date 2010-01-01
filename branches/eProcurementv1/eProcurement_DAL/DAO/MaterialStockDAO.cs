@@ -295,7 +295,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE mtlstock MAKTX=@MAKTX,LABST=@LABST,QINSP=@QINSP,MEINS=@MEINS WHERE MATNR=@MATNR AND WERKS=@WERKS";
+            cm.CommandText = "UPDATE mtlstock SET MAKTX=@MAKTX,LABST=@LABST,QINSP=@QINSP,MEINS=@MEINS WHERE MATNR=@MATNR AND WERKS=@WERKS";
 
             SqlParameter p1 = new SqlParameter("@MAKTX", SqlDbType.VarChar, 40);
             cm.Parameters.Add(p1);
@@ -318,6 +318,14 @@ namespace eProcurement_DAL
             SqlParameter p4 = new SqlParameter("@MEINS", SqlDbType.Char, 3);
             cm.Parameters.Add(p4);
             p4.Value = entity.UnitOfMeasure;
+
+            SqlParameter p5 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
+            cm.Parameters.Add(p5);
+            p5.Value = entity.MaterialNumber;
+
+            SqlParameter p6 = new SqlParameter("@WERKS", SqlDbType.Char, 4);
+            cm.Parameters.Add(p6);
+            p6.Value = entity.Plant;
 
             cm.ExecuteNonQuery();
 

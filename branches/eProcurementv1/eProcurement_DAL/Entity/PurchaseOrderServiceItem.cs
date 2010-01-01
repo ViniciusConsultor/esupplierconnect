@@ -74,6 +74,14 @@ namespace eProcurement_DAL
             set { servicePrice = value; }
         }
 
+        Nullable<decimal> serviceValue;
+        ///<summary>Database mapping to column PURSRV.PREIS</summary>
+        public Nullable<decimal> ServiceValue
+        {
+            get { return serviceValue; }
+            set { serviceValue = value; }
+        }
+
         string recordStatus;
         ///<summary>Database mapping to column PURSRV.RECSTS</summary>
         public string RecordStatus

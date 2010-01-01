@@ -30,9 +30,9 @@ namespace eProcurement_DAL
         public abstract Collection<SubcontractorMaterial> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues);
         #endregion
         #region RetrieveByKey
-        public abstract SubcontractorMaterial RetrieveByKey(string orderNumber, string ItemSequence, string ComponentSequence);
+        public abstract SubcontractorMaterial RetrieveByKey(string orderNumber, string ItemSequence, string ComponentSequence, string Material);
 
-        public abstract SubcontractorMaterial RetrieveByKey(EpTransaction epTran, string orderNumber, string ItemSequence, string ComponentSequence);
+        public abstract SubcontractorMaterial RetrieveByKey(EpTransaction epTran, string orderNumber, string ItemSequence, string ComponentSequence, string Material);
         #endregion
         #region Insert
         public abstract void Insert(SubcontractorMaterial entity);

@@ -54,6 +54,7 @@ namespace eProcurement_DAL
             return Retrieve(epTran, whereClause, sortClaues);
         }
         #endregion
+
         #region RetrieveByKey
         public override PurchaseHeaderText RetrieveByKey(string orderNumber, string textSequence)
         {

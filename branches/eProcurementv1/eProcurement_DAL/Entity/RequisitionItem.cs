@@ -28,6 +28,13 @@ namespace eProcurement_DAL
             set { purchasingGroup = value; }
         }
 
+        string purchaseOrg;
+        public string PurchaseOrg
+        {
+            get { return purchaseOrg; }
+            set { purchaseOrg = value; }
+        }
+
         string materialNumber;
         public string MaterialNumber
         {
@@ -119,6 +126,28 @@ namespace eProcurement_DAL
             get { return totalValue; }
             set { totalValue = value; }
         }
+
+        string requestor;
+        public string Requestor
+        {
+            get { return requestor; }
+            set { requestor = value; }
+        }
+
+        string fixedVendor;
+        public string FixedVendor
+        {
+            get { return fixedVendor; }
+            set { fixedVendor = value; }
+        }
+
+        string status;
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
+
     }
 }
 

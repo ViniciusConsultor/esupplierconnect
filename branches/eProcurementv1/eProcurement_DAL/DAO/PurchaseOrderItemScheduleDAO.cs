@@ -195,7 +195,7 @@ namespace eProcurement_DAL
 
             SqlParameter p2 = new SqlParameter("@EBELP", SqlDbType.Char, 5);
             cm.Parameters.Add(p2);
-            p2.Value = entity.PurchaseOrderScheduleSequence;
+            p2.Value = entity.PurchaseOrderItemSequence;
 
             SqlParameter p3 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
             cm.Parameters.Add(p3);
