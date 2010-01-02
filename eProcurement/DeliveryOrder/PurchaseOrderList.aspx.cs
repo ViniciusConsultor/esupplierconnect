@@ -13,7 +13,7 @@ using System.Web.UI.HtmlControls;
 using eProcurement_BLL;
 using eProcurement_DAL;
 
-public partial class PurchaseOrder_PurchaseOrderList : BaseForm
+public partial class DeliveryOrder_PurchaseOrderList : BaseForm
 {
     private MainController mainController = null;
 
