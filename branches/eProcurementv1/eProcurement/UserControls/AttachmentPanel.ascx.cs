@@ -150,8 +150,8 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
             UploadFileSize = Convert.ToInt32(uploadFileSize);
             TotalFileSize = Convert.ToInt32(totalFileSize);
 
-            lblUploadFileSize.Text = String.Format("The size of an attachment is limited to '{0}' MB.", UploadFileSize / 1048576.0);
-            lblTotalFileSize.Text = String.Format("Total size of attachments are limited to '{0}' MB.", TotalFileSize / 1048576.0);
+            lblUploadFileSize.Text = String.Format("The size of an attachment is limited to '{0}' MB.", UploadFileSize / 1024000.0);
+            lblTotalFileSize.Text = String.Format("Total size of attachments are limited to '{0}' MB.", TotalFileSize / 1024000.0);
 
             LoadDocument();
 
@@ -355,7 +355,7 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
         byte[] fileSize = objDoc.FileData;
 
         // Identify the file to download including its path.
-        string filepath = Server.MapPath(@"~\Quotation\Attachments" + "\\" + filename);
+        string filepath = Server.MapPath(@"~\Quotation" + "\\" + filename);
 
         if (File.Exists(filepath))
         {
@@ -434,7 +434,7 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
         if (fileSize > UploadFileSize)
         {
             lblMessage.Text = String.Format(@"Your file was not added. The size of an attachment 
-                is limited to '{0}' MB.", UploadFileSize / 1048576);
+                is limited to '{0}' MB.", UploadFileSize / 1024000);
             return false;
         }
 
@@ -455,7 +455,7 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
         if (totalSize > TotalFileSize)
         {
             lblMessage.Text = String.Format(@"Your file was not added. Total size of attachments 
-                are limited to '{0}' MB.", TotalFileSize / 1048576);
+                are limited to '{0}' MB.", TotalFileSize / 1024000);
             return false;
         }
         return true;
