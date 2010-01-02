@@ -17,6 +17,21 @@ namespace eProcurement_BLL
         public const string Reject2 = "2";
     }
 
+    public class RejAckStatus
+    {
+        public const string Yes = "Y";
+        public const string No = "N";
+    }
+
+    public class QuotationStatus
+    {
+        public const string Request = "R";
+        public const string Acknowledge = "K";
+        public const string Accept = "A";
+        public const string Reject = "R";
+    }
+
+
     public class POStatus
     {
         public const string Delete = "D";
@@ -58,6 +73,12 @@ namespace eProcurement_BLL
         public const string Warning = "W";
         public const string Error = "E";
         public const string Fatal = "F";
+    }
+
+    public class ContractAckStatus
+    {
+        public const string Yes = "Y";
+        public const string No = "N";
     }
 
     #region User Management Constants
