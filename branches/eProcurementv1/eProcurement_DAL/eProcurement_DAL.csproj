@@ -55,6 +55,7 @@
     <Compile Include="DAO\PurchaseServiceTaskDAO.cs" />
     <Compile Include="DAO\QuotationHeaderDAO.cs" />
     <Compile Include="DAO\QuotationItemDAO.cs" />
+    <Compile Include="DAO\RejectedGoodDAO.cs" />
     <Compile Include="DAO\RequisitionHeaderDAO.cs" />
     <Compile Include="DAO\RequisitionItemDAO.cs" />
     <Compile Include="DAO\ShortageMaterialDAO.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Entity\PurchaseServiceTask.cs" />
     <Compile Include="Entity\QuotationHeader.cs" />
     <Compile Include="Entity\QuotationItem.cs" />
+    <Compile Include="Entity\RejectedGood.cs" />
     <Compile Include="Entity\RequisitionHeader.cs" />
     <Compile Include="Entity\RequisitionItem.cs" />
     <Compile Include="Entity\ShortageMaterial.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="IDAO\IPurchaseServiceTaskDAO.cs" />
     <Compile Include="IDAO\IQuotationHeaderDAO.cs" />
     <Compile Include="IDAO\IQuotationItemDAO.cs" />
+    <Compile Include="IDAO\IRejectedGoodDAO.cs" />
     <Compile Include="IDAO\IRequisitionHeaderDAO.cs" />
     <Compile Include="IDAO\IRequisitionItemDAO.cs" />
     <Compile Include="IDAO\IShortageMaterialDAO.cs" />
