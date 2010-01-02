@@ -72,16 +72,16 @@ namespace eProcurement_BLL.Delivery
                                 vo.OrderNumber, vo.ItemSequence, vo.DocumentNumber));
                         }
 
-                        if (string.Compare(expediting.RecordStatus, ExpediteStatus.Expedite, true) != 0)
+                        if (string.Compare(rejgood.AcknowledgeStatus, RejAckStatus.Yes, true) != 0)
                         {
-                            throw new Exception(string.Format("Purchase expediting record has already been updated by other user. Order Number:{0}, Item Sequence:{1}, Schedule Sequence:{2}.",
+                            throw new Exception(string.Format("Rejected Good  record has already been updated by other user. Order Number:{0}, Item Sequence:{1}, Document Number:{2}.",
                                 vo.OrderNumber, vo.ItemSequence, vo.DocumentNumber));
                         }
 
                         rejgood.AcknowledgeStatus = RejAckStatus.Yes;
                        
                         mainController.GetDAOCreator().CreateDeliveryOrderDAO()
-                                .Update(tran, expediting);
+                                .Update(tran, rejgood);
                     }
 
                     tran.Commit();
