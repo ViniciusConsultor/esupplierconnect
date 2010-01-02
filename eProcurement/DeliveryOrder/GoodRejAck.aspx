@@ -20,7 +20,7 @@
             <td valign="top" style="height: 8px; width: 337px;">
                <table id="tblSearch" cellspacing="0" cellpadding="1" width="100%" border="0">
                      <tr>
-                        <td align="left" nowrap style="width: 136px; height: 20px">
+                        <td align="left" style="width: 136px; height: 20px">
                             <asp:Label ID="lbl1" runat="server" Text="Order No"></asp:Label>
                         </td> 
                         <td  align="left" style="width: 100%; height: 20px;">
@@ -88,7 +88,7 @@
     <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
 	        <td valign="top" colspan="10" style="height: 20px">
-                <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellPadding="2">
+                <asp:GridView Width="100%" ID="gvItem" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellPadding="2">
                     <Columns>
                         <asp:TemplateField HeaderText="S/N">
                             <ItemTemplate>
@@ -111,7 +111,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:LinkButton runat="server" ID="lbhlOrderNo" Text=' <%# Eval("OrderNumber") %> '></asp:LinkButton>  
+                                            <asp:Label runat="server" ID="lblOrderNo" Text=' <%# Eval("OrderNumber") %> '></asp:Label>  
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -126,7 +126,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblSupplierId" runat="server" CssClass="" Text='<%# Eval("SupplierId") %> '></asp:Label>  
+                                            <asp:Label ID="lblSupplierId" runat="server" CssClass="" Text='<%# Eval("MaterialNumber") %> '></asp:Label>  
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -135,14 +135,28 @@
                             <ItemStyle Wrap="False" Width="10%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Item Seq"></asp:TemplateField>
+                        <asp:TemplateField HeaderText="Item Seq">
+                        <ItemTemplate>
+                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td Width="100%" nowrap="nowrap">
+                                            <asp:Label ID="lblItemSeq" runat="server" CssClass="" Text=' <%# Eval("ItemSequence") %> '></asp:Label>
+                                        </td>
+                                       <td>&nbsp;</td>
+                                    </tr>
+                                </table>  
+                        </ItemTemplate>
+                        <ItemStyle Wrap="False" Width="15%"/>
+                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Document No">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblOrderDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("OrderDate")))) %> '></asp:Label>
+                                            <asp:Label ID="lblDocumentNo" runat="server" CssClass="" Text=' <%# Eval("DocumentNumber") %> '></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -157,7 +171,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" align="right">
-                                            <asp:Label ID="lblAmount" runat="server" CssClass="" Text='<%# Eval("OrderAmount") %>'></asp:Label>
+                                            <asp:Label ID="lblDocumentSerial" runat="server" CssClass="" Text='<%# Eval("DocumentSerial") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -172,7 +186,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" align="right">
-                                            <asp:Label ID="lblGSTAmount" runat="server" CssClass="" Text='<%# Eval("GstAmount") %>'></asp:Label>
+                                            <asp:Label ID="lblUOM" runat="server" CssClass="" Text='<%# Eval("UnitofMeasure") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -187,7 +201,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%">
-                                            <asp:Label ID="lblCurrency" runat="server" CssClass="" Text='<%# Eval("CurrencyCode") %>'></asp:Label>
+                                            <asp:Label ID="lblRefNo" runat="server" CssClass="" Text='<%# Eval("ReferenceNumber") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -217,7 +231,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" >
-                                            <asp:Label ID="lblBuyer" runat="server" CssClass="" Text='<%# Eval("BuyerName") %>'></asp:Label>
+                                            <asp:Label ID="lblRejectDate" runat="server" CssClass="" Text='<%#  GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("RejectDate")))) %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -232,7 +246,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" >
-                                            <asp:CheckBox ID="lblBuyer" runat="server" CssClass="" Text='<%# Eval("BuyerName") %>'></asp:CheckBox>
+                                            <asp:CheckBox ID="chkAcknowledge" runat="server" CssClass="" Text='<%# Eval("AcknowledgeStatus") %>'></asp:CheckBox>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -249,6 +263,9 @@
 <asp:Panel ID="Panel1" runat="server" Width="100%"> 
         <tr>
             <td  align ="right">
-            <asp:Button ID="btnAcknowledge" runat="server" Text="Acknowledge" />
-                <asp:Button ID="btnReturn" runat="server" Text="Return" OnClick="btnReturn_Click1" /></asp:Panel>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<asp:Button ID="btnAcknowledge" runat="server" Text="Acknowledge" />
+                <asp:Button ID="btnReturn" runat="server" Text="Return" OnClick="btnReturn_Click" /></asp:Panel>
 </asp:Content>

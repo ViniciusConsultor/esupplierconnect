@@ -126,8 +126,8 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
                 string queryString = Request.QueryString.ToString();
                 m_QueryString = queryString + "&ReturnFromDetails=Y";
 
-                InitPOHeader();
-                InitItems();
+                InitRejectedGood();
+                //InitItems();
             }
         }
         catch (Exception ex)
@@ -208,7 +208,7 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
         {
             CheckSessionTimeOut();
 
-            string strErrorMsg = ValidateInput();
+            //string strErrorMsg = ValidateInput();
 
             if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
             {
@@ -261,8 +261,8 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
     private void ShowData()
     {
         Collection<RejectedGood> rgColl = GetData();
-        gvData.DataSource = rgColl;
-        gvData.DataBind();
+        gvItem.DataSource = rgColl;
+        gvItem.DataBind();
         lblCount.Text = string.Format("{0} record(s) found. ", rgColl.Count.ToString());
     }
 
@@ -318,12 +318,86 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
     //    gvData.DataBind();
     //    lblCount.Text = string.Format("{0} record(s) found. ", objs.Count.ToString());
     //}
-}
+    protected void btnAcknowledge_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            CheckSessionTimeOut();
+
+            //string strErrorMsg = ValidateInput();
+            string strErrorMsg = "";
+            if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
+            {
+                plMessage.Visible = true;
+                displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
+                return;
+            }
+
+            Collection<RejectedGood> rGood = new Collection<RejectedGood>();
+
+            foreach (RepeaterItem rowItem in gvItem.Items)
+            {
+                Label lblOrderNo = (Label)rowItem.FindControl("lblOrderNo");
+                Label lblItemSeq = (Label)rowItem.FindControl("lblItemSeq");
+                Label lblDocNo = (Label)rowItem.FindControl("lblDocumentNo");
+                CheckBox chkAck = (CheckBox) rowItem.FindControl("chkAcknowledge");
+
+                if (chkAck.Checked= true )
+                {
+                    mainController.GetDeliveryController().AcknowledgeRejectedGood(rGood);
+                }
+                //GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
+
+                //foreach (GridViewRow rowSchedule in gvSchedule.Rows)
+                //{
+                //    Label lblScheduleSequence = (Label)rowSchedule.FindControl("lblScheduleSequence");
+                //    HiddenField hdFirst = (HiddenField)rowSchedule.FindControl("hdFirst");
+
+                //    PurchaseExpediting expediting = new PurchaseExpediting();
+                //    expediting.OrderNumber = Session[SessionKey.OrderNumber].ToString(); ;
+                //    expediting.ItemSequence = lblItemNo.Text;
+                //    expediting.ScheduleSequence = lblScheduleSequence.Text;
+
+                //    if (string.Compare(hdFirst.Value, "Y", true) == 0)
+                //    {
+                //        UserControls_DatePicker dtPromiseDate1 = (UserControls_DatePicker)rowSchedule.FindControl("dtPromiseDate1");
+                //        expediting.PromiseDate1 = GetStoredDateValue(dtPromiseDate1.SelectedDate);
+                //    }
+                //    else
+                //    {
+                //        UserControls_DatePicker dtPromiseDate2 = (UserControls_DatePicker)rowSchedule.FindControl("dtPromiseDate2");
+                //        expediting.PromiseDate2 = GetStoredDateValue(dtPromiseDate2.SelectedDate);
+                //    }
+
+                //    expeditings.Add(expediting);
+
+                //}
+            }
+
+            //mainController.GetDeliveryController().AcknowledgeRejectedGood(rGood);
+
+            //string url = "~/Expediting/AckExpeditingList.aspx?ProceeSuccess=Y&" + m_QueryString;
+            //Response.Redirect(url);
+
+            btnAcknowledge.Enabled = false;
+            plMessage.Visible = true;
+            string sMessage = "Rejected Good has been acknowledged successfully.";
+            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information);
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            string sMessage = ex.Message;
+            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
+        }
+    }
+
     protected void btnReturn_Click(object sender, EventArgs e)
     {
         try
         {
-            string url = "~/DeliveryOrder/GoodRejAck.aspx?" + m_QueryString;
+            string url = "~/DeliveryOrder/EnqDeliveryOrders.aspx?" + m_QueryString;
             Response.Redirect(url);
         }
         catch (Exception ex)
