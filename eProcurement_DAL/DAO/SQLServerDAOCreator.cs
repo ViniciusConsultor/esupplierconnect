@@ -232,8 +232,8 @@ namespace eProcurement_DAL
 
         public override IAttachmentDAO CreateAttachmentDAO(bool includeAttachmentData)
         {
-            if (this.attachmentDAO == null)
-                this.attachmentDAO = new AttachmentDAO(includeAttachmentData);
+            //if (this.attachmentDAO == null)
+            this.attachmentDAO = new AttachmentDAO(includeAttachmentData);
             return this.attachmentDAO;
 
         }
