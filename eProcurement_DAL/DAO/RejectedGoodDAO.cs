@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 // 
 // Team         : Team 03
-// Author       : Ei Ei Thu
+// Author       : Ei Ei Thu & Vinss
 // Created Date : 19/09/2009
 // ISS M.TECH SE16 Batch
 //
@@ -93,6 +93,11 @@ namespace eProcurement_DAL
         public override Collection<RejectedGood> RetrieveByQuery(string whereClause)
         {
             return Retrieve(null, whereClause, "");
+        }
+
+        public override Collection<RejectedGood> RetrieveByQueryCustom1(string whereClause)
+        {
+            return RetrieveCustom1(null, whereClause, "");
         }
 
         /// <summary>
@@ -483,6 +488,71 @@ namespace eProcurement_DAL
                     entity.RejectDate = Convert.ToInt64(rd["AEDAT"]);
                 
                 entity.AcknowledgeStatus  = rd["ACKSTS"].ToString();
+
+                entities.Add(entity);
+
+            }
+            // close reader
+            rd.Close();
+
+            if (epTran == null)
+                if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
+
+            return entities;
+        }
+
+
+
+        private Collection<RejectedGood> RetrieveCustom1(EpTransaction epTran, string whereClause, string sortClaues)
+        {
+            Collection<RejectedGood> entities = new Collection<RejectedGood>();
+
+            SqlCommand cm = new SqlCommand();
+            cm.CommandType = CommandType.Text;
+
+            //set connection
+            SqlConnection connection;
+            if (epTran == null)
+                connection = DataManager.GetConnection();
+            else
+                connection = epTran.GetSqlConnection();
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+            cm.Connection = connection;
+
+            //set transaction
+            if (epTran != null)
+                cm.Transaction = epTran.GetSqlTransaction();
+
+            //Retrieve Data
+            string selectCommand = "SELECT r.[EBELN],r.[EBELP],r.[DOCNO],r.[ITEMNO],r.[MATNR],r.[TRNQTY],r.[MEINS],r.[REFNO],r.[AEDAT],r.[ACKSTS] FROM REJECTION r INNER JOIN PURHDR p ON p.EBELN = r.EBELN";
+            if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
+            if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
+
+            cm.CommandText = selectCommand;
+            SqlDataReader rd = cm.ExecuteReader();
+            while (rd.Read())
+            {
+                RejectedGood entity = new RejectedGood();
+                entity.OrderNumber = rd["EBELN"].ToString();
+                entity.ItemSequence = rd["EBELP"].ToString();
+                entity.DocumentNumber = rd["DOCNO"].ToString();
+                entity.DocumentSerial = rd["ITEMNO"].ToString();
+                entity.MaterialNumber = rd["MATNR"].ToString();
+
+                if (rd.IsDBNull(5))
+                    entity.RejectQuantity = null;
+                else
+                    entity.RejectQuantity = Convert.ToDecimal(rd["TRNQTY"].ToString());
+
+                entity.UnitofMeasure = rd["MEINS"].ToString();
+                entity.ReferenceNumber = rd["REFNO"].ToString();
+
+                if (rd.IsDBNull(8))
+                    entity.RejectDate = null;
+                else
+                    entity.RejectDate = Convert.ToInt64(rd["AEDAT"]);
+
+                entity.AcknowledgeStatus = rd["ACKSTS"].ToString();
 
                 entities.Add(entity);
 
