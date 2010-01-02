@@ -114,6 +114,24 @@ namespace eProcurement_BLL.DeliveryOrder
             }
         }
 
+        /// <summary>
+        /// public Collection<eProcurement_DAL.RejectedGood> RetrieveAllRejectedGood()
+        /// To retrieve all Rejected Goods Details
+        /// </summary>
+        /// <returns>Collection<eProcurement_DAL.RejectedGood> returns here</returns>
+        public Collection<eProcurement_DAL.RejectedGood> RetrieveAllRejectedGood()
+        {
+            try
+            {
+                return mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveAll();
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
 
         
 
@@ -171,6 +189,47 @@ namespace eProcurement_BLL.DeliveryOrder
 
 
                 return mainController.GetDAOCreator().CreateDeliveryOrderDAO().RetrieveByQuery(whereclause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
+
+        /// <summary>
+        /// public Collection<eProcurement_DAL.DeliveryOrder> RetrieveByQueryRejectedGood(string ordernumber, string materialnumber, string deliverynumber, string documentnumber, string supplierid)
+        /// 
+        /// To retrieve RejectedGood based on search criteria
+        /// </summary>
+        /// <param name="ordernumber">ordernumber goes here</param>
+        /// <param name="materialnumber">materialnumber goes here</param>
+        /// <param name="deliverynumber">deliverynumber goes here</param>
+        /// <param name="documentnumber">documentnumber goes here</param>
+        /// <param name="supplierid">supplierid goes here</param>
+        /// <returns>Collection<eProcurement_DAL.RejectedGood> returns here</returns>
+        public Collection<eProcurement_DAL.RejectedGood> RetrieveByQueryRejectedGood(string ordernumber, string materialnumber, string deliverynumber, string documentnumber, string supplierid)
+        {
+            try
+            {
+                string whereclause = "LIFNR='" + Utility.EscapeSQL(supplierid) + "' ";
+
+                if (ordernumber != "")
+                    whereclause += "AND EBELN like'" + Utility.EscapeSQL(ordernumber) + "' ";
+
+                if (materialnumber != "")
+                    whereclause += " AND MATNR like'" + Utility.EscapeSQL(materialnumber) + "' ";
+
+                if (deliverynumber != "")
+                    whereclause += "  AND VBELN like'" + Utility.EscapeSQL(deliverynumber) + "' ";
+
+                if (deliverynumber != "")
+                    whereclause += "  AND DOCNO like'" + Utility.EscapeSQL(documentnumber) + "' ";
+
+
+
+                return mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByQuery(whereclause);
             }
             catch (Exception ex)
             {
