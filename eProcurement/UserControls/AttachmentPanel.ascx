@@ -51,14 +51,14 @@
                                 </tr>
                             </table>  
                         </ItemTemplate> 
-                        <ItemStyle Wrap="false" Width="30%"/>
+                        <ItemStyle Wrap="false" Width="40%"/>
                     </asp:TemplateField>
                      <asp:TemplateField HeaderText="Size" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                         <ItemTemplate>
                             <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td>&nbsp;</td>
-                                    <td Width="100%" nowrap>
+                                    <td Width="100%" nowrap align="right">
                                         <asp:Label ID="lblFileSize" runat="server" CssClass="" Text='<%# Eval("FileSize") %> '></asp:Label>  
                                     </td>
                                    <td>&nbsp;</td>
@@ -72,14 +72,14 @@
                             <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td>&nbsp;</td>
-                                    <td Width="100%" nowrap="nowrap">
+                                    <td Width="100%" nowrap="nowrap" align="center" >
                                         <asp:Label ID="lblAttachedDate" runat="server" CssClass="" Text=' <%# Eval("AttachDate") %> '></asp:Label>
                                     </td>
                                    <td>&nbsp;</td>
                                 </tr>
                             </table>  
                         </ItemTemplate> 
-                        <ItemStyle Wrap="false" Width="15%"/>
+                        <ItemStyle Wrap="false" Width="10%"/>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Created By" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                         <ItemTemplate>
@@ -93,7 +93,7 @@
                                 </tr>
                             </table>  
                         </ItemTemplate> 
-                        <ItemStyle Wrap="false" Width="15%"/>
+                        <ItemStyle Wrap="false" Width="10%"/>
                     </asp:TemplateField>    
                     <asp:TemplateField HeaderText="Sel" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                         <ItemTemplate>
@@ -135,12 +135,6 @@
 </table>
 <table id="tblUpload" runat="server" width="100%" cellpadding="0" cellspacing="0"
     border="0">
-    <tr>
-        <td colspan="2" style="height: 13px">
-            <asp:RequiredFieldValidator ID="ValidatorRFFileUpload" runat="server" ControlToValidate="fuAttachment"
-                Display="Dynamic" ErrorMessage="Invalid file path" Font-Bold="True"></asp:RequiredFieldValidator>
-        </td>
-    </tr>
     <tr>
         <td id="tdFirstColumn" runat="server" valign="middle" style="width: 13%" nowrap>
             <asp:Label ID="lblFileUpload" runat="server" Text="Attachment"></asp:Label>
