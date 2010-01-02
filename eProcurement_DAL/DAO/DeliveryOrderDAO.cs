@@ -302,7 +302,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [EBELN],[EBELP],[VBELN],[MATNR],[BEDAT],[WEMNG],[RECSTS] FROM dlvord";
+            string selectCommand = "SELECT [EBELN],[EBELP],[VBELN],[MATNR],[BEDAT],[WEMNG],[RECSTS],[LIFNR] FROM dlvord";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClause)) selectCommand += " order by " + sortClause;
 
