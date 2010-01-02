@@ -9,6 +9,7 @@ using eProcurement_BLL.PurchaseOrder;
 using eProcurement_BLL.Notification;
 using eProcurement_BLL.PurchaseContract;
 using eProcurement_BLL.Delivery;
+using eProcurement_BLL.Quotation;
 
 namespace eProcurement_BLL
 {
@@ -41,7 +42,7 @@ namespace eProcurement_BLL
         private PurchaseExpeditingController purchaseExpeditingController = null;
         private PurchaseContractController purchaseContractController = null;        
         private DeliveryController deliveryController = null;
-        
+        private AttachmentController attachmentController = null;
         
 
         public MainController()
@@ -150,7 +151,12 @@ namespace eProcurement_BLL
             return this.deliveryController;
         }
 
-        
+        public AttachmentController GetAttachmentController()
+        {
+            if (this.attachmentController == null)
+                this.attachmentController = new AttachmentController(this);
+            return this.attachmentController;
+        }
         
         
 

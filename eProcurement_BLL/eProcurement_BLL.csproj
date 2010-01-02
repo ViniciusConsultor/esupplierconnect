@@ -64,6 +64,7 @@
     <Compile Include="PurchaseOrder\ShortageMaterialVO.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Quotation\AttachmentController.cs" />
     <Compile Include="Quotation\QuotationController.cs">
       <SubType>Code</SubType>
     </Compile>

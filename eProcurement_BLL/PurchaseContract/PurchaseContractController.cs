@@ -82,14 +82,14 @@ namespace eProcurement_BLL.PurchaseContract
             }
         }
 
-        public void AcknowledgePurchaseContract(Collection<ContractHeader> expeditings)
+        public void AcknowledgePurchaseContract(Collection<ContractHeader> contheaders)
         {
             try
             {
                 EpTransaction tran = DataManager.BeginTransaction();
                 try
                 {
-                    foreach (ContractHeader vo in contheader)
+                    foreach (ContractHeader vo in contheaders)
                     {
                         ContractHeader contheader = mainController.GetDAOCreator().CreateContractHeaderDAO()
                             .RetrieveByKey(vo.ContractNumber);
