@@ -132,13 +132,13 @@ public partial class PurchaseContract_PurchaseContractList :BaseForm
                         SearchCriteriaVO searchCriteriaVO = new SearchCriteriaVO();
                         searchCriteriaVO.ContractNumber = Request.QueryString["ContractNumber"];
                         if (!string.IsNullOrEmpty(Request.QueryString["ContractFromDate"]))
-                            searchCriteriaVO.FromDate = Convert.ToInt64(Request.QueryString["ContractFromDate"].ToString());
+                            searchCriteriaVO.ContractFromDate = Convert.ToInt64(Request.QueryString["ContractFromDate"].ToString());
                         else
-                            searchCriteriaVO.FromDate = null;
+                            searchCriteriaVO.ContractFromDate = null;
                         if (!string.IsNullOrEmpty(Request.QueryString["ContractToDate"]))
-                            searchCriteriaVO.ToDate = Convert.ToInt64(Request.QueryString["ContractToDate"].ToString());
+                            searchCriteriaVO.ContractToDate = Convert.ToInt64(Request.QueryString["ContractToDate"].ToString());
                         else
-                            searchCriteriaVO.ToDate = null;
+                            searchCriteriaVO.ContractToDate = null;
                         if(!string.IsNullOrEmpty(Request.QueryString["ValidFromDate"]))
                             searchCriteriaVO.ValidFromDate=Convert.ToInt64(Request.QueryString["ValidFromDate"].ToString());
                         else
@@ -269,21 +269,29 @@ public partial class PurchaseContract_PurchaseContractList :BaseForm
     private Collection<ContractHeader> GetData()
     {
         Collection<ContractHeader> pcColl = new Collection<ContractHeader>();
-        if (string.Compare(m_FuncFlag, "ACK_CONTRACT", false) == 0)
-        {
-            pcColl = mainController.GetContractHeaderController().GetPendingAckContractList
-           (m_SearchCriteriaVO.ContractNumber, m_SearchCriteriaVO.ContractFromDate, m_SearchCriteriaVO.ContractToDate,  m_SearchCriteriaVO.ValidFromDate, m_SearchCriteriaVO.ValidToDate);
-        }
-                
-        if (string.Compare(m_FuncFlag, "VIEW_CONTRACT_SUPPLIER", false) == 0 ||
+
+        //pcColl = mainController.GetPurchaseContractController().SearchPurchaseContract
+        //(m_SearchCriteriaVO.ContractNumber, m_SearchCriteriaVO.ContractFromDate, m_SearchCriteriaVO.ContractToDate,
+        //    m_SearchCriteriaVO.ExpiryFromDate, m_SearchCriteriaVO.ExpiryToDate, m_SearchCriteriaVO.SupplierId, m_SearchCriteriaVO.Status);
+
+        if (string.Compare(m_FuncFlag, "ACK_CONTRACT", false) == 0 || string.Compare(m_FuncFlag, "VIEW_CONTRACT_SUPPLIER", false) == 0 ||
             string.Compare(m_FuncFlag, "VIEW_CONTRACT_BUYER", false) == 0)
         {
-            pcColl = mainController.GetContractHeaderController().EnquiryContractList
-            (m_SearchCriteriaVO.ContractNumber, m_SearchCriteriaVO.ContractFromDate, m_SearchCriteriaVO.ContractToDate, m_SearchCriteriaVO.ValidFromDate, m_SearchCriteriaVO.ValidToDate,m_SearchCriteriaVO.SupplierId,m_FuncFlag.Status);
+            pcColl = mainController.GetPurchaseContractController().SearchPurchaseContract
+        (m_SearchCriteriaVO.ContractNumber, m_SearchCriteriaVO.ContractFromDate, m_SearchCriteriaVO.ContractToDate,
+            m_SearchCriteriaVO.ValidFromDate, m_SearchCriteriaVO.ValidToDate, m_SearchCriteriaVO.SupplierId, m_SearchCriteriaVO.Status);
         }
+
+        //if (string.Compare(m_FuncFlag, "VIEW_CONTRACT_SUPPLIER", false) == 0 ||
+        //    string.Compare(m_FuncFlag, "VIEW_CONTRACT_BUYER", false) == 0)
+        //{
+        //    pcColl = mainController.GetPurchaseContractController().SearchPurchaseContract
+        //    (m_SearchCriteriaVO.ContractNumber, m_SearchCriteriaVO.ContractFromDate, m_SearchCriteriaVO.ContractToDate,
+        //    m_SearchCriteriaVO.ValidFromDate, m_SearchCriteriaVO.ValidToDate, m_SearchCriteriaVO.SupplierId, m_SearchCriteriaVO.Status);
+        //}
         return pcColl;
     }
-
+    
     protected void gvData_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         gvData.PageIndex = e.NewPageIndex;
@@ -319,9 +327,19 @@ public partial class PurchaseContract_PurchaseContractList :BaseForm
                 {
                     url += "&ContractToDate=" + m_SearchCriteriaVO.ContractToDate.Value.ToString();
                 }
-                //url += "&BuyerName=" + m_SearchCriteriaVO.BuyerName;
+                if (m_SearchCriteriaVO.ValidFromDate.HasValue)
+                {
+                    url += "&ValidFromDate=" + m_SearchCriteriaVO.ValidFromDate.Value.ToString();
+                }
+                if (m_SearchCriteriaVO.ValidToDate.HasValue)
+                {
+                    url += "&ValidToDate=" + m_SearchCriteriaVO.ValidToDate.Value.ToString();
+                }
+                url += "&SupplierId=" + m_SearchCriteriaVO.SupplierId;
+                url += "&Status=" + m_SearchCriteriaVO.Status;
                 url += "&PageIdx=" + gvData.PageIndex.ToString();
-
+                //url += "&BuyerName=" + m_SearchCriteriaVO.BuyerName;
+            
                 Session[SessionKey.ContractNumber] = contractNo;
             }
             
@@ -338,12 +356,20 @@ public partial class PurchaseContract_PurchaseContractList :BaseForm
                 {
                     url += "&ContractToDate=" + m_SearchCriteriaVO.ContractToDate.Value.ToString();
                 }
+                if (m_SearchCriteriaVO.ValidFromDate.HasValue)
+                {
+                    url += "&ValidFromDate=" + m_SearchCriteriaVO.ValidFromDate.Value.ToString();
+                }
+                if (m_SearchCriteriaVO.ValidToDate.HasValue)
+                {
+                    url += "&ValidToDate=" + m_SearchCriteriaVO.ValidToDate.Value.ToString();
+                }
                 url += "&SupplierId=" + m_SearchCriteriaVO.SupplierId;
                 //url += "&BuyerName=" + m_SearchCriteriaVO.BuyerName;
-                //url += "&Status=" + m_SearchCriteriaVO.Status;
+                url += "&Status=" + m_SearchCriteriaVO.Status;
                 url += "&PageIdx=" + gvData.PageIndex.ToString();
 
-                Session[SessionKey.OrderNumber] = contractNo;
+                Session[SessionKey.ContractNumber] = contractNo;
             }
 
             if (url != null)
@@ -381,27 +407,27 @@ public partial class PurchaseContract_PurchaseContractList :BaseForm
                 strErrorMsg.Append(MakeListItem("Please select a valid value for Contract Date To."));
             }
         }
-        if (dtpExpiryFrom.Text != "")
+        if (dtpValFrom.Text != "")
         {
-            if (!dtpExpiryFrom.IsValidDate)
+            if (!dtpValFrom.IsValidDate)
             {
                 bIsValidExp = false;
-                strErrorMsg.Append(MakeListItem("Please select a valid value for Expiry Date From."));
+                strErrorMsg.Append(MakeListItem("Please select a valid value for Valid Date From."));
             }
         }
 
-        if (dtpExpiryTo.Text != "")
+        if (dtpValTo.Text != "")
         {
-            if (!dtpExpiryTo.IsValidDate)
+            if (!dtpValTo.IsValidDate)
             {
                 bIsValidExp = false;
-                strErrorMsg.Append(MakeListItem("Please select a valid value for Expiry Date To."));
+                strErrorMsg.Append(MakeListItem("Please select a valid value for Valid Date To."));
             }
         }
-        if (!bIsValid)
-        {
-            return strErrorMsg.ToString();
-        }
+        //if (!bIsValid)
+        //{
+        //    return strErrorMsg.ToString();
+        //}
 
         if (dtpContractFrom.SelectedDateString != "" && dtpContractTo.SelectedDateString != "")
         {
@@ -414,12 +440,12 @@ public partial class PurchaseContract_PurchaseContractList :BaseForm
                 return strErrorMsg.ToString();
             }
         }
-        if (!bIsValidExp)
+        if ((!bIsValidExp) || (!bIsValid) )
         {
             return strErrorMsg.ToString();
         }
 
-        if (dtpExpiryFrom.SelectedDateString != "" && dtpExpiryTo.SelectedDateString != "")
+        if (dtpValFrom.SelectedDateString != "" && dtpValTo.SelectedDateString != "")
         {
             DateTime dtValFrom = dtpValFrom.SelectedDate;
             DateTime dtValTo = dtpValTo.SelectedDate;

@@ -109,7 +109,7 @@ public partial class PurchaseContract_PurchaseContractDetails : BaseForm
                     {
                         m_FuncFlag = "VIEW_CONTRACT";
                     }
-                   
+
                 }
                 base.Page_Load(sender, e);
                 /***************************************************/
@@ -144,8 +144,8 @@ public partial class PurchaseContract_PurchaseContractDetails : BaseForm
             if (string.Compare(m_FuncFlag, "ACK_CONTRACT", false) == 0)
             {
                 lblSubPath.Text = "Acknowledge Contract";
-                btnReject.Visible = false;
-                btnAccept.Visible = false;
+                //btnReject.Visible = false;
+                //btnAccept.Visible = false;
             }
 
             //if (string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
@@ -155,7 +155,7 @@ public partial class PurchaseContract_PurchaseContractDetails : BaseForm
             //    btnAccept.Visible = false;
             //}
 
-          if (string.Compare(m_FuncFlag, "VIEW_CONTRACT", false) == 0)
+            if (string.Compare(m_FuncFlag, "VIEW_CONTRACT", false) == 0)
             {
                 lblSubPath.Text = "View Contract Details";
                 btnAcknowledge.Visible = false;
@@ -176,11 +176,11 @@ public partial class PurchaseContract_PurchaseContractDetails : BaseForm
 
         }
 
-       return true;
+        return true;
     }
     private void InitContractHeader()
     {
-        ContractHeader pcHeader = mainController.GetContractHeaderController.
+        ContractHeader pcHeader = mainController.GetPurchaseContractController().
             GetContractHeader(Session[SessionKey.ContractNumber].ToString());
         if (pcHeader == null)
         {
@@ -216,7 +216,7 @@ public partial class PurchaseContract_PurchaseContractDetails : BaseForm
             lblValidEnd.Text = GetShortDate(GetDateTimeFormStoredValue(pcHeader.ValidityEnd.Value));
         else
             lblValidEnd.Text = "";
-         //lblGSTAmount.Text = pcHeader.GstAmount.ToString();        
+        //lblGSTAmount.Text = pcHeader.GstAmount.ToString();        
         lblContactPerson.Text = pcHeader.SalesContactPerson;
         lblTelephone.Text = pcHeader.Telephone;
         lblContractValue.Text = pcHeader.ContractValue.ToString();
@@ -227,30 +227,30 @@ public partial class PurchaseContract_PurchaseContractDetails : BaseForm
 
     private void InitItems()
     {
-        Collection<ContractItem> items = mainController.GetContractItemController()
-            .GetContractItemController(Session[SessionKey.ContractNumber].ToString());
+        Collection<ContractItem> items = mainController.GetPurchaseContractController()
+            .GetPurchaseContractItems(Session[SessionKey.ContractNumber].ToString());
         gvItem.DataSource = items;
         gvItem.DataBind();
 
     }
     protected void gvItem_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-        {
-            GridView gvSchedule = (GridView)e.Item.FindControl("gvSchedule");
-            Collection<PurchaseExpediting> schedules = new Collection<PurchaseExpediting>();
-            int iCount = 2;
-            for (int i = 1; i <= iCount; i++)
-            {
-                PurchaseExpediting obj = new PurchaseExpediting();
-                obj.OrderNumber = "000000000" + i;
-                obj.ItemSequence = "000" + i;
-                obj.ScheduleSequence = "0" + i;
-                schedules.Add(obj);
-            }
-            gvSchedule.DataSource = schedules;
-            gvSchedule.DataBind();
-        }
+        //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        //{
+        //    GridView gvSchedule = (GridView)e.Item.FindControl("gvSchedule");
+        //    Collection<PurchaseExpediting> schedules = new Collection<PurchaseExpediting>();
+        //    int iCount = 2;
+        //    for (int i = 1; i <= iCount; i++)
+        //    {
+        //        PurchaseExpediting obj = new PurchaseExpediting();
+        //        obj.OrderNumber = "000000000" + i;
+        //        obj.ItemSequence = "000" + i;
+        //        obj.ScheduleSequence = "0" + i;
+        //        schedules.Add(obj);
+        //    }
+        //    gvSchedule.DataSource = schedules;
+        //    gvSchedule.DataBind();
+        //}
     }
     protected void btnAcknowledge_Click(object sender, EventArgs e)
     {
@@ -258,7 +258,7 @@ public partial class PurchaseContract_PurchaseContractDetails : BaseForm
         {
             CheckSessionTimeOut();
 
-            string strErrorMsg = ValidateInput();
+            //string strErrorMsg = ValidateInput();
 
             if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
             {
@@ -267,34 +267,10 @@ public partial class PurchaseContract_PurchaseContractDetails : BaseForm
                 return;
             }
 
-            //Collection<PurchaseOrderItemSchedule> schedules = new Collection<PurchaseOrderItemSchedule>();
-
-            foreach (RepeaterItem rowItem in gvItem.Items)
-            {
-                Label lblItemNo = (Label)rowItem.FindControl("lblItemSequence");
-                //GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
-                //foreach (GridViewRow rowSchedule in gvSchedule.Rows)
-                //{
-                //    Label lblPurchaseOrderScheduleSequence = (Label)rowSchedule.FindControl("lblScheduleSequence");
-                //    UserControls_DatePicker dtpAck = (UserControls_DatePicker)rowSchedule.FindControl("dtAcknowledgeDate");
-                //    PurchaseOrderItemSchedule schedule = new PurchaseOrderItemSchedule();
-                //    schedule.PurchaseOrderNumber = Session[SessionKey.OrderNumber].ToString();
-                //    schedule.PurchaseOrderItemSequence = lblItemNo.Text;
-                //    schedule.PurchaseOrderScheduleSequence = lblPurchaseOrderScheduleSequence.Text;
-                //    schedule.AcknowledgementDate = GetStoredDateValue(dtpAck.SelectedDate);
-                //    schedules.Add(schedule);
-                //}
-            }
-
             if (string.Compare(m_FuncFlag, "ACK_CONTRACT", false) == 0)
             {
-                mainController.GetContractHeaderController().AcknowledgePurchaseContract(ContractItem);
+                mainController.GetPurchaseContractController().AcknowledgePurchaseContract(ContractHeader);
             }
-
-            //if (string.Compare(m_FuncFlag, "VIEW_CONTRACT_BUYER", false) == 0)
-            //{
-            //    mainController.GetOrderHeaderController().AcknowledgePurchaseOrderByBuyer(schedules);
-            //}
 
             btnAcknowledge.Enabled = false;
             plMessage.Visible = true;
@@ -325,47 +301,4 @@ public partial class PurchaseContract_PurchaseContractDetails : BaseForm
         }
     }
 
-    #region validation
-    private string ValidateInput()
-    {
-        System.Text.StringBuilder strErrorMsg = new System.Text.StringBuilder(string.Empty);
-        bool bIsValid = true;
-        int iCount = 0;
-        foreach (RepeaterItem rowItem in gvItem.Items)
-        {
-            //GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
-            //foreach (GridViewRow rowSchedule in gvSchedule.Rows)
-            //{
-            //    UserControls_DatePicker dtpAck = (UserControls_DatePicker)rowSchedule.FindControl("dtAcknowledgeDate");
-            //    iCount++;
-            //    if (dtpAck.Text == "")
-            //    {
-            //        bIsValid = false;
-            //        strErrorMsg.Append(MakeListItem("Please select a value for Acknowledge Date."));
-            //    }
-            //    else
-            //    {
-            //        if (!dtpAck.IsValidDate)
-            //        {
-            //            bIsValid = false;
-            //            strErrorMsg.Append(MakeListItem("Please select a valid value for Acknowledge Date."));
-            //        }
-            //    }
-            //    if (!bIsValid)
-            //        break;
-            //}
-        }
-
-        if (iCount == 0)
-        {
-            strErrorMsg.Append(MakeListItem("You didn't acknowledge any contract."));
-        }
-
-        return strErrorMsg.ToString();
-    }
-    #endregion
-    protected void gvItem_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-
-    }
 }

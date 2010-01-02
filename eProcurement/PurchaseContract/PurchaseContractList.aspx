@@ -78,15 +78,17 @@
                                 </table>
                             </td>
                         </tr>
-                        <tr>
+                     <asp:Panel runat="server" ID="plshSupplier" Visible="false">
+                       <tr>
                             <td>
-                                <asp:Label ID="lblTitleSupplier" runat="server" Text="Supplier" Width="130px"></asp:Label>
+                                <asp:Label ID="lblSupplier" runat="server" Text="Supplier" Width="130px"></asp:Label>
                                 </td>
                             <td align="left" colspan="4" style="width: 100%;">
-                                <asp:TextBox ID="txtSupplier" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtSupplierId" runat="server"></asp:TextBox>
                                 <img style="cursor: hand; vertical-align:middle" id="imgSupplierSearch" height="20" src="../Images/Common/Search.gif" runat="server" />
                                 </td>
                         </tr>
+                      </asp:Panel> 
                         <tr>
                             <td>
                                 <asp:Label ID="lblTitleContractNum" runat="server" Text="Contract Number" Width="130px"></asp:Label>
