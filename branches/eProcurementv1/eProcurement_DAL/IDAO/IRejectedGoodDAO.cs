@@ -21,6 +21,8 @@ namespace eProcurement_DAL
         #region RetrieveByQuery
         public abstract Collection<RejectedGood> RetrieveByQuery(string whereClause);
 
+        public abstract Collection<RejectedGood> RetrieveByQueryCustom1(string whereClause);
+
         public abstract Collection<RejectedGood> RetrieveByQuery(string whereClause, string sortClaues);
 
         public abstract Collection<RejectedGood> RetrieveByQuery(EpTransaction epTran, string whereClause);
