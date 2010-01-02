@@ -38,35 +38,53 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-<<<<<<< .mine
     <Compile Include="Delivery\DeliveryController.cs" />
-=======
-    <Compile Include="DeliveryOrder\DeliveryOrderController.cs" />
->>>>>>> .r288
     <Compile Include="Log\LogHelper.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="Notification\NotificationController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< .mine
-    <Compile Include="PurchaseContract\ContractHeaderController.cs" />
-    <Compile Include="PurchaseContract\ContractItemController.cs" />
-    <Compile Include="PurchaseContract\PurchaseContractController.cs" />
-=======
-    <Compile Include="PurchaseContract\PurchaseContractController.cs" />
->>>>>>> .r288
-    <Compile Include="PurchaseOrder\OrderHeaderController.cs" />
-    <Compile Include="PurchaseOrder\OrderItemController.cs" />
-    <Compile Include="PurchaseOrder\PurchaseExpeditingController.cs" />
-    <Compile Include="PurchaseOrder\PurchaseExpeditingVO.cs" />
-    <Compile Include="PurchaseOrder\ShortageMaterialController.cs" />
-    <Compile Include="PurchaseOrder\ShortageMaterialVO.cs" />
-    <Compile Include="Quotation\QuotationController.cs" />
-    <Compile Include="Requisition\RequisitionController.cs" />
-    <Compile Include="Supplier\SupplierController.cs" />
-    <Compile Include="UserManagement\LoginController.cs" />
-    <Compile Include="UserManagement\LoginUserVO.cs" />
-    <Compile Include="UserManagement\PasswordGenerator.cs" />
-    <Compile Include="UserManagement\UserController.cs" />
+    <Compile Include="PurchaseContract\PurchaseContractController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PurchaseOrder\OrderHeaderController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PurchaseOrder\OrderItemController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PurchaseOrder\PurchaseExpeditingController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PurchaseOrder\PurchaseExpeditingVO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PurchaseOrder\ShortageMaterialController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PurchaseOrder\ShortageMaterialVO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Quotation\QuotationController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Requisition\RequisitionController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Supplier\SupplierController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UserManagement\LoginController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UserManagement\LoginUserVO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UserManagement\PasswordGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UserManagement\UserController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -74,9 +92,6 @@
       <Project>{27E99553-CBFF-48C1-A103-10830F3A52EB}</Project>
       <Name>eProcurement_DAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Lib\log4net.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

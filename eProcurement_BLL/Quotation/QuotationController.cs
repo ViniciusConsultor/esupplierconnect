@@ -104,15 +104,15 @@ namespace eProcurement_BLL
 
                 whereCluase = " 1=1";
 
-                if (string.Compare(loginUser.ProfileType.Trim(), ProfileType.Supplier, true) == 0)
-                {
-                    whereCluase += " AND TRIM(LTRIM(LIFNR)) = '" + this.mainController.GetLoginUserVO().SupplierId.Trim() + "'";
-                }
+                //if (string.Compare(loginUser.ProfileType.Trim(), ProfileType.Supplier, true) == 0)
+                //{
+                 //   whereCluase += " AND TRIM(LTRIM(LIFNR)) = '" + this.mainController.GetLoginUserVO().SupplierId.Trim() + "'";
+                //}
 
-               if (supplierId != "")
-                {
-                    whereCluase += " AND RTRIM(LTRIM(LIFNR))='" + Utility.EscapeSQL(supplierId.Trim()) + "' ";
-                }
+              // if (supplierId != "")
+                //{
+                   // whereCluase += " AND RTRIM(LTRIM(LIFNR))='" + Utility.EscapeSQL(supplierId.Trim()) + "' ";
+               // }
                 if (quotationNumber.Trim() != "")
                 {
                     whereCluase += " AND RTRIM(LTRIM(ANGNR)) like '" + Utility.EscapeSQL(quotationNumber.Trim()) + "' ";
@@ -150,17 +150,17 @@ namespace eProcurement_BLL
                     }
 
                     //Update Quotation header
-                    if (acknowledge)
-                    {
-                        header.RecordStatus = QuotationStatus.Acknowledge;
-                        iReturn = 1;
-                    }
-                    else
-                    if (accept)
-                    {
-                        header.RecordStatus = QuotationStatus.Accept;
-                        iReturn = 2;
-                    }
+                   // if (acknowledge)
+                   // {
+                      //  header.RecordStatus = QuotationStatus.Acknowledge;
+                       // iReturn = 1;
+                    //}
+                    //else
+                    //if (accept)
+                    //{
+                     //   header.RecordStatus = QuotationStatus.Accept;
+                      //  iReturn = 2;
+                    //}
                     else
                     {
                         if (string.Compare(header.RecordStatus, QuotationStatus.Reject, true) == 0)
@@ -170,7 +170,7 @@ namespace eProcurement_BLL
                         }
                         else
                         {
-                            header.RecordStatus = QuotationStatus.No;
+                           // header.RecordStatus = QuotationStatus.No;
                         
                         }
                     }
