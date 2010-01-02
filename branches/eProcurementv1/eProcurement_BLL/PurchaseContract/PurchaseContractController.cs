@@ -81,5 +81,58 @@ namespace eProcurement_BLL.PurchaseContract
                 throw (ex);
             }
         }
+
+        public void AcknowledgePurchaseContract(Collection<ContractHeader> expeditings)
+        {
+            try
+            {
+                EpTransaction tran = DataManager.BeginTransaction();
+                try
+                {
+                    foreach (ContractHeader vo in contheader)
+                    {
+                        ContractHeader contheader = mainController.GetDAOCreator().CreateContractHeaderDAO()
+                            .RetrieveByKey(vo.ContractNumber);
+                        if (contheader == null)
+                        {
+                            throw new Exception(string.Format("Purchase contract record doesn't exist. Contract Number:{0}.",
+                                vo.ContractNumber));
+                        }
+
+                        if (string.Compare(contheader.AcknowledgeStatus, ContractAckStatus.Yes, true) != 0)
+                        {
+                            throw new Exception(string.Format("Purchase contract record has already been updated by other user. Contract Number:{0}.",
+                                vo.ContractNumber));
+                        }
+
+                        //bool isFirst = true;
+                        //if (vo.PromiseDate2.HasValue)
+                        //    isFirst = false;
+
+                        contheader.AcknowledgeStatus = ContractAckStatus.Yes;
+                        
+                        mainController.GetDAOCreator().CreateContractHeaderDAO()
+                                .Update(tran, contheader);
+                    }
+
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw (ex);
+                }
+                finally
+                {
+                    tran.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
     }
 }
