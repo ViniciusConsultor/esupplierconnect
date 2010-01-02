@@ -179,7 +179,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblOrderDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("OrderDate")))) %> '></asp:Label>
+                                            <asp:Label ID="lblMaterialNumber" runat="server" CssClass="" Text='<%# Eval("MaterialNumber")  %> '></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -193,7 +193,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" align="right">
-                                            <asp:Label ID="lblAmount" runat="server" CssClass="" Text='<%# Eval("OrderAmount") %>'></asp:Label>
+                                            <asp:Label ID="lblDeliveryNumber" runat="server" CssClass="" Text='<%# Eval("DeliveryNumber") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -207,9 +207,8 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" align="right">
-                                            <asp:Label ID="lblGSTAmount" runat="server" CssClass="" Text='<%# Eval("GstAmount") %>'></asp:Label>
-                                            
-                                            <asp:Label ID="lblOrderDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("OrderDate")))) %> '></asp:Label>
+                                                                                        
+                                            <asp:Label ID="lblDeliveryDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("DeliveryDate")))) %> '></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -223,7 +222,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%">
-                                            <asp:Label ID="lblCurrency" runat="server" CssClass="" Text='<%# Eval("CurrencyCode") %>'></asp:Label>
+                                            <asp:Label ID="lblDeliveryQuantity" runat="server" CssClass="" Text='<%# Eval("DeliveryQuantity") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
