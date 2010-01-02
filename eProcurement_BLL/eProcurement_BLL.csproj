@@ -38,12 +38,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+<<<<<<< .mine
+    <Compile Include="Delivery\DeliveryController.cs" />
+=======
     <Compile Include="DeliveryOrder\DeliveryOrderController.cs" />
+>>>>>>> .r288
     <Compile Include="Log\LogHelper.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="Notification\NotificationController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< .mine
+    <Compile Include="PurchaseContract\ContractHeaderController.cs" />
+    <Compile Include="PurchaseContract\ContractItemController.cs" />
     <Compile Include="PurchaseContract\PurchaseContractController.cs" />
+=======
+    <Compile Include="PurchaseContract\PurchaseContractController.cs" />
+>>>>>>> .r288
     <Compile Include="PurchaseOrder\OrderHeaderController.cs" />
     <Compile Include="PurchaseOrder\OrderItemController.cs" />
     <Compile Include="PurchaseOrder\PurchaseExpeditingController.cs" />
