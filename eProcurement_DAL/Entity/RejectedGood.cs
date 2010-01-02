@@ -96,5 +96,8 @@ namespace eProcurement_DAL
             get { return acknowledgeStatus; }
             set { acknowledgeStatus = value; }
         }
+
+
+        
     }
 }
