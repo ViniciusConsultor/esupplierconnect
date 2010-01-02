@@ -54,6 +54,11 @@ namespace eProcurement_DAL
         public abstract IContractHeaderDAO CreateContractHeaderDAO();
         public abstract IContractItemDAO CreateContractItemDAO();
         public abstract IPurchaseExpeditingViewDAO CreatePurchaseExpeditingViewDAO();
+<<<<<<< .mine
+        public abstract IRejectedGoodDAO CreateRejectedGoodDAO();
+
+=======
         public abstract IRejectedGoodDAO CreateRejectedGood();
+>>>>>>> .r311
     }
 }
