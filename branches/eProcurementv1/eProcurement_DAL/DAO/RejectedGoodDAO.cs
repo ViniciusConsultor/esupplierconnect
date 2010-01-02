@@ -178,7 +178,7 @@ namespace eProcurement_DAL
         /// </summary>
         /// <param name="PurchaseOrderItem">PurchaseOrderItem Object</param>
         /// 
-        public override void Insert(PurchaseOrderItem entity)
+        public override void Insert(RejectedGood entity)
         {
             Insert(null, entity);
         }
