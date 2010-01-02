@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="QuotationRequestCreate.aspx.cs" Inherits="Quotation_QuotationRequestCreate" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageSimple.master" AutoEventWireup="true" CodeFile="QuotationRequestCreate.aspx.cs" Inherits="Quotation_QuotationRequestCreate" Title="Untitled Page" %>
 <%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
 <!--Page title-->
@@ -12,6 +12,7 @@
 <!--Message Panel-->
 <!--<asp:Panel ID="plMessage" runat="server" Visible="false">-->
         <asp:Label runat="server" ID="lblMessage" CssClass="" Visible="True"></asp:Label>
+    <asp:Label ID="lblErr" runat="server" ForeColor="Red" Width="251px"></asp:Label>
 <!--</asp:Panel>-->
 <!--Search Criteria Panel-->
  <!--<asp:Panel ID="plSearch" runat="server" Visible="true">-->
@@ -102,6 +103,7 @@
                         <table width="100%">
                             <tr class="gridHeader" style="height:25px">
 	                            <td style="vertical-align:middle; text-align:center;" width="5%">Itm<BR>Seq</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="20%">Request NO</td>
 	                            <td style="vertical-align:middle; text-align:center;" width="20%">Material/<BR>Description</td>
 	                            <td style="vertical-align:middle; text-align:center;" width="10%">Req Qty</td>
 	                            <td style="vertical-align:middle; text-align:center;" width="8%">UnitMeasure</td>
@@ -117,6 +119,15 @@
                                         <tr> 
                                             <td Width="100%" nowrap="nowrap">
                                                 <asp:Label ID="lblItemSequence" runat="server" CssClass="" Text='<%# Eval("RequestSequence") %> '></asp:Label> 
+                                            </td>                                           
+                                        </tr>                                        
+                                    </table>  
+	                            </td>
+	                            <td>
+	                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr> 
+                                            <td Width="100%" nowrap="nowrap">
+                                                <asp:Label ID="lblRequestNumber" runat="server" CssClass="" Text='<%# Eval("RequestNumber") %> '></asp:Label> 
                                             </td>                                           
                                         </tr>                                        
                                     </table>  
