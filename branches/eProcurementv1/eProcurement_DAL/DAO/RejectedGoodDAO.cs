@@ -176,7 +176,7 @@ namespace eProcurement_DAL
         /// <summary>
         /// Insert a record into database table for the given Entity Object. 
         /// </summary>
-        /// <param name="PurchaseOrderItem">PurchaseOrderItem Object</param>
+        /// <param name="RejectedGood">RejectedGood Object</param>
         /// 
         public override void Insert(RejectedGood entity)
         {
@@ -370,7 +370,7 @@ namespace eProcurement_DAL
         /// Delete the record from database table for the given Entity Object.
         /// </summary>
         /// <param name="Rejection">RejectedGood Object</param>
-        public override void Delete(PurchaseOrderItem entity)
+        public override void Delete(RejectedGood entity)
         {
             Delete(null, entity);
         }
