@@ -36,7 +36,7 @@
                                          </td> 
                                        
                                         <td align="center" style="width: 200px;">
-                                        <DatePicker:DatePicker ID="dtpFrom" runat="server" />
+                                        <DatePicker:DatePicker ID="dtpContractFrom" runat="server" />
                                         </td>
                                         
                                         <td valign="middle">
@@ -44,7 +44,7 @@
                                          </td> 
                                        
                                         <td align="center" style="width: 200px;">
-                                        <DatePicker:DatePicker ID="dtpTo" runat="server" />
+                                        <DatePicker:DatePicker ID="dtpContractTo" runat="server" />
                                         </td>
                                     </tr>
                                 </table>
@@ -54,7 +54,7 @@
                         <!-- Second Row-->
                         <tr>
                             <td align="left">
-                            <asp:Label runat="server" Text="Expiry Date" Width="130px" ID="lblTitleexpDate"></asp:Label>
+                            <asp:Label runat="server" Text="Valid Date" Width="130px" ID="lblTitleexpDate"></asp:Label>
                             </td>
                             <td align="left" style="width: 100%;" colspan="4">
                                 <table id="tblExpDates" cellpadding="0" cellspacing="0">
@@ -64,7 +64,7 @@
                                          </td> 
                                        
                                         <td align="center" style="width: 200px;">
-                                        <DatePicker:DatePicker ID="dtpExpFrom" runat="server" />
+                                        <DatePicker:DatePicker ID="dtpValFrom" runat="server" />
                                         </td>
                                         
                                         <td valign="middle">
@@ -72,7 +72,7 @@
                                          </td> 
                                        
                                         <td align="center" style="width: 200px;">
-                                        <DatePicker:DatePicker ID="dtpExpTo" runat="server" />
+                                        <DatePicker:DatePicker ID="dtpValTo" runat="server" />
                                         </td>
                                     </tr>
                                 </table>
