@@ -15,46 +15,105 @@ using eProcurement_DAL;
 
 public partial class DeliveryOrder_GoodsRejEnqPrnt : BaseForm
 {
-    class TemVO
+
+    private MainController mainController = null;
+
+    private string m_FuncFlag
     {
-        private string _Text1;
-        public string Text1
+        get
         {
-            get { return _Text1; }
-            set { _Text1 = value; }
+            if (ViewState["m_FuncFlag"] != null && ViewState["m_FuncFlag"].ToString() != string.Empty)
+            {
+                return ViewState["m_FuncFlag"].ToString();
+            }
+            else
+            {
+                return "";
+            }
         }
-
-        private string _Text2;
-        public string Text2
+        set
         {
-            get { return _Text2; }
-            set { _Text2 = value; }
-        }
-
-        private string _Text3;
-        public string Text3
-        {
-            get { return _Text3; }
-            set { _Text3 = value; }
-        }
-
-        private string _Text4;
-        public string Text4
-        {
-            get { return _Text4; }
-            set { _Text4 = value; }
+            ViewState["m_FuncFlag"] = value;
         }
     }
+
+    //Store Search Criteria 
+    [Serializable]
+    private class SearchCriteriaVO
+    {
+        public string OrderNumber;
+        public string DeliveryNumber;
+        public string MaterialNumber;
+        public string DocumentNumber;
+        public string SupplierID;
+
+    }
+
+    //Store Search Criteria 
+    private SearchCriteriaVO m_SearchCriteriaVO
+    {
+        get
+        {
+            if (ViewState["m_SearchCriteriaVO"] != null)
+            {
+                return (SearchCriteriaVO)ViewState["m_SearchCriteriaVO"];
+            }
+            else
+            {
+                return null;
+            }
+        }
+        set
+        {
+            ViewState["m_SearchCriteriaVO"] = value;
+        }
+    }
+
+
+
 
     new protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
+            //Instantiate MainController
+            this.mainController = new MainController(base.LoginUser);
+
             plMessage.Visible = false;
             lblMessage.Text = string.Empty;
             if (!IsPostBack)
             {
-                InitGrid();
+                //Access control
+                /***************************************************/
+                base.m_FunctionIdColl.Add("S-0016");
+              
+
+
+                //string functionId = Request.QueryString["FunctionId"];
+                string functionId = "S-0016";
+                if (string.IsNullOrEmpty(functionId))
+                {
+                    throw new Exception("Invalid Function Id.");
+                }
+                else
+                {
+                    base.m_FunctionId = functionId;
+                    if (string.Compare(functionId, "S-0016", true) == 0)
+                    {
+                        m_FuncFlag = "ENQ_REJECTEDGOODS";
+                    }
+
+
+
+
+                   
+                } 
+                base.Page_Load(sender, e);
+                /***************************************************/
+
+                //Initialize Page
+                InitPage();
+
             }
         }
         catch (Exception ex)
@@ -66,39 +125,130 @@ public partial class DeliveryOrder_GoodsRejEnqPrnt : BaseForm
         }
     }
 
-    protected void InitDualList()
+    private void InitPage()
     {
-        Collection<Supplier> objs = new Collection<Supplier>();
-        int iCount = 11;
-        for (int i = 1; i <= iCount; i++)
+        try
         {
-            Supplier obj = new Supplier();
-            obj.SupplierID = "000" + i;
-            obj.SupplierName = "Supplier" + i;
-            objs.Add(obj);
-        }
-     }
 
-    private void InitGrid()
+            Collection<RejectedGood> rgColl = new Collection<RejectedGood>();
+
+            rgColl = mainController.GetDeliveryController().RetrieveAllRejectedGood();
+
+
+            ddlDeliveryNo.DataSource = rgColl;
+            ddlDeliveryNo.DataTextField = "ReferenceNumber";
+            ddlDeliveryNo.DataValueField = "ReferenceNumber";
+            ddlDeliveryNo.DataBind();
+            ddlDeliveryNo.Items.Insert(0, String.Empty);
+
+
+
+            ddlOrderNo.DataSource = rgColl;
+            ddlOrderNo.DataTextField = "OrderNumber";
+            ddlOrderNo.DataValueField = "OrderNumber";
+            ddlOrderNo.DataBind();
+            ddlOrderNo.Items.Insert(0, String.Empty);
+
+
+
+            ddlMaterialNo.DataSource = rgColl;
+            ddlMaterialNo.DataTextField = "MaterialNumber";
+            ddlMaterialNo.DataValueField = "MaterialNumber";
+            ddlMaterialNo.DataBind();
+            ddlMaterialNo.Items.Insert(0, String.Empty);
+
+            ddlDocumentNo.DataSource = rgColl;
+            ddlDocumentNo.DataTextField = "DocumentNumber";
+            ddlDocumentNo.DataValueField = "DocumentNumber";
+            ddlDocumentNo.DataBind();
+            ddlDocumentNo.Items.Insert(0, String.Empty);
+
+
+        }
+        catch (Exception ex)
+        {
+            throw (ex);
+        }
+    }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
     {
-        Collection<PurchaseOrderHeader> objs = new Collection<PurchaseOrderHeader>();
-        int iCount = 11;
-        for (int i = 1; i <= iCount; i++)
+        try
         {
-            PurchaseOrderHeader obj = new PurchaseOrderHeader();
-            obj.OrderNumber = "000000000" + i;
-            obj.SupplierId = "Supplier" + i;
-            obj.OrderDate = GetStoredDateValue(DateTime.Now);
-            obj.OrderAmount = 1000;
-            obj.GstAmount = Convert.ToDecimal(1000 * 0.07);
-            obj.CurrencyCode = "SGD";
-            obj.PaymentTerms = "PaymentTerms" + i;
-            obj.BuyerName = "BuyerName" + i;
-            objs.Add(obj);
-        }
+            CheckSessionTimeOut();
 
-        gvData.DataSource = objs;
+            string strErrorMsg = String.Empty;
+
+            if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
+            {
+                plMessage.Visible = true;
+                displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
+                return;
+            }
+
+            StoreSearchCriteria();
+            ShowData();
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
+        }
+    }
+
+    private void StoreSearchCriteria()
+    {
+        SearchCriteriaVO searchCriteriaVO = new SearchCriteriaVO();
+        searchCriteriaVO.OrderNumber = ddlOrderNo.SelectedValue.ToString();
+        searchCriteriaVO.MaterialNumber = ddlMaterialNo.SelectedValue.ToString();
+        searchCriteriaVO.DeliveryNumber = ddlDeliveryNo.SelectedValue.ToString();
+        searchCriteriaVO.SupplierID = this.mainController.GetLoginUserVO().SupplierId.ToString();
+        searchCriteriaVO.DocumentNumber = ddlDocumentNo.SelectedValue.ToString();
+
+        m_SearchCriteriaVO = searchCriteriaVO;
+    }
+
+    private void ShowData()
+    {
+        Collection<RejectedGood> rgColl = GetData();
+        gvData.DataSource = rgColl;
         gvData.DataBind();
-        lblCount.Text = string.Format("{0} record(s) found. ", objs.Count.ToString());
+        lblCount.Text = string.Format("{0} record(s) found. ", rgColl.Count.ToString());
+    }
+
+    private Collection<RejectedGood> GetData()
+    {
+        Collection<RejectedGood> rgColl = new Collection<RejectedGood>();
+        // if (string.Compare(m_FuncFlag, "ENQ_DELIVERYORDER", false) == 0)
+        // {
+        rgColl = mainController.GetDeliveryController().RetrieveByQueryRejectedGood(m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.MaterialNumber, m_SearchCriteriaVO.DeliveryNumber, m_SearchCriteriaVO.DeliveryNumber,m_SearchCriteriaVO.SupplierID);
+        // }
+
+
+        return rgColl;
+    }
+
+    protected void gvData_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvData.PageIndex = e.NewPageIndex;
+        ShowData();
+    }
+
+
+    protected void gvData_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            LinkButton lbhlOrderNo = (LinkButton)e.Row.FindControl("lbhlOrderNo");
+            lbhlOrderNo.Attributes.Add("OrderNo", lbhlOrderNo.Text);
+        }
+    }
+
+
+
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+        Collection<RejectedGood> rgColl = GetData();
     }
 }
