@@ -435,7 +435,7 @@ namespace eProcurement_DAL
         /// </returns>
         private Collection<RejectedGood> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
         {
-            Collection<RejectedGood> entities = new Collection<PurchaseOrderItem>();
+            Collection<RejectedGood> entities = new Collection<RejectedGood>();
 
             SqlCommand cm = new SqlCommand();
             cm.CommandType = CommandType.Text;
