@@ -11,11 +11,10 @@
 
 <!--Message Panel-->
 <!--<asp:Panel ID="plMessage" runat="server" Visible="false">-->
-        <asp:Label runat="server" ID="lblMessage" CssClass="" Visible="True"></asp:Label>
-    <asp:Label ID="lblErr" runat="server" ForeColor="Red" Width="251px"></asp:Label>
+        <asp:Label runat="server" ID="lblMessage" CssClass="" Visible="True"></asp:Label>&nbsp;
 <!--</asp:Panel>-->
 <!--Search Criteria Panel-->
- <!--<asp:Panel ID="plSearch" runat="server" Visible="true">-->
+<!--<asp:Panel ID="plSearch" runat="server" Visible="true">-->
     <table id="GreyTable" cellspacing="0" cellpadding="0" border="0" style="width: 175%; height: 279px">
         <tr>
             <td valign="top" style="height: 8px">
@@ -72,10 +71,10 @@
                         <td align="left"  colspan ="3" style="width:500px">
                              <DatePicker:DatePicker ID="dtpExpiry" runat="server" />
                         </td>
-                    </tr>
+                    </tr>                    
                     <tr>
-                        <td colspan="4" style="text-align: right">
-                            <asp:Button ID="btnAssign" runat="server" Text="Assign" OnClick="btnAssign_Click"/>
+                        <td colspan="4" style="text-align: right">                            
+                            <asp:Button ID="btnAssign" OnClick  ="btnAssign_Click"  runat="server" Text="Assign" />
                         </td>
                     </tr>
                 </table>
@@ -97,7 +96,7 @@
     </table>
    <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
-	        <td >
+	        <td colspan =2 >
                 <asp:Repeater ID="gvItem" runat="server">
                     <HeaderTemplate>
                         <table width="100%">
@@ -206,9 +205,23 @@
        <tr>   
              <td>         
                <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click"/>
+               </td><td>
                <asp:Button ID="btnSubmit" runat="server" Text="Submit" onclick="btnSubmit_Click"/>
             </td>                        
         </tr> 
       </table>      
 </asp:Panel>
+<script language="javascript" type="text/javascript">    
+function check_validate()
+{
+  //alert("Please Select Requisition");
+    if(lstRequisition.SelectedIndex == -1) 
+    {
+        alert("Please Select Requisition");
+        return false;
+    }
+    return true;
+}
+
+</script>	
 </asp:Content>
