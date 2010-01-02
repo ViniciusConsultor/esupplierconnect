@@ -315,6 +315,7 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p17);
             p17.Value = entity.AcknowledgeStatus;
 
+
             cm.ExecuteNonQuery();
 
             if (epTran == null)
