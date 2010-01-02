@@ -11,6 +11,18 @@ namespace eProcurement_DAL
 {
     public class AttachmentDAO : IAttachmentDAO
     {
+        private bool includeAttachmentData = true;
+
+        public AttachmentDAO() 
+        {
+            this.includeAttachmentData = true;
+        }
+
+        public AttachmentDAO(bool includeAttachmentData)
+        {
+            this.includeAttachmentData = includeAttachmentData;
+        }
+
         #region RetrieveAll
 
         public override Collection<Attachment> RetrieveAll()
@@ -336,7 +348,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region private methods
-        private static Collection<Attachment> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
+        private Collection<Attachment> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
         {
             Collection<Attachment> entities = new Collection<Attachment>();
             try
@@ -372,7 +384,10 @@ namespace eProcurement_DAL
                     entity.FileName = rd["FILENAME"].ToString();
                     entity.FileDesc = rd["FILEDESC"].ToString();
                     entity.FileSize = Convert.ToInt64(rd["FILESIZE"].ToString());
-                    entity.FileData =(byte[])rd["FILEDATA"];
+                    if (this.includeAttachmentData)
+                        entity.FileData = (byte[])rd["FILEDATA"];
+                    else
+                        entity.FileData = null;
                     entity.AttachDate = Convert.ToInt64(rd["ATTCHDATE"].ToString());
                     entity.StorePath = rd["STOREPATH"].ToString();
                     entity.ProfileType = rd["PROFTYP"].ToString();
