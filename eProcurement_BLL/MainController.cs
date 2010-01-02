@@ -9,6 +9,8 @@ using eProcurement_BLL.PurchaseOrder;
 using eProcurement_BLL.Notification;
 using eProcurement_BLL.DeliveryOrder;
 using eProcurement_BLL.PurchaseContract;
+using eProcurement_BLL.PurchaseContract;
+using eProcurement_BLL.Delivery;
 
 namespace eProcurement_BLL
 {
@@ -41,6 +43,13 @@ namespace eProcurement_BLL
         private DeliveryOrderController deliveryOrderController = null;
         private PurchaseExpeditingController purchaseExpeditingController = null;
         private PurchaseContractController purchaseContractController = null;
+ 
+
+        private PurchaseContractController purchaseContractController = null;
+        private ContractHeaderController contractHeaderController = null;
+        private ContractItemController contractItemController = null;
+        private DeliveryController deliveryController = null;
+        
         
 
         public MainController()
@@ -142,6 +151,30 @@ namespace eProcurement_BLL
 
         public PurchaseContractController GetPurchaseContractController()
         {
+        public PurchaseContractController GetPurchaseContractController()
+        {
+            if (this.purchaseContractController == null)
+                this.purchaseContractController = new PurchaseContractController(this);
+            return this.purchaseContractController;
+        }
+        public ContractHeaderController GetContractHeaderController()
+        {
+            if (this.contractHeaderController == null)
+                this.contractHeaderController = new ContractHeaderController(this);
+            return this.contractHeaderController;
+        }
+        public ContractItemController GetContractItemController()
+        {
+            if (this.contractItemController == null)
+                this.contractItemController = new ContractItemController(this);
+            return this.contractItemController;
+        }
+        public DeliveryController GetDeliveryController()
+        {
+            if (this.deliveryController == null)
+                this.deliveryController = new DeliveryController(this);
+            return this.deliveryController;
+        }
             if (this.purchaseContractController == null)
                 this.purchaseContractController = new PurchaseContractController(this);
             return this.purchaseContractController;
