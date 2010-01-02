@@ -277,7 +277,7 @@ namespace eProcurement_DAL
         #endregion
 
         #region private methods
-        private static Collection<AccessMatrix> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
+        private Collection<AccessMatrix> Retrieve(EpTransaction epTran, string whereClause, string sortClaues)
         {
             Collection<AccessMatrix> entities = new Collection<AccessMatrix>();
             try{
