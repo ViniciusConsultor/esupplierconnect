@@ -221,6 +221,12 @@ namespace eProcurement_DAL
                 this.purchaseExpeditingViewDAO = new PurchaseExpeditingViewDAO();
             return this.purchaseExpeditingViewDAO;
         }
+        public override IRejectedGoodDAO CreateRejectedGood()
+        {
+            if (this.rejectedGoodDAO == null)
+                this.rejectedGoodDAO = new RejectedGoodDAO();
+            return this.rejectedGoodDAO;
+        }
 
         public override IRejectedGoodDAO CreateRejectedGoodDAO()
         {
