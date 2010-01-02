@@ -14,7 +14,7 @@ using eProcurement_BLL;
 using eProcurement_DAL;
 
 
-public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
+public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
 {
     private MainController mainController = null;
 

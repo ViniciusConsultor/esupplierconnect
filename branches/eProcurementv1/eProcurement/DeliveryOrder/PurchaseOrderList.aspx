@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="PurchaseOrderList.aspx.cs" Inherits="PurchaseOrder_PurchaseOrderList" Title="eProcurement System" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="PurchaseOrderList.aspx.cs" Inherits="DeliveryOrder_PurchaseOrderList" Title="eProcurement System" %>
 <%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
     <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
