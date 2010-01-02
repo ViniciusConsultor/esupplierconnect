@@ -37,6 +37,7 @@ namespace eProcurement_DAL
         private ContractItemDAO contractItemDAO = null;
         private ContractHeaderDAO contractHeaderDAO = null;
         private PurchaseExpeditingViewDAO purchaseExpeditingViewDAO = null;
+        private RejectedGoodDAO rejectedGoodDAO = null;
         
 
         public override IAccessMatrixDAO CreateAccessMatrixDAO() 
@@ -219,6 +220,14 @@ namespace eProcurement_DAL
             if (this.purchaseExpeditingViewDAO == null)
                 this.purchaseExpeditingViewDAO = new PurchaseExpeditingViewDAO();
             return this.purchaseExpeditingViewDAO;
+        }
+
+        public override IRejectedGoodDAO CreateRejectedGoodDAO()
+        {
+            if (this.rejectedGoodDAO == null)
+                this.rejectedGoodDAO = new RejectedGoodDAO();
+            return this.rejectedGoodDAO;
+            
         }
     }
 }
