@@ -154,7 +154,7 @@ namespace eProcurement_DAL
 
                 SqlParameter p5 = new SqlParameter("@FILEDATA", SqlDbType.Binary);
                 cm.Parameters.Add(p5);
-                p5.Value = entity.FileDesc;
+                p5.Value = entity.FileData;
 
                 SqlParameter p6 = new SqlParameter("@ATTCHDATE", SqlDbType.BigInt);
                 cm.Parameters.Add(p6);
