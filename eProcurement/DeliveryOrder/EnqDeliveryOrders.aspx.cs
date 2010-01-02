@@ -137,23 +137,28 @@ public partial class DeliveryOrder_EnquireDeliveryOrders : BaseForm
 
             doColl = mainController.GetDeliveryOrderController().RetrieveAllDeliveryOrder();
 
-
+            
             ddlDeliveryNo.DataSource = doColl;
             ddlDeliveryNo.DataTextField = "DeliveryNumber";
             ddlDeliveryNo.DataValueField = "DeliveryNumber";
             ddlDeliveryNo.DataBind();
+            ddlDeliveryNo.Items.Insert(0, String.Empty);
+
 
 
             ddlOrderNo.DataSource = doColl;
             ddlOrderNo.DataTextField = "OrderNumber";
             ddlOrderNo.DataValueField = "OrderNumber";
             ddlOrderNo.DataBind();
+            ddlOrderNo.Items.Insert(0, String.Empty);
+
 
 
             ddlMaterialNo.DataSource = doColl;
             ddlMaterialNo.DataTextField = "MaterialNumber";
             ddlMaterialNo.DataValueField = "MaterialNumber";
             ddlMaterialNo.DataBind();
+            ddlMaterialNo.Items.Insert(0, String.Empty);
 
 
 
