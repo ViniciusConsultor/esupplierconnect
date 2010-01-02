@@ -7,8 +7,6 @@ using eProcurement_DAL;
 using eProcurement_BLL.UserManagement;
 using eProcurement_BLL.PurchaseOrder;
 using eProcurement_BLL.Notification;
-using eProcurement_BLL.DeliveryOrder;
-using eProcurement_BLL.PurchaseContract;
 using eProcurement_BLL.PurchaseContract;
 using eProcurement_BLL.Delivery;
 
@@ -40,14 +38,8 @@ namespace eProcurement_BLL
         private QuotationController quotationController = null;
         private RequisitionController requisitionController = null;
         private NotificationController notificationController = null;
-        private DeliveryOrderController deliveryOrderController = null;
         private PurchaseExpeditingController purchaseExpeditingController = null;
-        private PurchaseContractController purchaseContractController = null;
- 
-
-        private PurchaseContractController purchaseContractController = null;
-        private ContractHeaderController contractHeaderController = null;
-        private ContractItemController contractItemController = null;
+        private PurchaseContractController purchaseContractController = null;        
         private DeliveryController deliveryController = null;
         
         
@@ -135,12 +127,6 @@ namespace eProcurement_BLL
             return this.notificationController;
         }
 
-        public DeliveryOrderController GetDeliveryOrderController()
-        {
-            if (this.deliveryOrderController == null)
-                this.deliveryOrderController = new DeliveryOrderController(this);
-            return this.deliveryOrderController;
-        }
 
         public PurchaseExpeditingController GetPurchaseExpeditingController()
         {
@@ -149,36 +135,22 @@ namespace eProcurement_BLL
             return this.purchaseExpeditingController;
         }
 
-        public PurchaseContractController GetPurchaseContractController()
-        {
+        
         public PurchaseContractController GetPurchaseContractController()
         {
             if (this.purchaseContractController == null)
                 this.purchaseContractController = new PurchaseContractController(this);
             return this.purchaseContractController;
         }
-        public ContractHeaderController GetContractHeaderController()
-        {
-            if (this.contractHeaderController == null)
-                this.contractHeaderController = new ContractHeaderController(this);
-            return this.contractHeaderController;
-        }
-        public ContractItemController GetContractItemController()
-        {
-            if (this.contractItemController == null)
-                this.contractItemController = new ContractItemController(this);
-            return this.contractItemController;
-        }
+      
         public DeliveryController GetDeliveryController()
         {
             if (this.deliveryController == null)
                 this.deliveryController = new DeliveryController(this);
             return this.deliveryController;
         }
-            if (this.purchaseContractController == null)
-                this.purchaseContractController = new PurchaseContractController(this);
-            return this.purchaseContractController;
-        }
+
+        
         
         
 
