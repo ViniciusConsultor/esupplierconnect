@@ -48,7 +48,7 @@ namespace eProcurement_BLL.Quotation
                     {
                         whereClause += " or ";
                     }
-                    whereClause += "EBELN='" + rfqNumber.ToString() + "'";
+                    whereClause += "ATTCHMTID='" + rfqNumber.ToString() + "'";
                 }
                 if (whereClause != "") whereClause += ")";
 
