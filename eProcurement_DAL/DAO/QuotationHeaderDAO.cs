@@ -9,7 +9,7 @@ using System.Data;
 
 namespace eProcurement_DAL
 {
-    public class QuotationHeaderDAO : IQuotationHeaderDAO
+    public class QuotationHeaderDAO: IQuotationHeaderDAO
     {
         #region RetrieveAll
         public override Collection<QuotationHeader> RetrieveAll()
@@ -335,5 +335,38 @@ namespace eProcurement_DAL
             return entities;
         }
         #endregion
+
+        public override string GetResqNo(EpTransaction epTran)
+        {
+            
+            SqlCommand cm = new SqlCommand();
+            cm.CommandType = CommandType.Text;
+
+            //set connection
+            SqlConnection connection;
+            if (epTran == null)
+                connection = DataManager.GetConnection();
+            else
+                connection = epTran.GetSqlConnection();
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+            cm.Connection = connection;
+
+            //set transaction
+            if (epTran != null)
+                cm.Transaction = epTran.GetSqlTransaction();
+
+            //Retrieve Data
+            string selectCommand = "SELECT Max([EBELN]) + 1 Resq_No FROM rfqhdr ";
+            string strResq_No = "";
+            cm.CommandText = selectCommand;
+            SqlDataReader rd = cm.ExecuteReader();
+            if (rd.Read())
+            { strResq_No =Convert.ToString (  rd["Resq_No"]); }
+            else
+            { strResq_No = ""; }
+
+            return strResq_No;
+        }
+
     }
 }
