@@ -43,6 +43,8 @@ namespace eProcurement_DAL
         public abstract void Insert(EpTransaction epTran, QuotationHeader entity);
         #endregion
 
+        public abstract string GetResqNo(EpTransaction epTran);
+        
         #region Update
         public abstract void Update(QuotationHeader entity);
 
