@@ -65,7 +65,7 @@
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: right">
-                            <asp:Button ID="btnSearch" runat="server" Text="Search"/>
+                            <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"/>
                         </td>
                     </tr>
                 </table>
@@ -120,13 +120,30 @@
                             <ItemStyle Wrap="False" Width="15%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
+                        
+                        <asp:TemplateField HeaderText="Item Sequence No">
+                            <ItemTemplate>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td Width="100%" nowrap="nowrap">
+                                            <asp:Label ID="lblItemSequenceNo" runat="server" CssClass="" Text='<%# Eval("ItemSequence") %> '></asp:Label>  
+                                        </td>
+                                       <td>&nbsp;</td>
+                                    </tr>
+                                </table>  
+                            </ItemTemplate> 
+                            <ItemStyle Wrap="False" Width="10%"/>
+                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
+                        </asp:TemplateField>
+                        
                         <asp:TemplateField HeaderText="Material No">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblSupplierId" runat="server" CssClass="" Text='<%# Eval("SupplierId") %> '></asp:Label>  
+                                            <asp:Label ID="lblMaterialNo" runat="server" CssClass="" Text='<%# Eval("MaterialNumber") %> '></asp:Label>  
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -141,7 +158,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblOrderDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("OrderDate")))) %> '></asp:Label>
+                                            <asp:Label ID="lblDocumentNo" runat="server" CssClass="" Text=' <%#Eval("DocumentNumber")  %> '></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -150,13 +167,13 @@
                             <ItemStyle Wrap="False" Width="15%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Delivery No">
+                        <asp:TemplateField HeaderText="Document Serial">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" align="right">
-                                            <asp:Label ID="lblAmount" runat="server" CssClass="" Text='<%# Eval("OrderAmount") %>'></asp:Label>
+                                            <asp:Label ID="lblDocumentSerial" runat="server" CssClass="" Text='<%# Eval("DocumentSerial") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -171,7 +188,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" align="right">
-                                            <asp:Label ID="lblGSTAmount" runat="server" CssClass="" Text='<%# Eval("GstAmount") %>'></asp:Label>
+                                            <asp:Label ID="lblUOM" runat="server" CssClass="" Text='<%# Eval("UnitOfMeasure") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -186,7 +203,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%">
-                                            <asp:Label ID="lblCurrency" runat="server" CssClass="" Text='<%# Eval("CurrencyCode") %>'></asp:Label>
+                                            <asp:Label ID="lblRefNumber" runat="server" CssClass="" Text='<%# Eval("ReferenceNumber") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -201,7 +218,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" >
-                                            <asp:Label ID="lblPaymentTerms" runat="server" CssClass="" Text='<%# Eval("PaymentTerms") %>'></asp:Label>
+                                            <asp:Label ID="lblRejectQty" runat="server" CssClass="" Text='<%# Eval("RejectQuantity") %>'></asp:Label>
                                         </tdP
                                        <td>&nbsp;</td>
                                     </tr>
@@ -216,7 +233,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" >
-                                            <asp:Label ID="lblBuyer" runat="server" CssClass="" Text='<%# Eval("BuyerName") %>'></asp:Label>
+                                            <asp:Label ID="lblRejectDate" runat="server" CssClass="" Text='<%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("RejectDate")))) %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -231,7 +248,7 @@
         </tr>
         <tr>
         <td align="center">
-                            <asp:Button ID="btnPrint" runat="server" Text="Print"/>
+                            <asp:Button ID="btnPrint" runat="server" Text="Print" OnClick="btnPrint_Click"/>
                         </td>
         </tr>
         
