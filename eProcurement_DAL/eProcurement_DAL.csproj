@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="DAOCreator.cs" />
     <Compile Include="DAO\AccessMatrixDAO.cs" />
+    <Compile Include="DAO\AttachmentDAO.cs" />
     <Compile Include="DAO\ContractHeaderDAO.cs" />
     <Compile Include="DAO\ContractItemDAO.cs" />
     <Compile Include="DAO\DeliveryOrderDAO.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="Entity\AccessMatrix.cs" />
+    <Compile Include="Entity\Attachment.cs" />
     <Compile Include="Entity\ContractHeader.cs" />
     <Compile Include="Entity\ContractItem.cs" />
     <Compile Include="Entity\DeliveryOrder.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Entity\User.cs" />
     <Compile Include="EpTransaction.cs" />
     <Compile Include="IDAO\IAccessMatrixDAO.cs" />
+    <Compile Include="IDAO\IAttachmentDAO.cs" />
     <Compile Include="IDAO\IContractHeaderDAO.cs" />
     <Compile Include="IDAO\IContractItemDAO.cs" />
     <Compile Include="IDAO\IDeliveryOrderDAO.cs" />
