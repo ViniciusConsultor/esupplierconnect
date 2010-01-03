@@ -197,6 +197,52 @@ namespace eProcurement_BLL
             }
         }
 
+        public void CreateQuotationRequest(QuotationHeader quotationHeader, Collection<QuotationItem> quotationItems,Collection<Guid> attachmentIds ) 
+        {
+            try
+            {
+                EpTransaction tran = DataManager.BeginTransaction();
+                try
+                {
+                    //Insert Quotation Header
+                    mainController.GetDAOCreator().CreateQuotationHeaderDAO().Insert(tran, quotationHeader);
+
+                    //Update Quotation Item
+                    foreach (QuotationItem item in quotationItems) 
+                    {
+                        mainController.GetDAOCreator().CreateQuotationItemDAO().Insert(tran, item);
+                    }
+                    
+                    //update Attachments
+                    foreach (Guid attId in attachmentIds) 
+                    {
+                        Attachment att = mainController.GetDAOCreator().CreateAttachmentDAO(false).RetrieveByKey(tran, attId); 
+                        if (att != null) 
+                        {
+                            att.RfqNumber = quotationHeader.RequestNumber;
+                            mainController.GetDAOCreator().CreateAttachmentDAO(true).Update(tran, att);
+                        }
+                    }
+                        
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw (ex);
+                }
+                finally
+                {
+                    tran.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
     }
     
 }
