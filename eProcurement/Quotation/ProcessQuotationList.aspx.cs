@@ -82,22 +82,22 @@ public partial class Quotation_ProcessQuotationList : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionIdColl.Add("S-0010");
+                //base.m_FunctionIdColl.Add("S-0010");
 
-                string functionId = Request.QueryString["FunctionId"];
-                if (string.IsNullOrEmpty(functionId))
-                {
-                    throw new Exception("Invalid Function Id.");
-                }
-                else
-                {
-                    base.m_FunctionId = functionId;
-                    if (string.Compare(functionId, "S-0010", true) == 0)
-                    {
-                        m_FuncFlag = "PROCESS_QUOTATION";
-                    }
+                //string functionId = Request.QueryString["FunctionId"];
+                //if (string.IsNullOrEmpty(functionId))
+                //{
+                //    throw new Exception("Invalid Function Id.");
+                //}
+                //else
+                //{
+                //    base.m_FunctionId = functionId;
+                //    if (string.Compare(functionId, "S-0010", true) == 0)
+                //    {
+                //        m_FuncFlag = "PROCESS_QUOTATION";
+                //    }
                    
-                }
+                //}
                 base.Page_Load(sender, e);
                 /***************************************************/
                 //imgSupplierSearch.Attributes.Add("onclick", "OpenSupplierDialog('" + txtSupplierId.ClientID + "')");
@@ -174,31 +174,6 @@ public partial class Quotation_ProcessQuotationList : BaseForm
         }
     }
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            CheckSessionTimeOut();
-
-            string strErrorMsg = ValidateInput();
-
-            if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
-            {
-                plMessage.Visible = true;
-                displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
-                return;
-            }
-
-            StoreSearchCriteria();
-            ShowData();
-        }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
-        }
-    }
 
     private void StoreSearchCriteria()
     {
@@ -224,7 +199,9 @@ public partial class Quotation_ProcessQuotationList : BaseForm
 
     private void ShowData()
     {
-        Collection<QuotationHeader> qoColl = GetData();
+        Collection<QuotationHeader> qoColl = new Collection<QuotationHeader>();
+        qoColl = GetData();
+
         gvData.DataSource = qoColl;
         gvData.DataBind();
         lblCount.Text = string.Format("{0} record(s) found. ", qoColl.Count.ToString());
@@ -233,16 +210,15 @@ public partial class Quotation_ProcessQuotationList : BaseForm
     private Collection<QuotationHeader> GetData()
     {
         Collection<QuotationHeader> qoColl = new Collection<QuotationHeader>();
-        if (string.Compare(m_FuncFlag, "PROCESS_QUOTATION", false) == 0)
-        {
-            qoColl = mainController.GetQuotationController().GetQuotationHeaderList
-           (m_SearchCriteriaVO.QuotationNumber.ToString(), GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.QuoFromDate)),
+        //if (string.Compare(m_FuncFlag, "PROCESS_QUOTATION", false) == 0)
+        //{
+            qoColl = mainController.GetQuotationController().GetQuotationHeaderList(m_SearchCriteriaVO.QuotationNumber.ToString(), GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.QuoFromDate)),
            GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.QuoToDate)),
            GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.ExpFromDate)), 
            GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.ExpToDate)), 
            m_SearchCriteriaVO.RequestNumber.ToString (), 
            Session[SessionKey.LOGIN_USER].ToString());
-        }
+        //}
 
        return qoColl;
     }
@@ -382,4 +358,30 @@ public partial class Quotation_ProcessQuotationList : BaseForm
         return strErrorMsg.ToString();
     }
     #endregion
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            CheckSessionTimeOut();
+
+            string strErrorMsg = ValidateInput();
+
+            if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
+            {
+                plMessage.Visible = true;
+                displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
+                return;
+            }
+
+            StoreSearchCriteria();
+            ShowData();
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
+        }
+    }
+    
 }

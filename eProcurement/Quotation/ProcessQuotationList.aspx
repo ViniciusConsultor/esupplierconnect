@@ -85,7 +85,7 @@
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: right">
-                            <asp:Button ID="btnSearch" runat="server" Text="Search"/>
+                            <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"/>
                         </td>
                     </tr>
                 </table>
