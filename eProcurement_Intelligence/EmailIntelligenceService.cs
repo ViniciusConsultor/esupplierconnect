@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -14,9 +16,13 @@ namespace eProcurement_Intelligence
 {
     public partial class EmailIntelligenceService : Form
     {
+        eProcurement_BLL.MainController maincontroller;
+
         public EmailIntelligenceService()
         {
             InitializeComponent();
+
+            maincontroller = new eProcurement_BLL.MainController();
         }
 
         private void EmailIntelligenceService_Load(object sender, EventArgs e)
@@ -25,6 +31,41 @@ namespace eProcurement_Intelligence
             // Create a directory with today's date
 
             CreateDirectoryToday();
+
+            Collection<Notification> recipiantcoll = new Collection<Notification>();
+            Collection<Notification> notificationcoll = new Collection<Notification>();
+
+
+            recipiantcoll = maincontroller.GetNotificationController().RetrieveByQueryEmailNotificationRecipiant("0"); // 0- Not Yet notified
+
+            notificationcoll = maincontroller.GetNotificationController().RetrieveByQueryEmailNotification("0"); // 0- Not Yet notifiyed
+
+            foreach (Notification notificationrecipiant in recipiantcoll)
+            {
+                Collection<Notification> tempnotification = new Collection<Notification>();
+               
+
+                foreach (Notification notification in notificationcoll)
+                {
+
+                    if (notification.Recipient.Equals(notificationrecipiant.Recipient))
+                    {
+
+                        tempnotification.Add(notification);
+ 
+                    }
+
+                }
+
+                
+
+
+                 
+
+ 
+            }
+
+           
 
             CreateTextFileUser("Hello");
 
