@@ -99,7 +99,7 @@ namespace eProcurement_BLL.PurchaseContract
                 }
                 if (status != "")
                 {
-                    whereClause += " AND ACKSTS like '" + Utility.EscapeSQL(status) + "' ";
+                    whereClause += " AND ISNULL(ACKSTS,'N') like '" + Utility.EscapeSQL(status) + "' ";
                 }
                 
                 orderClause = " EBELN asc ";
