@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="CreateDeliveryOrder.aspx.cs" Inherits="CreateDeliveryOrder" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="CreateDeliveryOrder.aspx.cs" Inherits="DeliveryOrder_CreateDeliveryOrder" %>
 
 
 <%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
@@ -48,7 +48,7 @@
                     <tr>
                         <td class="DetailsTableCaption" colspan="2">Information</td> 
                         <td>
-                            <asp:HyperLink runat="server" ID="hlHeaderText" Text='Texts'></asp:HyperLink>  
+                            <asp:HyperLink runat="server" ID="hlHeaderText" Text=''></asp:HyperLink>  
                         </td>
                     </tr> 
                     <tr>
@@ -106,9 +106,23 @@
 		</tr> 
 	</table> 
 	<table cellspacing="0" cellpadding="0" width="100%" border="0">
+	    <tr>
+	     <td style="height: 20px"><asp:Label runat="server" ID="lblDeliveryNo">Delivery No</asp:Label></td> 
+                        <td style="height: 20px">&nbsp;</td>
+                        <td style="height: 20px">
+                            <asp:TextBox ID="txtDeliveryNo" runat="server" Width="142px"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvDeliveryNo" runat="server" ErrorMessage="Please enter Delivery No" ControlToValidate="txtDeliveryNo"></asp:RequiredFieldValidator></td> 
+	    </tr>
+	     <tr>
+	     <td><asp:Label runat="server" ID="lblDeliveryDate">Delivery Date</asp:Label></td> 
+                         <td>&nbsp; </td>
+                            <td align="left" style="width:200px">
+                                             <DatePicker:DatePicker ID="dtpDeliveryDate" runat="server" />
+                                        </td> 
+	    </tr>
         <tr>
 	        <td valign="top" colspan="10" style="height: 20px"> 
-               <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="True" AutoGenerateColumns="False" 
+              <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="True" AutoGenerateColumns="False" 
                    AllowSorting="false" CellPadding="2">
                     <Columns>
                         <asp:TemplateField HeaderText="S/N" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
@@ -159,7 +173,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblOrderDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("OrderDate")))) %> '></asp:Label>
+                                            <asp:Label ID="lblMaterialNumber" runat="server" CssClass="" Text='<%# Eval("MaterialNumber")  %> '></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -167,45 +181,18 @@
                             </ItemTemplate> 
                             <ItemStyle Wrap="false" Width="15%"/>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText=" Delivery Number " HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
-                            <ItemTemplate>
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" align="right">
-                                            <asp:Label ID="lblAmount" runat="server" CssClass="" Text='<%# Eval("OrderAmount") %>'></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table> 
-                            </ItemTemplate> 
-                            <ItemStyle Width="10%"/>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText=" Delivery Date " HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
-                            <ItemTemplate>
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" align="right">
-                                            <asp:Label ID="lblGSTAmount" runat="server" CssClass="" Text='<%# Eval("GstAmount") %>'></asp:Label>
-                                            
-                                            <asp:Label ID="lblOrderDate" runat="server" CssClass="" Text=' <%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("OrderDate")))) %> '></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table> 
-                            </ItemTemplate> 
-                            <ItemStyle Width="5%"/>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText=" Delivery Quantity " HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                        
+                            
+                        <asp:TemplateField HeaderText="Open Quantity / Delivery Quantity " HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%">
-                                            <asp:Label ID="lblCurrency" runat="server" CssClass="" Text='<%# Eval("CurrencyCode") %>'></asp:Label>
+                                            <asp:Label ID="lblOpenQuantity" runat="server" CssClass="" Text='<%# Eval("OpenQuantity") %>'>/</asp:Label>
                                         </td>
-                                       <td>&nbsp;</td>
+                                       <td>
+                                           <asp:TextBox ID="txtDeliveryQuantity" runat="server" Width="100"></asp:TextBox></td>
                                     </tr>
                                 </table> 
                             </ItemTemplate> 
@@ -221,13 +208,15 @@
     <br />
      <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
-            <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
-            <td nowrap="nowrap">
-               <asp:Button ID="btnSave" runat="server" Text="Save"/>
+            <td nowrap="nowrap" width="50%" style="height: 20px">&nbsp;&nbsp;</td>
+            
+            
+             <td nowrap="nowrap" style="height: 20px">
+               <asp:Button ID="btnReturn" runat="server" Text="Return" OnClick="btnReturn_Click"/>
             </td>
             
-             <td nowrap="nowrap">
-               <asp:Button ID="btnCancel" runat="server" Text="Cancel"/>
+            <td nowrap="nowrap" style="height: 20px">
+               <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click"/>
             </td>
             
         </tr> 
