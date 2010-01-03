@@ -234,7 +234,7 @@
                  &nbsp;</td>
             <td nowrap="nowrap" style="height: 18px">&nbsp;</td>
             <td nowrap="nowrap" style="height: 18px">
-               <asp:Button ID="btnSubmit" runat="server" Text="Submit" onclick="btnAcknowledge_Click"/>
+               <asp:Button ID="btnSubmit" runat="server" Text="Submit" onclick="btnSubmit_Click"/>
             </td>
             <td nowrap="nowrap" style="height: 18px">&nbsp;</td>
             <td nowrap="nowrap" style="height: 18px">

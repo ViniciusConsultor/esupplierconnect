@@ -1,5 +1,6 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageSimple.master" AutoEventWireup="true" CodeFile="QuotationRequestCreate.aspx.cs" Inherits="Quotation_QuotationRequestCreate" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="QuotationRequestCreate.aspx.cs" Inherits="Quotation_QuotationRequestCreate" Title="eProcurement System" %>
 <%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
+<%@ Register Src="~/UserControls/AttachmentPanel.ascx" TagName="AttachmentPanel" TagPrefix="AttachmentPanel" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
 <!--Page title-->
 <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
@@ -10,11 +11,11 @@
 </asp:Table>
 
 <!--Message Panel-->
-<!--<asp:Panel ID="plMessage" runat="server" Visible="false">-->
+<asp:Panel ID="plMessage" runat="server" Visible="false">
         <asp:Label runat="server" ID="lblMessage" CssClass="" Visible="True"></asp:Label>&nbsp;
-<!--</asp:Panel>-->
+</asp:Panel>
 <!--Search Criteria Panel-->
-<!--<asp:Panel ID="plSearch" runat="server" Visible="true">-->
+<asp:Panel ID="plSearch" runat="server" Visible="true">
     <table id="GreyTable" cellspacing="0" cellpadding="0" border="0" style="width: 175%; height: 279px">
         <tr>
             <td valign="top" style="height: 8px">
@@ -81,7 +82,15 @@
             </td>
         </tr>
     </table>
-<!--</asp:Panel> -->
+</asp:Panel> 
+<table id="Table1" cellspacing="0" cellpadding="0" width="100%" border="0">
+    <tr>
+        <td valign="top" style="height: 8px">
+             <AttachmentPanel:AttachmentPanel ID="attPanel" runat="server" />                   
+        </td>
+    </tr>
+</table>
+
     <br />
     <!--Search Result Panel-->
 <asp:Panel ID="plResult" runat="server" > 

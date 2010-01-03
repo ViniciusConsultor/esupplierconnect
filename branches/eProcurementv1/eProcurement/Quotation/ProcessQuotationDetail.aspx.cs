@@ -86,22 +86,10 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionIdColl.Add("S-0010");
-                
-                string functionId = Request.QueryString["FunctionId"];
-                if (string.IsNullOrEmpty(functionId))
-                {
-                    throw new Exception("Invalid Function Id.");
-                }
-                else
-                {
-                    base.m_FunctionId = functionId;
-                    if (string.Compare(functionId, "S-0010", true) == 0)
-                    {
-                        m_FuncFlag = "PROCESS_QUOTATION";
-                    }
-                   
-                }
+                base.m_FunctionId = "B-0007";
+                 
+                m_FuncFlag = "PROCESS_QUOTATION";
+       
                 base.Page_Load(sender, e);
                 /***************************************************/
 
@@ -156,22 +144,27 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
 
     private void InitQuotationHeader()
     {
-        QuotationHeader qHeader = mainController.GetQuotationController().
-            GetQuotationHeader(qHeader.QuotationNumber.ToString());
+        Collection<QuotationHeader> qHeaders = new Collection<QuotationHeader>();
+
+        qHeaders = mainController.GetQuotationController().GetQuotationHeader(lblQuotationNo.Text.ToString ()  );
+
+        QuotationHeader qHeader = new QuotationHeader();
+        qHeader=qHeaders[0];
+
         if (qHeader == null)
         {
             throw new Exception("Invalid Quotation Number.");
         }
 
-        Supplier supplier = mainController.GetSupplierController().GetSupplier(poHeader.qHeader);
+        Supplier supplier = mainController.GetSupplierController().GetSupplier(qHeader.SupplierId.ToString () );
 
-        lblSupplierId.Text = poHeader.SupplierId;
+        lblSupplierId.Text = qHeader.SupplierId;
         lblSupplierName.Text = supplier.SupplierName;
         lblSupplierAddress.Text = supplier.SupplierAddress;
         lblPostalCode.Text = "Singapore " + supplier.PostalCode;
         lblCountry.Text = supplier.CountryCode;
 
-        lblShipmentAddress.Text = poHeader.ShipmentAddress;
+        lblShipmentAddress.Text = "";
 
         lblRequestNumber.Text = qHeader.RequestNumber;
         //lblRFQDate.Text=""
@@ -190,8 +183,8 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
 
     private void InitItems()
     {
-        Collection<QuotationItem> items = mainController.GetQuotationController()
-            .GetQuotation(lblQuotationNo.Text,lblQuotationNo);
+        string whereClause = " ANGNR = '" + lblQuotationNo.Text + "'";
+        Collection<QuotationItem> items = mainController.GetDAOCreator().CreateQuotationItemDAO().RetrieveByQuery(whereClause);    
         gvItem.DataSource = items;
         gvItem.DataBind();
 
@@ -210,7 +203,7 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
             Label lblPriceUnit = (Label)e.Item.FindControl("lblPriceUnit");
             Label lblNetPrice = (Label)e.Item.FindControl("lblNetPrice");
             Label lblNetAmount = (Label)e.Item.FindControl("lblNetAmount");
-            decimal amount = Convert.ToDecimal(lblPricePerUnit.Text) * Convert.ToDecimal(lblNetPrice.Text);
+            decimal amount = Convert.ToDecimal(lblPriceUnit.Text) * Convert.ToDecimal(lblNetPrice.Text);
             lblNetAmount.Text = amount.ToString();
 
             //HyperLink hlItemText = (HyperLink)e.Item.FindControl("hlItemText");
@@ -234,26 +227,23 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
             EpTransaction tran = DataManager.BeginTransaction();
             try
             {
-                PurchaseOrderHeader header = mainController.GetDAOCreator().CreateQuotationHeaderDAO()
-                      .RetrieveByKey(tran, quotationNumber);
-                
+                QuotationHeader header = new QuotationHeader();
+                header = mainController.GetDAOCreator().CreateQuotationHeaderDAO().RetrieveByKey(tran, lblRequestNumber.Text.ToString());                
 
-                PurchaseOrderHeader header = mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO()
-                    .RetrieveByKey(tran, orderNumber);
 
                 //Check whether the order has already been acknowledged 
-                if (string.Compare(header.AcknowledgeStatus, POAckStatus.Yes, true) == 0)
+                if (string.Compare(header.RecordStatus, QuotationStatus.Acknowledge, true) == 0)
                 {
-                    throw new Exception("The order has already been acknowledged by other user.");
+                    throw new Exception("The quotation has already been acknowledged by other user.");
                 }
 
                 //Update Order header
-                header.AcknowledgeStatus = POAckStatus.Yes;
-                header.AcknowledgeBy = mainController.GetLoginUserVO().UserId;
-                mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, header);
+                header.RecordStatus  = QuotationStatus.Acknowledge ;
+                //header.AcknowledgeBy = mainController.GetLoginUserVO().UserId;
+                mainController.GetDAOCreator().CreateQuotationHeaderDAO().Update(header);
 
                 //Update Order Item
-                foreach (PurchaseOrderItemSchedule schedule in schedules)
+                /*foreach (PurchaseOrderItemSchedule schedule in schedules)
                 {
                     scheduleSeq = schedule.PurchaseOrderScheduleSequence;
 
@@ -275,8 +265,8 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
                     mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO()
                         .Update(tran, scheduleUpdt);
 
-                }
-                tran.Commit();
+                }*/
+                //tran.Commit();
             }
             catch (Exception ex)
             {
