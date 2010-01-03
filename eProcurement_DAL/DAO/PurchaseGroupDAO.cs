@@ -122,7 +122,7 @@ namespace eProcurement_DAL
                 }
 
                 //Insert 
-                cm.CommandText = "INSERT INTO PurchaseGroup ([PURGROUP],[USERID]) VALUES(@PURGROUP,@USERID)";
+                cm.CommandText = "INSERT INTO PURGROUP ([PURGROUP],[USERID]) VALUES(@PURGROUP,@USERID)";
 
                 SqlParameter p1 = new SqlParameter("@PURGROUP", SqlDbType.VarChar, 3);
                 cm.Parameters.Add(p1);
@@ -185,7 +185,7 @@ namespace eProcurement_DAL
 
                 //Update 
                 // hong yu, feel free to update the below query, it's abit strange since you made all of the columns primary keys
-                cm.CommandText = "UPDATE PurchaseGroup SET [PURGROUP]=@PURGROUP,[USERID]=@USERID WHERE [PURGROUP]=@PURGROUP1,[USERID]=@USERID1";
+                cm.CommandText = "UPDATE PURGROUP SET [PURGROUP]=@PURGROUP,[USERID]=@USERID WHERE [PURGROUP]=@PURGROUP1,[USERID]=@USERID1";
 
                 SqlParameter p1 = new SqlParameter("@PURGROUP", SqlDbType.VarChar, 3);
                 cm.Parameters.Add(p1);
@@ -255,7 +255,7 @@ namespace eProcurement_DAL
                 }
 
                 //Update 
-                cm.CommandText = "DELETE FROM PurchaseGroup WHERE PURGROUP=@PURGROUP AND USERID=@USERID";
+                cm.CommandText = "DELETE FROM PURGROUP WHERE PURGROUP=@PURGROUP AND USERID=@USERID";
 
                 SqlParameter p1 = new SqlParameter("@PURGROUP", SqlDbType.VarChar, 3);
                 cm.Parameters.Add(p1);
@@ -299,7 +299,7 @@ namespace eProcurement_DAL
                     cm.Transaction = epTran.GetSqlTransaction();
 
                 //Retrieve Data
-                string selectCommand = "SELECT PURGROUP,USERID FROM PurchaseGroup";
+                string selectCommand = "SELECT PURGROUP,USERID FROM PURGROUP";
                 if (!string.IsNullOrEmpty(whereClause)) selectCommand += " WHERE " + whereClause;
                 if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " ORDER BY " + sortClaues;
 
