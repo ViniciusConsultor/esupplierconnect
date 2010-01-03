@@ -107,7 +107,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO rfqdtl ([EBELN],[EBELP],[MATNR],[TXZ01],[WERKS],[KTMNG],[MEINS],[NETPR],[PEINH],[NETWR],[RECSTS]) VALUES(@EBELN,@EBELP,@MATNR,@TXZ01,@WERKS,@KTMNG,@MEINS,@NETPR,@PEINH,@NETWR,@RECSTS)";
+            cm.CommandText = "INSERT INTO rfqdtl ([EBELN],[EBELP],[MATNR],[TXZ01],[WERKS],[KTMNG],[MEINS],[NETPR],[PEINH],[NETWR],[RECSTS],[BANFN],[BNFPO]) VALUES(@EBELN,@EBELP,@MATNR,@TXZ01,@WERKS,@KTMNG,@MEINS,@NETPR,@PEINH,@NETWR,@RECSTS,@BANFN,@BNFPO)";
 
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
@@ -164,6 +164,14 @@ namespace eProcurement_DAL
             SqlParameter p11 = new SqlParameter("@RECSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p11);
             p11.Value = entity.RecordStatus;
+
+            SqlParameter p12 = new SqlParameter("@BANFN", SqlDbType.Char, 10);
+            cm.Parameters.Add(p12);
+            p12.Value = entity.RequisitionNumber;
+
+            SqlParameter p13 = new SqlParameter("@BNFPO", SqlDbType.Char, 5);
+            cm.Parameters.Add(p13);
+            p13.Value = entity.RequisitionItemSequence;
             
             cm.ExecuteNonQuery();
 
@@ -204,7 +212,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE rfqdtl SET [MATNR]=@MATNR,[TXZ01]=@TXZ01,[WERKS]=@WERKS,[KTMNG]=@KTMNG,[MEINS]=@MEINS,[NETPR]=@NETPR,[PEINH]=@PEINH,[NETWR]=@NETWR,[RECSTS]=@RECSTS WHERE [EBELN]=@EBELN and [EBELP]=@EBELP";
+            cm.CommandText = "UPDATE rfqdtl SET [MATNR]=@MATNR,[TXZ01]=@TXZ01,[WERKS]=@WERKS,[KTMNG]=@KTMNG,[MEINS]=@MEINS,[NETPR]=@NETPR,[PEINH]=@PEINH,[NETWR]=@NETWR,[RECSTS]=@RECSTS,[BANFN]=@BANFN,[BNFPO]=@BNFPO WHERE [EBELN]=@EBELN and [EBELP]=@EBELP";
 
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
@@ -263,7 +271,14 @@ namespace eProcurement_DAL
             SqlParameter p11 = new SqlParameter("@RECSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p11);
             p11.Value = entity.RecordStatus;
- 
+
+            SqlParameter p12 = new SqlParameter("@BANFN", SqlDbType.Char, 10);
+            cm.Parameters.Add(p12);
+            p12.Value = entity.RequisitionNumber;
+
+            SqlParameter p13 = new SqlParameter("@BNFPO", SqlDbType.Char, 5);
+            cm.Parameters.Add(p13);
+            p13.Value = entity.RequisitionItemSequence;
 
             cm.ExecuteNonQuery();
 
@@ -344,7 +359,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [EBELN],[EBELP],[MATNR],[TXZ01],[WERKS],[KTMNG],[MEINS],[NETPR],[PEINH],[NETWR],[RECSTS] FROM rfqdtl";
+            string selectCommand = "SELECT [EBELN],[EBELP],[MATNR],[TXZ01],[WERKS],[KTMNG],[MEINS],[NETPR],[PEINH],[NETWR],[RECSTS],[BANFN],[BNFPO] FROM rfqdtl";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClause)) selectCommand += " order by " + sortClause;
 
@@ -399,8 +414,11 @@ namespace eProcurement_DAL
                 if (rd.IsDBNull(10))
                     entity.RecordStatus = null;
                 else
-                    entity.RecordStatus = rd["RECSTS"].ToString(); 
-               
+                    entity.RecordStatus = rd["RECSTS"].ToString();
+
+                entity.RequisitionNumber = rd["BANFN"].ToString();
+                entity.RequisitionItemSequence = rd["BNFPO"].ToString();
+
                 entities.Add(entity);
 
             }
