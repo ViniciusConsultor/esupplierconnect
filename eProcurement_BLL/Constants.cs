@@ -90,6 +90,7 @@ namespace eProcurement_BLL
         public const string ContractNumber = "CONTRACT_NO";
         public const string OrderItemSeqNumber = "ORDER_ITEM_SEQ_NUMBER";
         public const string OrderScheduleSeq = "ORDER_SCHEDULE_SEQ";
+        public const string DELIVERY_ORDER_COLLECTION = "DELIVERY_ORDER_COLLECTION";
     }
 
     public class ProfileType
