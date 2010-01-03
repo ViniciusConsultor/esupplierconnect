@@ -98,6 +98,20 @@ namespace eProcurement_DAL
         /// <summary>
         /// Retrieve list of record in a specified sort order from database table for the given search criteria
         /// </summary>
+        /// <param name="epTran">EpTransaction Object</param>
+        /// <param name="whereClause">Where Clause</param>
+        /// <param name="sortClaues">Sort Clause</param>
+        /// <returns>
+        /// Collection of Notification Object 
+        /// </returns>
+        public override Collection<Notification> RetrieveByQueryCustom1(string whereClause)
+        {
+            return RetrieveCustom1(null, whereClause, "");
+        }
+
+        /// <summary>
+        /// Retrieve list of record in a specified sort order from database table for the given search criteria
+        /// </summary>
         /// <param name="whereClause">Where Clause</param>
         /// <param name="sortClaues">Sort Clause</param>
         /// <returns>
@@ -121,19 +135,20 @@ namespace eProcurement_DAL
             return Retrieve(epTran, whereClause, "");
         }
 
+
         /// <summary>
-        /// Retrieve list of record in a specified sort order from database table for the given search criteria
+        /// Retrieve list of record from database table for the given search criteria
         /// </summary>
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="whereClause">Where Clause</param>
-        /// <param name="sortClaues">Sort Clause</param>
         /// <returns>
         /// Collection of Notification Object 
         /// </returns>
-        public override Collection<Notification> RetrieveByQuery(EpTransaction epTran, string whereClause, string sortClaues)
+        public override Collection<Notification> RetrieveByQuery(EpTransaction epTran, string whereClause,string sortClause)
         {
-            return Retrieve(epTran, whereClause, sortClaues);
+            return Retrieve(epTran, whereClause, sortClause);
         }
+        
         #endregion
 
         #region RetrieveByKey
@@ -450,6 +465,63 @@ namespace eProcurement_DAL
                 entity.Recipient = rd["RECIPIENT"].ToString();
                 entity.Email = rd["EMAIL"].ToString();
                 entity.Status = rd["STATUS"].ToString();              
+
+
+                entities.Add(entity);
+
+            }
+            // close reader
+            rd.Close();
+
+            if (epTran == null)
+                if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
+
+            return entities;
+        }
+
+
+
+        /// Retrieve list of record in a specified sort order from database table for the given search criteria
+        /// </summary>
+        /// <param name="epTran">EpTransaction Object</param>
+        /// <param name="whereClause">Where Clause</param>
+        /// <param name="sortClaues">Sort Clause</param>
+        /// <returns>
+        /// Collection of Notification Object 
+        /// </returns>
+        private static Collection<Notification> RetrieveCustom1(EpTransaction epTran, string whereClause, string sortClaues)
+        {
+            Collection<Notification> entities = new Collection<Notification>();
+
+            SqlCommand cm = new SqlCommand();
+            cm.CommandType = CommandType.Text;
+
+            //set connection
+            SqlConnection connection;
+            if (epTran == null)
+                connection = DataManager.GetConnection();
+            else
+                connection = epTran.GetSqlConnection();
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+            cm.Connection = connection;
+
+            //set transaction
+            if (epTran != null)
+                cm.Transaction = epTran.GetSqlTransaction();
+
+            //Retrieve Data
+            string selectCommand = "SELECT DISTINCT([RECIPIENT]) FROM notification";
+            if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
+            if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
+
+            cm.CommandText = selectCommand;
+            SqlDataReader rd = cm.ExecuteReader();
+            while (rd.Read())
+            {
+                Notification entity = new Notification();
+          
+                entity.Recipient = rd["RECIPIENT"].ToString();
+                
 
 
                 entities.Add(entity);
