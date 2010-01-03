@@ -1,0 +1,41 @@
+Subject: Purchasing Information from Fujitec
+--------------------------------------------
+Receipient: X1
+Purchase Order Create 
+---------------------
+
+PO Number Message
+--------- -------
+XXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Purchase Order Amendment
+-------------------------
+PO Number Message
+--------- -------
+XXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Purchase Contract Create
+-------------------------
+Contract Number  Message
+---------------  --------
+XXXXXXXXXXXXXXX  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXX  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+
+POCRT		Purchase Order Create
+POUPD		Purchase Order Update
+POEXP		Purchase Order Expedite
+POACK		Purchase Order Acknowledged
+POEAC		Purchase Order Exepdite Acknowledged
+PAREJ		Purchase Order Ack First Time Rejection
+EAREJ		Purchase Order Expediting Ack First Time Rejection
+CNCRT		Contract Create
+CNUPD		Contract Update
+RQCRT		RFQ  Create
+RQUPD		RFQ Update
+RJCRT		Rejection Create
+VNCRT		Vendor Create
+VNUPD		Vendor Update
