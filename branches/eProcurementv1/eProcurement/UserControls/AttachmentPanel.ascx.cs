@@ -309,7 +309,8 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
             Label lblProfileType = (Label)e.Row.FindControl("lblProfileType");
             Label lblAttachedDate = (Label)e.Row.FindControl("lblAttachedDate");
             lblAttachedDate.Text = Utility.GetShortDate(Utility.GetDateTimeFormStoredValue(Convert.ToInt64(lblAttachedDate.Text)));
-            if (string.Compare(lblProfileType.Text.Trim(), mainController.GetLoginUserVO().ProfileType, true) != 0)
+            if (string.Compare(lblProfileType.Text.Trim(), mainController.GetLoginUserVO().ProfileType, true) != 0 ||
+                ReadOnly)
             {
                 chkDel.Enabled =false;
             }  
