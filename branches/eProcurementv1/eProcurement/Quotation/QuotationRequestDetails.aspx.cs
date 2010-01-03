@@ -32,7 +32,8 @@ public partial class Quotation_QuotationRequestDetails : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionIdColl.Add("Q-0001");
+                base.m_FunctionIdColl.Add("B-0008");
+                base.m_FunctionIdColl.Add("S-0011");
 
                 base.Page_Load(sender, e);
                 /***************************************************/
@@ -45,6 +46,7 @@ public partial class Quotation_QuotationRequestDetails : BaseForm
                 else
                     throw new Exception("Invalid Quotation");
 
+                attPanel.InitPanel(reqNumber, true);
             }
         }
         catch (Exception ex)

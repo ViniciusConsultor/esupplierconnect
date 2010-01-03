@@ -1,5 +1,6 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="QuotationRequestDetails.aspx.cs" Inherits="Quotation_QuotationRequestDetails" Title="Untitled Page" %>
 <%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
+<%@ Register Src="~/UserControls/AttachmentPanel.ascx" TagName="AttachmentPanel" TagPrefix="AttachmentPanel" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
     <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
         <asp:TableHeaderRow>
@@ -178,6 +179,13 @@
                  </td> 
            </tr> 
       </table> 
+<table id="GreyTable" cellspacing="0" cellpadding="0" width="100%" border="0">
+    <tr>
+        <td valign="top" style="height: 8px">
+             <AttachmentPanel:AttachmentPanel ID="attPanel" runat="server" />                   
+        </td>
+    </tr>
+</table>
     <br />
      <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
