@@ -211,7 +211,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO purhdr ([EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[STAT],[RECSTS],[ACKSTS],[ACKBY],[TELPHN]) VALUES(@EBELN,@LIFNR,@BEDAT,@AMTPR,@GSTPR,@WAERS,@ZTERM,@BUYER,@AD_TLNMBR,@VERKF,@ADRNR_TXT,@REMARK,@STAT,@RECSTS,@ACKSTS,@ACKBY,@TELPHN)";
+            cm.CommandText = "INSERT INTO purhdr ([EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[LOEKZ],[RECSTS],[ACKSTS],[ACKBY],[TELPHN]) VALUES(@EBELN,@LIFNR,@BEDAT,@AMTPR,@GSTPR,@WAERS,@ZTERM,@BUYER,@AD_TLNMBR,@VERKF,@ADRNR_TXT,@REMARK,@LOEKZ,@RECSTS,@ACKSTS,@ACKBY,@TELPHN)";
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.OrderNumber;
@@ -257,7 +257,7 @@ namespace eProcurement_DAL
             SqlParameter p12 = new SqlParameter("@REMARK", SqlDbType.VarChar, 60);
             cm.Parameters.Add(p12);
             p12.Value = entity.Remarks;
-            SqlParameter p13 = new SqlParameter("@STAT", SqlDbType.Char, 3);
+            SqlParameter p13 = new SqlParameter("@LOEKZ", SqlDbType.Char, 3);
             cm.Parameters.Add(p13);
             p13.Value = entity.OrderStatus;
             SqlParameter p14 = new SqlParameter("@RECSTS", SqlDbType.Char, 1);
@@ -321,7 +321,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE purhdr SET LIFNR=@LIFNR,BEDAT=@BEDAT,AMTPR=@AMTPR,GSTPR=@GSTPR,WAERS=@WAERS,ZTERM=@ZTERM,BUYER=@BUYER,AD_TLNMBR=@AD_TLNMBR,VERKF=@VERKF,ADRNR_TXT=@ADRNR_TXT,REMARK=@REMARK,STAT=@STAT,RECSTS=@RECSTS,ACKSTS=@ACKSTS,[ACKBY]=@ACKBY,[TELPHN]=@TELPHN WHERE EBELN=@EBELN";
+            cm.CommandText = "UPDATE purhdr SET LIFNR=@LIFNR,BEDAT=@BEDAT,AMTPR=@AMTPR,GSTPR=@GSTPR,WAERS=@WAERS,ZTERM=@ZTERM,BUYER=@BUYER,AD_TLNMBR=@AD_TLNMBR,VERKF=@VERKF,ADRNR_TXT=@ADRNR_TXT,REMARK=@REMARK,LOEKZ=@LOEKZ,RECSTS=@RECSTS,ACKSTS=@ACKSTS,[ACKBY]=@ACKBY,[TELPHN]=@TELPHN WHERE EBELN=@EBELN";
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.OrderNumber;
@@ -367,7 +367,7 @@ namespace eProcurement_DAL
             SqlParameter p12 = new SqlParameter("@REMARK", SqlDbType.VarChar, 60);
             cm.Parameters.Add(p12);
             p12.Value = entity.Remarks;
-            SqlParameter p13 = new SqlParameter("@STAT", SqlDbType.Char, 3);
+            SqlParameter p13 = new SqlParameter("@LOEKZ", SqlDbType.Char, 3);
             cm.Parameters.Add(p13);
             p13.Value = entity.OrderStatus;
             SqlParameter p14 = new SqlParameter("@RECSTS", SqlDbType.Char, 1);
