@@ -39,6 +39,7 @@ namespace eProcurement_DAL
         private PurchaseExpeditingViewDAO purchaseExpeditingViewDAO = null;
         private RejectedGoodDAO rejectedGoodDAO = null;
         private AttachmentDAO attachmentDAO = null;
+        private PurchaseGroupDAO purchaseGroupDAO = null;
 
         public override IAccessMatrixDAO CreateAccessMatrixDAO() 
         {
@@ -237,5 +238,14 @@ namespace eProcurement_DAL
             return this.attachmentDAO;
 
         }
+
+        public override IPurchaseGroupDAO CreatePurchaseGroupDAO()
+        {
+            if (this.purchaseGroupDAO == null)
+                this.purchaseGroupDAO = new PurchaseGroupDAO();
+            return this.purchaseGroupDAO;
+            
+        }
+        
     }
 }

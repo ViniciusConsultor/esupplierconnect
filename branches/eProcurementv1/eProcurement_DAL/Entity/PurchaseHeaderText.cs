@@ -4,6 +4,7 @@ using System.Text;
 
 namespace eProcurement_DAL
 {
+    [Serializable]
     public class PurchaseHeaderText
     {
         string orderNumber;
