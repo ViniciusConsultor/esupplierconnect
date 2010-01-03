@@ -360,7 +360,7 @@ namespace eProcurement_BLL.Delivery
                 string whereClause = "";
                 string orderClause = "";
 
-                whereClause = " isnull(STAT,'') <> '" + POStatus.Delete + "' ";
+                whereClause = " isnull(LOEKZ,'') <> '" + POStatus.Delete + "' ";
 
                 if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Supplier, true) == 0)
                 {
@@ -432,7 +432,7 @@ namespace eProcurement_BLL.Delivery
                     whereClause += " AND BEDAT <= " + toDate.Value;
                 }
 
-                whereClause += "LOEKZ NOT IN('D','C') AND RECSTS = 'A' AND ACKSTS='Y'";
+                whereClause += "AND LOEKZ NOT IN('D','C') AND RECSTS = 'A' AND ACKSTS='Y'";
 
                 orderClause = " EBELN asc ";
                 return this.mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByQuery(whereClause, orderClause);
