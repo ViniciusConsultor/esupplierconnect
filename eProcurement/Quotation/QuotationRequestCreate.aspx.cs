@@ -342,8 +342,9 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                             /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                             * Request for Quotation Header a.k.a Quotation Header                        
                             *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+                            string strResqNo = lstRequisition.Items[RequisitionItem].Text + "-" + lstSupplier.Items[SupplierItem].Text;
                             qtoHeader = new QuotationHeader();
-                            qtoHeader.RequestNumber = lstRequisition.Items[RequisitionItem].Text;
+                            qtoHeader.RequestNumber = strResqNo; 
                             qtoHeader.SupplierId = lstSupplier.Items[SupplierItem].Text;
                             qtoHeader.ExpiryDate = GetStoredDateValue(dtpExpiry.SelectedDate);
                             qtoHeader.QuotationNumber = "";
@@ -363,7 +364,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                                 for (requestSequence = 0; requestSequence <= items.Count - 1; requestSequence++)
                                 {
                                     qtoItem = new QuotationItem();
-                                    qtoItem.RequestNumber = lstRequisition.Items[RequisitionItem].Text.Trim();
+                                    qtoItem.RequestNumber = strResqNo;
                                     qtoItem.RequestSequence = Convert.ToString(requestSequence + 1);
                                     qtoItem.MaterialNumber = ddlMaterialNo.SelectedValue;
                                     qtoItem.MaterialDescription = txtMaterialDesc.Text;
