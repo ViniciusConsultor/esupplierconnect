@@ -1,4 +1,11 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="AttachmentPanel.ascx.cs" Inherits="UserControls_AttachmentPanel" %>
+<!--Page title-->
+<asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
+    <asp:TableHeaderRow>
+        <asp:TableCell CssClass="navigation" VerticalAlign="Middle">
+            <asp:Label ForeColor="White" ID="lblSubPath" runat="server">Attachments</asp:Label></asp:TableCell>
+    </asp:TableHeaderRow>
+</asp:Table>
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
     <tr>
         <td style="height: auto">
