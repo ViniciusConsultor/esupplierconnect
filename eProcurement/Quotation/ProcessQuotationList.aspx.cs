@@ -2,15 +2,16 @@ using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
-using eProcurement_DAL;
-using eProcurement_BLL;
 
+using eProcurement_BLL;
+using eProcurement_DAL;
 public partial class Quotation_ProcessQuotationList : BaseForm 
 {
     private MainController mainController = null;
@@ -120,14 +121,17 @@ public partial class Quotation_ProcessQuotationList : BaseForm
                             searchCriteriaVO.QuoToDate = Convert.ToInt64(Request.QueryString["QuoToDate"].ToString());
                         else
                             searchCriteriaVO.QuoToDate = null;
+                        
                         if (!string.IsNullOrEmpty(Request.QueryString["ExpFormDate"]))
-                            searchCriteriaVO.ExpFormDate = Convert.ToInt64(Request.QueryString["ExpFormDate"].ToString());
+                            searchCriteriaVO.ExpFromDate = Convert.ToInt64(Request.QueryString["ExpFormDate"].ToString());
                         else
-                            searchCriteriaVO.ExpFormDate = null;
+                            searchCriteriaVO.ExpFromDate = null;
+
                         if (!string.IsNullOrEmpty(Request.QueryString["ExpToDate"]))
                             searchCriteriaVO.ExpToDate = Convert.ToInt64(Request.QueryString["ExpToDate"].ToString());
                         else
                             searchCriteriaVO.ExpToDate = null;
+                        
                         searchCriteriaVO.QuotationNumber = Request.QueryString["QuotationNumber"];
                         searchCriteriaVO.RequestNumber = Request.QueryString["RequestNumber"];
                         //searchCriteriaVO.Status = Request.QueryString["Status"];
@@ -199,7 +203,7 @@ public partial class Quotation_ProcessQuotationList : BaseForm
     private void StoreSearchCriteria()
     {
         SearchCriteriaVO searchCriteriaVO = new SearchCriteriaVO();
-        searchCriteriaVO.OrderNumber = txtOrderNumber.Text.Trim();
+        searchCriteriaVO.QuotationNumber  = txtQuotationNo.Text.Trim();
         if (dtQuoDtFrom.Text != "")
             searchCriteriaVO.QuoFromDate = GetStoredDateValue(dtQuoDtFrom.SelectedDate);
         else
@@ -232,7 +236,12 @@ public partial class Quotation_ProcessQuotationList : BaseForm
         if (string.Compare(m_FuncFlag, "PROCESS_QUOTATION", false) == 0)
         {
             qoColl = mainController.GetQuotationController().GetQuotationHeaderList
-           (m_SearchCriteriaVO.QuoFromDate, m_SearchCriteriaVO.QuoToDate, m_SearchCriteriaVO.ExpFromDate, m_SearchCriteriaVO.ExpToDate, m_SearchCriteriaVO.QuotationNumber, m_SearchCriteriaVO.RequestNumber, Session[SessionKey.LOGIN_USER].ToString());
+           (m_SearchCriteriaVO.QuotationNumber.ToString(), GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.QuoFromDate)),
+           GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.QuoToDate)),
+           GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.ExpFromDate)), 
+           GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.ExpToDate)), 
+           m_SearchCriteriaVO.RequestNumber.ToString (), 
+           Session[SessionKey.LOGIN_USER].ToString());
         }
 
        return qoColl;
