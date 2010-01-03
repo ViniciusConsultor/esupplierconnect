@@ -81,10 +81,9 @@ public partial class DeliveryOrder_PurchaseOrderList : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionIdColl.Add("S-0001");
+                
                 base.m_FunctionIdColl.Add("S-0002");
-                base.m_FunctionIdColl.Add("B-0001");
-                base.m_FunctionIdColl.Add("B-0002");
+               
                   
                // string functionId = Request.QueryString["FunctionId"];
                 string functionId = "S-0002";
@@ -95,22 +94,12 @@ public partial class DeliveryOrder_PurchaseOrderList : BaseForm
                 else
                 {
                     base.m_FunctionId = functionId;
-                    if (string.Compare(functionId, "S-0001", true) == 0)
-                    {
-                        m_FuncFlag = "ACK_ORDER"; 
-                    }
-                    if (string.Compare(functionId, "B-0001", true) == 0)
-                    {
-                        m_FuncFlag = "ACPT_ORDER_ACKMT";
-                    }
+                   
                     if (string.Compare(functionId, "S-0002", true) == 0)
                     {
                         m_FuncFlag = "VIEW_ORDER_SUPPLIER";
                     }
-                    if (string.Compare(functionId, "B-0002", true) == 0)
-                    {
-                        m_FuncFlag = "VIEW_ORDER_BUYER";
-                    }
+                    
                 }
                 base.Page_Load(sender, e);
                 /***************************************************/
@@ -163,39 +152,18 @@ public partial class DeliveryOrder_PurchaseOrderList : BaseForm
     {
         try
         {
-            if (string.Compare(m_FuncFlag, "ACK_ORDER", false) == 0) 
-            {
-                lblSubPath.Text = "Acknowledge Order";
-                plshSupplier.Visible = false;
-                plshBuyer.Visible = true;
-                plshStatus.Visible = false;
-            }
-
-            if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
-            {
-                lblSubPath.Text = "Accept Order Acknowledgement";
-                plshSupplier.Visible = true;
-                plshBuyer.Visible = true;
-                plshStatus.Visible = false;
-            }
+          
 
             if (string.Compare(m_FuncFlag, "VIEW_ORDER_SUPPLIER", false) == 0)
             {
                 lblSubPath.Text = "Enquire Order";
                 plshSupplier.Visible = false;
                 plshBuyer.Visible = true;
-                plshStatus.Visible = true;
+                plshStatus.Visible = false;
                 InitStatusList();
             }
 
-            if (string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
-            {
-                lblSubPath.Text = "Enquire Order";
-                plshSupplier.Visible = true;
-                plshBuyer.Visible = true;
-                plshStatus.Visible = true;
-                InitStatusList();
-            }
+            
         }
         catch (Exception ex)
         {
@@ -301,22 +269,11 @@ public partial class DeliveryOrder_PurchaseOrderList : BaseForm
     private Collection<PurchaseOrderHeader> GetData()
     {
         Collection<PurchaseOrderHeader> poColl = new Collection<PurchaseOrderHeader>();
-        if (string.Compare(m_FuncFlag, "ACK_ORDER", false) == 0)
-        {
-            poColl = mainController.GetOrderHeaderController().GetPendingAckPOList
-           (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.FromDate, m_SearchCriteriaVO.ToDate, m_SearchCriteriaVO.BuyerName);
-        }
+       
 
-        if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
+        if (string.Compare(m_FuncFlag, "VIEW_ORDER_SUPPLIER", false) == 0)
         {
-            poColl = mainController.GetOrderHeaderController().GetPendingConfirmPOList
-            (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.FromDate, m_SearchCriteriaVO.ToDate, m_SearchCriteriaVO.BuyerName, m_SearchCriteriaVO.SupplierId);
-        }
-
-        if (string.Compare(m_FuncFlag, "VIEW_ORDER_SUPPLIER", false) == 0 ||
-            string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
-        {
-            poColl = mainController.GetOrderHeaderController().EnquiryPOList
+            poColl = mainController.GetDeliveryController().EnquiryPOList
             (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.FromDate, m_SearchCriteriaVO.ToDate, m_SearchCriteriaVO.BuyerName, m_SearchCriteriaVO.SupplierId, m_SearchCriteriaVO.Status);
         }
         return poColl;
