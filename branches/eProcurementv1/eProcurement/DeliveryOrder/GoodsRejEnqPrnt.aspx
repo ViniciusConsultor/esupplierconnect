@@ -167,21 +167,7 @@
                             <ItemStyle Wrap="False" Width="15%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Document Serial">
-                            <ItemTemplate>
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" align="right">
-                                            <asp:Label ID="lblDocumentSerial" runat="server" CssClass="" Text='<%# Eval("DocumentSerial") %>'></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table> 
-                            </ItemTemplate> 
-                            <ItemStyle Width="10%"/>
-                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
-                        </asp:TemplateField>
+                       
                         <asp:TemplateField HeaderText="UOM ">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
