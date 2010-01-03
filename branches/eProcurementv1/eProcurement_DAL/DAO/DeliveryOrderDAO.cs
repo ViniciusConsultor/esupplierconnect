@@ -108,7 +108,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO dlvord ([EBELN],[EBELP],[VBELN],[MATNR],[BEDAT],[WEMNG],[RECSTS]) VALUES(@EBELN,@EBELP,@VBELN,@MATNR,@BEDAT,@WEMNG,@RECSTS)";
+            cm.CommandText = "INSERT INTO dlvord ([EBELN],[EBELP],[VBELN],[MATNR],[BEDAT],[WEMNG],[RECSTS],[LIFNR]) VALUES(@EBELN,@EBELP,@VBELN,@MATNR,@BEDAT,@WEMNG,@RECSTS,@LIFNR)";
 
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
@@ -143,6 +143,10 @@ namespace eProcurement_DAL
             SqlParameter p7 = new SqlParameter("@RECSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p7);
             p7.Value = entity.RecordStatus;
+
+            SqlParameter p8 = new SqlParameter("@LIFNR", SqlDbType.NVarChar,10);
+            cm.Parameters.Add(p8);
+            p8.Value = entity.SupplierID;
   
 
             cm.ExecuteNonQuery();
