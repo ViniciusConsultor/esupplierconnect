@@ -47,7 +47,7 @@ namespace eProcurement_SAP
                 this.UpdateContract();
                 this.RemoveContractDetails();
                 
-                aForm.getLabel().Text = "Click related <Button> to view Purchase Contract Data";
+                aForm.getLabel().Text = "Update of Purchase Contract Data Completed";
                 aForm.getLabel().Refresh();
             }
             catch (Exception ex)

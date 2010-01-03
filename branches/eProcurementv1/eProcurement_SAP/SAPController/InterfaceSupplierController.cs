@@ -43,7 +43,7 @@ namespace eProcurement_SAP
 
                 this.UpdateSupplier();
 
-                aForm.getLabel().Text = "Click related <Button> to view Suppliers Data";
+                aForm.getLabel().Text = "Update of Suppliers Master Data Completed";
                 aForm.getLabel().Refresh();
             }
             catch (Exception ex)

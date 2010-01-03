@@ -129,6 +129,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "RetrieveGoodsRejection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "RetrieveMaterialRequirement.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -430,6 +435,31 @@
                 <File
                     RelPath = "ZREQN_ITMTable.cs"
                     DependentUpon = "SAPProxy6.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SAPProxy7.sapwsdl"
+                    BuildAction = "None"
+                    Generator = "SAPConnectorGenerator"
+                    LastGenOutput = "SAPProxy7.cs"
+                />
+                <File
+                    RelPath = "SAPProxy7.cs"
+                    DependentUpon = "SAPProxy7.sapwsdl"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "ZORDER_REJECT.cs"
+                    DependentUpon = "SAPProxy7.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_REJECTTable.cs"
+                    DependentUpon = "SAPProxy7.sapwsdl"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

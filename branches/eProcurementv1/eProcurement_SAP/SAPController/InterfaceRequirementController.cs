@@ -43,7 +43,7 @@ namespace eProcurement_SAP
 
                 this.UpdateRequirement();
 
-                aForm.getLabel().Text = "Click related <Button> to view Material Requirement Data";
+                aForm.getLabel().Text = "Update of Material Requirement Data Completed";
                 aForm.getLabel().Refresh();
             }
             catch (Exception ex)

@@ -23,6 +23,7 @@ namespace eProcurement_SAP
 
         public InterfaceMainController()
         {
+            interfaceTbl = new DataTable();
             mainController = new MainController();
             scheduleInterface = new InterfaceForm(this);
             scheduleInterface.Show();
@@ -40,7 +41,10 @@ namespace eProcurement_SAP
              }
             catch (Exception ex)
             {
-                throw (ex);
+                if (ex.Message != "RECORDNOTFOUND")
+                {
+                    throw (ex);
+                }
             }
         }
 
@@ -56,7 +60,10 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
-                throw (ex);
+                if (ex.Message != "RECORDNOTFOUND")
+                {
+                    throw (ex);
+                }
             }
         }
 
@@ -72,7 +79,10 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
-                throw (ex);
+                if (ex.Message != "RECORDNOTFOUND")
+                {
+                    throw (ex);
+                }
             }
         }
 
@@ -88,7 +98,10 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
-                throw (ex);
+                if (ex.Message != "RECORDNOTFOUND")
+                {
+                    throw (ex);
+                }
             }
         }
 
@@ -104,7 +117,10 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
-                throw (ex);
+                if (ex.Message != "RECORDNOTFOUND")
+                {
+                    throw (ex);
+                }
             }
         }
 
@@ -120,7 +136,10 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
-                throw (ex);
+                if (ex.Message != "RECORDNOTFOUND")
+                {
+                    throw (ex);
+                }
             }
         }
 
@@ -175,7 +194,10 @@ namespace eProcurement_SAP
 
         public void GetOrderHeader()
         {
-            interfaceTbl = orderController.GetOrderHeader();
+            if (orderController.GetOrderHeader() != null)
+            {
+                interfaceTbl = orderController.GetOrderHeader();
+            }
         }
 
         public void GetOrderItem()
@@ -211,6 +233,11 @@ namespace eProcurement_SAP
         public void GetItemText()
         {
             interfaceTbl = orderController.GetOrderItem();
+        }
+
+        public void GetOrderHistory()
+        {
+            interfaceTbl = orderController.GetHistory();
         }
 
         public DataTable GetInterfaceData()

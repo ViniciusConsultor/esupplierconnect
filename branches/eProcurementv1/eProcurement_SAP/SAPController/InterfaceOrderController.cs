@@ -60,7 +60,7 @@ namespace eProcurement_SAP
                 this.UpdatePurchaseOrder();
                 this.RemoveOrderDetails();
 
-                aForm.getLabel().Text = "Click related <Button> to view Purchase Order Data";
+                aForm.getLabel().Text = "Update of Purchase Order Data Completed";
                 aForm.getLabel().Refresh();
             }
             catch (Exception ex)
@@ -387,6 +387,11 @@ namespace eProcurement_SAP
         public DataTable GetItemText()
         {
             return itemText.ToADODataTable();
+        }
+
+        public DataTable GetHistory()
+        {
+            return orderHistory.ToADODataTable();
         }
 
         private void setParameters()
