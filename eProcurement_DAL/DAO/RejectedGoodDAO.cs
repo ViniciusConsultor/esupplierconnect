@@ -313,7 +313,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Check whether record exists
-            RejectedGood checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.ItemSequence,entity.DocumentNumber);
+            RejectedGood checkEntity = RetrieveByKey(epTran, entity.OrderNumber, entity.ItemSequence, entity.DocumentNumber);
             if (checkEntity == null)
             {
                 throw new Exception("Record doesn't exist.");
@@ -321,7 +321,8 @@ namespace eProcurement_DAL
 
             //Update 
 
-            cm.CommandText = "UPDATE REJECTION SET [MATNR] = @MATNR,[TRNQTY] = @TRNQTY,[MEINS]=@MEINS ,[REFNO] = @REFNO,[AEDAT] = @AEDAT, [ACKSTS] = @ACKSTS, [WERKS] = @WERKS, [LGORT] = @LGORT WHERE [EBELN] = @EBELN AND [EBELP] = @EBELP AND [DOCNO]=@DOCNO";
+            //cm.CommandText = "UPDATE REJECTION SET [MATNR] = @MATNR,[TRNQTY] = @TRNQTY,[MEINS]=@MEINS ,[REFNO] = @REFNO,[AEDAT] = @AEDAT, [ACKSTS] = @ACKSTS, [WERKS] = @WERKS, [LGORT] = @LGORT WHERE [EBELN] = @EBELN AND [EBELP] = @EBELP AND [DOCNO]=@DOCNO";
+            cm.CommandText = "UPDATE REJECTION SET  [ACKSTS] = @ACKSTS  WHERE [EBELN] = @EBELN AND [EBELP] = @EBELP AND [DOCNO]=@DOCNO";
 
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
@@ -334,44 +335,44 @@ namespace eProcurement_DAL
             SqlParameter p3 = new SqlParameter("@DOCNO", SqlDbType.Char, 10);
             cm.Parameters.Add(p3);
             p3.Value = entity.DocumentNumber;
-     
-            SqlParameter p4 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
-            cm.Parameters.Add(p4);
-            p4.Value = entity.MaterialNumber;
 
-            SqlParameter p5 = new SqlParameter("@TRNQTY", SqlDbType.Decimal, 13);
-            cm.Parameters.Add(p5);
-            if (entity.RejectQuantity.HasValue)
-                p5.Value = entity.RejectQuantity.Value;
-            else
-                p5.Value = DBNull.Value;
+            //SqlParameter p4 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
+            //cm.Parameters.Add(p4);
+            //p4.Value = entity.MaterialNumber;
 
-            SqlParameter p6 = new SqlParameter("@MEINS", SqlDbType.Char, 3);
-            cm.Parameters.Add(p6);
-            p6.Value = entity.UnitofMeasure;
+            //SqlParameter p5 = new SqlParameter("@TRNQTY", SqlDbType.Decimal, 13);
+            //cm.Parameters.Add(p5);
+            //if (entity.RejectQuantity.HasValue)
+            //    p5.Value = entity.RejectQuantity.Value;
+            //else
+            //    p5.Value = DBNull.Value;
 
-            SqlParameter p7 = new SqlParameter("@REFNO", SqlDbType.Char, 10);
-            cm.Parameters.Add(p7);
-            p7.Value = entity.ReferenceNumber;
+            //SqlParameter p6 = new SqlParameter("@MEINS", SqlDbType.Char, 3);
+            //cm.Parameters.Add(p6);
+            //p6.Value = entity.UnitofMeasure;
 
-            SqlParameter p8 = new SqlParameter("@AEDAT", SqlDbType.BigInt, 8);
-            cm.Parameters.Add(p8);
-            if (entity.RejectDate.HasValue)
-                p8.Value = entity.RejectDate;
-            else
-                p8.Value = DBNull.Value;
+            //SqlParameter p7 = new SqlParameter("@REFNO", SqlDbType.Char, 10);
+            //cm.Parameters.Add(p7);
+            //p7.Value = entity.ReferenceNumber;
+
+            //SqlParameter p8 = new SqlParameter("@AEDAT", SqlDbType.BigInt, 8);
+            //cm.Parameters.Add(p8);
+            //if (entity.RejectDate.HasValue)
+            //    p8.Value = entity.RejectDate;
+            //else
+            //    p8.Value = DBNull.Value;
 
             SqlParameter p9 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p9);
             p9.Value = entity.AcknowledgeStatus;
 
-            SqlParameter p10 = new SqlParameter("@WERKS", SqlDbType.Char, 4);
-            cm.Parameters.Add(p10);
-            p10.Value = entity.Plant;
+            //SqlParameter p10 = new SqlParameter("@WERKS", SqlDbType.Char, 4);
+            //cm.Parameters.Add(p10);
+            //p10.Value = entity.Plant;
 
-            SqlParameter p11 = new SqlParameter("@LGORT", SqlDbType.Char, 4);
-            cm.Parameters.Add(p11);
-            p11.Value = entity.Location;
+            //SqlParameter p11 = new SqlParameter("@LGORT", SqlDbType.Char, 4);
+            //cm.Parameters.Add(p11);
+            //p11.Value = entity.Location;
 
             cm.ExecuteNonQuery();
 
