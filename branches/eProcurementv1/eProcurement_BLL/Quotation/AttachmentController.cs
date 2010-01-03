@@ -20,7 +20,15 @@ namespace eProcurement_BLL.Quotation
             {
                 string whereClause = "";
                 string orderClause = "";
-                whereClause = " EBELN = '" + Utility.EscapeSQL(rfqNumber) + "'";
+
+                whereClause = " (EBELN = '" + Utility.EscapeSQL(rfqNumber) + "') ";
+
+                Collection<QuotationItem> items = mainController.GetDAOCreator().CreateQuotationItemDAO().RetrieveByQuery(whereClause);
+                if (items.Count > 0) 
+                {
+                    whereClause += " OR (EBELN = '" + Utility.EscapeSQL(items[0].RequisitionNumber) + "') ";
+                }
+
                 orderClause = " PROFTYP,FILENAME asc ";
                 return this.mainController.GetDAOCreator().CreateAttachmentDAO(false).RetrieveByQuery(whereClause, orderClause);
             }
@@ -31,14 +39,14 @@ namespace eProcurement_BLL.Quotation
             }
         }
 
-        public Collection<Attachment> GetAttachmentList(Collection<Guid> rfqNumbers)
+        public Collection<Attachment> GetAttachmentList(Collection<Guid> attachmentIds)
         {
             try
             {
                 string whereClause = "";
                 string orderClause = "";
 
-                foreach (Guid rfqNumber in rfqNumbers)
+                foreach (Guid attachmentId in attachmentIds)
                 {
                     if (whereClause == "")
                     {
@@ -48,7 +56,7 @@ namespace eProcurement_BLL.Quotation
                     {
                         whereClause += " or ";
                     }
-                    whereClause += "ATTCHMTID='" + rfqNumber.ToString() + "'";
+                    whereClause += "ATTCHMTID='" + attachmentId.ToString() + "'";
                 }
                 if (whereClause != "") whereClause += ")";
 
