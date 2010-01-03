@@ -209,7 +209,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                 {
                     for (SupplierItem = 0; SupplierItem < lstSupplier.Items.Count; SupplierItem++)
                     {
-                        if (lstSupplier.Items[RequisitionItem].Selected)
+                        if (lstSupplier.Items[SupplierItem].Selected)
                         {
                             /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                             * Request for Quotation Header a.k.a Quotation Header                        
@@ -337,7 +337,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                 {
                     for (SupplierItem = 0; SupplierItem < lstSupplier.Items.Count; SupplierItem++)
                     {
-                        if (lstSupplier.Items[RequisitionItem].Selected)
+                        if (lstSupplier.Items[SupplierItem].Selected)
                         {
                             /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                             * Request for Quotation Header a.k.a Quotation Header                        
@@ -345,9 +345,9 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                             qtoHeader = new QuotationHeader();
                             qtoHeader.RequestNumber = lstRequisition.Items[RequisitionItem].Text;
                             qtoHeader.SupplierId = lstSupplier.Items[SupplierItem].Text;
-                            qtoHeader.ExpiryDate = Int64.Parse(dtpExpiry.SelectedDate.Day.ToString() + dtpExpiry.SelectedDate.Month.ToString() + dtpExpiry.SelectedDate.Year.ToString());
+                            qtoHeader.ExpiryDate = GetStoredDateValue(dtpExpiry.SelectedDate);
                             qtoHeader.QuotationNumber = "";
-                            qtoHeader.QuotationDate = Int64.Parse("000000");
+                            qtoHeader.QuotationDate = null;
                             qtoHeader.RecordStatus = QuotationStatus.Request; //[R]equest / [A]cknowledge / [A]cceptance / [R]ejected
                             quotationHdrList.Add(qtoHeader);
 
@@ -393,7 +393,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
             
             gvItem.DataSource = quotationItemList;
             gvItem.DataBind();
-            lblCount.Text = Convert.ToString(requestSequence - 1) + " Record(s) found.";                         
+            lblCount.Text = Convert.ToString(quotationItemList.Count) + " Record(s) found.";                         
             //gvRequisition / =requisitionItemList
         }
         catch (Exception ex)
