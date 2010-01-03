@@ -231,10 +231,9 @@
 
     <table cellspacing="0" cellpadding="0" width="100%" border="0">   
        <tr>   
-             <td>         
+             <td nowrap="nowrap" align= "left"  style="width : 100%">
                <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click"/>
-               </td>
-               <td>
+
                <asp:Button ID="btnSubmit" runat="server" Text="Submit" onclick="btnSubmit_Click"/>
             </td>                        
         </tr> 

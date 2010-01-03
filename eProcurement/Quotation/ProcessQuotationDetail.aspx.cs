@@ -149,39 +149,38 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
         qHeaders = mainController.GetQuotationController().GetQuotationHeader(lblQuotationNo.Text.ToString ()  );
 
         QuotationHeader qHeader = new QuotationHeader();
-        if (qHeaders.Count > 0)
+        if (qHeaders.Count > 0 ){}
+
+        qHeader=qHeaders[0];
+
+        if (qHeader == null)
         {
-
-            qHeader = qHeaders[0];
-
-            if (qHeader == null)
-            {
-                throw new Exception("Invalid Quotation Number.");
-            }
-
-            Supplier supplier = mainController.GetSupplierController().GetSupplier(qHeader.SupplierId.ToString());
-
-            lblSupplierId.Text = qHeader.SupplierId;
-            lblSupplierName.Text = supplier.SupplierName;
-            lblSupplierAddress.Text = supplier.SupplierAddress;
-            lblPostalCode.Text = "Singapore " + supplier.PostalCode;
-            lblCountry.Text = supplier.CountryCode;
-
-            lblShipmentAddress.Text = "";
-
-            lblRequestNumber.Text = qHeader.RequestNumber;
-            //lblRFQDate.Text=""
-            lblQuotationNo.Text = qHeader.QuotationNumber;
-            if (qHeader.QuotationDate.HasValue)
-                lblQuotationDate.Text = GetShortDate(GetDateTimeFormStoredValue(qHeader.QuotationDate.Value));
-            else
-                lblQuotationDate.Text = "";
-            if (qHeader.ExpiryDate.HasValue)
-                lbExpiryDate.Text = GetShortDate(GetDateTimeFormStoredValue(qHeader.ExpiryDate.Value));
-            else
-                lbExpiryDate.Text = "";
-            //for attachment
+            throw new Exception("Invalid Quotation Number.");
         }
+
+        Supplier supplier = mainController.GetSupplierController().GetSupplier(qHeader.SupplierId.ToString () );
+
+        lblSupplierId.Text = qHeader.SupplierId;
+        lblSupplierName.Text = supplier.SupplierName;
+        lblSupplierAddress.Text = supplier.SupplierAddress;
+        lblPostalCode.Text = "Singapore " + supplier.PostalCode;
+        lblCountry.Text = supplier.CountryCode;
+
+        lblShipmentAddress.Text = "";
+
+        lblRequestNumber.Text = qHeader.RequestNumber;
+        //lblRFQDate.Text=""
+        lblQuotationNo.Text = qHeader.QuotationNumber;
+        if (qHeader.QuotationDate.HasValue)
+            lblQuotationDate.Text = GetShortDate(GetDateTimeFormStoredValue(qHeader.QuotationDate.Value));
+        else
+            lblQuotationDate.Text = "";
+        if (qHeader.ExpiryDate.HasValue)
+            lbExpiryDate.Text = GetShortDate(GetDateTimeFormStoredValue(qHeader.ExpiryDate.Value));
+        else
+            lbExpiryDate.Text = "";
+        //for attachment
+       
     }
 
     private void InitItems()
