@@ -128,7 +128,7 @@ namespace eProcurement_BLL.PurchaseContract
                             contractNumber));
                     }
 
-                    if (string.Compare(contheader.AcknowledgeStatus, ContractAckStatus.Yes, true) != 0)
+                    if (string.Compare(contheader.AcknowledgeStatus, ContractAckStatus.Yes, true) == 0)
                     {
                         throw new Exception(string.Format("Purchase contract record has already been updated by other user. Contract Number:{0}.",
                             contractNumber));
