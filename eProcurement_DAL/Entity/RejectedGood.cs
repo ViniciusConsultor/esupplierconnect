@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 // 
 // Team         : Team 03
-// Author       : Ei Ei Thu
+// Author       : Ei Ei Thu & Vinss
 // Created Date : 19/09/2009
 // ISS M.TECH SE16 Batch
 //
@@ -10,8 +10,8 @@
 //	  
 // Revision History:
 //    1.0:
-//      Author  : Ei Ei Thu
-//      Date    : 19/09/2009   
+//      Author  : Ei Ei Thu & Vinss
+//      Date    : 03/01/2010   
 //      Comments: Created class 
 //    
 // Copyright 2008-2010 ISS/Fujitec
@@ -47,13 +47,7 @@ namespace eProcurement_DAL
             get { return documentNumber; }
             set { documentNumber = value; }
         }
-        ///<summary>Database mapping to column rejection.ITEMNO</summary>
-        string documentSerial;
-        public string DocumentSerial
-        {
-            get { return documentSerial; }
-            set { documentSerial = value; }
-        }
+       
         ///<summary>Database mapping to column rejection.MATNR</summary>
         string materialNumber;
         public string MaterialNumber
