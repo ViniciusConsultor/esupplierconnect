@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="CreateDeliveryOrder.aspx.cs" Inherits="DeliveryOrder_CreateDeliveryOrder" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageSimple.master" AutoEventWireup="true" CodeFile="CreateDeliveryOrder.aspx.cs" Inherits="DeliveryOrder_CreateDeliveryOrder" %>
 
 
 <%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
