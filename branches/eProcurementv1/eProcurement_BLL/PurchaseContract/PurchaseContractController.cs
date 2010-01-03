@@ -70,7 +70,7 @@ namespace eProcurement_BLL.PurchaseContract
                     else
                         whereClauseSub = " 1=2 ";
 
-                    whereClause += " AND " + whereClauseSub;
+                    whereClause =  whereClauseSub;
                 }
 
                 if (contractNumber != "")
