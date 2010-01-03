@@ -239,10 +239,7 @@ namespace eProcurement_BLL.Delivery
         }
 
 
-        public RejectedGood GetRejectedGood(string orderNumber, string itemSequence, string documentNumber)
-        {
-            return mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByKey(orderNumber, itemSequence, documentNumber);
-        }
+      
 
        /* public Collection<RejectedGood> EnquirePendingAckPOList(string orderNumber, string itemSequence, string documentNumber, string materialNumber)
         {
@@ -443,11 +440,121 @@ namespace eProcurement_BLL.Delivery
                 throw (ex);
             }
         }
-       
 
 
 
+
+
+        public RejectedGood GetRejectedGood(string orderNumber, string itemSequence, string documentNumber)
+        {
+            return mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByKey(orderNumber, itemSequence, documentNumber);
+        }
+
+
+        public Collection<RejectedGood> GetRejectedGoodList(string OrderNo)
+        {
+            try
+            {
+                string whereCluase = "";
+
+                whereCluase = " EBELN like '" + OrderNo + "%'";
+
+                //orderCluase = " BANFN asc ";
+                return this.mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByQuery(whereCluase);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+        public Collection<RejectedGood> GetRejectedGoodList(string orderNumber, string itemSequence, string documentNumber, string materialNumber)
+        {
+            try
+            {
+                string whereClause = "";
+                string orderClause = "";
+                //whereClause = " LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
+                whereClause += " isnull(ACKSTS,'') = '" + RejAckStatus.No + "' ";
+
+                if (orderNumber != "")
+                {
+                    whereClause += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
+                }
+                if (itemSequence != "")
+                {
+                    whereClause += " AND EBELP like '" + Utility.EscapeSQL(itemSequence) + "' ";
+                }
+                if (documentNumber != "")
+                {
+                    whereClause += " AND DOCNO like '" + Utility.EscapeSQL(documentNumber) + "' ";
+                }
+                if (materialNumber != "")
+                {
+                    whereClause += " AND MATNR like '" + Utility.EscapeSQL(materialNumber) + "' ";
+                }
+
+                whereClause += " AND EBELN IN (SELECT EBELN FROM PURHDR WHERE LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "')";
+                orderClause = " EBELN asc ";
+                return this.mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByQuery(whereClause, orderClause);
+                //return this.mainController.GetDAOCreator().CreateDeliveryOrderDAO().RetrieveByQuery(whereClause, orderClause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+
+            }
+        }
+
+        public void AcknowledgeRejectedGood(Collection<RejectedGood> rejgood)
+        {
+            try
+            {
+                EpTransaction tran = DataManager.BeginTransaction();
+                try
+                {
+                    foreach (RejectedGood vo in rejgood)
+                    {
+                        RejectedGood rgood = new RejectedGood();
+                        rgood = mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByKey(vo.OrderNumber, vo.ItemSequence, vo.DocumentNumber);
+                        if (rejgood == null)
+                        {
+                            throw new Exception(string.Format("Rejected Good record doesn't exist. Order Number:{0}, Item Sequence:{1}, Document Number:{2}.",
+                                vo.OrderNumber, vo.ItemSequence, vo.DocumentNumber));
+                        }
+
+                        if (string.Compare(rgood.AcknowledgeStatus, RejAckStatus.Yes, true) == 0)
+                        {
+                            throw new Exception(string.Format("Rejected Good record has already been updated by other user. Order Number:{0}, Item Sequence:{1},  Document Number:{2}.",
+                                vo.OrderNumber, vo.ItemSequence, vo.DocumentNumber));
+                        }
+
+                        rgood.AcknowledgeStatus = RejAckStatus.Yes;
+
+                        mainController.GetDAOCreator().CreateRejectedGoodDAO().Update(rgood);
+                    }
+
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw (ex);
+                }
+                finally
+                {
+                    tran.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
 
 
     }
+
 }
