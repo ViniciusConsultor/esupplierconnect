@@ -144,7 +144,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Notification Object
         /// </returns>
-        public override Notification RetrieveByKey(string notificationId)
+        public override Notification RetrieveByKey(long notificationId)
         {
             return RetrieveByKey(null, notificationId);
         }
@@ -157,10 +157,10 @@ namespace eProcurement_DAL
         /// <returns>
         /// Notification Object
         /// </returns>
-        public override Notification RetrieveByKey(EpTransaction epTran, string notificationId)
+        public override Notification RetrieveByKey(EpTransaction epTran, long notificationId)
         {
             Notification entity = null;
-            string whereClause = " NOTIFID='" + DataManager.EscapeSQL(notificationId) + "' ";
+            string whereClause = " NOTIFID=" + DataManager.EscapeSQL(notificationId.ToString()) + " ";
             
             Collection<Notification> entities = Retrieve(epTran, whereClause, "");
             if (entities.Count > 0)
@@ -211,12 +211,12 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO notification ([NOTIFID],[NOTIFTYPE],[NOTIFDATE],[REFNUM],[REFSEQ],[MESSAGE],[SENDER],[RECIPIENT],[EMAIL],[STATUS]) VALUES(@NOTIFID,@NOTIFTYP,@NOTIFDATE,@REFNUM,@REFSEQ,@MESSAGE,@SENDER,@RECIPIENT,@EMAIL,@STATUS])";
-            SqlParameter p1 = new SqlParameter("@NOTIFID", SqlDbType.Char, 10);
-            cm.Parameters.Add(p1);
-            p1.Value = entity.NotificationId;
+            cm.CommandText = "INSERT INTO notification ([NOTIFTYP],[NOTIFDATE],[REFNUM],[REFSEQ],[MESSAGE],[SENDER],[RECIPIENT],[EMAIL],[STATUS]) VALUES(@NOTIFTYP,@NOTIFDATE,@REFNUM,@REFSEQ,@MESSAGE,@SENDER,@RECIPIENT,@EMAIL,@STATUS)";
+            //SqlParameter p1 = new SqlParameter("@NOTIFID", SqlDbType.BigInt);
+            //cm.Parameters.Add(p1);
+            //p1.Value = entity.NotificationId;
 
-            SqlParameter p2 = new SqlParameter("@NOTIFTYPE", SqlDbType.VarChar, 5);
+            SqlParameter p2 = new SqlParameter("@NOTIFTYP", SqlDbType.VarChar, 5);
             cm.Parameters.Add(p2);
             p2.Value = entity.NotificationType;
 
@@ -303,7 +303,7 @@ namespace eProcurement_DAL
             //Update 
             cm.CommandText = "UPDATE notification NOTIFTYP=@NOTIFTYP,NOTIFDATE=@NOTIFDATE,REFNUM=@REFNUM,REFSEQ=@REFSEQ,MESSAGE=@MESSAGE,SENDER=@SENDER,RECIPIENT=@RECIPIENT,EMAIL=@EMAIL,STATUS=@STATUS WHERE NOTIFID=@NOTIFID";
 
-            SqlParameter p1 = new SqlParameter("@NOTIFTYPE", SqlDbType.VarChar, 5);
+            SqlParameter p1 = new SqlParameter("@NOTIFTYP", SqlDbType.VarChar, 5);
             cm.Parameters.Add(p1);
             p1.Value = entity.NotificationType;
 
@@ -440,7 +440,7 @@ namespace eProcurement_DAL
             while (rd.Read())
             {
                 Notification entity = new Notification();
-                entity.NotificationId = rd["NOTIFID"].ToString();
+                entity.NotificationId = Convert.ToInt64(rd["NOTIFID"]);
                 entity.NotificationType = rd["NOTIFTYP"].ToString();
                 entity.NotificationDate = System.Convert.ToInt64(rd["NOTIFDATE"]);
                 entity.ReferenceNumber = rd["REFNUM"].ToString();

@@ -81,6 +81,29 @@ namespace eProcurement_BLL
         public const string No = "N";
     }
 
+    public class NotificationMessage
+    {
+        public const string buyerSender    = "Raymond Khoo";
+        public const string buyerRecepient = "Raymond Khoo";
+        public const string buyerEmail     = "chetan@fujitecsg.com";
+
+        public const string OrderCreate = "POCRT";	            //	Purchase Order Create
+        public const string OrderUpdate = "POUPD";              //	Purchase Order Update
+        public const string OrderExpedite = "POEXP";            //	Purchase Order Expedite
+        public const string OrderAcknowledged = "POACK";        //	Purchase Order Acknowledged
+        public const string ExpediteAcknowledged = "POEAC";     //	Purchase Order Exepdite Acknowledged
+        public const string OrderAckFirstReject = "PAREJ";      //	Purchase Order Ack First Time Rejection
+        public const string ExpediteAckFirstReject = "EAREJ";   //	Purchase Order Expediting Ack First Time Rejection
+        public const string ContractCreate = "CNCRT";           //	Contract Create
+        public const string ContractUpdate = "CNUPD";           //	Contract Update
+        public const string RFQCreate = "RQCRT";                //	RFQ  Create
+        public const string RFQUpdate = "RQUPD";                //	RFQ Update
+        public const string RejectionCreate = "PAREJ";          //  Goods Rejection
+        public const string VendorCreate = "VNCRT";             // Vendor Creation
+        public const string VendorUpdate = "VNUPD";             // Vendor Update
+
+    }
+
     #region User Management Constants
 
     public class SessionKey

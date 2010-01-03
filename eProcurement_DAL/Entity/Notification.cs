@@ -28,8 +28,8 @@ namespace eProcurement_DAL
     public class Notification
     {
         ///<summary>Database mapping to column notification.NOTIFID</summary>
-        string notificationId;
-        public string NotificationId
+        long notificationId;
+        public long NotificationId
         {
             get { return notificationId; }
             set { notificationId = value; }

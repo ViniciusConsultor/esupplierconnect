@@ -6,6 +6,7 @@ using SAPInterface;
 using SAP.Connector;
 using eProcurement_DAL;
 using eProcurement_BLL;
+using eProcurement_BLL.Notification;
 
 namespace eProcurement_SAP
 {
@@ -87,12 +88,34 @@ namespace eProcurement_SAP
                         supmst.EmailID = supobj.Email.Trim();
                         supmst.UserField = supobj.Sperq;
                         supmst.RecordStatus = "";
+                        Notification notification = new Notification();
                         if (mainController.GetDAOCreator().CreateSupplierDAO().RetrieveByKey(tran, supobj.Lifnr) != null)
+                        {
                             mainController.GetDAOCreator().CreateSupplierDAO().Update(tran, supmst);
+                            notification.NotificationType = NotificationMessage.VendorUpdate;
+                        }
                         else
+                        {
                             mainController.GetDAOCreator().CreateSupplierDAO().Insert(tran, supmst);
+                            notification.NotificationType = NotificationMessage.VendorCreate;
+                        }
 
-                        aMsgstr = aMsgstr + supobj.Lifnr + ", ";
+                        aMsgstr = "You have been assigned with supplier Id : " + supobj.Lifnr + ", please login with following user Id and password to access eProcurement Web Site. Please change your password at initial login.";
+
+                        notification.NotificationId = 0;
+                        notification.NotificationDate = Convert.ToInt64(System.DateTime.Now.Year.ToString() + System.DateTime.Now.Month.ToString().PadLeft(2, '0') + System.DateTime.Now.Day.ToString().PadLeft(2, '0'));
+                        notification.ReferenceNumber = supobj.Lifnr;
+                        notification.ReferenceSequence = "";
+                        notification.Recipient = supobj.Lifnr;
+                        notification.Sender = NotificationMessage.buyerSender;
+                        notification.Message = aMsgstr;
+                        notification.Email = supobj.Email.Trim();
+                        if (notification.Email == "")
+                        {
+                            notification.Email = NotificationMessage.buyerEmail;
+                        }
+                        notification.Status = "0";
+                        this.ProcessNotification(notification);
                         aForm.getProgressBar().Increment(wstep);
                     }
 
@@ -126,6 +149,20 @@ namespace eProcurement_SAP
             aForm.getProgressBar().Step = 0;
             aForm.getProgressBar().Maximum = aRecCount;
             aForm.getProgressBar().Minimum = 1;
+        }
+
+        private void ProcessNotification(Notification pNotification)
+        {
+            try
+            {
+                NotificationController notificationControl = new NotificationController(mainController);
+                notificationControl.InsertEmailNotification(pNotification);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
         }
 
     }
