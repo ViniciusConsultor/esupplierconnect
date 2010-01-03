@@ -389,7 +389,7 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
      {
          try
          {
-             string url = "~/PurchaseOrder/PurchaseOrderList.aspx?" + m_QueryString;
+             string url = "~/DeliveryOrder/PurchaseOrderList.aspx?" + m_QueryString;
              Response.Redirect(url);
          }
          catch (Exception ex)
