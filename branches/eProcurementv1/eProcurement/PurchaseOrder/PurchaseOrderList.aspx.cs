@@ -138,9 +138,22 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                             searchCriteriaVO.ToDate = Convert.ToInt64(Request.QueryString["ToDate"].ToString());
                         else
                             searchCriteriaVO.ToDate = null;
-                        searchCriteriaVO.SupplierId = Request.QueryString["SupplierId"].ToString();
-                        searchCriteriaVO.BuyerName = Request.QueryString["BuyerName"].ToString();
-                        searchCriteriaVO.Status = Request.QueryString["Status"].ToString();
+
+                        if (!string.IsNullOrEmpty(Request.QueryString["SupplierId"]))
+                            searchCriteriaVO.SupplierId = Request.QueryString["SupplierId"].ToString();
+                        else
+                            searchCriteriaVO.SupplierId = "";
+
+                         if (!string.IsNullOrEmpty(Request.QueryString["Status"]))
+                            searchCriteriaVO.Status = Request.QueryString["Status"].ToString();
+                        else
+                            searchCriteriaVO.Status = "";
+
+                        if (!string.IsNullOrEmpty(Request.QueryString["BuyerName"]))
+                            searchCriteriaVO.BuyerName = Request.QueryString["BuyerName"].ToString();
+                        else
+                            searchCriteriaVO.BuyerName = "";
+
                         m_SearchCriteriaVO = searchCriteriaVO;
 
                         if (!string.IsNullOrEmpty(Request.QueryString["PageIdx"])) 
