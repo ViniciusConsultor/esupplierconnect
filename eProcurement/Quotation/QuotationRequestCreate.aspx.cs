@@ -251,6 +251,8 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                                     qtoItem.PriceUnit = items[requestSequence].UnitPrice;
                                     qtoItem.NetValue = (items[requestSequence].UnitPrice * items[requestSequence].RequiredQuantity);   //Net Value	((net price / price unit) * re qty =net value)
                                     qtoItem.RecordStatus = QuotationStatus.Request; //Record Status	[R]equest / [A]cknowledge / [A]cceptance / [R]ejected (R)
+                                    qtoItem.RequisitionNumber = lstRequisition.Items[RequisitionItem].Text;
+                                    qtoItem.RequisitionItemSequence = items[requestSequence].ItemSequence;
                                     quotationItemList.Add(qtoItem);
                                 }
                             }
@@ -377,6 +379,8 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                                     qtoItem.PriceUnit = items[requestSequence].UnitPrice;
                                     qtoItem.NetValue = (items[requestSequence].UnitPrice * items[requestSequence].RequiredQuantity);   //Net Value	((net price / price unit) * re qty =net value)
                                     qtoItem.RecordStatus = QuotationStatus.Request; //Record Status	[R]equest / [A]cknowledge / [A]cceptance / [R]ejected (R)
+                                    qtoItem.RequisitionNumber = lstRequisition.Items[RequisitionItem].Text;
+                                    qtoItem.RequisitionItemSequence = items[requestSequence].ItemSequence;
                                     quotationItemList.Add(qtoItem);
                                 }
                             }
