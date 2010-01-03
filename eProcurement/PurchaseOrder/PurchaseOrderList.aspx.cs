@@ -129,7 +129,7 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                     if (string.Compare(Request.QueryString["ReturnFromDetails"], "Y", true) == 0) 
                     {
                         SearchCriteriaVO searchCriteriaVO = new SearchCriteriaVO();
-                        searchCriteriaVO.OrderNumber = Request.QueryString["OrderNumber"];
+                        searchCriteriaVO.OrderNumber = Request.QueryString["OrderNumber"].ToString();
                         if (!string.IsNullOrEmpty(Request.QueryString["FormDate"]))
                             searchCriteriaVO.FromDate = Convert.ToInt64(Request.QueryString["FormDate"].ToString());
                         else
@@ -138,9 +138,9 @@ public partial class PurchaseOrder_PurchaseOrderList : BaseForm
                             searchCriteriaVO.ToDate = Convert.ToInt64(Request.QueryString["ToDate"].ToString());
                         else
                             searchCriteriaVO.ToDate = null;
-                        searchCriteriaVO.SupplierId = Request.QueryString["SupplierId"];
-                        searchCriteriaVO.BuyerName = Request.QueryString["BuyerName"];
-                        searchCriteriaVO.Status = Request.QueryString["Status"];
+                        searchCriteriaVO.SupplierId = Request.QueryString["SupplierId"].ToString();
+                        searchCriteriaVO.BuyerName = Request.QueryString["BuyerName"].ToString();
+                        searchCriteriaVO.Status = Request.QueryString["Status"].ToString();
                         m_SearchCriteriaVO = searchCriteriaVO;
 
                         if (!string.IsNullOrEmpty(Request.QueryString["PageIdx"])) 
