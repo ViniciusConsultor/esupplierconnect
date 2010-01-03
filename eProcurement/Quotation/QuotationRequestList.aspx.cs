@@ -69,7 +69,8 @@ public partial class Quotation_QuotationRequestList : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionIdColl.Add("Q-0001");
+                base.m_FunctionIdColl.Add("B-0008");
+                base.m_FunctionIdColl.Add("S-0011");
                 base.Page_Load(sender, e);
                 /***************************************************/
 
