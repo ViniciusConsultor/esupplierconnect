@@ -48,7 +48,7 @@ namespace eProcurement_SAP
                 this.UpdateRequisition();
                 this.RemoveRequisitionDetails();
                 
-                aForm.getLabel().Text = "Click related <Button> to view Purchase Requisition Data";
+                aForm.getLabel().Text = "Update of Purchase Requisition Data Completed";
                 aForm.getLabel().Refresh();
             }
             catch (Exception ex)
@@ -109,7 +109,7 @@ namespace eProcurement_SAP
                     {
                         RequisitionItem ritm = new RequisitionItem();
                         ritm.RequisitionNumber = reqitm.Banfn;
-                        ritm.SequenceNumber = reqitm.Bnfpo;
+                        ritm.ItemSequence = reqitm.Bnfpo;
                         ritm.PurchasingGroup = reqitm.Ekgrp;
                         ritm.PurchaseOrg = reqitm.Ekorg;
                         ritm.MaterialNumber = reqitm.Matnr;
@@ -121,7 +121,7 @@ namespace eProcurement_SAP
                         ritm.EstimatedPrice = reqitm.Preis;
                         ritm.UnitPrice = reqitm.Peinh;
                         ritm.OrderNumber = reqitm.Ebeln;
-                        ritm.ItemSequence = reqitm.Ebelp;
+                        ritm.SequenceNumber = reqitm.Ebelp;
                         ritm.OrderDate = Convert.ToInt64(reqitm.Bedat);
                         ritm.CurrencyId = reqitm.Waers;
                         ritm.TotalValue = reqitm.Rlwrt;

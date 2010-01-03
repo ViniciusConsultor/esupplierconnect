@@ -132,3 +132,22 @@ COUNTER     2
 
 **** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
 T:1084 Error in program 'eProcurement_SAP': ======> 00024No connect to database, session terminated€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:2872 Error in program 'eProcurement_SAP': ======> Connect to SAP gateway failed
+Connect_PM  GWHOST=SAPPR3, GWSERV=sapgw00, ASHOST=SAPPR3, SYSNR=00
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       hostname 'SAPPR3' unknown
+
+TIME        Sun Jan 03 00:46:10 2010
+RELEASE     640
+COMPONENT   NI (network interface)
+VERSION     37
+RC          -2
+MODULE      ninti.c
+LINE        336
+DETAIL      NiPGetHostByName2: hostname 'SAPPR3' not found
+SYSTEM CALL gethostbyname_r
+COUNTER     1
+

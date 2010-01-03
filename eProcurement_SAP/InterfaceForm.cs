@@ -16,6 +16,17 @@ namespace eProcurement_SAP
         {
             InitializeComponent();
             this.mainController = mainController;
+            this.initForm();
+        }
+
+        private void initForm()
+        {
+            groupBox1.Enabled = false;
+            groupBox2.Enabled = false;
+            groupBox3.Enabled = false;
+            groupBox4.Enabled = false;
+            groupBox5.Enabled = false;
+            this.label1.Text = "Execute the options for Interface ...";
         }
 
         private void btn_contract_Click(object sender, EventArgs e)
@@ -154,6 +165,35 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
+            }
+        }
+
+        private void btn_intall_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+
+                mainController.ProcessPurchaseContract();
+                mainController.ProcessPurchaseOrder();
+                mainController.ProcessRequisition();
+                mainController.ProcessSupplier();
+                mainController.ProcessMaterialRequirement();
+                mainController.ProcessMaterialStock();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.label1.Text = "Error during retrieving of Material Stock Details...";
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
+            }
+            finally
+            {
+                Cursor.Current = System.Windows.Forms.Cursors.Default;
             }
         }
 
@@ -306,6 +346,16 @@ namespace eProcurement_SAP
         public Label getLabel()
         {
             return label1;
+        }
+
+        private void btn_vhist_Click(object sender, EventArgs e)
+        {
+            mainController.GetOrderHistory();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+
         }
     }
 }

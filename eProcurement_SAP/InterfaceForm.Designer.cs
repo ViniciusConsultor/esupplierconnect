@@ -32,6 +32,7 @@ namespace eProcurement_SAP
             this.pbar_sts = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_vhist = new System.Windows.Forms.Button();
             this.btn_vitmtxt = new System.Windows.Forms.Button();
             this.btn_vhdrtxt = new System.Windows.Forms.Button();
             this.btn_vsrvtsk = new System.Windows.Forms.Button();
@@ -99,6 +100,7 @@ namespace eProcurement_SAP
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btn_vhist);
             this.groupBox1.Controls.Add(this.btn_vitmtxt);
             this.groupBox1.Controls.Add(this.btn_vhdrtxt);
             this.groupBox1.Controls.Add(this.btn_vsrvtsk);
@@ -114,6 +116,18 @@ namespace eProcurement_SAP
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "View Purchases";
+            // 
+            // btn_vhist
+            // 
+            this.btn_vhist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_vhist.Location = new System.Drawing.Point(278, 100);
+            this.btn_vhist.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_vhist.Name = "btn_vhist";
+            this.btn_vhist.Size = new System.Drawing.Size(115, 31);
+            this.btn_vhist.TabIndex = 18;
+            this.btn_vhist.Text = "Order History";
+            this.btn_vhist.UseVisualStyleBackColor = true;
+            this.btn_vhist.Click += new System.EventHandler(this.btn_vhist_Click);
             // 
             // btn_vitmtxt
             // 
@@ -233,6 +247,7 @@ namespace eProcurement_SAP
             this.btn_vcitm.TabIndex = 11;
             this.btn_vcitm.Text = "Contract Items";
             this.btn_vcitm.UseVisualStyleBackColor = true;
+            this.btn_vcitm.Click += new System.EventHandler(this.btn_vcitm_Click);
             // 
             // btn_vchdr
             // 
@@ -244,6 +259,7 @@ namespace eProcurement_SAP
             this.btn_vchdr.TabIndex = 10;
             this.btn_vchdr.Text = "Contract Header";
             this.btn_vchdr.UseVisualStyleBackColor = true;
+            this.btn_vchdr.Click += new System.EventHandler(this.btn_vchdr_Click);
             // 
             // groupBox3
             // 
@@ -451,6 +467,7 @@ namespace eProcurement_SAP
             this.btn_intall.TabIndex = 27;
             this.btn_intall.Text = "Interface All";
             this.btn_intall.UseVisualStyleBackColor = true;
+            this.btn_intall.Click += new System.EventHandler(this.btn_intall_Click);
             // 
             // groupBox7
             // 
@@ -530,5 +547,6 @@ namespace eProcurement_SAP
         private System.Windows.Forms.Button btn_contract;
         private System.Windows.Forms.Button btn_intall;
         private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button btn_vhist;
     }
 }

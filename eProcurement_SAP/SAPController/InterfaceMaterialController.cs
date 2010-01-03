@@ -43,7 +43,7 @@ namespace eProcurement_SAP
 
                 this.UpdateMaterial();
 
-                aForm.getLabel().Text = "Click related <Button> to view Material Data";
+                aForm.getLabel().Text = "Update of Material Stock Data Completed ";
                 aForm.getLabel().Refresh();
             }
             catch (Exception ex)
