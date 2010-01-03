@@ -210,8 +210,6 @@ namespace eProcurement_BLL.PurchaseOrder
                 string whereClause = "";
                 string orderClause = "";
 
-                whereClause = " isnull(LOEKZ,'') <> '" + POStatus.Delete + "' ";
-
                 if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Supplier, true) == 0) 
                 {
                     whereClause += " AND LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
@@ -239,8 +237,10 @@ namespace eProcurement_BLL.PurchaseOrder
                     else
                         whereClauseSub = " 1=2 ";
 
-                    whereClause += " AND " + whereClauseSub;
+                    whereClause = whereClauseSub;
                 }
+
+                whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Delete + "' ";
 
                 if (status != "")
                 {
