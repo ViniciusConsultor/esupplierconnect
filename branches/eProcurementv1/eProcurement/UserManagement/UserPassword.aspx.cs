@@ -47,7 +47,7 @@ public partial class UserManagement_UserPassword : BaseForm
         {
             CheckSessionTimeOut();
 
-            if (ValidPassword(lblUserID.Text, txtCurrPassword.Text))
+            if (VerifyOldPassword(lblUserID.Text, txtCurrPassword.Text))
             {
                 this.mainController.GetUserController().UpdateUserPassword(lblUserID.Text, txtNewPassword.Text, lblUserID.Text);                
 
@@ -68,7 +68,7 @@ public partial class UserManagement_UserPassword : BaseForm
 
     #region Private Functions
 
-    private bool ValidPassword(string userId, string pswd)
+    private bool VerifyOldPassword(string userId, string pswd)
     {
         User u = this.mainController.GetUserController().GetUser(userId);
 
