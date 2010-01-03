@@ -102,7 +102,7 @@ namespace eProcurement_BLL.PurchaseOrder
 
                 whereClause = whereClauseSub;
 
-                whereClause += " isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
+                whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
                 whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Delete + "' ";
                 whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Complete + "' ";
 
@@ -167,7 +167,7 @@ namespace eProcurement_BLL.PurchaseOrder
 
                 whereClause = whereClauseSub;
 
-                whereClause += " isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
+                whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
                 whereClause += " AND isnull(RECSTS,'') <> '" + PORecStatus.Accept + "' ";
                 whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Delete + "' ";
                 whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Complete + "' ";
