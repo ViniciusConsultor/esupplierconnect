@@ -11,3 +11,4 @@ D:\My Projects\SG_FUJITEC_EPSv1\eProcurementv1\eProcurement_Intelligence\obj\Deb
 D:\My Projects\SG_FUJITEC_EPSv1\eProcurementv1\eProcurement_Intelligence\obj\Debug\eProcurement_Intelligence.csproj.GenerateResource.Cache
 D:\My Projects\SG_FUJITEC_EPSv1\eProcurementv1\eProcurement_Intelligence\obj\Debug\eProcurement_Intelligence.exe
 D:\My Projects\SG_FUJITEC_EPSv1\eProcurementv1\eProcurement_Intelligence\obj\Debug\eProcurement_Intelligence.pdb
+D:\My Projects\SG_FUJITEC_EPSv1\eProcurementv1\eProcurement_Intelligence\bin\Debug\eProcurement_Intelligence.exe.config
