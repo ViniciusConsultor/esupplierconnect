@@ -84,6 +84,19 @@ namespace eProcurement_DAL
             get { return recordStatus; }
             set { recordStatus = value; }
         }
-        
+
+        string requisitionNumber;
+        public string RequisitionNumber
+        {
+            get { return requisitionNumber; }
+            set { requisitionNumber = value; }
+        }
+
+        string requisitionItemSequence;
+        public string RequisitionItemSequence
+        {
+            get { return requisitionItemSequence; }
+            set { requisitionItemSequence = value; }
+        }
     }
 }
