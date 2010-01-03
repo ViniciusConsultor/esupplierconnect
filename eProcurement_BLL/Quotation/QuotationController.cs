@@ -219,7 +219,7 @@ namespace eProcurement_BLL
                         Attachment att = mainController.GetDAOCreator().CreateAttachmentDAO(false).RetrieveByKey(tran, attId); 
                         if (att != null) 
                         {
-                            att.RfqNumber = quotationHeader.RequestNumber;
+                            att.RfqNumber = quotationItems[0].RequisitionNumber;
                             mainController.GetDAOCreator().CreateAttachmentDAO(true).Update(tran, att);
                         }
                     }
