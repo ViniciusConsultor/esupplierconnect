@@ -26,6 +26,7 @@ namespace eProcurement_SAP
             groupBox3.Enabled = false;
             groupBox4.Enabled = false;
             groupBox5.Enabled = false;
+            groupBox8.Enabled = false;
             this.label1.Text = "Execute the options for Interface ...";
         }
 
@@ -39,6 +40,7 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -49,6 +51,7 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
             }
         }
 
@@ -63,6 +66,7 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -73,6 +77,7 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
             }
         }
 
@@ -86,6 +91,7 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = true;
                 groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -96,6 +102,7 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
             }
         }
 
@@ -109,6 +116,7 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = true;
+                groupBox8.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -119,6 +127,7 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
             }
         }
 
@@ -132,6 +141,7 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = true;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -142,6 +152,7 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
             }
         }
 
@@ -155,6 +166,7 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = true;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -165,7 +177,34 @@ namespace eProcurement_SAP
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
             }
+        }
+
+        private void btn_reject_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                mainController.ProcessGoodsRejection();
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
+                groupBox8.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.label1.Text = "Error during retrieving of Goods Rejection Details...";
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
+                groupBox8.Enabled = false;
+            }
+
         }
 
         private void btn_intall_Click(object sender, EventArgs e)
@@ -357,5 +396,15 @@ namespace eProcurement_SAP
             }
 
         }
+
+        private void btn_vreject_Click(object sender, EventArgs e)
+        {
+            mainController.GetRejection();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
+        }
+
     }
 }

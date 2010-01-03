@@ -20,6 +20,7 @@ namespace eProcurement_SAP
         private InterfaceSupplierController supplierController;
         private InterfaceRequirementController requirementController;
         private InterfaceMaterialController materialController;
+        private InterfaceRejectionController rejectionController;
 
         public InterfaceMainController()
         {
@@ -143,6 +144,25 @@ namespace eProcurement_SAP
             }
         }
 
+        public void ProcessGoodsRejection()
+        {
+            try
+            {
+                if (rejectionController == null)
+                {
+                    rejectionController = new InterfaceRejectionController(scheduleInterface, mainController);
+                }
+                rejectionController.GetRejectionGoods();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message != "RECORDNOTFOUND")
+                {
+                    throw (ex);
+                }
+            }
+        }
+
         /* Get the Contract Information retireved from SAP */
 
         public void GetContractHeader()
@@ -238,6 +258,11 @@ namespace eProcurement_SAP
         public void GetOrderHistory()
         {
             interfaceTbl = orderController.GetHistory();
+        }
+
+        public void GetRejection()
+        {
+            interfaceTbl = rejectionController.GetRejection();
         }
 
         public DataTable GetInterfaceData()

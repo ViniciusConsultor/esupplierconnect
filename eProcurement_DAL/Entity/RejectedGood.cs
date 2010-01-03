@@ -91,6 +91,21 @@ namespace eProcurement_DAL
             set { acknowledgeStatus = value; }
         }
 
+        ///<summary>Database mapping to column rejection.WERKS</summary>
+        string plant;
+        public string Plant
+        {
+            get { return plant; }
+            set { plant = value; }
+        }
+
+        ///<summary>Database mapping to column rejection.LGORT</summary>
+        string location;
+        public string Location
+        {
+            get { return location; }
+            set { location = value; }
+        }
 
         
     }
