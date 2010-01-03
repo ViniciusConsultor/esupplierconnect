@@ -131,6 +131,47 @@ namespace eProcurement_BLL.Notification
         }
 
 
+        public Collection<eProcurement_DAL.Notification> RetrieveByQueryEmailNotification(String status)
+        {
+
+            try
+            {
+                string whereclause = "STATUS='" + Utility.EscapeSQL(status) + "'";
+
+
+                return mainController.GetDAOCreator().CreateNotificationDAO().RetrieveByQuery(whereclause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+
+ 
+        }
+
+
+
+        public Collection<eProcurement_DAL.Notification> RetrieveByQueryEmailNotificationRecipiant(String status)
+        {
+
+            try
+            {
+                string whereclause = "STATUS='" + Utility.EscapeSQL(status) + "'";
+
+
+                return mainController.GetDAOCreator().CreateNotificationDAO().RetrieveByQueryCustom1(whereclause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+
+
+        }
+
+
        
 
 
