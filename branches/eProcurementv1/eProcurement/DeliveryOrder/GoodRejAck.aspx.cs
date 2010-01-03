@@ -63,6 +63,42 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
             ViewState["m_CurrentOrderNumber"] = value;
         }
     }
+    private string m_CurrentItemSequence
+    {
+        get
+        {
+            if (ViewState["m_CurrentItemSequence"] != null && ViewState["m_CurrentItemSequence"].ToString() != string.Empty)
+            {
+                return ViewState["m_CurrentItemSequence"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            ViewState["m_CurrentItemSequence"] = value;
+        }
+    }
+    private string m_CurrentDocumentNumber
+    {
+        get
+        {
+            if (ViewState["m_CurrentDocumentNumber"] != null && ViewState["m_CurrentDocumentNumber"].ToString() != string.Empty)
+            {
+                return ViewState["m_CurrentDocumentNumber"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            ViewState["m_CurrentDocumentNumber"] = value;
+        }
+    }
 
     private string m_QueryString
     {
@@ -91,6 +127,8 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
 
             plMessage.Visible = false;
             lblMessage.Text = string.Empty;
+            btnAcknowledge.Visible = false;
+            btnReturn.Visible = false;
             if (!IsPostBack)
             {
                 //Access control
@@ -122,13 +160,7 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
                 if (CheckAccessRight() == false)
                     GotoTimeOutPage();
 
-                //store querystring in viewstate, it will be used to pass back to list page
-                string queryString = Request.QueryString.ToString();
-                m_QueryString = queryString + "&ReturnFromDetails=Y";
-
-                InitRejectedGood();
-                //InitItems();
-            }
+           }
         }
         catch (Exception ex)
         {
@@ -166,67 +198,27 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
                
         return true;
     }
-
-    private void InitRejectedGood()
-    {
-        RejectedGood rejGood = mainController.GetDeliveryController().
-            GetRejectedGood(txtOrderNo.ToString(), ddlItemSequence.ToString(),ddlMaterialNo.ToString());
-        if (rejGood == null)
-        {
-            throw new Exception("Invalid Order Number.");
-        }
-        gvItem.DataSource = rejGood;
-        gvItem.DataBind();
-        //Supplier supplier = mainController.GetSupplierController().GetSupplier(poHeader.SupplierId);
-
-        //lblSupplierName.Text = supplier.SupplierName;
-        //lblSupplierAddress.Text = supplier.SupplierAddress;
-        //lblPostalCode.Text = "Singapore " + supplier.PostalCode;
-        //lblCountry.Text = supplier.CountryCode;
-
-        //lblShipmentAddress.Text = poHeader.ShipmentAddress;
-
-        //lblOrderNumber.Text = poHeader.OrderNumber;
-        //if (poHeader.OrderDate.HasValue)
-        //    lblOrderDate.Text = GetShortDate(GetDateTimeFormStoredValue(poHeader.OrderDate.Value));
-        //else
-        //    lblOrderDate.Text = "";
-        //lblSupplierId.Text = poHeader.SupplierId;
-        //lblOrderAmount.Text = poHeader.OrderAmount.ToString();
-        //lblGSTAmount.Text = poHeader.GstAmount.ToString();
-        //lblCurrency.Text = poHeader.CurrencyCode;
-        //lblPaymentTerm.Text = poHeader.PaymentTerms;
-        //lblBuyer.Text = poHeader.BuyerName;
-        //lblSalePerson.Text = poHeader.SalesPerson;
-        //lblRemarks.Text = poHeader.Remarks;
-        //hlHeaderText.NavigateUrl = "javascript:ShowHeaderText()";
-    }
-
+    
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        try
+        string materialNo = ddlMaterialNo.SelectedItem.Value.ToString().Trim();
+        string itemSeq = ddlItemSequence.SelectedItem.Value.ToString().Trim();
+        string docNo = ddlDocumentNo.SelectedItem.Value.ToString().Trim();
+        string orderNo = txtOrderNo.Text.ToString().Trim();
+
+        Collection<RejectedGood> rgood = mainController.GetDeliveryController().GetRejectedGoodList(orderNo, itemSeq, docNo, materialNo);
+
+        gvItem.DataSource = rgood;
+        gvItem.DataBind();
+        lblCount.Text = rgood.Count.ToString() + " Record(s) was found.";
+        if (rgood.Count > 0)
         {
-            CheckSessionTimeOut();
-
-            //string strErrorMsg = ValidateInput();
-
-            if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
-            {
-                plMessage.Visible = true;
-                displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
-                return;
-            }
-
-            StoreSearchCriteria();
-            ShowData();
+            btnAcknowledge.Visible = true;
+            btnAcknowledge.Enabled = true;
+            btnReturn.Visible = true;
+            btnReturn.Enabled = true;
         }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
-        }
-    }
+   }
 
     private void StoreSearchCriteria()
     {
@@ -258,66 +250,25 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
         }
     }
 
-    private void ShowData()
-    {
-        Collection<RejectedGood> rgColl = GetData();
-        gvItem.DataSource = rgColl;
-        gvItem.DataBind();
-        lblCount.Text = string.Format("{0} record(s) found. ", rgColl.Count.ToString());
-    }
-
-    private Collection<RejectedGood> GetData()
-    {
-        Collection<RejectedGood> rgColl = new Collection<RejectedGood>();
-        if (string.Compare(m_FuncFlag, "ACK_REC_REJECTED_GOODS", false) == 0)
-        {
-            rgColl  = mainController.GetDeliveryController().GetRejectedGood
-           (m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.ItemSequence, m_SearchCriteriaVO.DocumentNumber, m_SearchCriteriaVO.MaterialNumber);
-        }
-
-       return rgColl;
-    }
-
     protected void gvItem_ItemDataBound(Object sender, RepeaterItemEventArgs e)
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-            //GridView gvSchedule = (GridView)e.Item.FindControl("gvSchedule");
-            //Collection<PurchaseOrderItemSchedule> schedules = new Collection<PurchaseOrderItemSchedule>();
-            //int iCount = 2;
-            //for (int i = 1; i <= iCount; i++)
-            //{
-            //    PurchaseOrderItemSchedule obj = new PurchaseOrderItemSchedule();
-
-            //    obj.PurchaseOrderScheduleSequence = "0" + i;
-            //    schedules.Add(obj);
-            //}
-            //gvSchedule.DataSource = schedules;
-            //gvSchedule.DataBind();
+            Label lblOrderNo = (Label)e.Item.FindControl("lblOrderNo");
+            Label lblMaterialNumber = (Label)e.Item.FindControl("lblMaterialNumber");
+            Label lblItemSeq = (Label)e.Item.FindControl("lblItemSeq");
+            Label lblDocumentNo = (Label)e.Item.FindControl("lblDocumentNo");
+            Label lblUOM = (Label)e.Item.FindControl("lblUOM");
+            Label lblRefNo = (Label)e.Item.FindControl("lblRefNo");
+            Label lblRejectQuantity = (Label)e.Item.FindControl("lblRejectQuantity");
+            Label lblRejectDate = (Label)e.Item.FindControl("lblRejectDate");
+            
+            CheckBox chkAcknowledge = (CheckBox)e.Item.FindControl("chkAcknowledge");
+            
+        
         }
     }
-    //private void InitGrid()
-    //{
-    //    Collection<RejectedGood> objs = new Collection<RejectedGood>();
-    //    int iCount = 11;
-    //    for (int i = 1; i <= iCount; i++)
-    //    {
-    //        RejectedGood obj = new RejectedGood();
-    //        obj.OrderNumber = "000000000" + i;
-    //        //obj.SupplierId = "Supplier" + i;
-    //        obj.OrderDate = GetStoredDateValue(DateTime.Now);
-    //        obj.OrderAmount = 1000;
-    //        obj.GstAmount = Convert.ToDecimal(1000 * 0.07);
-    //        obj.CurrencyCode = "SGD";
-    //        obj.PaymentTerms = "PaymentTerms" + i;
-    //        obj.BuyerName = "BuyerName" + i;
-    //        objs.Add(obj);
-    //    }
-
-    //    gvData.DataSource = objs;
-    //    gvData.DataBind();
-    //    lblCount.Text = string.Format("{0} record(s) found. ", objs.Count.ToString());
-    //}
+    
     protected void btnAcknowledge_Click(object sender, EventArgs e)
     {
         try
@@ -335,51 +286,31 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
 
             Collection<RejectedGood> rGood = new Collection<RejectedGood>();
 
-            foreach (RepeaterItem rowItem in gvItem.Items)
+            RejectedGood rGoodobj = new RejectedGood();
+
+            foreach (GridViewRow rowItem in gvItem.Rows)
             {
                 Label lblOrderNo = (Label)rowItem.FindControl("lblOrderNo");
                 Label lblItemSeq = (Label)rowItem.FindControl("lblItemSeq");
                 Label lblDocNo = (Label)rowItem.FindControl("lblDocumentNo");
                 CheckBox chkAck = (CheckBox) rowItem.FindControl("chkAcknowledge");
 
-                if (chkAck.Checked= true )
+                if (chkAck.Checked== true )
                 {
-                    mainController.GetDeliveryController().AcknowledgeRejectedGood(rGood);
+                    rGoodobj.AcknowledgeStatus = RejAckStatus.Yes;
+                    rGoodobj.OrderNumber = lblOrderNo.Text.ToString();
+                    rGoodobj.ItemSequence = lblItemSeq.Text.ToString();
+                    rGoodobj.DocumentNumber = lblDocNo.Text.ToString();
+                    rGood.Add(rGoodobj);
+                    
                 }
-                //GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
-
-                //foreach (GridViewRow rowSchedule in gvSchedule.Rows)
-                //{
-                //    Label lblScheduleSequence = (Label)rowSchedule.FindControl("lblScheduleSequence");
-                //    HiddenField hdFirst = (HiddenField)rowSchedule.FindControl("hdFirst");
-
-                //    PurchaseExpediting expediting = new PurchaseExpediting();
-                //    expediting.OrderNumber = Session[SessionKey.OrderNumber].ToString(); ;
-                //    expediting.ItemSequence = lblItemNo.Text;
-                //    expediting.ScheduleSequence = lblScheduleSequence.Text;
-
-                //    if (string.Compare(hdFirst.Value, "Y", true) == 0)
-                //    {
-                //        UserControls_DatePicker dtPromiseDate1 = (UserControls_DatePicker)rowSchedule.FindControl("dtPromiseDate1");
-                //        expediting.PromiseDate1 = GetStoredDateValue(dtPromiseDate1.SelectedDate);
-                //    }
-                //    else
-                //    {
-                //        UserControls_DatePicker dtPromiseDate2 = (UserControls_DatePicker)rowSchedule.FindControl("dtPromiseDate2");
-                //        expediting.PromiseDate2 = GetStoredDateValue(dtPromiseDate2.SelectedDate);
-                //    }
-
-                //    expeditings.Add(expediting);
-
-                //}
+                
             }
-
-            //mainController.GetDeliveryController().AcknowledgeRejectedGood(rGood);
-
-            //string url = "~/Expediting/AckExpeditingList.aspx?ProceeSuccess=Y&" + m_QueryString;
-            //Response.Redirect(url);
-
-            btnAcknowledge.Enabled = false;
+            if (rGood.Count >0 )
+            {
+            mainController.GetDeliveryController().AcknowledgeRejectedGood(rGood);
+            }
+            
             plMessage.Visible = true;
             string sMessage = "Rejected Good has been acknowledged successfully.";
             displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information);
@@ -397,7 +328,7 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
     {
         try
         {
-            string url = "~/DeliveryOrder/EnqDeliveryOrders.aspx?" + m_QueryString;
+            string url = "~/DeliveryOrder/GoodRejAck.aspx";
             Response.Redirect(url);
         }
         catch (Exception ex)
@@ -409,5 +340,73 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
         }
     }
 
-  
+
+    protected void txtOrderNo_TextChanged(object sender, EventArgs e)
+    {
+        string OrderNo = txtOrderNo.Text.ToString().Trim();
+
+        Collection<RejectedGood> rgood = mainController.GetDeliveryController().GetRejectedGoodList(OrderNo);
+
+        ddlItemSequence.DataSource = rgood;
+        ddlItemSequence.DataTextField = "itemSequence";
+        ddlItemSequence.DataValueField = "itemSequence";
+        ddlItemSequence.DataBind();
+        ddlItemSequence.Items.Add(new ListItem("", "0"));
+        ddlItemSequence.SelectedValue = "0";
+        //txtMaterialDesc.Text = ""; 
+
+        ddlMaterialNo.DataSource = rgood;
+        ddlMaterialNo.DataTextField = "materialNumber";
+        ddlMaterialNo.DataValueField = "materialNumber";
+        ddlMaterialNo.DataBind();
+        ddlMaterialNo.Items.Add(new ListItem("", "0"));
+        ddlMaterialNo.SelectedValue = "0";
+        //txtMaterialDesc.Text = ""; 
+
+        ddlDocumentNo.DataSource = rgood;
+        ddlDocumentNo.DataTextField = "documentNumber";
+        ddlDocumentNo.DataValueField = "documentNumber";
+        ddlDocumentNo.DataBind();
+        ddlDocumentNo.Items.Add(new ListItem("", "0"));
+        ddlDocumentNo.SelectedValue = "0";
+
+    }
+    protected void ddlMaterialNo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        string materialNo = ddlMaterialNo.SelectedItem.Value.ToString().Trim();
+        string whereClause = " MATNR='" + materialNo + "' ";
+
+        Collection<RejectedGood> rgood = mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByQuery(whereClause);
+
+        //if (items.Count > 0)
+        //{ txtMaterialDesc.Text = items[0].MaterialDescription; }
+    }
+
+    protected void ddlItemSequence_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        string itemSeq = ddlItemSequence.SelectedItem.Value.ToString().Trim();
+        string whereClause = " EBELP='" + itemSeq + "' ";
+    }
+    protected void ddlDocumentNo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void gvItem_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            HiddenField hdStatus = (HiddenField)e.Row.FindControl("hdStatus");
+            string sStatus = hdStatus.Value.Trim();
+
+            CheckBox ckACKstatus = (CheckBox)e.Row.FindControl("chkAcknowledge");
+
+            if (string.Compare(sStatus, ExpediteStatus.Acknowledge, true) == 0)
+            {
+                ckACKstatus.Checked = true;
+            }
+            else
+            { ckACKstatus.Checked = false; }
+        }
+    }
 }
