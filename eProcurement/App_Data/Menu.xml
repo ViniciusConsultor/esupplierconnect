@@ -73,15 +73,19 @@
 	<ITEM>
 		<TITLE>Quotation Processing</TITLE>
 		<HREF></HREF>
-		<ITEM FID="S-0010">
+		<ITEM FID="B-0007">
 			<TITLE>Create RFQ</TITLE>
-			<HREF>~/Quotation/QuotationRequestCreate.aspx?FunctionId=S-0010</HREF>
+			<HREF>~/Quotation/QuotationRequestCreate.aspx</HREF>
 		</ITEM>
 		<ITEM FID="Q-0001">
 			<TITLE>Quotation List</TITLE>
 			<HREF>~/Quotation/QuotationRequestList.aspx</HREF>
-		</ITEM>		
-	</ITEM>		
+		</ITEM>
+		<ITEM FID="S-0010">
+			<TITLE>Process Quotation</TITLE>
+			<HREF>~/Quotation/ProcessQuotationList.aspx</HREF>
+		</ITEM>
+	</ITEM>	
 	<ITEM>
 		<TITLE>User Profile</TITLE>
 		<HREF></HREF>
