@@ -14,16 +14,16 @@ SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[ATTACHMENT](
 	[ATTCHMTID] [uniqueidentifier] NOT NULL,
-	[FILENAME] [varchar](50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-	[FILEDESC] [varchar](200) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[FILENAME] [varchar](50)  NOT NULL,
+	[FILEDESC] [varchar](200)  NULL,
 	[FILESIZE] [bigint] NOT NULL,
 	[FILEDATA] [varbinary](max) NOT NULL,
 	[ATTCHDATE] [bigint] NOT NULL,
-	[STOREPATH] [varchar](200) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-	[PROFTYP] [varchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-	[CREATEBY] [varchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-	[EBELN] [char](10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	[DELIND] [char](1) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[STOREPATH] [varchar](200)  NOT NULL,
+	[PROFTYP] [varchar](10)  NOT NULL,
+	[CREATEBY] [varchar](10)  NOT NULL,
+	[EBELN] [char](21)  NULL,
+	[DELIND] [char](1)  NOT NULL,
  CONSTRAINT [PK_ATTCHMT] PRIMARY KEY CLUSTERED 
 (
 	[ATTCHMTID] ASC
