@@ -216,7 +216,7 @@ namespace eProcurement_BLL
                     //update Attachments
                     foreach (Guid attId in attachmentIds) 
                     {
-                        Attachment att = mainController.GetDAOCreator().CreateAttachmentDAO(false).RetrieveByKey(tran, attId); 
+                        Attachment att = mainController.GetDAOCreator().CreateAttachmentDAO(true).RetrieveByKey(tran, attId); 
                         if (att != null) 
                         {
                             att.RfqNumber = quotationItems[0].RequisitionNumber;
