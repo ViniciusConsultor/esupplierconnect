@@ -219,7 +219,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO REJECTION ([EBELN],[EBELP],[DOCNO],[ITEMNO],[MATNR],[TRNQTY],[MEINS],[REFNO],[AEDAT],[ACKSTS]) VALUES(@EBELN, @EBELP, @DOCNO, @ITEMNO, @MATNR,@TRNQTY, @MEINS, @REFNO, @AEDAT , @ACKSTS)";
+            cm.CommandText = "INSERT INTO REJECTION ([EBELN],[EBELP],[DOCNO],[MATNR],[TRNQTY],[MEINS],[REFNO],[AEDAT],[ACKSTS],[WERKS],[LGORT]) VALUES(@EBELN, @EBELP, @DOCNO, @MATNR,@TRNQTY, @MEINS, @REFNO, @AEDAT , @ACKSTS, @WERKS, @LGORT)";
 
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
@@ -263,6 +263,15 @@ namespace eProcurement_DAL
             SqlParameter p9 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p9);
             p9.Value = entity.AcknowledgeStatus;
+
+            SqlParameter p10 = new SqlParameter("@WERKS", SqlDbType.Char, 4);
+            cm.Parameters.Add(p10);
+            p10.Value = entity.Plant;
+
+            SqlParameter p11 = new SqlParameter("@LGORT", SqlDbType.Char, 4);
+            cm.Parameters.Add(p11);
+            p11.Value = entity.Location;
+
 
             cm.ExecuteNonQuery();
 
@@ -312,7 +321,7 @@ namespace eProcurement_DAL
 
             //Update 
 
-            cm.CommandText = "UPDATE REJECTION SET [ITEMNO] = @ITEMNO, [MATNR] = @MATNR,[TRNQTY] = @TRNQTY,[MEINS]=@MEINS ,[REFNO] = @REFNO,[AEDAT] = @AEDAT, [ACKSTS] = @ACKSTS  WHERE [EBELN] = @EBELN AND [EBELP] = @EBELP AND [DOCNO]=@DOCNO";
+            cm.CommandText = "UPDATE REJECTION SET [MATNR] = @MATNR,[TRNQTY] = @TRNQTY,[MEINS]=@MEINS ,[REFNO] = @REFNO,[AEDAT] = @AEDAT, [ACKSTS] = @ACKSTS, [WERKS] = @WERKS, [LGORT] = @LGORT WHERE [EBELN] = @EBELN AND [EBELP] = @EBELP AND [DOCNO]=@DOCNO";
 
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
@@ -325,9 +334,7 @@ namespace eProcurement_DAL
             SqlParameter p3 = new SqlParameter("@DOCNO", SqlDbType.Char, 10);
             cm.Parameters.Add(p3);
             p3.Value = entity.DocumentNumber;
-
-        
-
+     
             SqlParameter p4 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
             cm.Parameters.Add(p4);
             p4.Value = entity.MaterialNumber;
@@ -357,6 +364,14 @@ namespace eProcurement_DAL
             SqlParameter p9 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p9);
             p9.Value = entity.AcknowledgeStatus;
+
+            SqlParameter p10 = new SqlParameter("@WERKS", SqlDbType.Char, 4);
+            cm.Parameters.Add(p10);
+            p10.Value = entity.Plant;
+
+            SqlParameter p11 = new SqlParameter("@LGORT", SqlDbType.Char, 4);
+            cm.Parameters.Add(p11);
+            p11.Value = entity.Location;
 
             cm.ExecuteNonQuery();
 
