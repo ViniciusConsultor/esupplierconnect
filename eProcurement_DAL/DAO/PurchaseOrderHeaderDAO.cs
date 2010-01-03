@@ -473,7 +473,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[STAT],[RECSTS],[ACKSTS],[ACKBY],[TELPHN] FROM purhdr";
+            string selectCommand = "SELECT [EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[LOEKZ],[RECSTS],[ACKSTS],[ACKBY],[TELPHN] FROM purhdr";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -508,7 +508,7 @@ namespace eProcurement_DAL
                 entity.SalesPerson = rd["VERKF"].ToString();
                 entity.ShipmentAddress = rd["ADRNR_TXT"].ToString();
                 entity.Remarks = rd["REMARK"].ToString();
-                entity.OrderStatus = rd["STAT"].ToString();
+                entity.OrderStatus = rd["LOEKZ"].ToString();
                 entity.RecordStatus = rd["RECSTS"].ToString();
                 entity.AcknowledgeStatus = rd["ACKSTS"].ToString();
                 entity.AcknowledgeBy = rd["ACKBY"].ToString();
