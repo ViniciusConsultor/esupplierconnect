@@ -176,11 +176,11 @@ namespace eProcurement_BLL.PurchaseOrder
                 {
                     whereClause += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
                 }
-                if (buyerName != "")
+                if (!string.IsNullOrEmpty(buyerName))
                 {
                     whereClause += " AND BUYER like '" + Utility.EscapeSQL(buyerName) + "' ";
                 } 
-                if (supplierId != "")
+                if (!string.IsNullOrEmpty(supplierId))
                 {
                     whereClause += " AND LIFNR like '" + Utility.EscapeSQL(supplierId) + "' ";
                 }
