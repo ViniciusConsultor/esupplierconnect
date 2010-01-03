@@ -123,5 +123,47 @@ namespace eProcurement_BLL.UserManagement
                 throw ex;
             }
         }
+
+        public Collection<string> GetBuyerEmailAddrs(string purchaseGroup)
+        {
+            try
+            {
+                Collection<string> mailList = new Collection<string>();
+
+                string whereClause = " PURGROUP='" + Utility.EscapeSQL(purchaseGroup) + "' ";
+                Collection<PurchaseGroup> grps = mainController.GetDAOCreator().CreatePurchaseGroupDAO().RetrieveByQuery(whereClause);
+                
+                whereClause="";
+                foreach (PurchaseGroup grp in grps)
+                {
+                    if (whereClause == "")
+                    {
+                        whereClause += "(";
+                    }
+                    else
+                    {
+                        whereClause += " or ";
+                    }
+                    whereClause += "USERID='" + Utility.EscapeSQL(grp.UserId.Trim()) + "'";
+                }
+                if (whereClause != "")
+                    whereClause += ")";
+                else
+                    whereClause = " 1=2 ";
+
+                Collection<User> users = mainController.GetDAOCreator().CreateUserDAO().RetrieveByQuery(whereClause);
+                foreach (User user in users) 
+                {
+                    mailList.Add(user.UserEmail); 
+                }
+
+                return mailList;
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
     }
 }

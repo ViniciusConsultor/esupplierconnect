@@ -57,5 +57,26 @@ namespace eProcurement_BLL
             }
         }
 
+        public string GetSupplierEmailAddr(string supplierId)
+        {
+            try
+            {
+                string emailAddr = "";
+
+                Supplier supplier = mainController.GetDAOCreator().CreateSupplierDAO().RetrieveByKey(supplierId);
+                if (supplier != null) 
+                {
+                    emailAddr = supplier.EmailID;
+                }
+
+                return emailAddr;
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
     }
 }
