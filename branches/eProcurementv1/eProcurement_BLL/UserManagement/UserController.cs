@@ -130,7 +130,7 @@ namespace eProcurement_BLL.UserManagement
             {
                 Collection<string> mailList = new Collection<string>();
 
-                string whereClause = " PURGROUP='" + Utility.EscapeSQL(purchaseGroup) + "' ";
+                string whereClause = " EKGRP='" + Utility.EscapeSQL(purchaseGroup) + "' ";
                 Collection<PurchaseGroup> grps = mainController.GetDAOCreator().CreatePurchaseGroupDAO().RetrieveByQuery(whereClause);
                 
                 whereClause="";

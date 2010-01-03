@@ -68,7 +68,7 @@ namespace eProcurement_DAL
             PurchaseGroup entity = null;
             try
             {
-                string whereClause = " PURGROUP='" + DataManager.EscapeSQL(purchaseGroup) + "' AND USERID='" + DataManager.EscapeSQL(UserId) + "' ";
+                string whereClause = " EKGRP='" + DataManager.EscapeSQL(purchaseGroup) + "' AND USERID='" + DataManager.EscapeSQL(UserId) + "' ";
 
                 Collection<PurchaseGroup> entities = Retrieve(epTran, whereClause, "");
                 if (entities.Count > 0)
@@ -122,9 +122,9 @@ namespace eProcurement_DAL
                 }
 
                 //Insert 
-                cm.CommandText = "INSERT INTO PURGROUP ([PURGROUP],[USERID]) VALUES(@PURGROUP,@USERID)";
+                cm.CommandText = "INSERT INTO PURGROUP ([EKGRP],[USERID]) VALUES(@EKGRP,@USERID)";
 
-                SqlParameter p1 = new SqlParameter("@PURGROUP", SqlDbType.VarChar, 3);
+                SqlParameter p1 = new SqlParameter("@EKGRP", SqlDbType.VarChar, 3);
                 cm.Parameters.Add(p1);
                 p1.Value = entity.PurGroup;
 
@@ -185,9 +185,9 @@ namespace eProcurement_DAL
 
                 //Update 
                 // hong yu, feel free to update the below query, it's abit strange since you made all of the columns primary keys
-                cm.CommandText = "UPDATE PURGROUP SET [PURGROUP]=@PURGROUP,[USERID]=@USERID WHERE [PURGROUP]=@PURGROUP1,[USERID]=@USERID1";
+                cm.CommandText = "UPDATE PURGROUP SET [EKGRP]=@EKGRP,[USERID]=@USERID WHERE [EKGRP]=@PEKGRP1,[USERID]=@USERID1";
 
-                SqlParameter p1 = new SqlParameter("@PURGROUP", SqlDbType.VarChar, 3);
+                SqlParameter p1 = new SqlParameter("@EKGRP", SqlDbType.VarChar, 3);
                 cm.Parameters.Add(p1);
                 p1.Value = entity.PurGroup;
 
@@ -195,7 +195,7 @@ namespace eProcurement_DAL
                 cm.Parameters.Add(p2);
                 p2.Value = entity.UserId;
 
-                SqlParameter p3 = new SqlParameter("@PURGROUP1", SqlDbType.VarChar, 3);
+                SqlParameter p3 = new SqlParameter("@EKGRP1", SqlDbType.VarChar, 3);
                 cm.Parameters.Add(p3);
                 p3.Value = entity.PurGroup;
 
@@ -255,9 +255,9 @@ namespace eProcurement_DAL
                 }
 
                 //Update 
-                cm.CommandText = "DELETE FROM PURGROUP WHERE PURGROUP=@PURGROUP AND USERID=@USERID";
+                cm.CommandText = "DELETE FROM PURGROUP WHERE EKGRP=@EKGRP AND USERID=@USERID";
 
-                SqlParameter p1 = new SqlParameter("@PURGROUP", SqlDbType.VarChar, 3);
+                SqlParameter p1 = new SqlParameter("@EKGRP", SqlDbType.VarChar, 3);
                 cm.Parameters.Add(p1);
                 p1.Value = entity.PurGroup;
 
@@ -299,7 +299,7 @@ namespace eProcurement_DAL
                     cm.Transaction = epTran.GetSqlTransaction();
 
                 //Retrieve Data
-                string selectCommand = "SELECT PURGROUP,USERID FROM PURGROUP";
+                string selectCommand = "SELECT EKGRP,USERID FROM PURGROUP";
                 if (!string.IsNullOrEmpty(whereClause)) selectCommand += " WHERE " + whereClause;
                 if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " ORDER BY " + sortClaues;
 
@@ -308,7 +308,7 @@ namespace eProcurement_DAL
                 while (rd.Read())
                 {
                     PurchaseGroup entity = new PurchaseGroup();
-                    entity.PurGroup = rd["PURGROUP"].ToString();
+                    entity.PurGroup = rd["EKGRP"].ToString();
                     entity.UserId = rd["USERID"].ToString();
 
                     entities.Add(entity);
