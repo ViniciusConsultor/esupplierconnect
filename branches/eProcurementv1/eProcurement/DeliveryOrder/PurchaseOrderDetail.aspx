@@ -45,7 +45,7 @@
                     <tr>
                         <td class="DetailsTableCaption" colspan="2">Information</td> 
                         <td>
-                            <asp:HyperLink runat="server" ID="hlHeaderText" Text='Texts'></asp:HyperLink>  
+                            <asp:HyperLink runat="server" ID="hlHeaderText" Text=''></asp:HyperLink>  
                         </td>
                     </tr> 
                     <tr>
@@ -119,6 +119,7 @@
 	                            <td style="vertical-align:middle; text-align:center;" width="12%">Long Text</td>
 	                            <td style="vertical-align:middle; text-align:center;" width="8%">Ref. Order</td>
 	                            <td style="vertical-align:middle; text-align:center;" width="13%">Storage Location</td>
+	                            <td style="vertical-align:middle; text-align:center;" width="13%">Select / Unselect</td>
 	                        </tr>
                     </HeaderTemplate>
                     <ItemTemplate>
@@ -214,7 +215,7 @@
                                         <tr>
                                             <td>&nbsp;</td>
                                             <td Width="100%" align="right">
-                                                <asp:Label ID="lblDeliverQuantity" runat="server" CssClass="" Text='<%# Eval("DeliveredQuantity") %>'></asp:Label>
+                                                <asp:Label ID="lblDeliveryQuantity" runat="server" CssClass="" Text='<%# Eval("DeliveredQuantity") %>'></asp:Label>
                                             </td>
                                            <td>&nbsp;</td>
                                         </tr>
@@ -253,6 +254,19 @@
                                         </tr>
                                     </table>  
                                 </td>
+                                
+                                <td>
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td Width="100%">
+                                                <asp:CheckBox ID="ckboxSelect" runat="server" />  
+                                            </td>
+                                           <td>&nbsp;</td>
+                                        </tr>
+                                    </table>  
+                                </td>
+                                
 	                        </tr>
 	                        <tr>
 	                            <td>
@@ -396,23 +410,15 @@
     <br />
      <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
-            <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
-            <td nowrap="nowrap">
-               <asp:Button ID="btnAccept" runat="server" Text="Accept" onclick="btnAcceptReject_Click"/>
-            </td>
-            <td nowrap="nowrap">&nbsp;</td>
-             <td nowrap="nowrap">
-               <asp:Button ID="btnReject" runat="server" Text="Reject" onclick="btnAcceptReject_Click"/>
-            </td>
-            <td nowrap="nowrap">&nbsp;</td>
-            <td nowrap="nowrap">
-               <asp:Button ID="btnAcknowledge" runat="server" Text="Acknowledge" onclick="btnAcknowledge_Click"/>
-            </td>
-            <td nowrap="nowrap">&nbsp;</td>
-            <td nowrap="nowrap">
+           
+            <td nowrap="nowrap" style="height: 20px">
                <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click"/>
             </td>
-            <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
+            <td nowrap="nowrap" style="height: 20px">&nbsp;</td>
+            <td nowrap="nowrap" style="height: 20px">
+               <asp:Button ID="btnCreateDO" runat="server" Text="Create DO" onclick="btnSubmit_Click"/>
+            </td>
+            <td nowrap="nowrap" width="50%" style="height: 20px">&nbsp;&nbsp;</td>
         </tr> 
     </table>
     <br />

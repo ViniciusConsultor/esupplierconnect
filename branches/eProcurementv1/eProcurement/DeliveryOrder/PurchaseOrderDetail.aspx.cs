@@ -88,10 +88,11 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionIdColl.Add("S-0001");
-                base.m_FunctionIdColl.Add("B-0001");
+                base.m_FunctionIdColl.Add("S-0002");
+               
 
                 string functionId = Request.QueryString["FunctionId"];
+
                 if (string.IsNullOrEmpty(functionId))
                 {
                     throw new Exception("Invalid Function Id.");
@@ -99,22 +100,12 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
                 else
                 {
                     base.m_FunctionId = functionId;
-                    if (string.Compare(functionId, "S-0001", true) == 0)
-                    {
-                        m_FuncFlag = "ACK_ORDER";
-                    }
-                    if (string.Compare(functionId, "B-0001", true) == 0)
-                    {
-                        m_FuncFlag = "ACPT_ORDER_ACKMT";
-                    }
+                   
                     if (string.Compare(functionId, "S-0002", true) == 0)
                     {
                         m_FuncFlag = "VIEW_ORDER";
                     }
-                    if (string.Compare(functionId, "B-0002", true) == 0)
-                    {
-                        m_FuncFlag = "VIEW_ORDER";
-                    }
+                    
                 }
                 base.Page_Load(sender, e);
                 /***************************************************/
@@ -147,25 +138,12 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
     {
         try
         {
-            if (string.Compare(m_FuncFlag, "ACK_ORDER", false) == 0)
-            {
-                lblSubPath.Text = "Acknowledge Order";
-                btnReject.Visible =false;
-                btnAccept.Visible = false;
-            }
-
-            if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
-            {
-                lblSubPath.Text = "Accept Order Acknowledgement";
-                btnAcknowledge.Visible = false;
-            }
+          
 
             if (string.Compare(m_FuncFlag, "VIEW_ORDER", false) == 0)
             {
                 lblSubPath.Text = "View Order Details";
-                btnAcknowledge.Visible = false;
-                btnReject.Visible = false;
-                btnAccept.Visible = false;
+               
             }
         }
         catch (Exception ex)
@@ -300,91 +278,9 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
         }
     }
 
-    protected void btnAcknowledge_Click(object sender, EventArgs e)
-     {
-         try
-         {
-             CheckSessionTimeOut(); 
-             
-             string strErrorMsg = ValidateInput();
+    
 
-             if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
-             {
-                 plMessage.Visible = true;
-                 displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
-                 return;
-             }
-
-             Collection<PurchaseOrderItemSchedule> schedules = new Collection<PurchaseOrderItemSchedule>();
-
-             foreach (RepeaterItem rowItem in gvItem.Items)
-             {
-                 Label lblItemNo = (Label)rowItem.FindControl("lblItemSequence");
-                 GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
-                 foreach (GridViewRow rowSchedule in gvSchedule.Rows)
-                 {
-                     Label lblPurchaseOrderScheduleSequence = (Label)rowSchedule.FindControl("lblScheduleSequence");
-                     UserControls_DatePicker dtpAck = (UserControls_DatePicker)rowSchedule.FindControl("dtAcknowledgeDate");
-                     PurchaseOrderItemSchedule schedule = new PurchaseOrderItemSchedule();
-                     schedule.PurchaseOrderNumber = Session[SessionKey.OrderNumber].ToString();
-                     schedule.PurchaseOrderItemSequence = lblItemNo.Text;
-                     schedule.PurchaseOrderScheduleSequence = lblPurchaseOrderScheduleSequence.Text;
-                     schedule.AcknowledgementDate = GetStoredDateValue(dtpAck.SelectedDate);
-                     schedules.Add(schedule); 
-                 }
-             }
-
-             mainController.GetOrderHeaderController().AcknowledgePurchaseOrder(schedules);   
-
-             btnAcknowledge.Enabled = false;
-             plMessage.Visible = true;
-             string sMessage = "Purchase Order has been acknowledged successfully.";
-             displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information);     
-         }
-         catch (Exception ex)
-         {
-             ExceptionLog(ex);
-             plMessage.Visible = true;
-             string sMessage = ex.Message;
-             displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
-         }
-     }
-
-    protected void btnAcceptReject_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            CheckSessionTimeOut();
-
-            bool bAccept = false;
-            Button btn = (Button)sender;
-            if (string.Compare(btn.ID, "btnAccept", false) == 0)
-            {
-                bAccept = true;
-            }
-
-            mainController.GetOrderHeaderController().ConfirmOrderAcknowledgement(Session[SessionKey.OrderNumber].ToString(), bAccept);
-
-            btnAccept.Enabled = false;
-            btnReject.Enabled = false;
-            plMessage.Visible = true;
-            string sMessage = "";
-            if(bAccept)
-                sMessage = "Purchase Order has been accepted successfully.";
-            else
-                sMessage = "Purchase Order has been rejected for 2nd acknowledgement.";
-            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information); 
-
-        }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            string sMessage = ex.Message;
-            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
-        }
-    }
-
+    
      protected void btnReturn_Click(object sender, EventArgs e)
      {
          try
@@ -441,4 +337,72 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
      }
      #endregion
 
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+
+        try
+        {
+
+
+        int i = 0;
+        int cnt = 0;
+
+
+        Collection<DeliveryOrder> doColl = new Collection<DeliveryOrder>();
+
+
+
+
+
+               
+
+        foreach (RepeaterItem item in gvItem.Items)
+        {
+            if (((CheckBox)item.FindControl("ckboxSelect")).Checked)
+            {
+               // this.mainController.GetUserController().UpdateUserStatus(gvData.DataKeys[i].Values[0].ToString(), "V", loginUser.UserId);
+
+                Label lblMaterialNumber = (Label)item.FindControl("lblMaterialNumber");
+                Label lblItemSequence = (Label)item.FindControl("lblItemSequence");
+                Label lblOrderQuantity = (Label)item.FindControl("lblOrderQuantity");
+                Label lblDeliveryQuantity = (Label)item.FindControl("lblDeliveryQuantity");
+
+                DeliveryOrder doorder = new DeliveryOrder();
+
+                doorder.OrderNumber = lblOrderNumber.Text.Trim();
+                doorder.MaterialNumber = lblMaterialNumber.Text.Trim();
+                doorder.ItemSequence = lblItemSequence.Text.Trim();
+
+                doorder.OpenQuantity = Convert.ToDecimal(lblOrderQuantity.Text == "" ? "0" : lblOrderQuantity.Text) - Convert.ToDecimal(lblDeliveryQuantity.Text == "" ? "0" : lblDeliveryQuantity.Text);
+
+                if (doorder.OpenQuantity > 0)
+                doColl.Add(doorder);
+
+
+                cnt++;
+            }
+
+            i++;
+
+            
+            
+        }
+
+
+        Session.Add(SessionKey.DELIVERY_ORDER_COLLECTION, doColl);
+
+        Response.Redirect("CreateDeliveryOrder.aspx");
+
+    }
+    catch (Exception ex)
+    {
+        ExceptionLog(ex);
+
+         // this.lblError.Visible = true;
+        // this.lblError.Text = "Problem connecting to the server. Please contact Administrator.";
+    }
+
+
+        
+    }
 }
