@@ -80,6 +80,8 @@ namespace eProcurement_DAL
         /// </returns>
         public abstract Collection<Notification> RetrieveByQuery(string whereClause);
 
+        public abstract Collection<Notification> RetrieveByQueryCustom1(string whereClause);
+
         /// <summary>
         /// Retrieve list of record in a specified sort order from database table for the given search criteria
         /// </summary>
