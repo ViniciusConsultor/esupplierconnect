@@ -212,7 +212,7 @@ namespace eProcurement_BLL.PurchaseOrder
 
                 if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Supplier, true) == 0) 
                 {
-                    whereClause += " AND LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
+                    whereClause = " LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
                 }
                 
                 if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Buyer, true) == 0)
