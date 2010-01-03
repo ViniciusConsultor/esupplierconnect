@@ -233,39 +233,36 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p3);
             p3.Value = entity.DocumentNumber;
 
-            SqlParameter p4 = new SqlParameter("@ITEMNO", SqlDbType.Char, 5);
+
+            SqlParameter p4 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
             cm.Parameters.Add(p4);
-            p4.Value = entity.DocumentSerial;
+            p4.Value = entity.MaterialNumber;
 
-            SqlParameter p5 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
+            SqlParameter p5 = new SqlParameter("@TRNQTY", SqlDbType.Decimal, 13);
             cm.Parameters.Add(p5);
-            p5.Value = entity.MaterialNumber;
-
-            SqlParameter p6 = new SqlParameter("@TRNQTY", SqlDbType.Decimal, 13);
-            cm.Parameters.Add(p6);
             if (entity.RejectQuantity.HasValue)
-                p6.Value = entity.RejectQuantity.Value;
+                p5.Value = entity.RejectQuantity.Value;
             else
-                p6.Value = DBNull.Value;        
+                p5.Value = DBNull.Value;        
 
-            SqlParameter p7 = new SqlParameter("@MEINS", SqlDbType.Char, 3);
+            SqlParameter p6 = new SqlParameter("@MEINS", SqlDbType.Char, 3);
+            cm.Parameters.Add(p6);
+            p6.Value = entity.UnitofMeasure;
+
+            SqlParameter p7 = new SqlParameter("@REFNO", SqlDbType.Char, 10);
             cm.Parameters.Add(p7);
-            p7.Value = entity.UnitofMeasure;
+            p7.Value = entity.ReferenceNumber;
 
-            SqlParameter p8 = new SqlParameter("@REFNO", SqlDbType.Char, 10);
+            SqlParameter p8 = new SqlParameter("@AEDAT", SqlDbType.BigInt, 8);
             cm.Parameters.Add(p8);
-            p8.Value = entity.ReferenceNumber;
-
-            SqlParameter p9 = new SqlParameter("@AEDAT", SqlDbType.BigInt, 8);
-            cm.Parameters.Add(p9);
             if (entity.RejectDate.HasValue)
-                p9.Value = entity.RejectDate;
+                p8.Value = entity.RejectDate;
             else
-                p9.Value = DBNull.Value;
+                p8.Value = DBNull.Value;
 
-            SqlParameter p10 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
-            cm.Parameters.Add(p10);
-            p10.Value = entity.AcknowledgeStatus;
+            SqlParameter p9 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
+            cm.Parameters.Add(p9);
+            p9.Value = entity.AcknowledgeStatus;
 
             cm.ExecuteNonQuery();
 
@@ -329,39 +326,37 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p3);
             p3.Value = entity.DocumentNumber;
 
-            SqlParameter p4 = new SqlParameter("@ITEMNO", SqlDbType.Char, 5);
+        
+
+            SqlParameter p4 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
             cm.Parameters.Add(p4);
-            p4.Value = entity.DocumentSerial;
+            p4.Value = entity.MaterialNumber;
 
-            SqlParameter p5 = new SqlParameter("@MATNR", SqlDbType.Char, 18);
+            SqlParameter p5 = new SqlParameter("@TRNQTY", SqlDbType.Decimal, 13);
             cm.Parameters.Add(p5);
-            p5.Value = entity.MaterialNumber;
-
-            SqlParameter p6 = new SqlParameter("@TRNQTY", SqlDbType.Decimal, 13);
-            cm.Parameters.Add(p6);
             if (entity.RejectQuantity.HasValue)
-                p6.Value = entity.RejectQuantity.Value;
+                p5.Value = entity.RejectQuantity.Value;
             else
-                p6.Value = DBNull.Value;
+                p5.Value = DBNull.Value;
 
-            SqlParameter p7 = new SqlParameter("@MEINS", SqlDbType.Char, 3);
+            SqlParameter p6 = new SqlParameter("@MEINS", SqlDbType.Char, 3);
+            cm.Parameters.Add(p6);
+            p6.Value = entity.UnitofMeasure;
+
+            SqlParameter p7 = new SqlParameter("@REFNO", SqlDbType.Char, 10);
             cm.Parameters.Add(p7);
-            p7.Value = entity.UnitofMeasure;
+            p7.Value = entity.ReferenceNumber;
 
-            SqlParameter p8 = new SqlParameter("@REFNO", SqlDbType.Char, 10);
+            SqlParameter p8 = new SqlParameter("@AEDAT", SqlDbType.BigInt, 8);
             cm.Parameters.Add(p8);
-            p8.Value = entity.ReferenceNumber;
-
-            SqlParameter p9 = new SqlParameter("@AEDAT", SqlDbType.BigInt, 8);
-            cm.Parameters.Add(p9);
             if (entity.RejectDate.HasValue)
-                p9.Value = entity.RejectDate;
+                p8.Value = entity.RejectDate;
             else
-                p9.Value = DBNull.Value;
+                p8.Value = DBNull.Value;
 
-            SqlParameter p10 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
-            cm.Parameters.Add(p10);
-            p10.Value = entity.AcknowledgeStatus;
+            SqlParameter p9 = new SqlParameter("@ACKSTS", SqlDbType.Char, 1);
+            cm.Parameters.Add(p9);
+            p9.Value = entity.AcknowledgeStatus;
 
             cm.ExecuteNonQuery();
 
@@ -459,7 +454,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [EBELN],[EBELP],[DOCNO],[ITEMNO],[MATNR],[TRNQTY],[MEINS],[REFNO],[AEDAT],[ACKSTS] FROM rejection";
+            string selectCommand = "SELECT [EBELN],[EBELP],[DOCNO],[MATNR],[TRNQTY],[MEINS],[REFNO],[AEDAT],[ACKSTS] FROM rejection";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -471,7 +466,6 @@ namespace eProcurement_DAL
                 entity.OrderNumber = rd["EBELN"].ToString();
                 entity.ItemSequence = rd["EBELP"].ToString();
                 entity.DocumentNumber = rd["DOCNO"].ToString();
-                entity.DocumentSerial = rd["ITEMNO"].ToString();
                 entity.MaterialNumber = rd["MATNR"].ToString();
                
                 if (rd.IsDBNull(5))
@@ -524,7 +518,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT r.[EBELN],r.[EBELP],r.[DOCNO],r.[ITEMNO],r.[MATNR],r.[TRNQTY],r.[MEINS],r.[REFNO],r.[AEDAT],r.[ACKSTS] FROM REJECTION r INNER JOIN PURHDR p ON p.EBELN = r.EBELN";
+            string selectCommand = "SELECT r.[EBELN],r.[EBELP],r.[DOCNO],r.[MATNR],r.[TRNQTY],r.[MEINS],r.[REFNO],r.[AEDAT],r.[ACKSTS] FROM REJECTION r INNER JOIN PURHDR p ON p.EBELN = r.EBELN";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -536,7 +530,6 @@ namespace eProcurement_DAL
                 entity.OrderNumber = rd["EBELN"].ToString();
                 entity.ItemSequence = rd["EBELP"].ToString();
                 entity.DocumentNumber = rd["DOCNO"].ToString();
-                entity.DocumentSerial = rd["ITEMNO"].ToString();
                 entity.MaterialNumber = rd["MATNR"].ToString();
 
                 if (rd.IsDBNull(5))
