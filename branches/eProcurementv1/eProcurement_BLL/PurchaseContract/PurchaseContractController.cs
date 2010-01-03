@@ -82,38 +82,32 @@ namespace eProcurement_BLL.PurchaseContract
             }
         }
 
-        public void AcknowledgePurchaseContract(Collection<ContractHeader> contheaders)
+        public void AcknowledgePurchaseContract(string contractNumber)
         {
             try
             {
                 EpTransaction tran = DataManager.BeginTransaction();
                 try
                 {
-                    foreach (ContractHeader vo in contheaders)
+                   
+                    ContractHeader contheader = mainController.GetDAOCreator().CreateContractHeaderDAO()
+                        .RetrieveByKey(contractNumber);
+                    if (contheader == null)
                     {
-                        ContractHeader contheader = mainController.GetDAOCreator().CreateContractHeaderDAO()
-                            .RetrieveByKey(vo.ContractNumber);
-                        if (contheader == null)
-                        {
-                            throw new Exception(string.Format("Purchase contract record doesn't exist. Contract Number:{0}.",
-                                vo.ContractNumber));
-                        }
-
-                        if (string.Compare(contheader.AcknowledgeStatus, ContractAckStatus.Yes, true) != 0)
-                        {
-                            throw new Exception(string.Format("Purchase contract record has already been updated by other user. Contract Number:{0}.",
-                                vo.ContractNumber));
-                        }
-
-                        //bool isFirst = true;
-                        //if (vo.PromiseDate2.HasValue)
-                        //    isFirst = false;
-
-                        contheader.AcknowledgeStatus = ContractAckStatus.Yes;
-                        
-                        mainController.GetDAOCreator().CreateContractHeaderDAO()
-                                .Update(tran, contheader);
+                        throw new Exception(string.Format("Purchase contract record doesn't exist. Contract Number:{0}.",
+                            contractNumber));
                     }
+
+                    if (string.Compare(contheader.AcknowledgeStatus, ContractAckStatus.Yes, true) != 0)
+                    {
+                        throw new Exception(string.Format("Purchase contract record has already been updated by other user. Contract Number:{0}.",
+                            contractNumber));
+                    }
+
+                    contheader.AcknowledgeStatus = ContractAckStatus.Yes;
+                    
+                    mainController.GetDAOCreator().CreateContractHeaderDAO()
+                            .Update(tran, contheader);
 
                     tran.Commit();
                 }
