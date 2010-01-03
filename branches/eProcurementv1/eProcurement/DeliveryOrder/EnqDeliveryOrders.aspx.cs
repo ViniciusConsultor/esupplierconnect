@@ -163,6 +163,9 @@ public partial class DeliveryOrder_EnquireDeliveryOrders : BaseForm
             ddlMaterialNo.Items.Insert(0, String.Empty);
 
 
+            dtpFrom.SelectedDate = DateTime.Now;
+            dtpTo.SelectedDate = DateTime.Now;
+
 
 
             
