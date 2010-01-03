@@ -44,8 +44,8 @@ namespace eProcurement_BLL.PurchaseOrder
                 string orderClause = "";
                 whereClause = " LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
                 whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
-                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
-                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Complete + "' ";
+                whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Delete + "' ";
+                whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Complete + "' ";
                 if (orderNumber != "")
                 {
                     whereClause += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
@@ -80,8 +80,8 @@ namespace eProcurement_BLL.PurchaseOrder
                 string whereClause = "";
                 string orderClause = "";
                 whereClause += " isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
-                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
-                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Complete + "' ";
+                whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Delete + "' ";
+                whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Complete + "' ";
                 //pending filter by purchase group
 
                 if (supplierId != "")
@@ -123,8 +123,8 @@ namespace eProcurement_BLL.PurchaseOrder
                 string orderClause = "";
                 whereClause = " isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
                 whereClause += " AND isnull(RECSTS,'') <> '" + PORecStatus.Accept + "' ";
-                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Delete + "' ";
-                whereClause += " AND isnull(STAT,'') <> '" + POStatus.Complete + "' ";
+                whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Delete + "' ";
+                whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Complete + "' ";
 
                 //pending filter by purchase group
 
@@ -167,7 +167,7 @@ namespace eProcurement_BLL.PurchaseOrder
                 string whereClause = "";
                 string orderClause = "";
 
-                whereClause = " isnull(STAT,'') <> '" + POStatus.Delete + "' ";
+                whereClause = " isnull(LOEKZ,'') <> '" + POStatus.Delete + "' ";
 
                 if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Supplier, true) == 0) 
                 {
@@ -213,7 +213,7 @@ namespace eProcurement_BLL.PurchaseOrder
                     if (string.Compare(status, "CP", true) == 0)
                     {
                         //whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
-                        whereClause += " AND isnull(STAT,'') = '" + POStatus.Complete + "' ";
+                        whereClause += " AND isnull(LOEKZ,'') = '" + POStatus.Complete + "' ";
                     }
                    
                 }
