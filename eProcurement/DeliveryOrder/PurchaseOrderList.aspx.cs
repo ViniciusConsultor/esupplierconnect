@@ -86,7 +86,8 @@ public partial class DeliveryOrder_PurchaseOrderList : BaseForm
                 base.m_FunctionIdColl.Add("B-0001");
                 base.m_FunctionIdColl.Add("B-0002");
                   
-                string functionId = Request.QueryString["FunctionId"];
+               // string functionId = Request.QueryString["FunctionId"];
+                string functionId = "S-0002";
                 if (string.IsNullOrEmpty(functionId)) 
                 {
                     throw new Exception("Invalid Function Id."); 
@@ -347,7 +348,7 @@ public partial class DeliveryOrder_PurchaseOrderList : BaseForm
             string url = "";
             if (string.Compare(m_FuncFlag, "ACK_ORDER", false) == 0)
             {
-                url = "~/PurchaseOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
+                url = "~/DeliveryOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
                 url += "&OrderNumber=" + m_SearchCriteriaVO.OrderNumber;
                 if (m_SearchCriteriaVO.FromDate.HasValue)
                 {
@@ -364,7 +365,7 @@ public partial class DeliveryOrder_PurchaseOrderList : BaseForm
             }
             if (string.Compare(m_FuncFlag, "ACPT_ORDER_ACKMT", false) == 0)
             {
-                url = "~/PurchaseOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
+                url = "~/DeliveryOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
                 url += "&OrderNumber=" + m_SearchCriteriaVO.OrderNumber;
                 if (m_SearchCriteriaVO.FromDate.HasValue)
                 {
@@ -382,7 +383,7 @@ public partial class DeliveryOrder_PurchaseOrderList : BaseForm
             if (string.Compare(m_FuncFlag, "VIEW_ORDER_SUPPLIER", false) == 0 ||
                 string.Compare(m_FuncFlag, "VIEW_ORDER_BUYER", false) == 0)
             {
-                url = "~/PurchaseOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
+                url = "~/DeliveryOrder/PurchaseOrderDetail.aspx?FunctionId=" + base.m_FunctionId;
                 url += "&OrderNumber=" + m_SearchCriteriaVO.OrderNumber;
                 if (m_SearchCriteriaVO.FromDate.HasValue)
                 {
