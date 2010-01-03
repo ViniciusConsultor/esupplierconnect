@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Data;
 using SAPInterface;
 using SAP.Connector;
 using eProcurement_DAL;
 using eProcurement_BLL;
+using eProcurement_BLL.Notification;
 
 namespace eProcurement_SAP
 {
@@ -25,6 +27,7 @@ namespace eProcurement_SAP
         private int aRecCount = 0;
         private InterfaceForm aForm;
         private MainController mainController;
+        private Collection<Notification> notificationCollection;
 
         public InterfaceOrderController(InterfaceForm aForm, MainController mainController)
         {
@@ -35,7 +38,7 @@ namespace eProcurement_SAP
         public void GetPurchaseOrder()
         {
             RetrievePurchaseOrder retrieveOrder;
-
+            notificationCollection = new Collection<Notification>();
             try
             {
                 retrieveOrder = new RetrievePurchaseOrder();
@@ -111,12 +114,34 @@ namespace eProcurement_SAP
                         pohdr.AcknowledgeStatus = "N";
                         pohdr.RecordStatus = "";
                         pohdr.AcknowledgeBy = "";
-                        if (mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByKey(tran,ordobj.Ebeln) != null)
-                            mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, pohdr);  
+                        Notification notification = new Notification();
+                        if (mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByKey(tran, ordobj.Ebeln) != null)
+                        {
+                            mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, pohdr);
+                            notification.NotificationType = NotificationMessage.OrderCreate;
+                            aMsgstr = "Order Number : " + ordobj.Ebeln + "Dated : " + ordobj.Bedat + " has been Amended please acknowledge";
+                        }
                         else
+                        {
                             mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Insert(tran, pohdr);
+                            notification.NotificationType = NotificationMessage.OrderUpdate;
+                            aMsgstr = "Please Acknowlegde Order Number: " + ordobj.Ebeln + "Dated : " + ordobj.Bedat;
+                        }
+                        notification.NotificationId = 0;
+                        notification.NotificationDate = Convert.ToInt64(System.DateTime.Now.Year.ToString() + System.DateTime.Now.Month.ToString().PadLeft(2, '0') + System.DateTime.Now.Day.ToString().PadLeft(2, '0'));
+                        notification.ReferenceNumber = ordobj.Lifnr;
+                        notification.ReferenceSequence = "";
+                        notification.Recipient = ordobj.Lifnr;
+                        notification.Sender = NotificationMessage.buyerSender;
+                        notification.Message = aMsgstr;
+                        notification.Email = mainController.GetSupplierController().GetSupplierEmailAddr(ordobj.Lifnr); ;
+                        if (notification.Email == "")
+                        {
+                            notification.Email = NotificationMessage.buyerEmail;
+                        }
+                        notification.Status = "0";
+                        notificationCollection.Add(notification);
 
-                        aMsgstr = aMsgstr + ordobj.Ebeln + ", ";
                         aForm.getProgressBar().Increment(wstep);
                     }
 
@@ -329,6 +354,7 @@ namespace eProcurement_SAP
                     }
 
                     tran.Commit();
+                    this.ProcessNotification(notificationCollection);
                 }
                 catch (Exception ex)
                 {
@@ -415,6 +441,24 @@ namespace eProcurement_SAP
                 throw (ex);
             }
         }
+
+        private void ProcessNotification(Collection<Notification> pNotification)
+        {
+            try
+            {
+                foreach (Notification wNotification in pNotification)
+                {
+                    NotificationController notificationControl = new NotificationController(mainController);
+                    notificationControl.InsertEmailNotification(wNotification);
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
 
     }
 }

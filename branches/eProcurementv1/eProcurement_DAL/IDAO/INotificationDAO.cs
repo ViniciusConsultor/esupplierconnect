@@ -120,7 +120,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Notification Object
         /// </returns>
-        public abstract Notification RetrieveByKey(string notificationId);
+        public abstract Notification RetrieveByKey(long notificationId);
 
         /// <summary>
         /// Retrieve a record from database table for the given primary key(s)
@@ -130,7 +130,7 @@ namespace eProcurement_DAL
         /// <returns>
         /// Notification Object
         /// </returns>
-        public abstract Notification RetrieveByKey(EpTransaction epTran, string notificationId);
+        public abstract Notification RetrieveByKey(EpTransaction epTran, long notificationId);
         #endregion
 
         #region Insert

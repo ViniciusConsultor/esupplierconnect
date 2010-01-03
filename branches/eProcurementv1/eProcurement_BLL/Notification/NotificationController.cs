@@ -117,7 +117,7 @@ namespace eProcurement_BLL.Notification
         /// </summary>
         /// <param name="notificationID">notitifcationID goes here</param>
         /// <returns>eProcurement_DAL.Notification returns here</returns>
-        public eProcurement_DAL.Notification RetrieveByKeyEmailNotification(String notificationID)
+        public eProcurement_DAL.Notification RetrieveByKeyEmailNotification(long notificationID)
         {
             try
             {

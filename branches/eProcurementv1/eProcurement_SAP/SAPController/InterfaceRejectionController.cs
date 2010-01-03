@@ -6,6 +6,7 @@ using SAPInterface;
 using SAP.Connector;
 using eProcurement_DAL;
 using eProcurement_BLL;
+using eProcurement_BLL.Notification;
 
 namespace eProcurement_SAP
 {
@@ -17,7 +18,6 @@ namespace eProcurement_SAP
         private int aRecCount = 0;
         private InterfaceForm aForm;
         private MainController mainController;
-        private Notif
 
         public InterfaceRejectionController(InterfaceForm aForm, MainController mainController)
         {
@@ -91,7 +91,24 @@ namespace eProcurement_SAP
                         else
                             mainController.GetDAOCreator().CreateRejectedGoodDAO().Insert(tran, rejgood);
 
-                        aMsgstr = aMsgstr + rejobj.Ebeln + ", " + rejobj.Ebelp + ", " + rejobj.Mblnr;
+                        aMsgstr = "Goods Rejection for Order Number : " + rejobj.Ebeln + " and Line Sequence: " + rejobj.Ebelp + " and Material : " + rejobj.Mblnr + " Dated : " + rejobj.Budat + " is available for returns, Please collect the rejection parts";
+
+                        Notification notification = new Notification();
+                        notification.NotificationId = 0;
+                        notification.NotificationDate = Convert.ToInt64(System.DateTime.Now.Year.ToString() + System.DateTime.Now.Month.ToString().PadLeft(2, '0') + System.DateTime.Now.Day.ToString().PadLeft(2, '0'));
+                        notification.NotificationType = NotificationMessage.RejectionCreate;
+                        notification.ReferenceNumber = rejobj.Ebeln;
+                        notification.ReferenceSequence = rejobj.Ebelp;
+                        notification.Recipient = rejobj.Lifnr;
+                        notification.Sender = NotificationMessage.buyerSender;
+                        notification.Message = aMsgstr;
+                        notification.Email= mainController.GetSupplierController().GetSupplierEmailAddr(rejobj.Lifnr);
+                        if (notification.Email == "")
+                        {
+                            notification.Email = NotificationMessage.buyerEmail;
+                        }
+                        notification.Status = "0";
+                        this.ProcessNotification(notification);
                         aForm.getProgressBar().Increment(wstep);
                     }
 
@@ -127,5 +144,19 @@ namespace eProcurement_SAP
             aForm.getProgressBar().Minimum = 1;
         }
 
+        private void ProcessNotification(Notification pNotification)
+        {
+            try
+            {
+                NotificationController notificationControl = new NotificationController(mainController);
+                notificationControl.InsertEmailNotification(pNotification);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+     
     }
 }
