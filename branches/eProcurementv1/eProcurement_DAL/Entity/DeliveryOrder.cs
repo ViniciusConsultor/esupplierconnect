@@ -57,5 +57,22 @@ namespace eProcurement_DAL
             set { recordStatus = value; }
         }
 
+        Nullable<decimal> openQuantity;
+        public Nullable<decimal> OpenQuantity
+        {
+            get { return openQuantity; }
+            set { openQuantity = value; }
+        }
+
+
+        string supplierID;
+        public string SupplierID
+        {
+            get { return supplierID; }
+            set { supplierID = value; }
+        }
+
+
+
     }
 }
