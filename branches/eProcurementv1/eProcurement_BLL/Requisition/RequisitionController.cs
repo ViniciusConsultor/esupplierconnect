@@ -46,7 +46,7 @@ namespace eProcurement_BLL
             {
                 string whereCluase = "";
 
-                whereCluase = " EBELN like '" + RequisitionNo + "%'";
+                whereCluase = " BANFN like '" + RequisitionNo + "%'";
 
                 //orderCluase = " BANFN asc ";
                 return this.mainController.GetDAOCreator().CreateRequisitionItemDAO().RetrieveByQuery(whereCluase);
