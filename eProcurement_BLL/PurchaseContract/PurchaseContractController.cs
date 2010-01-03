@@ -42,7 +42,37 @@ namespace eProcurement_BLL.PurchaseContract
             {
                 string whereClause = "";
                 string orderClause = "";
-                whereClause = " 1=1 ";
+
+                if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Supplier, true) == 0)
+                {
+                    whereClause += " LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
+                }
+
+                if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Buyer, true) == 0)
+                {
+                    whereClause = " USERID = '" + Utility.EscapeSQL(mainController.GetLoginUserVO().UserId) + "'";
+                    Collection<PurchaseGroup> groups = mainController.GetDAOCreator().CreatePurchaseGroupDAO().RetrieveByQuery(whereClause);
+                    string whereClauseSub = "";
+                    foreach (PurchaseGroup group in groups)
+                    {
+                        if (whereClauseSub == "")
+                        {
+                            whereClauseSub += "(";
+                        }
+                        else
+                        {
+                            whereClauseSub += " or ";
+                        }
+                        whereClauseSub += "EKGRP='" + Utility.EscapeSQL(group.PurGroup.Trim()) + "'";
+                    }
+                    if (whereClauseSub != "")
+                        whereClauseSub += ") ";
+                    else
+                        whereClauseSub = " 1=2 ";
+
+                    whereClause += " AND " + whereClauseSub;
+                }
+
                 if (contractNumber != "")
                 {
                     contractNumber += " AND EBELN like '" + Utility.EscapeSQL(contractNumber) + "' ";

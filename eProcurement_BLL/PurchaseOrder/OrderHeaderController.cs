@@ -79,10 +79,33 @@ namespace eProcurement_BLL.PurchaseOrder
             {
                 string whereClause = "";
                 string orderClause = "";
+
+                whereClause = " USERID = '" + Utility.EscapeSQL(mainController.GetLoginUserVO().UserId) + "'";
+                Collection<PurchaseGroup> groups = mainController.GetDAOCreator().CreatePurchaseGroupDAO().RetrieveByQuery(whereClause);
+                string whereClauseSub = "";
+                foreach (PurchaseGroup group in groups)
+                {
+                    if (whereClauseSub == "")
+                    {
+                        whereClauseSub += "(";
+                    }
+                    else
+                    {
+                        whereClauseSub += " or ";
+                    }
+                    whereClauseSub += "EKGRP='" + Utility.EscapeSQL(group.PurGroup.Trim()) + "'";
+                }
+                if (whereClauseSub != "")
+                    whereClauseSub += ") ";
+                else
+                    whereClauseSub = " 1=2 ";
+
+                whereClause = whereClauseSub;
+
                 whereClause += " isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
                 whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Delete + "' ";
                 whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Complete + "' ";
-                //pending filter by purchase group
+
 
                 if (supplierId != "")
                 {
@@ -121,13 +144,33 @@ namespace eProcurement_BLL.PurchaseOrder
             {
                 string whereClause = "";
                 string orderClause = "";
-                whereClause = " isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
+
+                whereClause = " USERID = '" + Utility.EscapeSQL(mainController.GetLoginUserVO().UserId) + "'";
+                Collection<PurchaseGroup> groups = mainController.GetDAOCreator().CreatePurchaseGroupDAO().RetrieveByQuery(whereClause);
+                string whereClauseSub = "";
+                foreach (PurchaseGroup group in groups)
+                {
+                    if (whereClauseSub == "")
+                    {
+                        whereClauseSub += "(";
+                    }
+                    else
+                    {
+                        whereClauseSub += " or ";
+                    }
+                    whereClauseSub += "EKGRP='" + Utility.EscapeSQL(group.PurGroup.Trim()) + "'";
+                }
+                if (whereClauseSub != "")
+                    whereClauseSub += ") ";
+                else
+                    whereClauseSub = " 1=2 ";
+
+                whereClause = whereClauseSub;
+
+                whereClause += " isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
                 whereClause += " AND isnull(RECSTS,'') <> '" + PORecStatus.Accept + "' ";
                 whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Delete + "' ";
                 whereClause += " AND isnull(LOEKZ,'') <> '" + POStatus.Complete + "' ";
-
-                //pending filter by purchase group
-
 
                 if (orderNumber != "")
                 {
@@ -176,7 +219,27 @@ namespace eProcurement_BLL.PurchaseOrder
                 
                 if (string.Compare(mainController.GetLoginUserVO().ProfileType, ProfileType.Buyer, true) == 0)
                 {
-                    //pending filter by purchase group
+                    whereClause = " USERID = '" + Utility.EscapeSQL(mainController.GetLoginUserVO().UserId) + "'";
+                    Collection<PurchaseGroup> groups = mainController.GetDAOCreator().CreatePurchaseGroupDAO().RetrieveByQuery(whereClause);
+                    string whereClauseSub = "";
+                    foreach (PurchaseGroup group in groups)
+                    {
+                        if (whereClauseSub == "")
+                        {
+                            whereClauseSub += "(";
+                        }
+                        else
+                        {
+                            whereClauseSub += " or ";
+                        }
+                        whereClauseSub += "EKGRP='" + Utility.EscapeSQL(group.PurGroup.Trim()) + "'";
+                    }
+                    if (whereClauseSub != "")
+                        whereClauseSub += ") ";
+                    else
+                        whereClauseSub = " 1=2 ";
+
+                    whereClause += " AND " + whereClauseSub;
                 }
 
                 if (status != "")
