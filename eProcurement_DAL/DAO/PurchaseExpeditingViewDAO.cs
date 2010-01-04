@@ -114,7 +114,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT e.[EBELN],e.[EBELP],e.[ETENR],e.[MATNR],e.[EXPDT],e.[WEMNG],e.[VBELN],e.[PRMDT1],e.[PRMDT2],e.[RECSTS]";
+            string selectCommand = "SELECT e.[EBELN],e.[EBELP],e.[ETENR],e.[MATNR],e.[EXPDT],e.[WEMNG],e.[MEINS],e.[PRMDT1],e.[PRMDT2],e.[RECSTS]";
             selectCommand += ",h.LIFNR ";
             selectCommand += " FROM purexpedite e inner join purhdr h on e.EBELN=h.EBELN ";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
@@ -140,7 +140,7 @@ namespace eProcurement_DAL
                 else
                     entity.ExpediteQuantity = Convert.ToDecimal(rd["WEMNG"].ToString());
 
-                entity.UnitMeasure = rd["VBELN"].ToString();
+                entity.UnitMeasure = rd["MEINS"].ToString();
 
                 if (rd.IsDBNull(7))
                     entity.PromiseDate1 = null;
