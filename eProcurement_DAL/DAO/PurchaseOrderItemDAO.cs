@@ -408,8 +408,6 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p17);
             p17.Value = entity.AcknowledgementStatus;
 
- 
-
             SqlParameter p19 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p19);
             p19.Value = entity.PurchaseOrderNumber;

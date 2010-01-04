@@ -192,16 +192,25 @@ namespace eProcurement_DAL
                 p3.Value = entity.ComponentQuantity;
             else
                 p3.Value = DBNull.Value;
-
             SqlParameter p4 = new SqlParameter("@MEINS", SqlDbType.Char, 3);
             cm.Parameters.Add(p4);
             p4.Value = entity.UnitOfMeasure;
             SqlParameter p5 = new SqlParameter("@STS", SqlDbType.Char, 1);
             cm.Parameters.Add(p5);
             p5.Value = entity.ItemStatus;
-            SqlParameter p6 = new SqlParameter("@MEINS", SqlDbType.Char, 1);
+            SqlParameter p6 = new SqlParameter("@RECSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p6);
             p6.Value = entity.RecordStatus;
+
+            SqlParameter p7 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
+            cm.Parameters.Add(p7);
+            p7.Value = entity.OrderNumber;
+            SqlParameter p8 = new SqlParameter("@EBELP", SqlDbType.Char, 5);
+            cm.Parameters.Add(p8);
+            p8.Value = entity.ItemSequence;
+            SqlParameter p9 = new SqlParameter("@COMPL", SqlDbType.Char, 5);
+            cm.Parameters.Add(p9);
+            p9.Value = entity.ComponentSequence;
 
             cm.ExecuteNonQuery();
 

@@ -203,6 +203,14 @@ namespace eProcurement_DAL
             p5.Value = entity.ServiceText;
             cm.ExecuteNonQuery();
 
+            SqlParameter p6 = new SqlParameter("@LBLN1", SqlDbType.Char, 10);
+            cm.Parameters.Add(p6);
+            p6.Value = entity.SheetNumber;
+
+            SqlParameter p7 = new SqlParameter("@EXTROW", SqlDbType.Char, 10);
+            cm.Parameters.Add(p7);
+            p7.Value = entity.SheetSequence;
+
             if (epTran == null)
                 if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
         }

@@ -31,6 +31,7 @@ namespace SAPInterface
 		private ZORDER_HDRTXTTable  orderHeaderTxt;
 		private ZORDER_ITMTXTTable  orderItemTxt;
 		private ZORDER_HISTORYTable orderHistory;
+		private ZORDER_CLOSETable   orderClose;
 
 		public RetrievePurchaseOrder()
 		{
@@ -101,7 +102,8 @@ namespace SAPInterface
 			{
 				this.OpenConnection();
 				orderHistory = new ZORDER_HISTORYTable();
-				orderProxy.Zretrieveorderhistory(ref orderHistory);
+				orderClose   = new ZORDER_CLOSETable();
+				orderProxy.Zretrieveorderhistory(ref orderClose, ref orderHistory);
 				this.CloseConnection();
 			}
 			catch(Exception ex)
@@ -170,6 +172,11 @@ namespace SAPInterface
 		public ZORDER_HISTORYTable GetOrderHistory ()
 		{
 			return orderHistory;
+		}
+
+		public ZORDER_CLOSETable GetOrderClosed ()
+		{
+			return orderClose;
 		}
 	}
 }

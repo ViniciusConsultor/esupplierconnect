@@ -187,7 +187,7 @@ namespace eProcurement_DAL
             set { createby = value; }
         }
 
-        ///<summary>Database mapping to column purhdr.CREATEBY</summary>
+        ///<summary>Database mapping to column purhdr.EKGRP</summary>
         string purchaseGroup;
         public string PurchaseGroup
         {
@@ -195,7 +195,7 @@ namespace eProcurement_DAL
             set { purchaseGroup = value; }
         }
 
-        ///<summary>Database mapping to column purhdr.CREATEBY</summary>
+        ///<summary>Database mapping to column purhdr.EKORG</summary>
         string purchaseOrg;
         public string PurchaseOrg
         {
