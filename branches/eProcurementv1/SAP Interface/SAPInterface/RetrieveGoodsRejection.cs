@@ -51,6 +51,7 @@ namespace SAPInterface
 			{
 				rejectionProxy.Connection.Close();
 			}
+			rejectionProxy.ConnectionString = connectionStr;
 			rejectionProxy.Connection.Open();
 		}
 
@@ -82,5 +83,21 @@ namespace SAPInterface
 			return orderRejection;
 		}
 
+		public void UpdateRejectControlDate()
+		{
+			try
+			{
+				if (rejectionProxy != null)
+				{
+					this.OpenConnection();
+					rejectionProxy.Zupd_Rejectctl();
+					this.CloseConnection();
+				}
+			}
+			catch(Exception ex)
+			{
+				throw(ex);
+			}
+		}
 	}
 }

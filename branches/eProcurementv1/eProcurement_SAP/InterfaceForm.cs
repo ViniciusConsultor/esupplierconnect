@@ -17,6 +17,7 @@ namespace eProcurement_SAP
             InitializeComponent();
             this.mainController = mainController;
             this.initForm();
+            this.label1.Text = "Execute the options for Interface ...";
         }
 
         private void initForm()
@@ -27,7 +28,7 @@ namespace eProcurement_SAP
             groupBox4.Enabled = false;
             groupBox5.Enabled = false;
             groupBox8.Enabled = false;
-            this.label1.Text = "Execute the options for Interface ...";
+            groupBox9.Enabled = false;
         }
 
         private void btn_contract_Click(object sender, EventArgs e)
@@ -41,17 +42,13 @@ namespace eProcurement_SAP
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
                 groupBox8.Enabled = false;
+                groupBox9.Enabled = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.label1.Text = "Error during retrieving of Purchase Contract Details...";
-                groupBox1.Enabled = false;
-                groupBox2.Enabled = false;
-                groupBox3.Enabled = false;
-                groupBox4.Enabled = false;
-                groupBox5.Enabled = false;
-                groupBox8.Enabled = false;
+                this.initForm();
             }
         }
 
@@ -67,17 +64,13 @@ namespace eProcurement_SAP
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
                 groupBox8.Enabled = false;
+                groupBox9.Enabled = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.label1.Text = "Error during retrieving of Purchase Details...";
-                groupBox1.Enabled = false;
-                groupBox2.Enabled = false;
-                groupBox3.Enabled = false;
-                groupBox4.Enabled = false;
-                groupBox5.Enabled = false;
-                groupBox8.Enabled = false;
+                this.initForm();
             }
         }
 
@@ -92,17 +85,13 @@ namespace eProcurement_SAP
                 groupBox4.Enabled = true;
                 groupBox5.Enabled = false;
                 groupBox8.Enabled = false;
+                groupBox9.Enabled = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.label1.Text = "Error during retrieving of Requisition Details...";
-                groupBox1.Enabled = false;
-                groupBox2.Enabled = false;
-                groupBox3.Enabled = false;
-                groupBox4.Enabled = false;
-                groupBox5.Enabled = false;
-                groupBox8.Enabled = false;
+                this.initForm();
             }
         }
 
@@ -122,12 +111,7 @@ namespace eProcurement_SAP
             {
                 MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.label1.Text = "Error during retrieving of Supplier Details...";
-                groupBox1.Enabled = false;
-                groupBox2.Enabled = false;
-                groupBox3.Enabled = false;
-                groupBox4.Enabled = false;
-                groupBox5.Enabled = false;
-                groupBox8.Enabled = false;
+                this.initForm();
             }
         }
 
@@ -147,12 +131,7 @@ namespace eProcurement_SAP
             {
                 MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.label1.Text = "Error during retrieving of Requirement Details...";
-                groupBox1.Enabled = false;
-                groupBox2.Enabled = false;
-                groupBox3.Enabled = false;
-                groupBox4.Enabled = false;
-                groupBox5.Enabled = false;
-                groupBox8.Enabled = false;
+                this.initForm();
             }
         }
 
@@ -172,12 +151,7 @@ namespace eProcurement_SAP
             {
                 MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.label1.Text = "Error during retrieving of Material Stock Details...";
-                groupBox1.Enabled = false;
-                groupBox2.Enabled = false;
-                groupBox3.Enabled = false;
-                groupBox4.Enabled = false;
-                groupBox5.Enabled = false;
-                groupBox8.Enabled = false;
+                this.initForm();
             }
         }
 
@@ -197,12 +171,29 @@ namespace eProcurement_SAP
             {
                 MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.label1.Text = "Error during retrieving of Goods Rejection Details...";
+                this.initForm();
+            }
+
+        }
+
+        private void btn_ordhst_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                mainController.ProcessPurchaseHistory();
                 groupBox1.Enabled = false;
                 groupBox2.Enabled = false;
                 groupBox3.Enabled = false;
                 groupBox4.Enabled = false;
                 groupBox5.Enabled = false;
                 groupBox8.Enabled = false;
+                groupBox9.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.label1.Text = "Error during retrieving of Purchase Order History Details...";
+                this.initForm();
             }
 
         }
@@ -219,16 +210,14 @@ namespace eProcurement_SAP
                 mainController.ProcessSupplier();
                 mainController.ProcessMaterialRequirement();
                 mainController.ProcessMaterialStock();
+                mainController.ProcessGoodsRejection();
+                mainController.ProcessPurchaseHistory();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.label1.Text = "Error during retrieving of Material Stock Details...";
-                groupBox1.Enabled = false;
-                groupBox2.Enabled = false;
-                groupBox3.Enabled = false;
-                groupBox4.Enabled = false;
-                groupBox5.Enabled = false;
+                this.initForm();
             }
             finally
             {
@@ -377,14 +366,13 @@ namespace eProcurement_SAP
             }
         }
 
-        public ProgressBar getProgressBar()
+        private void btn_vreject_Click(object sender, EventArgs e)
         {
-            return pbar_sts;
-        }
-
-        public Label getLabel()
-        {
-            return label1;
+            mainController.GetRejection();
+            if (mainController.GetInterfaceData() != null)
+            {
+                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+            }
         }
 
         private void btn_vhist_Click(object sender, EventArgs e)
@@ -397,13 +385,14 @@ namespace eProcurement_SAP
 
         }
 
-        private void btn_vreject_Click(object sender, EventArgs e)
+        public ProgressBar getProgressBar()
         {
-            mainController.GetRejection();
-            if (mainController.GetInterfaceData() != null)
-            {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
-            }
+            return pbar_sts;
+        }
+
+        public Label getLabel()
+        {
+            return label1;
         }
 
     }

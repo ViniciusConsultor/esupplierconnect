@@ -25,7 +25,6 @@ namespace eProcurement_SAP
 
         public InterfaceMainController()
         {
-            interfaceTbl = new DataTable();
             mainController = new MainController();
             scheduleInterface = new InterfaceForm(this);
             scheduleInterface.Show();
@@ -59,6 +58,26 @@ namespace eProcurement_SAP
                     orderController = new InterfaceOrderController(scheduleInterface, mainController);
                 }
                 orderController.GetPurchaseOrder();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message != "RECORDNOTFOUND")
+                {
+                    throw (ex);
+                }
+            }
+        }
+
+        public void ProcessPurchaseHistory()
+        {
+            try
+            {
+                if (orderController == null)
+                {
+                    orderController = new InterfaceOrderController(scheduleInterface, mainController);
+                }
+                orderController.GetPurchaseHistory();
+
             }
             catch (Exception ex)
             {
@@ -268,7 +287,10 @@ namespace eProcurement_SAP
 
         public DataTable GetInterfaceData()
         {
-            return interfaceTbl;
+            if (interfaceTbl != null)
+                return interfaceTbl;
+            else
+                return null;
         }
     }
 }

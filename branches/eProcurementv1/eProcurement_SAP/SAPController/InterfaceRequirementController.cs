@@ -110,7 +110,10 @@ namespace eProcurement_SAP
 
         public DataTable GetRequirement()
         {
-            return requirement.ToADODataTable();
+            if (requirement != null)
+                return requirement.ToADODataTable();
+            else
+                return null;
         }
 
         private void setParameters()

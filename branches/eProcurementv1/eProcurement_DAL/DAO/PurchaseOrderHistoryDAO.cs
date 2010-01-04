@@ -66,7 +66,7 @@ namespace eProcurement_DAL
             PurchaseOrderHistory entity = null;
             string whereClause = " EBELN='" + DataManager.EscapeSQL(orderNumber) + "' ";
             whereClause += "AND EBELP='" + DataManager.EscapeSQL(itemSequence) + "' ";
-            whereClause += "AND DOCNO='" + DataManager.EscapeSQL(materialDocument) + "' ";
+            whereClause += "AND BELNR='" + DataManager.EscapeSQL(materialDocument) + "' ";
 
             Collection<PurchaseOrderHistory> entities = Retrieve(epTran, whereClause, "");
             if (entities.Count > 0)
@@ -108,7 +108,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO PURHIST ([EBELN],[EBELP],[TRTYP],[DOCNO],[ITEMNO],[MVTTYP],[AEDAT],[TRNQTY],[MEINS],[TRNAMT],[WAERS],[REFNO],[REFSRL],[INVVAL],[MATNR],[WERKS]) VALUES(@EBELN,@EBELP,@TRTYP,@DOCNO,@ITEMNO,@MVTTYP,@AEDAT,@TRNQTY,@MEINS,@TRNAMT,@WAERS,@REFNO,@REFSRL,@INVVAL,@MATNR,@WERKS)";
+            cm.CommandText = "INSERT INTO PURHIST ([EBELN],[EBELP],[BEWTP],[BELNR],[BUZEI],[BWART],[BUDAT],[MENGE],[MEINS],[DMBTR],[WRBTR], [WAERS], [SHKZG], [XBLNR],[MATNR], [WERKS]) VALUES(@EBELN,@EBELP,@TRTYP,@DOCNO,@ITEMNO,@MVTTYP,@AEDAT,@TRNQTY,@MEINS,@TRNAMT, @INVVAL, @WAERS, @SHKZG, @REFNO,@MATNR,@WERKS)";
 
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
@@ -118,7 +118,7 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p2);
             p2.Value = entity.ItemSequence;
 
-            SqlParameter p3 = new SqlParameter("@TRTYP", SqlDbType.Char, 2);
+            SqlParameter p3 = new SqlParameter("@TRTYP", SqlDbType.Char, 1);
             cm.Parameters.Add(p3);
             p3.Value = entity.TransactionType;
 
@@ -163,15 +163,15 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p11);
             p11.Value = entity.CurrencyId;
 
-            SqlParameter p12 = new SqlParameter("@REFNO", SqlDbType.Char, 12);
+            SqlParameter p12 = new SqlParameter("@REFNO", SqlDbType.Char, 10);
             cm.Parameters.Add(p12);
             p12.Value = entity.ReferenceNumber;
 
-            SqlParameter p13 = new SqlParameter("@REFSRL", SqlDbType.Char, 10);
+            SqlParameter p13 = new SqlParameter("@SHKZG", SqlDbType.Char, 1);
             cm.Parameters.Add(p13);
-            p13.Value = entity.ReferenceSerial;
+            p13.Value = entity.Indicator;
 
-            SqlParameter p14 = new SqlParameter("@INVVAL", SqlDbType.Decimal, 5);
+            SqlParameter p14 = new SqlParameter("@INVVAL", SqlDbType.Decimal, 9);
             cm.Parameters.Add(p14);
             if (entity.InvoiceValue.HasValue)
                 p14.Value = entity.InvoiceValue;
@@ -225,7 +225,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE PURHIST SET [EBELN]=@EBELN,[EBELP]=@EBELP,[TRTYP]=@TRTYP,[DOCNO]=@DOCNO,[ITEMNO]=@ITEMNO,[MVTTYP]=@MVTTYP,[AEDAT]=@AEDAT,[TRNQTY]=@TRNQTY,[MEINS]=@MEINS,[TRNAMT]=@TRNAMT,[WAERS]=@WAERS,[REFNO]=@REFNO,[REFSRL]=@REFSRL,[INVVAL]=@INVVAL,[MATNR]=@MATNR,[WERKS]=@WERKS WHERE EBELN=@EBELN AND EBELP=@EBELP AND DOCNO=@DOCNO";
+            cm.CommandText = "UPDATE PURHIST SET [EBELN]=@EBELN,[EBELP]=@EBELP,[BEWTP]=@TRTYP,[BELNR]=@DOCNO,[BUZEI]=@ITEMNO,[BWART]=@MVTTYP,[BUDAT]=@AEDAT,[MENGE]=@TRNQTY,[MEINS]=@MEINS,[DMBTR]=@TRNAMT,[WAERS]=@WAERS,[XBLNR]=@REFNO,[SHKZG]=@SHKZG,[WRBTR]=@INVVAL,[MATNR]=@MATNR,[WERKS]=@WERKS WHERE EBELN=@EBELN AND EBELP=@EBELP AND BELNR=@DOCNO";
 
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.VarChar, 10);
             cm.Parameters.Add(p1);
@@ -235,7 +235,7 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p2);
             p2.Value = entity.ItemSequence;
 
-            SqlParameter p3 = new SqlParameter("@TRTYP", SqlDbType.VarChar, 2);
+            SqlParameter p3 = new SqlParameter("@TRTYP", SqlDbType.VarChar, 1);
             cm.Parameters.Add(p3);
             p3.Value = entity.TransactionType;
 
@@ -284,11 +284,11 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p12);
             p12.Value = entity.ReferenceNumber;
 
-            SqlParameter p13 = new SqlParameter("@REFSRL", SqlDbType.VarChar, 5);
+            SqlParameter p13 = new SqlParameter("@SHKZG", SqlDbType.VarChar, 1);
             cm.Parameters.Add(p13);
-            p13.Value = entity.ReferenceSerial;
+            p13.Value = entity.Indicator;
 
-            SqlParameter p14 = new SqlParameter("@INVVAL", SqlDbType.Decimal, 8);
+            SqlParameter p14 = new SqlParameter("@INVVAL", SqlDbType.Decimal, 9);
             cm.Parameters.Add(p14);
             if (entity.InvoiceValue.HasValue)
                 p14.Value = entity.InvoiceValue;
@@ -296,12 +296,12 @@ namespace eProcurement_DAL
                 p14.Value = DBNull.Value;
 
             SqlParameter p15 = new SqlParameter("@MATNR", SqlDbType.VarChar, 18);
-            cm.Parameters.Add(p13);
-            p13.Value = entity.MaterialNumber;
+            cm.Parameters.Add(p15);
+            p15.Value = entity.MaterialNumber;
 
             SqlParameter p16 = new SqlParameter("@WERKS", SqlDbType.VarChar, 4);
-            cm.Parameters.Add(p13);
-            p13.Value = entity.Plant;
+            cm.Parameters.Add(p16);
+            p16.Value = entity.Plant;
 
             cm.ExecuteNonQuery();
 
@@ -342,7 +342,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "DELETE FROM PURHIST WHERE EBELN=@EBELN AND EBELP=@EBELP AND DOCNO=@DOCNO";
+            cm.CommandText = "DELETE FROM PURHIST WHERE EBELN=@EBELN AND EBELP=@EBELP AND BELNR=@BELNR";
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.OrderNumber;
@@ -351,7 +351,7 @@ namespace eProcurement_DAL
             cm.Parameters.Add(p2);
             p2.Value = entity.ItemSequence;
 
-            SqlParameter p3 = new SqlParameter("@DOCNO", SqlDbType.Char, 10);
+            SqlParameter p3 = new SqlParameter("@BELNR", SqlDbType.Char, 10);
             cm.Parameters.Add(p3);
             p3.Value = entity.DocumentNumber;
 
@@ -384,7 +384,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [EBELN],[EBELP],[TRTYP],[DOCNO],[ITEMNO],[MVTTYP],[AEDAT],[TRNQTY],[MEINS],[TRNAMT],[WAERS],[REFNO],[REFSRL],[INVVAL],[MATNR],[WERKS] FROM PURHIST";
+            string selectCommand = "SELECT [EBELN],[EBELP],[BEWTP],[BELNR],[BUZEI],[BWART],[BUDAT],[MENGE],[MEINS],[DMBTR],[WAERS],[XBLNR],[SHKZG],[WRBTR],[MATNR],[WERKS] FROM PURHIST";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -395,36 +395,36 @@ namespace eProcurement_DAL
                 PurchaseOrderHistory entity = new PurchaseOrderHistory();
                 entity.MaterialNumber = rd["EBELN"].ToString();
                 entity.ItemSequence = rd["EBELP"].ToString();
-                entity.TransactionType = rd["TRTYP"].ToString();
-                entity.DocumentNumber = rd["DOCNO"].ToString();
-                entity.DocumentSerial = rd["ITEMNO"].ToString();
-                entity.MovementType = rd["MVTTYP"].ToString();
+                entity.TransactionType = rd["BEWTP"].ToString();
+                entity.DocumentNumber = rd["BELNR"].ToString();
+                entity.DocumentSerial = rd["BUZEI"].ToString();
+                entity.MovementType = rd["BWART"].ToString();
 
                 if (rd.IsDBNull(6))
                     entity.PostingDate = null;
                 else
-                    entity.PostingDate= Convert.ToInt64(rd["AEDAT"]);
+                    entity.PostingDate= Convert.ToInt64(rd["BUDAT"]);
 
                 if (rd.IsDBNull(7))
                     entity.TransactionQuantity = null;
                 else
-                    entity.TransactionQuantity = Convert.ToDecimal(rd["TRNQTY"]);
+                    entity.TransactionQuantity = Convert.ToDecimal(rd["MENGE"]);
 
                 entity.UnitOfMeasure = rd["MEINS"].ToString();
 
                 if (rd.IsDBNull(9))
                     entity.TransactionQuantity = null;
                 else
-                    entity.TransactionQuantity = Convert.ToDecimal(rd["TRNAMT"]);
+                    entity.TransactionQuantity = Convert.ToDecimal(rd["DMBTR"]);
 
                 entity.UnitOfMeasure = rd["WAERS"].ToString();
-                entity.ReferenceNumber = rd["REFNO"].ToString();
-                entity.ReferenceSerial = rd["REFSRL"].ToString();
+                entity.ReferenceNumber = rd["XBLNR"].ToString();
+                entity.Indicator = rd["SHKZG"].ToString();
 
                 if (rd.IsDBNull(13))
                     entity.InvoiceValue = null;
                 else
-                    entity.InvoiceValue = Convert.ToDecimal(rd["INVVAL"]);
+                    entity.InvoiceValue = Convert.ToDecimal(rd["WRBTR"]);
 
                 entity.MaterialNumber = rd["MATNR"].ToString();
                 entity.Plant = rd["WERKS"].ToString();

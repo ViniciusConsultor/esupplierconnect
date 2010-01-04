@@ -160,12 +160,18 @@ namespace eProcurement_SAP
 
         public DataTable GetRequisitionHeader()
         {
-            return requisitionHeader.ToADODataTable();
+            if (requisitionHeader != null)
+                return requisitionHeader.ToADODataTable();
+            else
+                return null;
         }
 
         public DataTable GetRequisitionItem()
         {
-            return requisitionItem.ToADODataTable();
+            if (requisitionItem != null)
+                return requisitionItem.ToADODataTable();
+            else
+                return null;
         }
 
         private void setParameters()

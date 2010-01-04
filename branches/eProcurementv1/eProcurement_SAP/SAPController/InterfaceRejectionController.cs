@@ -43,6 +43,7 @@ namespace eProcurement_SAP
                 aForm.getLabel().Refresh();
 
                 this.UpdateRejection();
+                retrieveRejection.UpdateRejectControlDate();
 
                 aForm.getLabel().Text = "Update of Goods Rejection Data Completed ";
                 aForm.getLabel().Refresh();
@@ -133,7 +134,10 @@ namespace eProcurement_SAP
 
         public DataTable GetRejection()
         {
-            return orderRejection.ToADODataTable();
+            if (orderRejection != null)
+                return orderRejection.ToADODataTable();
+            else
+                return null;
         }
 
         private void setParameters()

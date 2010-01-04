@@ -55,7 +55,6 @@ namespace eProcurement_SAP
                 serviceTask    = retrieveOrder.GetServiceTask();
                 headerText     = retrieveOrder.GetOrderHeaderText();
                 itemText       = retrieveOrder.GetOrderItemText();
-                orderHistory   = retrieveOrder.GetOrderHistory();
 
                 aForm.getLabel().Text = "Update of Purchase Order Data  in Progress ....";
                 aForm.getLabel().Refresh();
@@ -71,6 +70,36 @@ namespace eProcurement_SAP
                 Utility.ExceptionLog(ex);
                 throw (ex);
             }
+        }
+
+        public void GetPurchaseHistory()
+        {
+            RetrievePurchaseOrder retrieveOrder;
+            try
+            {
+                retrieveOrder = new RetrievePurchaseOrder();
+
+                aForm.getLabel().Text = "Retrieval of Purchase Order History Data  in Progress ....";
+                aForm.getLabel().Refresh();
+
+                retrieveOrder.GetPurchaseHistoryDetails();
+                orderHistory = retrieveOrder.GetOrderHistory();
+
+                aForm.getLabel().Text = "Update of Purchase Order History Data  in Progress ....";
+                aForm.getLabel().Refresh();
+
+                this.UpdatePurchaseHistory();
+                retrieveOrder.UpdateHistoryControlDate();
+
+                aForm.getLabel().Text = "Update of Purchase Order History Data Completed";
+                aForm.getLabel().Refresh();
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+
         }
 
         private void UpdatePurchaseOrder()
@@ -114,17 +143,19 @@ namespace eProcurement_SAP
                         pohdr.AcknowledgeStatus = "N";
                         pohdr.RecordStatus = "";
                         pohdr.AcknowledgeBy = "";
+
                         Notification notification = new Notification();
+                        
                         if (mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByKey(tran, ordobj.Ebeln) != null)
                         {
                             mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, pohdr);
-                            notification.NotificationType = NotificationMessage.OrderCreate;
+                            notification.NotificationType = NotificationMessage.OrderUpdate;
                             aMsgstr = "Order Number : " + ordobj.Ebeln + "Dated : " + ordobj.Bedat + " has been Amended please acknowledge";
                         }
                         else
                         {
                             mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Insert(tran, pohdr);
-                            notification.NotificationType = NotificationMessage.OrderUpdate;
+                            notification.NotificationType = NotificationMessage.OrderCreate;
                             aMsgstr = "Please Acknowlegde Order Number: " + ordobj.Ebeln + "Dated : " + ordobj.Bedat;
                         }
                         notification.NotificationId = 0;
@@ -375,49 +406,135 @@ namespace eProcurement_SAP
             }
         }
 
+
+        private void UpdatePurchaseHistory()
+        {
+            int wstep;
+            EpTransaction tran = DataManager.BeginTransaction();
+            try
+            {
+                //---------------------------------------
+                // Get Purchase Order History Details
+                //---------------------------------------
+
+                aRecCount = orderHistory.Count;
+                wstep = 10;
+                this.setParameters();
+                foreach (ZORDER_HISTORY hstobj in orderHistory)
+                {
+                    PurchaseOrderHistory pohst = new PurchaseOrderHistory();
+                    pohst.OrderNumber = hstobj.Ebeln;
+                    pohst.ItemSequence = hstobj.Ebelp;
+                    pohst.DocumentNumber = hstobj.Belnr;
+                    pohst.DocumentSerial = hstobj.Buzei;
+                    pohst.CurrencyId = hstobj.Waers;
+                    pohst.Plant = hstobj.Werks;
+                    pohst.MovementType = hstobj.Bwart;
+                    pohst.MaterialNumber = hstobj.Matnr;
+                    pohst.InvoiceValue = hstobj.Wrbtr;
+                    pohst.TransactionAmount = hstobj.Dmbtr;
+                    pohst.TransactionQuantity = hstobj.Menge;
+                    pohst.TransactionType = hstobj.Bewtp;
+                    pohst.UnitOfMeasure = hstobj.Meins;
+                    pohst.ReferenceNumber = hstobj.Xblnr;
+                    pohst.Indicator = hstobj.Shkzg;
+                    pohst.PostingDate = Convert.ToInt64(hstobj.Budat);
+
+                    if (mainController.GetDAOCreator().CreatePurchaseOrderHistoryDAO().RetrieveByKey(tran, hstobj.Ebeln, hstobj.Ebelp, hstobj.Belnr) != null)
+                    {
+                        mainController.GetDAOCreator().CreatePurchaseOrderHistoryDAO().Update(tran, pohst);
+                    }
+                    else
+                    {
+                        mainController.GetDAOCreator().CreatePurchaseOrderHistoryDAO().Insert(tran, pohst);
+                    }
+                    aForm.getProgressBar().Increment(wstep);
+                }
+                tran.Commit();
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+            finally
+            {
+                tran.Dispose();
+            }
+        }
+
+
         public DataTable GetOrderHeader()
         {
-            return orderHeader.ToADODataTable();
+            if (orderHeader != null)
+                return orderHeader.ToADODataTable();
+            else
+                return null;
         }
 
         public DataTable GetOrderItem()
         {
-            return orderItem.ToADODataTable();
+            if (orderItem != null)
+                return orderItem.ToADODataTable();
+            else
+                return null;
         }
 
         public DataTable GetOrderSchedule()
         {
-            return orderSchedule.ToADODataTable();
+            if (orderSchedule != null)
+                return orderSchedule.ToADODataTable();
+            else
+                return null;
         }
 
         public DataTable GetOrderComponent()
         {
-            return orderComponent.ToADODataTable();
+            if (orderComponent != null)
+                return orderComponent.ToADODataTable();
+            else
+                return null;
         }
 
         public DataTable GetOrderService()
         {
-            return orderService.ToADODataTable();
+            if (orderService != null)
+                return orderService.ToADODataTable();
+            else
+                return null;
         }
 
         public DataTable GetServiceTask()
         {
-            return serviceTask.ToADODataTable();
+            if (serviceTask != null)
+                return serviceTask.ToADODataTable();
+            else
+                return null;
         }
 
         public DataTable GetHeaderText()
         {
-            return headerText.ToADODataTable();
+            if (headerText != null)
+                return headerText.ToADODataTable();
+            else
+                return null;
         }
 
         public DataTable GetItemText()
         {
-            return itemText.ToADODataTable();
+            if (itemText != null)
+                return itemText.ToADODataTable();
+            else
+                return null;
         }
 
         public DataTable GetHistory()
         {
-            return orderHistory.ToADODataTable();
+            if (orderHistory != null)
+                return orderHistory.ToADODataTable();
+            else
+                return null;
         }
 
         private void setParameters()
@@ -458,7 +575,6 @@ namespace eProcurement_SAP
                 throw (ex);
             }
         }
-
 
     }
 }

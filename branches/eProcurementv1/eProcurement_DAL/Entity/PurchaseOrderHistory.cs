@@ -91,11 +91,11 @@ namespace eProcurement_DAL
             set { referenceNumber = value; }
         }
 
-        string referenceSerial;
-        public string ReferenceSerial
+        string indicator;
+        public string Indicator
         {
-            get { return referenceSerial; }
-            set { referenceSerial = value; }
+            get { return indicator; }
+            set { indicator = value; }
         }
 
         Nullable<decimal> invoiceValue;

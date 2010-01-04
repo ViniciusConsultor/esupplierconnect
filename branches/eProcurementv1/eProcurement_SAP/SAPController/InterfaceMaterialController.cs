@@ -111,7 +111,10 @@ namespace eProcurement_SAP
 
         public DataTable GetMaterial()
         {
-            return materialStock.ToADODataTable();
+            if (materialStock != null)
+                return materialStock.ToADODataTable();
+            else
+                return null;
         }
 
         private void setParameters()
