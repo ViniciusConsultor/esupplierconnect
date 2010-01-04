@@ -22,7 +22,7 @@
                <table id="Table2" cellspacing="0" cellpadding="1" width="100%" border="0">
                     <tr>
                         <td align="left" >
-                            <asp:Label ID="Label4" runat="server" Text="Click [Process] Button to process Material Shortage List"></asp:Label>
+                            <asp:Label ID="Label4" runat="server" Text="Click [Process] Button to Process Purchase Order Expediting."></asp:Label>
                         </td> 
                     </tr>
                     <tr>
