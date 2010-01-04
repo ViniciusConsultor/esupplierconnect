@@ -137,10 +137,13 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
             CheckSessionTimeOut();
 
             Process();
-            CurrentPage = 1;
-            ShowData();
-            plView.Visible = true;
-            plProcess.Visible = false;
+            //CurrentPage = 1;
+            //ShowData();
+            //plView.Visible = true;
+            //plProcess.Visible = false;
+            plMessage.Visible = true;
+            string sMessage = "Purchase Order Expediting has been Processed successfully.";
+            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information); 
 
         }
         catch (Exception ex)
