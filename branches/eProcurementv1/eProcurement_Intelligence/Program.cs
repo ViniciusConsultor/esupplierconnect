@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace eProcurement_Intelligence
+namespace eProcurement_EMAIL
 {
     static class Program
     {

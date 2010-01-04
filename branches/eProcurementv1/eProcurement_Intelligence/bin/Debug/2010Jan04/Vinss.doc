@@ -1,0 +1,41 @@
+Good Day!
+Fujitec Corporation Pte Ltd, 204 Bedok South Avenue 1, Singapore - 469333
+Tel: +65 6241 6222
+Fax: +65 6444 7626
+--------------------------------
+
+Purchase Order Created
+--------------------------------
+POCRT 123456 A
+POCRT 321 A
+--------------------------------
+
+Purchase Order Updated
+--------------------------------
+POUPD 123456 A
+POUPD 321 A
+--------------------------------
+
+Purchase Order Expedited
+--------------------------------
+POEXP 123456 A
+POEXP 321 A
+--------------------------------
+
+Purchase Order Acknowledged
+--------------------------------
+POACK 123456 A
+POACK 321 A
+--------------------------------
+
+Purchase Order Acknowledged First Time Rejection
+--------------------------------
+PAREJ 123456 A
+PAREJ 321 A
+--------------------------------
+
+Goods Rejection
+--------------------------------
+PAREJ 123456 A
+PAREJ 321 A
+--------------------------------

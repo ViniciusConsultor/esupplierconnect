@@ -1,0 +1,17 @@
+Good Day!
+Fujitec Corporation Pte Ltd, 204 Bedok South Avenue 1, Singapore - 469333
+Tel: +65 6241 6222
+Fax: +65 6444 7626
+--------------------------------
+System.Net.Mail.SmtpException: Failure sending mail. ---> System.Net.WebException: The remote name could not be resolved: 'FUJITEC'
+   at System.Net.ServicePoint.GetConnection(PooledStream PooledStream, Object owner, Boolean async, IPAddress& address, Socket& abortSocket, Socket& abortSocket6, Int32 timeout)
+   at System.Net.PooledStream.Activate(Object owningObject, Boolean async, Int32 timeout, GeneralAsyncDelegate asyncCallback)
+   at System.Net.PooledStream.Activate(Object owningObject, GeneralAsyncDelegate asyncCallback)
+   at System.Net.ConnectionPool.GetConnection(Object owningObject, GeneralAsyncDelegate asyncCallback, Int32 creationTimeout)
+   at System.Net.Mail.SmtpConnection.GetConnection(String host, Int32 port)
+   at System.Net.Mail.SmtpTransport.GetConnection(String host, Int32 port)
+   at System.Net.Mail.SmtpClient.GetConnection()
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   --- End of inner exception stack trace ---
+   at eProcurement_BLL.Utility.SentEmailWithAttachement1(String from, String to, String subject, String body, String emailServer, String filepath) in D:\My Projects\SG_FUJITEC_EPSv1\eProcurementv1\eProcurement_BLL\Utility.cs:line 270
+   at eProcurement_EMAIL.EmailIntelligenceService.CreateEmailSummary() in D:\My Projects\SG_FUJITEC_EPSv1\eProcurementv1\eProcurement_EMAIL\EmailIntelligenceService.cs:line 461
