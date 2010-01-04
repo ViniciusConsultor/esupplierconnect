@@ -266,7 +266,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE PURSRV SET KTEXT1=@LTEXT1,MENGE=@MENGE,PREIS=@PREIS,RECSTS=@RECSTS WHERE EBELN=@EBELN AND EBELP=@EBELP AND LBLN1=@LBLN1";
+            cm.CommandText = "UPDATE PURSRV SET KTEXT1=@KTEXT1,MENGE=@MENGE,PREIS=@PREIS,RECSTS=@RECSTS WHERE EBELN=@EBELN AND EBELP=@EBELP AND LBLN1=@LBLN1";
             SqlParameter p1 = new SqlParameter("@KTEXT1", SqlDbType.VarChar, 40);
             cm.Parameters.Add(p1);
             p1.Value = entity.ServiceDescription;
@@ -287,6 +287,18 @@ namespace eProcurement_DAL
             SqlParameter p4 = new SqlParameter("@RECSTS", SqlDbType.Char, 1);
             cm.Parameters.Add(p4);
             p4.Value = entity.RecordStatus;
+
+            SqlParameter p5 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
+            cm.Parameters.Add(p5);
+            p5.Value = entity.OrderNumber;
+            
+            SqlParameter p6 = new SqlParameter("@EBELP", SqlDbType.Char, 5);
+            cm.Parameters.Add(p6);
+            p6.Value = entity.ItemSequenceNumber;
+
+            SqlParameter p7 = new SqlParameter("@LBLN1", SqlDbType.Char, 10);
+            cm.Parameters.Add(p7);
+            p7.Value = entity.ServiceLineNumber;
 
             cm.ExecuteNonQuery();
 

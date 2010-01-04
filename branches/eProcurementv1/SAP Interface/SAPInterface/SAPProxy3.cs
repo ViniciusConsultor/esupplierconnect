@@ -133,6 +133,7 @@ namespace SAPInterface
     /// Remote Function Module ZRETRIEVEORDERHISTORY.  
     /// Retrieve Purchase History
     /// </summary>
+    /// <param name="Purchase_Close">Purchase order Close and Completion Status - Work Area</param>
     /// <param name="Purchase_History">Purchase Order History Details - Work Area</param> 
     /// <exception cref="Recordnotfound"/>
     [RfcMethod(AbapName = "ZRETRIEVEORDERHISTORY")]
@@ -143,6 +144,10 @@ namespace SAPInterface
      ResponseElementName = "ZRETRIEVEORDERHISTORY.Response")]
     public virtual void Zretrieveorderhistory (
 
+     [RfcParameter(AbapName = "PURCHASE_CLOSE",RfcType=RFCTYPE.RFCTYPE_ITAB, Optional = false, Direction = RFCINOUT.INOUT)]
+     [XmlArray("PURCHASE_CLOSE", IsNullable=false, Form=XmlSchemaForm.Unqualified)]
+     [XmlArrayItem("item", IsNullable=false, Form=XmlSchemaForm.Unqualified)]
+     ref ZORDER_CLOSETable Purchase_Close,
      [RfcParameter(AbapName = "PURCHASE_HISTORY",RfcType=RFCTYPE.RFCTYPE_ITAB, Optional = false, Direction = RFCINOUT.INOUT)]
      [XmlArray("PURCHASE_HISTORY", IsNullable=false, Form=XmlSchemaForm.Unqualified)]
      [XmlArrayItem("item", IsNullable=false, Form=XmlSchemaForm.Unqualified)]
@@ -150,8 +155,9 @@ namespace SAPInterface
     {
         object[]results = null;
         results = this.SAPInvoke("Zretrieveorderhistory",new object[] {
-                            Purchase_History });
-        Purchase_History = (ZORDER_HISTORYTable) results[0];
+                            Purchase_Close,Purchase_History });
+        Purchase_Close = (ZORDER_CLOSETable) results[0];
+        Purchase_History = (ZORDER_HISTORYTable) results[1];
 
     }
 

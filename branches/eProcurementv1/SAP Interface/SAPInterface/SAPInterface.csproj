@@ -232,6 +232,18 @@
                     AutoGen = "True"
                 />
                 <File
+                    RelPath = "ZORDER_CLOSE.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ZORDER_CLOSETable.cs"
+                    DependentUpon = "SAPProxy3.sapwsdl"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "ZORDER_COMP.cs"
                     DependentUpon = "SAPProxy3.sapwsdl"
                     SubType = "Code"

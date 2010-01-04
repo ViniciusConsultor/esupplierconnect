@@ -22,6 +22,7 @@ namespace eProcurement_SAP
         private ZORDER_HDRTXTTable  headerText;
         private ZORDER_ITMTXTTable  itemText;
         private ZORDER_HISTORYTable orderHistory;
+        private ZORDER_CLOSETable   orderClose;
 
         private string aMsgstr = "";
         private int aRecCount = 0;
@@ -84,6 +85,7 @@ namespace eProcurement_SAP
 
                 retrieveOrder.GetPurchaseHistoryDetails();
                 orderHistory = retrieveOrder.GetOrderHistory();
+                orderClose = retrieveOrder.GetOrderClosed();
 
                 aForm.getLabel().Text = "Update of Purchase Order History Data  in Progress ....";
                 aForm.getLabel().Refresh();
@@ -160,7 +162,7 @@ namespace eProcurement_SAP
                         }
                         notification.NotificationId = 0;
                         notification.NotificationDate = Convert.ToInt64(System.DateTime.Now.Year.ToString() + System.DateTime.Now.Month.ToString().PadLeft(2, '0') + System.DateTime.Now.Day.ToString().PadLeft(2, '0'));
-                        notification.ReferenceNumber = ordobj.Lifnr;
+                        notification.ReferenceNumber = ordobj.Ebeln;
                         notification.ReferenceSequence = "";
                         notification.Recipient = ordobj.Lifnr;
                         notification.Sender = NotificationMessage.buyerSender;
@@ -270,10 +272,13 @@ namespace eProcurement_SAP
                         pocmp.RecordStatus = "";
                         pocmp.ItemStatus = "";
 
+                        if (cmpobj.Ebeln != "") 
+                        {
                         if (mainController.GetDAOCreator().CreateSubcontractorMaterialDAO().RetrieveByKey(tran, cmpobj.Ebeln, cmpobj.Ebelp, cmpobj.Compl, cmpobj.Matnr) != null)
                             mainController.GetDAOCreator().CreateSubcontractorMaterialDAO().Update(tran, pocmp);
                         else
                             mainController.GetDAOCreator().CreateSubcontractorMaterialDAO().Insert(tran, pocmp);
+                        }
 
                         aMsgstr = aMsgstr + cmpobj.Ebeln + ", ";
                         aForm.getProgressBar().Increment(wstep);
@@ -326,10 +331,13 @@ namespace eProcurement_SAP
                         srvtsk.ServicePrice = tskobj.Sbrtwr;
                         srvtsk.UnitOfMeasure = tskobj.Meins;
 
-                        if (mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().RetrieveByKey(tran, tskobj.Lblni, tskobj.Srvpos) != null)
-                            mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().Update(tran, srvtsk);
-                        else
-                            mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().Insert(tran, srvtsk);
+                        if (tskobj.Lblni != "")
+                        {
+                            if (mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().RetrieveByKey(tran, tskobj.Lblni, tskobj.Srvpos) != null)
+                                mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().Update(tran, srvtsk);
+                            else
+                                mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().Insert(tran, srvtsk);
+                        }
 
                         aMsgstr = aMsgstr + tskobj.Lblni + ", " + tskobj.Extrow + ", " + tskobj.Srvpos;
                         aForm.getProgressBar().Increment(wstep);
@@ -450,6 +458,41 @@ namespace eProcurement_SAP
                     }
                     aForm.getProgressBar().Increment(wstep);
                 }
+
+                //---------------------------------------
+                // Get Purchase Order Completion Details
+                //---------------------------------------
+
+                aRecCount = orderClose.Count;
+                wstep = 10;
+                this.setParameters();
+                
+                PurchaseOrderHeader pohdr;
+                PurchaseOrderItem poitm;
+
+                foreach (ZORDER_CLOSE clsobj in orderClose)
+                {
+                    pohdr = mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByKey(tran, clsobj.Ebeln);
+                    if ( pohdr != null)
+                    {
+                        if (clsobj.Posts != "Z")
+                        {
+                            pohdr.OrderStatus = clsobj.Posts;
+                            mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, pohdr);
+                        }
+                    }
+
+                    poitm = mainController.GetDAOCreator().CreatePurchaseOrderItemDAO().RetrieveByKey(tran, clsobj.Ebeln, clsobj.Ebelp);
+                    if (poitm != null)
+                    {
+                        if (clsobj.Itsts != "Z")
+                        {
+                            poitm.DeletionStatusIndicator = clsobj.Itsts;
+                            mainController.GetDAOCreator().CreatePurchaseOrderItemDAO().Update(tran, poitm);
+                        }
+                    }
+                }
+
                 tran.Commit();
             }
             catch (Exception ex)
