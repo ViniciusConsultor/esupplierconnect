@@ -69,6 +69,18 @@
       <TITLE>Acknowledge Expedite Deliveries</TITLE>
       <HREF>~/Expediting/AckExpeditingList.aspx</HREF>
     </ITEM>
+    <ITEM FID="S-0004">
+      <TITLE>Create Delivery Order</TITLE>
+      <HREF>~/DeliveryOrder/PurchaseOrderList.aspx</HREF>
+    </ITEM>
+    <ITEM FID="S-0005,W-0001">
+      <TITLE>Enquire Delivery Orders</TITLE>
+      <HREF>~/DeliveryOrder/EnqDeliveryOrders.aspx</HREF>
+    </ITEM>
+    <ITEM FID="S-0016">
+      <TITLE>Enquire Goods Rejection</TITLE>
+      <HREF>~/DeliveryOrder/GoodsRejEnqPrnt.aspx</HREF>
+    </ITEM>
 	</ITEM>
 	<ITEM>
 		<TITLE>Quotation Processing</TITLE>
@@ -85,18 +97,6 @@
 			<TITLE>Process Quotation</TITLE>
 			<HREF>~/Quotation/ProcessQuotationList.aspx</HREF>
 		</ITEM>
-    <ITEM FID="S-0004">
-      <TITLE>Create Delivery Order</TITLE>
-      <HREF>~/DeliveryOrder/PurchaseOrderList.aspx</HREF>
-    </ITEM>
-    <ITEM FID="S-0005,W-0001">
-      <TITLE>Enquire Delivery Orders</TITLE>
-      <HREF>~/DeliveryOrder/EnqDeliveryOrders.aspx</HREF>
-    </ITEM>
-    <ITEM FID="S-0016">
-      <TITLE>Enquire Goods Rejection</TITLE>
-      <HREF>~/DeliveryOrder/GoodsRejEnqPrnt.aspx</HREF>
-    </ITEM>
 	</ITEM>	
 	<ITEM>
 		<TITLE>User Profile</TITLE>
