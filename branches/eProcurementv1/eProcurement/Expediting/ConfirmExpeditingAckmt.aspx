@@ -52,6 +52,33 @@
                 <td width="100%" style="height: 20px"></td>
             </tr> 
         </table>
+        <br />
+        <table width="100%" border="0">
+           <tr>
+                <td>
+                    <asp:label id="Label2" runat="server">Page:</asp:label>
+                </td>
+                <td nowrap>&nbsp;</td>
+                <td>
+                    <asp:button id="btnPrev1" runat="server" text=" << " OnClick="btnPrev_Click"></asp:button>
+                </td>    
+                <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+                <td>
+                    <asp:label id="lblCurrentPage1" runat="server"></asp:label>
+                </td>
+                <td>
+                    <asp:label id="Label1" runat="server">/</asp:label>
+                </td>
+                <td>
+                    <asp:label id="lblTotalPage1" runat="server"></asp:label>
+                </td>
+                <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+                <td>
+                    <asp:button id="btnNext1" runat="server" text=" >> " OnClick="btnNext_Click"></asp:button>
+                </td>
+                <td nowrap width="100%"></td>
+            </tr>
+        </table>
       <table cellspacing="0" cellpadding="0" width="820" border="0">
             <tr>
 	            <td valign="top" colspan="10" style="height: 17px">
@@ -353,6 +380,32 @@
                      </td> 
                </tr> 
           </table> 
+          <table width="100%" border="0">
+           <tr>
+                <td>
+                    <asp:label id="Label3" runat="server">Page:</asp:label>
+                </td>
+                <td nowrap>&nbsp;</td>
+                <td>
+                    <asp:button id="btnPrev2" runat="server" text=" << " OnClick="btnPrev_Click"></asp:button>
+                </td>    
+                <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+                <td>
+                    <asp:label id="lblCurrentPage2" runat="server"></asp:label>
+                </td>
+                <td>
+                    <asp:label id="Label5" runat="server">/</asp:label>
+                </td>
+                <td>
+                    <asp:label id="lblTotalPage2" runat="server"></asp:label>
+                </td>
+                <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+                <td>
+                    <asp:button id="btnNext2" runat="server" text=" >> " OnClick="btnNext_Click"></asp:button>
+                </td>
+                <td nowrap width="100%"></td>
+            </tr>
+        </table>
           <br />
              <table cellspacing="0" cellpadding="0" width="100%" border="0">
                 <tr>
