@@ -138,7 +138,8 @@ namespace eProcurement_BLL.PurchaseOrder
 
                         bool isFirst = true;
                         if (vo.PromiseDate2.HasValue)
-                            isFirst = false;
+                            if(vo.PromiseDate2.Value>0) 
+                                isFirst = false;
 
                         expediting.RecordStatus = ExpediteStatus.Acknowledge; 
                         if (isFirst)
@@ -214,8 +215,13 @@ namespace eProcurement_BLL.PurchaseOrder
                         //Reject
                         if (string.Compare(vo.RecordStatus, ExpediteStatus.Reject, true) == 0)
                         {
-                            //2nd rejection
+                            bool isFirst = true;
                             if (expediting.PromiseDate2.HasValue)
+                                if (expediting.PromiseDate2.Value > 0)
+                                    isFirst = false;
+
+                            //2nd rejection
+                            if (!isFirst)
                             {
                                 expediting.RecordStatus = ExpediteStatus.Reject;
                                 mainController.GetDAOCreator().CreatePurchaseExpeditingDAO()
