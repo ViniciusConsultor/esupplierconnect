@@ -104,6 +104,8 @@ namespace eProcurement_BLL
 
     }
 
+
+
     #region User Management Constants
 
     public class SessionKey
@@ -138,5 +140,9 @@ namespace eProcurement_BLL
     }
    
     #endregion
+
+
+    
+
 
 }
