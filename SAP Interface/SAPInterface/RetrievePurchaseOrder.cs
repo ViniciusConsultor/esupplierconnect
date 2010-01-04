@@ -59,6 +59,7 @@ namespace SAPInterface
 			{
 				orderProxy.Connection.Close();
 			}
+			orderProxy.ConnectionString = connectionStr;
 			orderProxy.Connection.Open();
 		}
 
@@ -83,11 +84,42 @@ namespace SAPInterface
 				serviceTask    = new ZORDER_SRVTSKTable();
 				orderHeaderTxt = new ZORDER_HDRTXTTable();
 				orderItemTxt   = new ZORDER_ITMTXTTable();
-				orderHistory   = new ZORDER_HISTORYTable();
 
-				orderProxy.Zretrieveorder(ref orderComponent, ref orderHeader, ref orderHeaderTxt, ref orderHistory, ref orderItem,
-					                      ref orderItemTxt,   ref orderSchedule, ref orderService, ref serviceTask);
+				orderProxy.Zretrieveorder(ref orderComponent, ref orderHeader,   ref orderHeaderTxt, ref orderItem,
+					                      ref orderItemTxt,   ref orderSchedule, ref orderService,   ref serviceTask);
 				this.CloseConnection();
+			}
+			catch(Exception ex)
+			{
+				throw(ex);
+			}
+		}
+
+		public void GetPurchaseHistoryDetails ()
+		{
+			try
+			{
+				this.OpenConnection();
+				orderHistory = new ZORDER_HISTORYTable();
+				orderProxy.Zretrieveorderhistory(ref orderHistory);
+				this.CloseConnection();
+			}
+			catch(Exception ex)
+			{
+				throw(ex);
+			}
+		}
+
+		public void UpdateHistoryControlDate()
+		{
+			try
+			{
+				if (orderProxy != null)
+				{
+					this.OpenConnection();
+					orderProxy.Zupd_Historyctl();
+					this.CloseConnection();
+				}
 			}
 			catch(Exception ex)
 			{

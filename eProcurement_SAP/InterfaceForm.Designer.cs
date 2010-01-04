@@ -32,7 +32,6 @@ namespace eProcurement_SAP
             this.pbar_sts = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btn_vhist = new System.Windows.Forms.Button();
             this.btn_vitmtxt = new System.Windows.Forms.Button();
             this.btn_vhdrtxt = new System.Windows.Forms.Button();
             this.btn_vsrvtsk = new System.Windows.Forms.Button();
@@ -53,6 +52,8 @@ namespace eProcurement_SAP
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.btn_vsupp = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btn_ordhst = new System.Windows.Forms.Button();
+            this.btn_reject = new System.Windows.Forms.Button();
             this.btn_reqmt = new System.Windows.Forms.Button();
             this.btn_supp = new System.Windows.Forms.Button();
             this.btn_stock = new System.Windows.Forms.Button();
@@ -62,9 +63,10 @@ namespace eProcurement_SAP
             this.btn_contract = new System.Windows.Forms.Button();
             this.btn_intall = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.btn_reject = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btn_vreject = new System.Windows.Forms.Button();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.btn_vhist = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PurchaseGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -74,6 +76,7 @@ namespace eProcurement_SAP
             this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // PurchaseGrid
@@ -104,7 +107,6 @@ namespace eProcurement_SAP
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btn_vhist);
             this.groupBox1.Controls.Add(this.btn_vitmtxt);
             this.groupBox1.Controls.Add(this.btn_vhdrtxt);
             this.groupBox1.Controls.Add(this.btn_vsrvtsk);
@@ -120,18 +122,6 @@ namespace eProcurement_SAP
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "View Purchases";
-            // 
-            // btn_vhist
-            // 
-            this.btn_vhist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_vhist.Location = new System.Drawing.Point(278, 100);
-            this.btn_vhist.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_vhist.Name = "btn_vhist";
-            this.btn_vhist.Size = new System.Drawing.Size(115, 31);
-            this.btn_vhist.TabIndex = 18;
-            this.btn_vhist.Text = "Order History";
-            this.btn_vhist.UseVisualStyleBackColor = true;
-            this.btn_vhist.Click += new System.EventHandler(this.btn_vhist_Click);
             // 
             // btn_vitmtxt
             // 
@@ -362,6 +352,7 @@ namespace eProcurement_SAP
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.btn_ordhst);
             this.groupBox6.Controls.Add(this.btn_reject);
             this.groupBox6.Controls.Add(this.btn_reqmt);
             this.groupBox6.Controls.Add(this.btn_supp);
@@ -373,15 +364,39 @@ namespace eProcurement_SAP
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox6.Location = new System.Drawing.Point(12, 371);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(168, 335);
+            this.groupBox6.Size = new System.Drawing.Size(168, 362);
             this.groupBox6.TabIndex = 19;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Interfaces";
             // 
+            // btn_ordhst
+            // 
+            this.btn_ordhst.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_ordhst.Location = new System.Drawing.Point(9, 283);
+            this.btn_ordhst.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_ordhst.Name = "btn_ordhst";
+            this.btn_ordhst.Size = new System.Drawing.Size(149, 31);
+            this.btn_ordhst.TabIndex = 28;
+            this.btn_ordhst.Text = "Order History";
+            this.btn_ordhst.UseVisualStyleBackColor = true;
+            this.btn_ordhst.Click += new System.EventHandler(this.btn_ordhst_Click);
+            // 
+            // btn_reject
+            // 
+            this.btn_reject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_reject.Location = new System.Drawing.Point(9, 246);
+            this.btn_reject.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_reject.Name = "btn_reject";
+            this.btn_reject.Size = new System.Drawing.Size(149, 31);
+            this.btn_reject.TabIndex = 27;
+            this.btn_reject.Text = "Rejections";
+            this.btn_reject.UseVisualStyleBackColor = true;
+            this.btn_reject.Click += new System.EventHandler(this.btn_reject_Click);
+            // 
             // btn_reqmt
             // 
             this.btn_reqmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_reqmt.Location = new System.Drawing.Point(9, 180);
+            this.btn_reqmt.Location = new System.Drawing.Point(9, 172);
             this.btn_reqmt.Margin = new System.Windows.Forms.Padding(4);
             this.btn_reqmt.Name = "btn_reqmt";
             this.btn_reqmt.Size = new System.Drawing.Size(149, 31);
@@ -393,7 +408,7 @@ namespace eProcurement_SAP
             // btn_supp
             // 
             this.btn_supp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_supp.Location = new System.Drawing.Point(9, 141);
+            this.btn_supp.Location = new System.Drawing.Point(9, 135);
             this.btn_supp.Margin = new System.Windows.Forms.Padding(4);
             this.btn_supp.Name = "btn_supp";
             this.btn_supp.Size = new System.Drawing.Size(149, 31);
@@ -405,7 +420,7 @@ namespace eProcurement_SAP
             // btn_stock
             // 
             this.btn_stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_stock.Location = new System.Drawing.Point(9, 219);
+            this.btn_stock.Location = new System.Drawing.Point(9, 209);
             this.btn_stock.Margin = new System.Windows.Forms.Padding(4);
             this.btn_stock.Name = "btn_stock";
             this.btn_stock.Size = new System.Drawing.Size(149, 31);
@@ -417,7 +432,7 @@ namespace eProcurement_SAP
             // btn_reqn
             // 
             this.btn_reqn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_reqn.Location = new System.Drawing.Point(9, 102);
+            this.btn_reqn.Location = new System.Drawing.Point(9, 98);
             this.btn_reqn.Margin = new System.Windows.Forms.Padding(4);
             this.btn_reqn.Name = "btn_reqn";
             this.btn_reqn.Size = new System.Drawing.Size(149, 31);
@@ -429,7 +444,7 @@ namespace eProcurement_SAP
             // btn_orders
             // 
             this.btn_orders.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_orders.Location = new System.Drawing.Point(9, 63);
+            this.btn_orders.Location = new System.Drawing.Point(9, 61);
             this.btn_orders.Margin = new System.Windows.Forms.Padding(4);
             this.btn_orders.Name = "btn_orders";
             this.btn_orders.Size = new System.Drawing.Size(149, 31);
@@ -441,7 +456,7 @@ namespace eProcurement_SAP
             // btn_exit
             // 
             this.btn_exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_exit.Location = new System.Drawing.Point(9, 297);
+            this.btn_exit.Location = new System.Drawing.Point(9, 320);
             this.btn_exit.Margin = new System.Windows.Forms.Padding(4);
             this.btn_exit.Name = "btn_exit";
             this.btn_exit.Size = new System.Drawing.Size(149, 31);
@@ -483,18 +498,6 @@ namespace eProcurement_SAP
             this.groupBox7.TabIndex = 28;
             this.groupBox7.TabStop = false;
             // 
-            // btn_reject
-            // 
-            this.btn_reject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_reject.Location = new System.Drawing.Point(9, 258);
-            this.btn_reject.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_reject.Name = "btn_reject";
-            this.btn_reject.Size = new System.Drawing.Size(149, 31);
-            this.btn_reject.TabIndex = 27;
-            this.btn_reject.Text = "Rejections";
-            this.btn_reject.UseVisualStyleBackColor = true;
-            this.btn_reject.Click += new System.EventHandler(this.btn_reject_Click);
-            // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.btn_vreject);
@@ -518,11 +521,35 @@ namespace eProcurement_SAP
             this.btn_vreject.UseVisualStyleBackColor = true;
             this.btn_vreject.Click += new System.EventHandler(this.btn_vreject_Click);
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.btn_vhist);
+            this.groupBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox9.Location = new System.Drawing.Point(944, 484);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(134, 59);
+            this.groupBox9.TabIndex = 30;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "View PO History";
+            // 
+            // btn_vhist
+            // 
+            this.btn_vhist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_vhist.Location = new System.Drawing.Point(10, 21);
+            this.btn_vhist.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_vhist.Name = "btn_vhist";
+            this.btn_vhist.Size = new System.Drawing.Size(115, 31);
+            this.btn_vhist.TabIndex = 19;
+            this.btn_vhist.Text = "Order History";
+            this.btn_vhist.UseVisualStyleBackColor = true;
+            this.btn_vhist.Click += new System.EventHandler(this.btn_vhist_Click);
+            // 
             // InterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1094, 718);
+            this.ClientSize = new System.Drawing.Size(1094, 738);
+            this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
@@ -549,6 +576,7 @@ namespace eProcurement_SAP
             this.groupBox6.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -589,9 +617,11 @@ namespace eProcurement_SAP
         private System.Windows.Forms.Button btn_contract;
         private System.Windows.Forms.Button btn_intall;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Button btn_vhist;
         private System.Windows.Forms.Button btn_reject;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Button btn_vreject;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.Button btn_vhist;
+        private System.Windows.Forms.Button btn_ordhst;
     }
 }

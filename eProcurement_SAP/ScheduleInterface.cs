@@ -146,7 +146,9 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
+                validsts = 1;
                 Utility.ExceptionLog(ex);
+                MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }

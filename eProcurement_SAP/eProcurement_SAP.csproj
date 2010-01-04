@@ -37,7 +37,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Project_eProduction\Required_Dependencies\SAP.Connector.dll</HintPath>
     </Reference>
-    <Reference Include="SAPInterface, Version=1.0.3653.37330, Culture=neutral">
+    <Reference Include="SAPInterface, Version=1.0.3656.4133, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SAP Interface\SAPInterface\bin\Release\SAPInterface.dll</HintPath>
     </Reference>

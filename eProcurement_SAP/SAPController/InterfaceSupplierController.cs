@@ -140,7 +140,10 @@ namespace eProcurement_SAP
 
         public DataTable GetSupplier()
         {
-            return supplier.ToADODataTable();
+            if (supplier != null)
+                return supplier.ToADODataTable();
+            else
+                return null;
         }
 
         private void setParameters()

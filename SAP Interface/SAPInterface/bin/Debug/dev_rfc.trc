@@ -15,3 +15,9 @@ T:2532 <* RfcCallReceive [2] : returns 3:RFC_SYS_EXCEPTION
 T:2404 ======> An exception that could not be caught occurred.
 T:2404 <* RfcReceive [2] : returns 3:RFC_SYS_EXCEPTION
 T:2404 <* RfcCallReceive [2] : returns 3:RFC_SYS_EXCEPTION
+
+**** ERROR file opened at 20100104 000205 Malay Peninsul, SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:5660 Error in program 'SAPInterface': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx
+
+**** ERROR file opened at 20100104 000357 Malay Peninsul, SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:2116 Error in program 'SAPInterface': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx

@@ -170,3 +170,18 @@ DETAIL      NiPGetHostByName2: hostname 'SAPPR3' not found
 SYSTEM CALL gethostbyname_r
 COUNTER     1
 
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:5692 Error in program 'eProcurement_SAP': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:1404 Error in program 'eProcurement_SAP': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:4800 Error in program 'eProcurement_SAP': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:2160 Error in program 'eProcurement_SAP': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:1988 Error in program 'eProcurement_SAP': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx
