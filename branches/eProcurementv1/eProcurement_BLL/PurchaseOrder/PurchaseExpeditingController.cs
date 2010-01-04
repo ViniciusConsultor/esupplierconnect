@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using eProcurement_DAL;
+using eProcurement_BLL.Notification;
 
 namespace eProcurement_BLL.PurchaseOrder
 {
@@ -92,6 +93,31 @@ namespace eProcurement_BLL.PurchaseOrder
                         mainController.GetDAOCreator().CreatePurchaseExpeditingDAO()
                             .Update(tran, expediting);
 
+                        //Send Notificatio
+                        PurchaseOrderHeader header = mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO()
+                                   .RetrieveByKey(tran, vo.OrderNumber);
+                        string email = mainController.GetSupplierController().GetSupplierEmailAddr(header.SupplierId);
+                        if (!string.IsNullOrEmpty(email))
+                        {
+                            eProcurement_DAL.Notification notification = new eProcurement_DAL.Notification();
+                            notification.NotificationType = NotificationMessage.OrderAckFirstReject;
+                            notification.NotificationDate = Utility.GetStoredDateValue(DateTime.Now);
+                            notification.ReferenceNumber = header.OrderNumber;
+                            notification.ReferenceSequence = "";
+
+                            string sDate = "";
+                            if (header.OrderDate.HasValue)
+                                sDate = Utility.GetShortDate(Utility.GetDateTimeFormStoredValue(header.OrderDate.Value)); 
+                            notification.Message = string.Format("Please Acknowlegde Order Number:{0} Dated : {1} for expedited items.",
+                                  header.OrderNumber, sDate);
+                            notification.Sender = NotificationMessage.buyerSender;
+                            notification.Recipient = header.SupplierId;
+                            notification.Email = email.Trim();
+                            notification.Status = "0";
+                            mainController.GetNotificationController().InsertEmailNotification(tran, notification);
+                        }
+
+
                     }
 
                     tran.Commit();
@@ -149,6 +175,33 @@ namespace eProcurement_BLL.PurchaseOrder
 
                         mainController.GetDAOCreator().CreatePurchaseExpeditingDAO()
                                 .Update(tran, expediting);
+
+                        //Send Notificatio
+                        PurchaseOrderHeader header = mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO()
+                                  .RetrieveByKey(tran, vo.OrderNumber);
+                        Collection<string> buyerEmailList = mainController.GetUserController().GetBuyerEmailAddrs(header.PurchaseGroup);
+                        if (buyerEmailList.Count == 0)
+                            buyerEmailList.Add(NotificationMessage.buyerEmail);
+                        foreach (string email in buyerEmailList)
+                        {
+                            eProcurement_DAL.Notification notification = new eProcurement_DAL.Notification();
+                            notification.NotificationType = NotificationMessage.OrderAcknowledged;
+                            notification.NotificationDate = Utility.GetStoredDateValue(DateTime.Now);
+                            notification.ReferenceNumber = header.OrderNumber;
+                            notification.ReferenceSequence = "";
+
+                            string sDate = "";
+                            if (header.OrderDate.HasValue)
+                                sDate = Utility.GetShortDate(Utility.GetDateTimeFormStoredValue(header.OrderDate.Value));
+                            notification.Message = string.Format("Order Number: {0} Dated: {1} has been Acknowledged for Expediting please accept or reject the acknowledgement.",
+                                  header.OrderNumber, sDate);
+                            
+                            notification.Sender = header.SupplierId;
+                            notification.Recipient = NotificationMessage.buyerRecepient;
+                            notification.Email = email.Trim();
+                            notification.Status = "0";
+                            mainController.GetNotificationController().InsertEmailNotification(tran, notification);
+                        }
                     }
 
                     tran.Commit();
@@ -232,6 +285,32 @@ namespace eProcurement_BLL.PurchaseOrder
                                 expediting.RecordStatus = ExpediteStatus.Expedite;
                                 mainController.GetDAOCreator().CreatePurchaseExpeditingDAO()
                                     .Update(tran, expediting);
+
+                                //Send Notificatio
+                                PurchaseOrderHeader header = mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO()
+                                    .RetrieveByKey(tran, vo.OrderNumber);
+                                string email = mainController.GetSupplierController().GetSupplierEmailAddr(header.SupplierId);
+                                if (!string.IsNullOrEmpty(email))
+                                {
+                                    eProcurement_DAL.Notification notification = new eProcurement_DAL.Notification();
+                                    notification.NotificationType = NotificationMessage.ExpediteAckFirstReject;
+                                    notification.NotificationDate = Utility.GetStoredDateValue(DateTime.Now);
+                                    notification.ReferenceNumber = header.OrderNumber;
+                                    notification.ReferenceSequence = "";
+
+                                    string sDate = "";
+                                    if (header.OrderDate.HasValue)
+                                        sDate = Utility.GetShortDate(Utility.GetDateTimeFormStoredValue(header.OrderDate.Value)); 
+                                    notification.Message = string.Format("Order Number:{0} Dated: {1} expediting acknowledgement has been rejected by Fujitec Buyerr: {2}.",
+                                          header.OrderNumber, sDate, header.BuyerName.ToString());
+                                    
+                                    notification.Sender = NotificationMessage.buyerSender;
+                                    notification.Recipient = header.SupplierId;
+                                    notification.Email = email.Trim();
+                                    notification.Status = "0";
+                                    mainController.GetNotificationController().InsertEmailNotification(tran, notification);
+                                }
+
 
                             }
                         }    
