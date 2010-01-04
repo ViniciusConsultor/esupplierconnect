@@ -72,7 +72,26 @@ namespace eProcurement_BLL
             try
             {
                 Collection<ShortageMaterialVO> stMaterialVOs = new Collection<ShortageMaterialVO>();
+               
                 string whereClause = "";
+                string materialCheckNo = "";
+
+                Collection<string> materialNos = new Collection<string>();
+                if (materialNumber != "")
+                    whereClause = " MATNR = '" + Utility.EscapeSQL(materialNumber) + "' ";
+                Collection<PurchaseExpediting> items = mainController.GetDAOCreator().CreatePurchaseExpeditingDAO()
+                    .RetrieveByQuery(whereClause);
+                foreach (PurchaseExpediting item in items)
+                {
+                    materialCheckNo = item.MaterialNumber.Trim().ToUpper();
+                    if (!materialNos.Contains(materialCheckNo))
+                        materialNos.Add(materialCheckNo);
+                }
+
+                if (materialNos.Count == 0)
+                    return stMaterialVOs;
+
+                whereClause = "";
                 if (materialNumber != "")
                     whereClause = " MATNR = '" + Utility.EscapeSQL(materialNumber) + "' ";
                 string orderClause = " MATNR asc ";
@@ -80,22 +99,27 @@ namespace eProcurement_BLL
                     .RetrieveByQuery(whereClause, orderClause);
                 foreach (ShortageMaterial stMaterial in stMaterials)
                 {
-                    ShortageMaterialVO stMaterialVO = new ShortageMaterialVO();
-                    stMaterialVO.MaterialNumber = stMaterial.MaterialNumber;
-                    stMaterialVO.ShortageQuantity = stMaterial.ShortageQuantity;
-                    stMaterialVO.Plant = stMaterial.Plant;
-
-                    MaterialStock mStock = mainController.GetDAOCreator().CreateMaterialStockDAO()
-                        .RetrieveByKey(stMaterial.MaterialNumber, stMaterial.Plant);
-                    if (mStock != null)
+                    //Only show the shortage material which has expedite records
+                    materialCheckNo = stMaterial.MaterialNumber.Trim().ToUpper();
+                    if (materialNos.Contains(materialCheckNo)) 
                     {
-                        stMaterialVO.MaterialDescription = mStock.MaterialDescription;
-                        stMaterialVO.InspectionStock = mStock.InspectionStock;
-                        stMaterialVO.UnrestrictedStock = mStock.UnrestrictedStock;
-                        stMaterialVO.UnitOfMeasure = mStock.UnitOfMeasure;
-                    }
+                        ShortageMaterialVO stMaterialVO = new ShortageMaterialVO();
+                        stMaterialVO.MaterialNumber = stMaterial.MaterialNumber;
+                        stMaterialVO.ShortageQuantity = stMaterial.ShortageQuantity;
+                        stMaterialVO.Plant = stMaterial.Plant;
 
-                    stMaterialVOs.Add(stMaterialVO);
+                        MaterialStock mStock = mainController.GetDAOCreator().CreateMaterialStockDAO()
+                            .RetrieveByKey(stMaterial.MaterialNumber, stMaterial.Plant);
+                        if (mStock != null)
+                        {
+                            stMaterialVO.MaterialDescription = mStock.MaterialDescription;
+                            stMaterialVO.InspectionStock = mStock.InspectionStock;
+                            stMaterialVO.UnrestrictedStock = mStock.UnrestrictedStock;
+                            stMaterialVO.UnitOfMeasure = mStock.UnitOfMeasure;
+                        }
+
+                        stMaterialVOs.Add(stMaterialVO);
+                    }
                 }
 
                 return stMaterialVOs;
