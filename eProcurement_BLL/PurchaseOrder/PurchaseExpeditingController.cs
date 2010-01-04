@@ -76,8 +76,11 @@ namespace eProcurement_BLL.PurchaseOrder
                             throw new Exception(string.Format("Purchase expediting record doesn't exist. Order Number:{0}, Item Sequence:{1}, Schedule Sequence:{2}.",
                                 vo.OrderNumber, vo.ItemSequence, vo.ScheduleSequence)); 
                         }
-                        
-                        if(string.Compare(expediting.RecordStatus,ExpediteStatus.New,true)!=0)
+
+                        if (string.Compare(sStatus, ExpediteStatus.Accept, true) == 0 ||
+                            string.Compare(sStatus, ExpediteStatus.Reject, true) == 0 ||
+                            string.Compare(sStatus, ExpediteStatus.Acknowledge, true) == 0 ||
+                            string.Compare(sStatus, ExpediteStatus.Expedite, true) == 0)
                         {
                             throw new Exception(string.Format("Purchase expediting record has already been expedited by other user. Order Number:{0}, Item Sequence:{1}, Schedule Sequence:{2}.",
                                 vo.OrderNumber, vo.ItemSequence, vo.ScheduleSequence)); 
