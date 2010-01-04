@@ -122,7 +122,7 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
     private void ShowData()
     {
         string materialNumber = txtMaterialNumber.Text.Trim();
-        Collection<ShortageMaterialVO> stMaterialVOs = mainController.GetShortageMaterialController().GetShortageMaterialList(materialNumber);
+        Collection<ShortageMaterialVO> stMaterialVOs = mainController.GetShortageMaterialController().GetExpeditingShortageMaterialList(materialNumber);
         PagedDataSource objPds = new PagedDataSource();
         //Set DataSource
         objPds.DataSource = stMaterialVOs;
