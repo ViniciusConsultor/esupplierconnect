@@ -1,4 +1,4 @@
-namespace eProcurement_Intelligence
+namespace eProcurement_EMAIL
 {
     partial class EmailIntelligenceService
     {

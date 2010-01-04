@@ -8,22 +8,25 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Configuration;
+
 
 using eProcurement_BLL.Notification;
 using eProcurement_DAL;
 
-namespace eProcurement_Intelligence
+
+namespace eProcurement_EMAIL
 {
     public partial class EmailIntelligenceService : Form
     {
 
         #region CONSTANTS
-        private const string SG_FUJITEC_ADDRESS = "Fujitec Corporation Pte Ltd, 204 Bedok South Avenue 1, Singapore - 469333";
-        private const string SG_FUJITEC_PHONE = "Tel: +65 6241 6222";
-        private const string SG_FUJITEC_FAX = "Fax: +65 6444 7626";
-        private const string EMAIL_BODY = "Good Day! Dear Individual, Please download attachement. Thanks.";
-        private const string SMTP_SERVER = "FUJITEC";
-        private const string EMAIL_SUBJECT = "Purchase Order Information from Fujitec Singapore";
+        private string SG_FUJITEC_ADDRESS = ConfigurationSettings.AppSettings["SG_FUJITEC_ADDRESS"];
+        private string SG_FUJITEC_PHONE = ConfigurationSettings.AppSettings["SG_FUJITEC_PHONE"];
+        private string SG_FUJITEC_FAX = ConfigurationSettings.AppSettings["SG_FUJITEC_FAX"];
+        private string EMAIL_BODY = ConfigurationSettings.AppSettings["EMAIL_BODY"];
+        private string SMTP_SERVER = ConfigurationSettings.AppSettings["SMTP_SERVER"];
+        private string EMAIL_SUBJECT = ConfigurationSettings.AppSettings["EMAIL_SUBJECT"];
         #endregion
 
 

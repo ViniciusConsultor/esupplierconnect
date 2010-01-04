@@ -7,8 +7,8 @@
     <ProjectGuid>{7D26968A-A594-4C38-8B39-2A07F2CF6BA9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eProcurement_Intelligence</RootNamespace>
-    <AssemblyName>eProcurement_Intelligence</AssemblyName>
+    <RootNamespace>eProcurement_EMAIL</RootNamespace>
+    <AssemblyName>eProcurement_EMAIL</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,6 +56,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
