@@ -40,6 +40,7 @@
     <Compile Include="DAO\ContractHeaderDAO.cs" />
     <Compile Include="DAO\ContractItemDAO.cs" />
     <Compile Include="DAO\DeliveryOrderDAO.cs" />
+    <Compile Include="DAO\ExecuteCommandDAO.cs" />
     <Compile Include="DAO\FunctionDAO.cs" />
     <Compile Include="DAO\MaterialRequirementDAO.cs" />
     <Compile Include="DAO\MaterialStockDAO.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="IDAO\IContractHeaderDAO.cs" />
     <Compile Include="IDAO\IContractItemDAO.cs" />
     <Compile Include="IDAO\IDeliveryOrderDAO.cs" />
+    <Compile Include="IDAO\IExecuteCommandDAO.cs" />
     <Compile Include="IDAO\IFunctionDAO.cs" />
     <Compile Include="IDAO\IMaterialRequirementDAO.cs" />
     <Compile Include="IDAO\IMaterialStockDAO.cs" />
