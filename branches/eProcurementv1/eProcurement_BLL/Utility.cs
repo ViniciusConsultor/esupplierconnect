@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.IO;
+
 
 namespace eProcurement_BLL
 {
@@ -232,6 +234,30 @@ namespace eProcurement_BLL
                 if (to.Length > 0)
                 {
                     MailMessage message = new MailMessage(from, to, subject, body);
+                    message.IsBodyHtml = false;
+                    message.Priority = MailPriority.Normal;
+
+                    SmtpClient client = new SmtpClient(emailServer);
+                    client.UseDefaultCredentials = true;
+                    client.Send(message);
+                }
+            }
+            catch (Exception ex)
+            { throw ex; }
+        }
+
+
+        public static void SentEmailWithAttachement1(string from, string to, string subject, string body, string emailServer,string filepath)
+        {
+            try
+            {
+                if (to.Length > 0)
+                {
+                    MailMessage message = new MailMessage(from, to, subject, body);
+
+                    // Create  the file attachment for this e-mail message.
+                    Attachment attachement1 = new Attachment(filepath);
+                    message.Attachments.Add(attachement1);
                     message.IsBodyHtml = false;
                     message.Priority = MailPriority.Normal;
 
