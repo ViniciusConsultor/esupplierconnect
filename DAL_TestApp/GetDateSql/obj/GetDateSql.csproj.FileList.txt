@@ -1,0 +1,10 @@
+obj\Debug\ResolveAssemblyReference.cache
+bin\Debug\GetDateSql.exe.config
+bin\Debug\GetDateSql.exe
+bin\Debug\GetDateSql.pdb
+obj\Debug\GetDateSql.exe
+obj\Debug\GetDateSql.pdb
+bin\Debug\GetDateSql.exe.manifest
+bin\Debug\GetDateSql.application
+obj\Debug\GetDateSql.exe.manifest
+obj\Debug\GetDateSql.application
