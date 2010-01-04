@@ -285,6 +285,11 @@ namespace eProcurement_DAL
             Update(null, entity);
         }
 
+        public override void UpdateStatus(string status, string whereclause)
+        {
+            UpdateStatus(null, status, whereclause);
+        }
+
         /// <summary>
         /// Update the record on database table for the given Entity Object.
         /// </summary>
@@ -360,6 +365,47 @@ namespace eProcurement_DAL
             if (epTran == null)
                 if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
         }
+
+
+        /// <summary>
+        /// Update the record on database table for the given Entity Object.
+        /// </summary>
+        /// <param name="epTran">EpTransaction Object</param>
+        /// <param name="Notification">Notification Object</param>
+        public override void UpdateStatus(EpTransaction epTran, string status, string whereclause)
+        {
+            SqlCommand cm = new SqlCommand();
+            cm.CommandType = CommandType.Text;
+
+            //set connection
+            SqlConnection connection;
+            if (epTran == null)
+                connection = DataManager.GetConnection();
+            else
+                connection = epTran.GetSqlConnection();
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+            cm.Connection = connection;
+
+            //set transaction
+            if (epTran != null)
+                cm.Transaction = epTran.GetSqlTransaction();
+
+         
+
+            //Update 
+            cm.CommandText = "UPDATE notification SET STATUS=@STATUS WHERE " + whereclause;
+
+           
+            SqlParameter p1 = new SqlParameter("@STATUS", SqlDbType.Char, 1);
+            cm.Parameters.Add(p1);
+            p1.Value = status;
+
+            cm.ExecuteNonQuery();
+
+            if (epTran == null)
+                if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
+        }
+
         #endregion
 
         #region Delete
@@ -510,7 +556,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT DISTINCT([RECIPIENT]) FROM notification";
+            string selectCommand = "SELECT DISTINCT([RECIPIENT]),[EMAIL] FROM notification";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -521,6 +567,7 @@ namespace eProcurement_DAL
                 Notification entity = new Notification();
           
                 entity.Recipient = rd["RECIPIENT"].ToString();
+                entity.Email = rd["EMAIL"].ToString();
                 
 
 
