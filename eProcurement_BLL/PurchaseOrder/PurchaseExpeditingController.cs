@@ -77,10 +77,10 @@ namespace eProcurement_BLL.PurchaseOrder
                                 vo.OrderNumber, vo.ItemSequence, vo.ScheduleSequence)); 
                         }
 
-                        if (string.Compare(sStatus, ExpediteStatus.Accept, true) == 0 ||
-                            string.Compare(sStatus, ExpediteStatus.Reject, true) == 0 ||
-                            string.Compare(sStatus, ExpediteStatus.Acknowledge, true) == 0 ||
-                            string.Compare(sStatus, ExpediteStatus.Expedite, true) == 0)
+                        if (string.Compare(expediting.RecordStatus, ExpediteStatus.Accept, true) == 0 ||
+                            string.Compare(expediting.RecordStatus, ExpediteStatus.Reject, true) == 0 ||
+                            string.Compare(expediting.RecordStatus, ExpediteStatus.Acknowledge, true) == 0 ||
+                            string.Compare(expediting.RecordStatus, ExpediteStatus.Expedite, true) == 0)
                         {
                             throw new Exception(string.Format("Purchase expediting record has already been expedited by other user. Order Number:{0}, Item Sequence:{1}, Schedule Sequence:{2}.",
                                 vo.OrderNumber, vo.ItemSequence, vo.ScheduleSequence)); 
