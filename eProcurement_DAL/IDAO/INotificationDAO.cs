@@ -163,6 +163,10 @@ namespace eProcurement_DAL
         /// <param name="epTran">EpTransaction Object</param>
         /// <param name="Notification">Notification Object</param>
         public abstract void Update(EpTransaction epTran, Notification entity);
+
+        public abstract void UpdateStatus(string status, string whereclause);
+
+        public abstract void UpdateStatus(EpTransaction epTran, string status, string whereclause);
         #endregion
 
         #region Delete
