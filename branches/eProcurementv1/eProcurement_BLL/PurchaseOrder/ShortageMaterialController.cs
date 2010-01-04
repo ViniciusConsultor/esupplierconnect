@@ -18,7 +18,7 @@ namespace eProcurement_BLL
         {
             try
             {
-                
+                mainController.GetDAOCreator().CreateExecuteCommandDAO().ExpeditePurchase(null);   
             }
             catch (Exception ex)
             {
