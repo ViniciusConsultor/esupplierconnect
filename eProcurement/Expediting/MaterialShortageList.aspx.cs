@@ -36,6 +36,24 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
         }
     }
 
+    private int CurrentPage
+    {
+        get
+        {
+            // look for current page in ViewState
+            object o = this.ViewState["_CurrentPage"];
+            if (o == null)
+                return 1; // default page index of 0
+            else
+                return (int)o;
+        }
+
+        set
+        {
+            this.ViewState["_CurrentPage"] = value;
+        }
+    }  
+
     new protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -119,6 +137,7 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
             CheckSessionTimeOut();
 
             Process();
+            CurrentPage = 1;
             ShowData();
             plView.Visible = true;
             plProcess.Visible = false;
@@ -137,6 +156,7 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
         try
         {
             CheckSessionTimeOut();
+            CurrentPage = 1;
             ShowData();
         }
         catch (Exception ex)
@@ -153,6 +173,7 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
         {
             CheckSessionTimeOut();
             txtMaterialNumber.Text = "";
+            CurrentPage = 1;
             ShowData();
         }
         catch (Exception ex)
@@ -172,7 +193,29 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
     {
         string materialNumber = txtMaterialNumber.Text.Trim();
         Collection<ShortageMaterialVO> stMaterialVOs = mainController.GetShortageMaterialController().GetShortageMaterialList(materialNumber);
-        gvItem.DataSource = stMaterialVOs;
+
+        PagedDataSource objPds = new PagedDataSource();
+        //Set DataSource
+        objPds.DataSource = stMaterialVOs;
+        // Indicate that the data should be paged
+        objPds.AllowPaging = true;
+        // Set the number of items you wish to display per page
+        objPds.PageSize = 20;
+        // Set the PagedDataSource's current page 
+        objPds.CurrentPageIndex = CurrentPage - 1;
+
+        lblCurrentPage1.Text = CurrentPage.ToString();
+        lblCurrentPage2.Text = CurrentPage.ToString();
+        lblTotalPage1.Text = objPds.PageCount.ToString();
+        lblTotalPage2.Text = objPds.PageCount.ToString();
+
+        // Disable Prev or Next buttons if necessary
+        btnPrev1.Enabled = !objPds.IsFirstPage;
+        btnPrev2.Enabled = !objPds.IsFirstPage;
+        btnNext1.Enabled = !objPds.IsLastPage;
+        btnNext2.Enabled = !objPds.IsLastPage;
+
+        gvItem.DataSource = objPds;
         gvItem.DataBind();
         lblCount.Text = string.Format("{0} record(s) found. ", stMaterialVOs.Count.ToString());
     }
@@ -184,7 +227,7 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
             GridView gvMaterialDtl = (GridView)e.Item.FindControl("gvMaterialDtl");
             Label lblSN = (Label)e.Item.FindControl("lblSN");
             Label lblMaterialNumber = (Label)e.Item.FindControl("lblMaterialNumber");
-            lblSN.Text = Convert.ToString(Convert.ToInt32(lblSN.Text) + 1);
+            lblSN.Text = Convert.ToString(Convert.ToInt32(lblSN.Text) + 1 + 20 * (CurrentPage - 1));
 
             Collection<PurchaseExpeditingVO> purchaseExpdVOs = mainController.GetPurchaseExpeditingController()
                 .GetPurchaseExpeditingList(lblMaterialNumber.Text);
@@ -199,6 +242,43 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
         {
             Label lblStatus = (Label)e.Row.FindControl("lblStatus");
             lblStatus.Text = ExpediteStatus.GetDesc(lblStatus.Text);  
+        }
+    }
+
+    protected void btnPrev_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            // Set viewstate variable to the previous page
+            CurrentPage -= 1;
+
+            // Reload control
+            ShowData();
+
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
+        }
+    }
+
+    protected void btnNext_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            // Set viewstate variable to the next page
+            CurrentPage += 1;
+
+            // Reload control
+            ShowData();
+        }
+        catch (Exception ex)
+        {
+            ExceptionLog(ex);
+            plMessage.Visible = true;
+            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
         }
     }
 

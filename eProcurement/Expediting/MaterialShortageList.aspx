@@ -17,23 +17,23 @@
 <br />
 <asp:Panel ID="plProcess" runat="server" Visible="true">
     <table id="Table1" cellspacing="0" cellpadding="0" width="100%" border="0">
-            <tr>
-                <td valign="top" style="height: 8px">
-                   <table id="Table2" cellspacing="0" cellpadding="1" width="100%" border="0">
-                        <tr>
-                            <td align="left" >
-                                <asp:Label ID="Label4" runat="server" Text="Click [Process] Button to process Material Shortage List"></asp:Label>
-                            </td> 
-                        </tr>
-                        <tr>
-                            <td style="text-align: left">
-                                <asp:Button ID="btnProcess" runat="server" Text="Process" OnClick="btnProcess_Click"/>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
+        <tr>
+            <td valign="top" style="height: 8px">
+               <table id="Table2" cellspacing="0" cellpadding="1" width="100%" border="0">
+                    <tr>
+                        <td align="left" >
+                            <asp:Label ID="Label4" runat="server" Text="Click [Process] Button to process Material Shortage List"></asp:Label>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            <asp:Button ID="btnProcess" runat="server" Text="Process" OnClick="btnProcess_Click"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </asp:Panel> 
  <asp:Panel ID="plView" runat="server" Visible="true">
     <table id="GreyTable" cellspacing="0" cellpadding="0" width="820" border="0">
@@ -61,6 +61,33 @@
                 </td>
                 <td width="100%" style="height: 20px"></td>
             </tr> 
+        </table>
+        <br />
+        <table width="100%" border="0">
+           <tr>
+                <td>
+                    <asp:label id="Label2" runat="server">Page:</asp:label>
+                </td>
+                <td nowrap>&nbsp;</td>
+                <td>
+                    <asp:button id="btnPrev1" runat="server" text=" << " OnClick="btnPrev_Click"></asp:button>
+                </td>    
+                <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+                <td>
+                    <asp:label id="lblCurrentPage1" runat="server"></asp:label>
+                </td>
+                <td>
+                    <asp:label id="Label1" runat="server">/</asp:label>
+                </td>
+                <td>
+                    <asp:label id="lblTotalPage1" runat="server"></asp:label>
+                </td>
+                <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+                <td>
+                    <asp:button id="btnNext1" runat="server" text=" >> " OnClick="btnNext_Click"></asp:button>
+                </td>
+                <td nowrap width="100%"></td>
+            </tr>
         </table>
       <table cellspacing="0" cellpadding="0" width="820" border="0">
             <tr>
@@ -339,6 +366,32 @@
                      </td> 
                </tr> 
           </table> 
+          <table width="100%" border="0">
+           <tr>
+                <td>
+                    <asp:label id="Label3" runat="server">Page:</asp:label>
+                </td>
+                <td nowrap>&nbsp;</td>
+                <td>
+                    <asp:button id="btnPrev2" runat="server" text=" << " OnClick="btnPrev_Click"></asp:button>
+                </td>    
+                <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+                <td>
+                    <asp:label id="lblCurrentPage2" runat="server"></asp:label>
+                </td>
+                <td>
+                    <asp:label id="Label5" runat="server">/</asp:label>
+                </td>
+                <td>
+                    <asp:label id="lblTotalPage2" runat="server"></asp:label>
+                </td>
+                <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+                <td>
+                    <asp:button id="btnNext2" runat="server" text=" >> " OnClick="btnNext_Click"></asp:button>
+                </td>
+                <td nowrap width="100%"></td>
+            </tr>
+        </table>
     </asp:Panel>
 </asp:Panel> 
   <script language="javascript" type="text/javascript">    
