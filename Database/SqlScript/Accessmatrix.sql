@@ -25,6 +25,7 @@ insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Operator','Buyer','B-
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Operator','Buyer','B-0007')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Operator','Buyer','B-0008')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Operator','Buyer','B-0009')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Operator','Buyer','B-0010')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Operator','Buyer','B-0011')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Operator','Buyer','B-0012')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Operator','Buyer','B-0013')
