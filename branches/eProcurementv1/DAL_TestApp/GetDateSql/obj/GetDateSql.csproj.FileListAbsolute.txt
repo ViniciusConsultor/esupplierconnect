@@ -1,0 +1,10 @@
+C:\_development\DataGenerator\GetDateSql\bin\Debug\GetDateSql.exe.config
+C:\_development\DataGenerator\GetDateSql\obj\Debug\GetDateSql.exe
+C:\_development\DataGenerator\GetDateSql\obj\Debug\GetDateSql.pdb
+C:\_development\DataGenerator\GetDateSql\bin\Debug\GetDateSql.exe.manifest
+C:\_development\DataGenerator\GetDateSql\bin\Debug\GetDateSql.application
+C:\_development\DataGenerator\GetDateSql\bin\Debug\GetDateSql.exe
+C:\_development\DataGenerator\GetDateSql\bin\Debug\GetDateSql.pdb
+C:\_development\DataGenerator\GetDateSql\obj\Debug\ResolveAssemblyReference.cache
+C:\_development\DataGenerator\GetDateSql\obj\Debug\GetDateSql.exe.manifest
+C:\_development\DataGenerator\GetDateSql\obj\Debug\GetDateSql.application
