@@ -213,7 +213,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO purexpedite ([EBELN],[EBELP],[ETENR],[MATNR],[EXPDT],[WEMNG],[VBELN],[PRMDT1],[PRMDT2],[RECSTS]) VALUES(@EBELN,@EBELP,@ETENR,@MATNR,@EXPDT,@WEMNG,@VBELN,@PRMDT1,@PRMDT2,@RECSTS])";
+            cm.CommandText = "INSERT INTO purexpedite ([EBELN],[EBELP],[ETENR],[MATNR],[EXPDT],[WEMNG],[MEINS],[PRMDT1],[PRMDT2],[RECSTS]) VALUES(@EBELN,@EBELP,@ETENR,@MATNR,@EXPDT,@WEMNG,@MEINS,@PRMDT1,@PRMDT2,@RECSTS])";
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.OrderNumber;
@@ -244,7 +244,7 @@ namespace eProcurement_DAL
             else
                 p6.Value = DBNull.Value;
 
-            SqlParameter p7 = new SqlParameter("@VBELN", SqlDbType.Char, 3);
+            SqlParameter p7 = new SqlParameter("@MEINS", SqlDbType.Char, 3);
             cm.Parameters.Add(p7);
             p7.Value = entity.UnitMeasure;
 
@@ -314,7 +314,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE purexpedite SET MATNR=@MATNR,EXPDT=@EXPDT,WEMNG=@WEMNG,VBELN=@VBELN,PRMDT1=@PRMDT1,PRMDT2=@PRMDT2,RECSTS=@RECSTS WHERE EBELN=@EBELN AND EBELP=@EBELP AND ETENR=@ETENR";
+            cm.CommandText = "UPDATE purexpedite SET MATNR=@MATNR,EXPDT=@EXPDT,WEMNG=@WEMNG,MEINS=@MEINS,PRMDT1=@PRMDT1,PRMDT2=@PRMDT2,RECSTS=@RECSTS WHERE EBELN=@EBELN AND EBELP=@EBELP AND ETENR=@ETENR";
 
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
@@ -346,7 +346,7 @@ namespace eProcurement_DAL
             else
                 p6.Value = DBNull.Value;
 
-            SqlParameter p7 = new SqlParameter("@VBELN", SqlDbType.Char, 3);
+            SqlParameter p7 = new SqlParameter("@MEINS", SqlDbType.Char, 3);
             cm.Parameters.Add(p7);
             p7.Value = entity.UnitMeasure;
 
@@ -467,7 +467,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [EBELN],[EBELP],[ETENR],[MATNR],[EXPDT],[WEMNG],[VBELN],[PRMDT1],[PRMDT2],[RECSTS] FROM purexpedite";
+            string selectCommand = "SELECT [EBELN],[EBELP],[ETENR],[MATNR],[EXPDT],[WEMNG],[MEINS],[PRMDT1],[PRMDT2],[RECSTS] FROM purexpedite";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -491,7 +491,7 @@ namespace eProcurement_DAL
                 else
                     entity.ExpediteQuantity = Convert.ToDecimal(rd["WEMNG"].ToString());
 
-                entity.UnitMeasure = rd["VBELN"].ToString();
+                entity.UnitMeasure = rd["MEINS"].ToString();
 
                 if (rd.IsDBNull(7))
                     entity.PromiseDate1 = null;
