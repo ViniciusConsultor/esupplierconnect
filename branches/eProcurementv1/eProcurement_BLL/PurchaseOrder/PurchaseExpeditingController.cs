@@ -100,7 +100,7 @@ namespace eProcurement_BLL.PurchaseOrder
                         if (!string.IsNullOrEmpty(email))
                         {
                             eProcurement_DAL.Notification notification = new eProcurement_DAL.Notification();
-                            notification.NotificationType = NotificationMessage.OrderAckFirstReject;
+                            notification.NotificationType = NotificationMessage.OrderExpedite;
                             notification.NotificationDate = Utility.GetStoredDateValue(DateTime.Now);
                             notification.ReferenceNumber = header.OrderNumber;
                             notification.ReferenceSequence = "";
@@ -185,7 +185,7 @@ namespace eProcurement_BLL.PurchaseOrder
                         foreach (string email in buyerEmailList)
                         {
                             eProcurement_DAL.Notification notification = new eProcurement_DAL.Notification();
-                            notification.NotificationType = NotificationMessage.OrderAcknowledged;
+                            notification.NotificationType = NotificationMessage.ExpediteAcknowledged;
                             notification.NotificationDate = Utility.GetStoredDateValue(DateTime.Now);
                             notification.ReferenceNumber = header.OrderNumber;
                             notification.ReferenceSequence = "";
