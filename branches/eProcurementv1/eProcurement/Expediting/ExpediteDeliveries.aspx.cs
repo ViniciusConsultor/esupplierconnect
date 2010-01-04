@@ -308,7 +308,7 @@ public partial class Expediting_ExpediteDeliveries : BaseForm
 
         if (iCount == 0)
         {
-            strErrorMsg.Append(MakeListItem("No Record is to be processed."));
+            strErrorMsg.Append(MakeListItem("Please select at least one record to sumbit."));
         }
 
         return strErrorMsg.ToString();
