@@ -21,53 +21,29 @@
       <HREF>~/PurchaseContract/EnquiryPurchaseContractList.aspx?FunctionId=B-0005</HREF>
     </ITEM>
 	</ITEM>
-	<ITEM>
-		<TITLE>Order Processing</TITLE>
-		<HREF></HREF>
-		<!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
-		<ITEM FID="S-0001">
-			<TITLE>Acknowledge Order</TITLE>
-			<HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=S-0001</HREF>
-		</ITEM>
-    <ITEM FID="S-0013">
-      <TITLE>Acknowledge Expedite Deliveries</TITLE>
-      <HREF>~/Expediting/AckExpeditingList.aspx</HREF>
+  <ITEM>
+    <TITLE>Order Processing</TITLE>
+    <HREF></HREF>
+    <!-- This node is not tied to function, just a menu group name, set <HREF> = "". -->
+    <ITEM FID="S-0001">
+      <TITLE>Acknowledge Order</TITLE>
+      <HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=S-0001</HREF>
     </ITEM>
-		<ITEM FID="B-0001">
-			<TITLE>Accept Order Acknowledgement</TITLE>
-			<HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=B-0001</HREF>
-		</ITEM>
+    <ITEM FID="B-0004">
+      <TITLE>Acknowledge Order</TITLE>
+      <HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=B-0004</HREF>
+    </ITEM>
+    <ITEM FID="B-0001">
+      <TITLE>Accept Order Acknowledgement</TITLE>
+      <HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=B-0001</HREF>
+    </ITEM>
     <ITEM FID="S-0002">
-      <TITLE>Enquiry Order (Supplier)</TITLE>
+      <TITLE>Enquiry Order</TITLE>
       <HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=S-0002</HREF>
     </ITEM>
     <ITEM FID="B-0002">
-      <TITLE>Enquiry Order (Buyer)</TITLE>
+      <TITLE>Enquiry Order</TITLE>
       <HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=B-0002</HREF>
-    </ITEM>
-    <ITEM FID="B-0011">
-      <TITLE>View Shortage List</TITLE>
-      <HREF>~/Expediting/MaterialShortageList.aspx?FunctionId=B-0011</HREF>
-    </ITEM>
-    <ITEM FID="B-0010">
-      <TITLE>Process Shortage List</TITLE>
-      <HREF>~/Expediting/MaterialShortageList.aspx?FunctionId=B-0010</HREF>
-    </ITEM>
-    <ITEM FID="B-0004">
-      <TITLE>Acknowledge Order by Buyer</TITLE>
-      <HREF>~/PurchaseOrder/PurchaseOrderList.aspx?FunctionId=B-0004</HREF>
-    </ITEM>
-    <ITEM FID="B-0013">
-      <TITLE>Expedite Deliveries</TITLE>
-      <HREF>~/Expediting/ExpediteDeliveries.aspx</HREF>
-    </ITEM>
-    <ITEM FID="B-0014">
-      <TITLE>Accept Expedite Acknowledgement</TITLE>
-      <HREF>~/Expediting/ConfirmExpeditingAckmt.aspx</HREF>
-    </ITEM>
-    <ITEM FID="S-0013">
-      <TITLE>Acknowledge Expedite Deliveries</TITLE>
-      <HREF>~/Expediting/AckExpeditingList.aspx</HREF>
     </ITEM>
     <ITEM FID="S-0004">
       <TITLE>Create Delivery Order</TITLE>
@@ -81,6 +57,30 @@
       <TITLE>Enquire Goods Rejection</TITLE>
       <HREF>~/DeliveryOrder/GoodsRejEnqPrnt.aspx</HREF>
     </ITEM>
+  </ITEM>  
+  <ITEM>
+    <TITLE>Purchase Expediting</TITLE>
+    <HREF></HREF>
+    <ITEM FID="B-0010">
+      <TITLE>Purchase Expediting Process</TITLE>
+      <HREF>~/Expediting/MaterialShortageList.aspx?FunctionId=B-0010</HREF>
+    </ITEM>
+    <ITEM FID="B-0011">
+      <TITLE>View Shortage List</TITLE>
+      <HREF>~/Expediting/MaterialShortageList.aspx?FunctionId=B-0011</HREF>
+    </ITEM>
+    <ITEM FID="B-0013">
+      <TITLE>Expedite Deliveries</TITLE>
+      <HREF>~/Expediting/ExpediteDeliveries.aspx</HREF>
+    </ITEM>
+    <ITEM FID="S-0013">
+      <TITLE>Acknowledge Expedite Deliveries</TITLE>
+      <HREF>~/Expediting/AckExpeditingList.aspx</HREF>
+    </ITEM>
+    <ITEM FID="B-0014">
+      <TITLE>Accept Expedite Acknowledgement</TITLE>
+      <HREF>~/Expediting/ConfirmExpeditingAckmt.aspx</HREF>
+    </ITEM>
 	</ITEM>
 	<ITEM>
 		<TITLE>Quotation Processing</TITLE>
@@ -89,14 +89,14 @@
 			<TITLE>Create RFQ</TITLE>
 			<HREF>~/Quotation/QuotationRequestCreate.aspx</HREF>
 		</ITEM>
-		<ITEM FID="Q-0001">
-			<TITLE>Quotation List</TITLE>
-			<HREF>~/Quotation/QuotationRequestList.aspx</HREF>
-		</ITEM>
-		<ITEM FID="S-0010">
-			<TITLE>Process Quotation</TITLE>
-			<HREF>~/Quotation/ProcessQuotationList.aspx</HREF>
-		</ITEM>
+    <ITEM FID="S-0010">
+      <TITLE>Process Quotation</TITLE>
+      <HREF>~/Quotation/ProcessQuotationList.aspx</HREF>
+    </ITEM>
+    <ITEM FID="B-0008,S-0011">
+      <TITLE>Quotation List</TITLE>
+      <HREF>~/Quotation/QuotationRequestList.aspx</HREF>
+    </ITEM>
 	</ITEM>	
 	<ITEM>
 		<TITLE>User Profile</TITLE>
