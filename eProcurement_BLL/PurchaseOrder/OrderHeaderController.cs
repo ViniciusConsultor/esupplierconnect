@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using eProcurement_DAL;
+using eProcurement_BLL.Notification;
 
 namespace eProcurement_BLL.PurchaseOrder
 {
@@ -361,6 +362,31 @@ namespace eProcurement_BLL.PurchaseOrder
                           .Update(tran, scheduleUpdt);
 
                   }
+
+                  //Send Notificatio
+                  Collection<string> buyerEmailList = mainController.GetUserController().GetBuyerEmailAddrs(header.PurchaseGroup);
+                  if (buyerEmailList.Count == 0)
+                      buyerEmailList.Add(NotificationMessage.buyerEmail);
+                  foreach (string email in buyerEmailList) 
+                  {
+                      eProcurement_DAL.Notification notification = new eProcurement_DAL.Notification();
+                      notification.NotificationType = NotificationMessage.OrderAcknowledged;
+                      notification.NotificationDate = Utility.GetStoredDateValue(DateTime.Now);
+                      notification.ReferenceNumber = header.OrderNumber;
+                      notification.ReferenceSequence = "";
+
+                      string sDate = "";
+                      if (header.OrderDate.HasValue)
+                          sDate = Utility.GetShortDate(Utility.GetDateTimeFormStoredValue(header.OrderDate.Value)); 
+                      notification.Message = string.Format("Order Number:{0} Dated: {1} has been Acknowledged please accept or reject the acknowledgement.",
+                            header.OrderNumber, sDate);
+                     
+                      notification.Sender = header.SupplierId;
+                      notification.Recipient = NotificationMessage.buyerRecepient;
+                      notification.Email = email.Trim();
+                      notification.Status = "0";
+                      mainController.GetNotificationController().InsertEmailNotification(tran,notification);  
+                  }
                   tran.Commit(); 
               }
               catch (Exception ex)
@@ -487,6 +513,29 @@ namespace eProcurement_BLL.PurchaseOrder
                             header.AcknowledgeStatus = POAckStatus.No;
                             header.RecordStatus = PORecStatus.Reject1;
                             iReturn = 3;
+
+                            //Send Notificatio
+                            string email = mainController.GetSupplierController().GetSupplierEmailAddr(header.SupplierId);
+                            if (!string.IsNullOrEmpty(email)) 
+                            {
+                                eProcurement_DAL.Notification notification = new eProcurement_DAL.Notification();
+                                notification.NotificationType = NotificationMessage.OrderAckFirstReject;
+                                notification.NotificationDate = Utility.GetStoredDateValue(DateTime.Now);
+                                notification.ReferenceNumber = header.OrderNumber;
+                                notification.ReferenceSequence = "";
+
+                                string sDate = "";
+                                if (header.OrderDate.HasValue)
+                                    sDate = Utility.GetShortDate(Utility.GetDateTimeFormStoredValue(header.OrderDate.Value)); 
+                                notification.Message = string.Format("Order Number:{0} Dated: {1} acknowledgement has been rejected by Fujitec Buyer: {2}.",
+                                      header.OrderNumber, sDate, header.BuyerName.ToString());
+                               
+                                notification.Sender = NotificationMessage.buyerSender;
+                                notification.Recipient = header.SupplierId;
+                                notification.Email = email.Trim();
+                                notification.Status = "0";
+                                mainController.GetNotificationController().InsertEmailNotification(tran, notification);
+                            }
                         } 
                     }
 

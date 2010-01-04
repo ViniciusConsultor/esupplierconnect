@@ -58,6 +58,24 @@ namespace eProcurement_BLL.Notification
         }
 
         /// <summary>
+        /// public void InsertEmailNotification(eProcurement_DAL.Notification notification)
+        /// To Insert Email Notification
+        /// </summary>
+        /// <param name="notification">notification goes here</param>
+        public void InsertEmailNotification(EpTransaction epTran, eProcurement_DAL.Notification notification)
+        {
+            try
+            {
+                mainController.GetDAOCreator().CreateNotificationDAO().Insert(epTran,notification);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
+
+        /// <summary>
         /// public void UpdateEmailNotification(eProcurement_DAL.Notification notification)
         /// To update Email Notification
         /// </summary>
