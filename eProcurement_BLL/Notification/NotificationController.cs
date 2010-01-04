@@ -150,6 +150,30 @@ namespace eProcurement_BLL.Notification
  
         }
 
+        public Collection<eProcurement_DAL.Notification> RetrieveNotificationByRecipient(String status,String recipientid, String notificationtype)
+        {
+
+            try
+            {
+                string whereclause = "STATUS='" + Utility.EscapeSQL(status) + "'";
+
+                whereclause += "AND RECIPIENT='" + Utility.EscapeSQL(recipientid) + "'";
+
+                whereclause += "AND NOTIFTYP='" + Utility.EscapeSQL(notificationtype) + "'";
+
+
+                return mainController.GetDAOCreator().CreateNotificationDAO().RetrieveByQuery(whereclause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+
+
+        }
+
+
 
 
         public Collection<eProcurement_DAL.Notification> RetrieveByQueryEmailNotificationRecipiant(String status)
@@ -170,6 +194,26 @@ namespace eProcurement_BLL.Notification
 
 
         }
+
+
+   public void UpdateNotificationStatus(string userid, string status)
+    {
+           try
+            {
+                string whereclause = "STATUS='0'";
+
+                whereclause += " AND RECIPIENT ='"+userid+"'";
+
+
+                mainController.GetDAOCreator().CreateNotificationDAO().UpdateStatus(status, whereclause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+
+    }
 
 
        
