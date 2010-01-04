@@ -57,6 +57,7 @@ namespace eProcurement_DAL
         public abstract IRejectedGoodDAO CreateRejectedGoodDAO();
         public abstract IPurchaseGroupDAO CreatePurchaseGroupDAO();
         public abstract IAttachmentDAO CreateAttachmentDAO(bool includeAttachmentData);
+        public abstract IExecuteCommandDAO CreateExecuteCommandDAO();
        
 
     }

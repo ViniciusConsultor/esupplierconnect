@@ -40,6 +40,7 @@ namespace eProcurement_DAL
         private RejectedGoodDAO rejectedGoodDAO = null;
         private AttachmentDAO attachmentDAO = null;
         private PurchaseGroupDAO purchaseGroupDAO = null;
+        private ExecuteCommandDAO executeCommandDAO = null;
 
         public override IAccessMatrixDAO CreateAccessMatrixDAO() 
         {
@@ -246,6 +247,12 @@ namespace eProcurement_DAL
             return this.purchaseGroupDAO;
             
         }
-        
+
+        public override IExecuteCommandDAO CreateExecuteCommandDAO() 
+        {
+            if (this.executeCommandDAO == null)
+                this.executeCommandDAO = new ExecuteCommandDAO();
+            return this.executeCommandDAO;
+        }
     }
 }
