@@ -113,6 +113,12 @@ public partial class UserManagement_UserList : BaseForm
         }
     }
 
+    protected void gvData_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvData.PageIndex = e.NewPageIndex;
+        LoadUsers();
+    }
+
     private void LoadUsers()
     {
         Collection<User> users = new Collection<User>();
@@ -122,7 +128,7 @@ public partial class UserManagement_UserList : BaseForm
         if ((string.Compare(loginUser.Role, UserRole.Administrator, true) == 0) && (string.Compare(loginUser.ProfileType, ProfileType.System, true) == 0)) //System Admin
             users = this.mainController.GetUserController().GetUsers(loginUser.UserId);
         else if ((string.Compare(loginUser.Role, UserRole.Administrator, true) == 0) && (loginUser.ProfileType != ProfileType.System)) //Other Admin
-            users = this.mainController.GetUserController().GetUsers(loginUser.UserId, loginUser.SupplierId);
+            users = this.mainController.GetUserController().GetUsers(loginUser.UserId, loginUser.SupplierId, loginUser.ProfileType);
 
         gvData.DataSource = users;
         gvData.DataBind();

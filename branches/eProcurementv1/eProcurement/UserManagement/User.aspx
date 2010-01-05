@@ -30,15 +30,14 @@
                     <td align="left" ><asp:Label ID="Label2" runat="server" Width="130px" Text="Email"></asp:Label> </td>
                     <td  align="left" style="width: 70%" ><asp:TextBox runat="server" id="txtEmail" MaxLength="70"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" Display="Dynamic" ControlToValidate="txtEmail" ErrorMessage="Please enter email."></asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic" ControlToValidate="txtEmail" ErrorMessage="Invalid email." ValidationExpression='@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"' />
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic" ControlToValidate="txtEmail" ErrorMessage="Invalid email." Enabled="false" ValidationExpression='@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"' />
                     </td>
                 </tr>                
                 <tr>
                     <td align="left" ><asp:Label ID="lbl1" runat="server" Width="130px" Text="Role"></asp:Label> </td>
                     <td  align="left" style="width: 100%" colspan="4">
                         <asp:Label ID="lblRole" runat="server" Font-Bold="false" Visible="false" />
-                        <asp:DropDownList ID="ddlRole" runat="server" OnSelectedIndexChanged="ddlRole_SelectedIndexChanged" Visible="false"></asp:DropDownList>
-                        <%--<asp:XmlDataSource ID="dsXML" runat="server" DataFile="~/App_Data/UserRoles.xml"></asp:XmlDataSource>--%>
+                        <asp:DropDownList ID="ddlRole" runat="server" OnSelectedIndexChanged="ddlRole_SelectedIndexChanged" Visible="false"></asp:DropDownList>                        
                     </td>
                 </tr>
                 <tr>
@@ -49,6 +48,15 @@
                     </td>
                 </tr>
                 <asp:Panel ID="pnlAdmin" runat="server" Visible="false" >
+                <asp:Panel ID="pnlBuyer" runat="server" Visible="false" >
+                <tr>
+                    <td align="left" ><asp:Label ID="Label6" runat="server" Width="130px" Text="Purchasing Group"></asp:Label> </td>
+                    <td  align="left" style="width: 100%" colspan="4">
+                        <asp:CheckBoxList ID="chklstPG" runat="server" />
+                        <%--<asp:XmlDataSource ID="dsXML" runat="server" DataFile="~/App_Data/PurchaseGroups.xml"></asp:XmlDataSource>--%>
+                    </td>
+                </tr>
+                </asp:Panel>
                 <asp:Panel ID="pnlSupplier" runat="server" Visible="false" >
                 <tr>
                     <td align="left" ><asp:Label ID="Label5" runat="server" Width="130px" Text="Supplier ID"></asp:Label> </td>
@@ -70,7 +78,7 @@
                 </asp:Panel>   
                 <tr><td colspan="9">
                     <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" Visible="false" />
-                    <asp:Button ID="btncancel" runat="server" Text="Back" OnClientClick="javascript:history.go(-1);" />                    
+                    <asp:Button ID="btncancel" runat="server" Text="Back" CausesValidation="false" OnClientClick="javascript:history.go(-1);" />                    
                     <asp:Label ID="lblError" runat="server" CssClass="labelErrorMessage" />
                     <asp:Label ID="lblMessage"  runat="server" CssClass=""></asp:Label>
                 </td>
