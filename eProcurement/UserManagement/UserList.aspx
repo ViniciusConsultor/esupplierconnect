@@ -14,14 +14,15 @@
     <asp:Panel CssClass="GreyTable" ID="plResult" runat="server" width="100%" >
         <table cellspacing="0" cellpadding="0" width="100%" border="0">
             <tr valign="middle">
-                <td align="right" style="height:30px;" >
+                <td align="right" style="height:30px;vertical-align:middle" >
                     <asp:HyperLink ID="hypCreateNew" runat="server" Text="Create New User" NavigateUrl="~/UserManagement/User.aspx?Type=New" font-bold="True" /> 
                 </td>
             </tr>
             </table>
             <table cellspacing="0" cellpadding="0" width="100%" border="0">
                 <tr><td valign="top">
-                <asp:GridView Width="100%" ID="gvData" runat="server" OnRowDataBound="gvData_RowDataBound" AllowPaging="True" AutoGenerateColumns="False" 
+                <asp:GridView Width="100%" ID="gvData" runat="server" OnRowDataBound="gvData_RowDataBound" 
+                        AllowPaging="True" AutoGenerateColumns="False" OnPageIndexChanging ="gvData_PageIndexChanging" 
                         DataKeyNames="UserID" AllowSorting="false" CellPadding="2" EmptyDataText="No users found.">
                         <Columns>
                             <asp:TemplateField HeaderText="S/N" HeaderStyle-Wrap="false" HeaderStyle-HorizontalAlign="Center">
