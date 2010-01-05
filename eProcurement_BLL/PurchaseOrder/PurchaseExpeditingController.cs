@@ -302,9 +302,9 @@ namespace eProcurement_BLL.PurchaseOrder
                                     if (header.OrderDate.HasValue)
                                         sDate = Utility.GetShortDate(Utility.GetDateTimeFormStoredValue(header.OrderDate.Value)); 
                                     notification.Message = string.Format("Order Number:{0} Dated: {1} expediting acknowledgement has been rejected by Fujitec Buyerr: {2}.",
-                                          header.OrderNumber, sDate, header.BuyerName.ToString());
+                                          header.OrderNumber, sDate, mainController.GetLoginUserVO().UserName);
                                     
-                                    notification.Sender = NotificationMessage.buyerSender;
+                                    notification.Sender = mainController.GetLoginUserVO().UserName;
                                     notification.Recipient = header.SupplierId;
                                     notification.Email = email.Trim();
                                     notification.Status = "0";
