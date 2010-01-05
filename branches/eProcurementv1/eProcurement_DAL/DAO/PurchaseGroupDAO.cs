@@ -255,15 +255,15 @@ namespace eProcurement_DAL
                 }
 
                 //Update 
-                cm.CommandText = "DELETE FROM PURGROUP WHERE EKGRP=@EKGRP AND USERID=@USERID";
+                cm.CommandText = "DELETE FROM PURGROUP WHERE LTRIM(RTRIM(EKGRP))=@EKGRP AND LTRIM(RTRIM(USERID))=@USERID";
 
                 SqlParameter p1 = new SqlParameter("@EKGRP", SqlDbType.VarChar, 3);
                 cm.Parameters.Add(p1);
-                p1.Value = entity.PurGroup;
+                p1.Value = entity.PurGroup.Trim();
 
                 SqlParameter p2 = new SqlParameter("@USERID", SqlDbType.VarChar, 10);
                 cm.Parameters.Add(p2);
-                p2.Value = entity.UserId;
+                p2.Value = entity.UserId.Trim();
 
                 cm.ExecuteNonQuery();
 
