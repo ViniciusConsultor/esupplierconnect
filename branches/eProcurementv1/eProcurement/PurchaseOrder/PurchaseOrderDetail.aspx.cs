@@ -271,12 +271,18 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
             hlComponent.NavigateUrl = "javascript:ShowComponent('" + lblItemSequence.Text + "')";
             hlService.NavigateUrl = "javascript:ShowService('" + lblItemSequence.Text + "')";
 
-            Collection<PurchaseOrderItemSchedule> schedules = mainController.GetOrderItemController()
-                .GetPurchaseOrderItemSchedules(Session[SessionKey.OrderNumber].ToString(), lblItemSequence.Text);
-            gvSchedule.DataSource = schedules;
-            gvSchedule.DataBind();
+            InitItemSchedules(lblItemSequence.Text, gvSchedule);
         }
      }
+
+    private void InitItemSchedules(string itemSequence, GridView gvSchedule)
+    {
+        Collection<PurchaseOrderItemSchedule> schedules = mainController.GetOrderItemController()
+               .GetPurchaseOrderItemSchedules(Session[SessionKey.OrderNumber].ToString(), itemSequence);
+        gvSchedule.DataSource = schedules;
+        gvSchedule.DataBind();
+
+    }
 
      protected void gvSchedule_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
      {
