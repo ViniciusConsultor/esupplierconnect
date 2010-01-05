@@ -32,10 +32,19 @@ namespace eProcurement_BLL.UserManagement
             return mainController.GetDAOCreator().CreateUserDAO().RetrieveByQuery(whereClause, "[USERID]"); //UserDAO.RetrieveAll(userid, "[USERID]");
         }
 
-        public Collection<User> GetUsers(string userid, string supplierID)
+        public Collection<User> GetUsers(string userid, string supplierID, string profType)
         {
             string whereClause = string.Empty;
-            whereClause = "(USERID<>'" + userid + "' AND LIFNR='" + supplierID + "' AND USRROLE<>'Administrator')";
+            
+            switch (profType)
+            {
+                case ProfileType.Supplier:
+                    whereClause = "(USERID<>'" + userid + "' AND RTRIM(LTRIM(LIFNR))='" + supplierID.Trim() + "' AND USRROLE<>'Administrator')";
+                    break;
+                case ProfileType.Buyer:
+                    whereClause = "(USERID<>'" + userid + "' AND PROFTYP='" + ProfileType.Buyer + "' AND USRROLE<>'Administrator')"; //(RTRIM(LTRIM(LIFNR))='' OR LIFNR IS NULL)
+                    break;
+            }
 
             return mainController.GetDAOCreator().CreateUserDAO().RetrieveByQuery(whereClause, "[USERID]");
         }
