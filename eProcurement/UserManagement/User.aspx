@@ -47,7 +47,6 @@
                         <asp:DropDownList ID="ddlType" runat="server" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" AutoPostBack="true" Visible="false"></asp:DropDownList>                        
                     </td>
                 </tr>
-                <asp:Panel ID="pnlAdmin" runat="server" Visible="false" >
                 <asp:Panel ID="pnlBuyer" runat="server" Visible="false" >
                 <tr>
                     <td align="left" ><asp:Label ID="Label6" runat="server" Width="130px" Text="Purchasing Group"></asp:Label> </td>
@@ -57,6 +56,7 @@
                     </td>
                 </tr>
                 </asp:Panel>
+                <asp:Panel ID="pnlAdmin" runat="server" Visible="false" >                
                 <asp:Panel ID="pnlSupplier" runat="server" Visible="false" >
                 <tr>
                     <td align="left" ><asp:Label ID="Label5" runat="server" Width="130px" Text="Supplier ID"></asp:Label> </td>
