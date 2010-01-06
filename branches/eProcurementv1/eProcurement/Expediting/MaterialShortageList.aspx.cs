@@ -232,11 +232,22 @@ public partial class PurchaseOrder_MaterialShortageList : BaseForm
             Label lblMaterialNumber = (Label)e.Item.FindControl("lblMaterialNumber");
             lblSN.Text = Convert.ToString(Convert.ToInt32(lblSN.Text) + 1 + 20 * (CurrentPage - 1));
 
-            Collection<PurchaseExpeditingVO> purchaseExpdVOs = mainController.GetPurchaseExpeditingController()
-                .GetPurchaseExpeditingList(lblMaterialNumber.Text);
-            gvMaterialDtl.DataSource = purchaseExpdVOs;
-            gvMaterialDtl.DataBind();
+            //Collection<PurchaseExpeditingVO> purchaseExpdVOs = mainController.GetPurchaseExpeditingController()
+            //    .GetPurchaseExpeditingList(lblMaterialNumber.Text);
+            //gvMaterialDtl.DataSource = purchaseExpdVOs;
+            //gvMaterialDtl.DataBind();
+
+            InitExpeditItems(lblMaterialNumber.Text, gvMaterialDtl);
         }
+    }
+
+    private void InitExpeditItems(string materialNumber, GridView gvMaterialDtl)
+    {
+        Collection<PurchaseExpeditingVO> purchaseExpdVOs = mainController.GetPurchaseExpeditingController()
+                .GetPurchaseExpeditingList(materialNumber);
+        gvMaterialDtl.DataSource = purchaseExpdVOs;
+        gvMaterialDtl.DataBind();
+
     }
 
     protected void gvMaterialDtl_RowDataBound(Object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
