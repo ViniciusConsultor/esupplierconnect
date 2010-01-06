@@ -41,22 +41,41 @@ public partial class UserManagement_User : BaseForm
             LoadSupplierID();
             LoadPurchaseGroup();
 
+            LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
+
             if (type == null)
             {
-                LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
-                GetUser(loginUser.UserId); 
+                GetUser(loginUser.UserId);
+
+                if (loginUser.ProfileType == ProfileType.Buyer)
+                {
+                    chklstPG.Enabled = false;
+                    pnlBuyer.Visible = true;
+                }
+                else if ((loginUser.ProfileType == ProfileType.Supplier) || (loginUser.ProfileType == ProfileType.WarehouseUser) || (loginUser.ProfileType == ProfileType.System))
+                {
+                    pnlBuyer.Visible = false;
+                }
+
                 btnSave.Visible = true;
                 rfvUserID.Enabled = false;
             }
             else if (string.Compare(type, "Edit", true) == 0)            
             {
-                GetUser(Convert.ToString(Request.QueryString["UserID"])); 
+                GetUser(Convert.ToString(Request.QueryString["UserID"]));
+
+
                 btnSave.Visible = true;
-                pnlAdmin.Visible = true;
+                pnlAdmin.Visible = true;                
                 rfvUserID.Enabled = false;
             }
             else if (string.Compare(type, "New", true) == 0)
             {
+                if ((loginUser.ProfileType == ProfileType.Buyer))
+                {
+                    pnlBuyer.Visible = true;
+                }
+
                 txtUserID.Visible = true;
                 lblUserID.Visible = false;
                 btnSave.Visible = true;
@@ -99,6 +118,9 @@ public partial class UserManagement_User : BaseForm
                 ddlType.Items.Add(new ListItem(ProfileType.Supplier, ProfileType.Supplier));
                 ddlType.Items.Add(new ListItem(ProfileType.WarehouseUser, ProfileType.WarehouseUser));
             }
+
+            pnlSupplier.Visible = ddlType.SelectedValue == ProfileType.Supplier ? true : false;
+            pnlBuyer.Visible = ddlType.SelectedValue == ProfileType.Buyer ? true : false;
         }
     }
 
@@ -186,7 +208,7 @@ public partial class UserManagement_User : BaseForm
 
             u.SupplierID = (ddlSupplierID.Visible && pnlAdmin.Visible) ? ddlSupplierID.SelectedValue : loginUser.SupplierId;
 
-            purGrpList = GetSelectedPurchaseGroups(newUserId);            
+            purGrpList = pnlBuyer.Visible == true ? GetSelectedPurchaseGroups(newUserId) : null;
 
             if (u.ProfileType == ProfileType.Buyer)
                 u.SupplierID = "";
@@ -299,8 +321,21 @@ public partial class UserManagement_User : BaseForm
 
         lblSupplierID.Text = u.SupplierID.Trim();
         ddlSupplierID.SelectedValue = u.SupplierID.Trim();
-        pnlSupplier.Visible = ddlType.SelectedValue == ProfileType.Supplier ? true : false;
-        pnlBuyer.Visible = ddlType.SelectedValue == ProfileType.Buyer ? true : false;
+        pnlSupplier.Visible = u.ProfileType == ProfileType.Supplier ? true : false;
+        pnlBuyer.Visible = u.ProfileType == ProfileType.Buyer ? true : false;
+
+        //if ((loginUser.ProfileType == ProfileType.Buyer) || (loginUser.ProfileType == ProfileType.System))
+        //{
+        //    chklstPG.Enabled = true;
+        //    pnlBuyer.Visible = true;
+        //}
+        //else if ((loginUser.ProfileType == ProfileType.Supplier) || (loginUser.ProfileType == ProfileType.WarehouseUser))
+        //{
+        //    pnlBuyer.Visible = false;
+        //}
+
+        //pnlSupplier.Visible = ddlType.SelectedValue == ProfileType.Supplier ? true : false;
+        //pnlBuyer.Visible = ddlType.SelectedValue == ProfileType.Buyer ? true : false;
 
         //Get the current Purchase Group for the user
         Collection<PurchaseGroup> pgList = this.mainController.GetDAOCreator().CreatePurchaseGroupDAO().RetrieveByQuery(" LTRIM(RTRIM(USERID))='" + userId.Trim() + "' ");
