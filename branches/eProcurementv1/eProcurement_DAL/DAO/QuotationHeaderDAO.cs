@@ -106,7 +106,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO rfqhdr ([EBELN],[LIFNR],[ANGDT],[ANGNR],[KDATB],[RECSTS]) VALUES(@EBELN,@LIFNR,@ANGDT,@ANGNR,@KDATB,@RECSTS)";
+            cm.CommandText = "INSERT INTO rfqhdr ([EBELN],[LIFNR],[ANGDT],[ANGNR],[KDATB],[RECSTS], [BUYER]) VALUES(@EBELN,@LIFNR,@ANGDT,@ANGNR,@KDATB,@RECSTS, @BUYER)";
 
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
@@ -139,6 +139,10 @@ namespace eProcurement_DAL
             SqlParameter p6 = new SqlParameter("@RECSTS", SqlDbType.Char, 10);
             cm.Parameters.Add(p6);
             p6.Value = entity.RecordStatus;
+
+            SqlParameter p7 = new SqlParameter("@BUYER", SqlDbType.Char, 10);
+            cm.Parameters.Add(p7);
+            p7.Value = entity.BuyerID ;
             
             cm.ExecuteNonQuery();
 
