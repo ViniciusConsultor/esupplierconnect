@@ -13,11 +13,11 @@
 			<HREF>~/PurchaseContract/PurchaseContractList.aspx</HREF>
 		</ITEM>
 		<ITEM FID="S-0008">
-			<TITLE>Enquiry Contract (Supplier)</TITLE>
+			<TITLE>Enquiry Contract</TITLE>
 			<HREF>~/PurchaseContract/EnquiryPurchaseContractList.aspx?FunctionId=S-0008</HREF>
 		</ITEM>
     <ITEM FID="B-0005">
-      <TITLE>Enquiry Contract (Buyer)</TITLE>
+      <TITLE>Enquiry Contract</TITLE>
       <HREF>~/PurchaseContract/EnquiryPurchaseContractList.aspx?FunctionId=B-0005</HREF>
     </ITEM>
 	</ITEM>
