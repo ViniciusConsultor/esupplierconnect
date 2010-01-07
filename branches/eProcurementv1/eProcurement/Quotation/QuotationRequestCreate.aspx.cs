@@ -174,10 +174,22 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
         Collection<RequisitionItem> items = mainController.GetRequisitionController().GetRequisitionList(materialNO, RequisitionNo);
 
         lstRequisition.Items.Clear();
-        lstRequisition.DataSource = items;
-        lstRequisition.DataTextField = "RequisitionNumber";
-        lstRequisition.DataValueField = "RequisitionNumber";
-        lstRequisition.DataBind();
+        //lstRequisition.DataSource = items;
+        //lstRequisition.DataTextField = "RequisitionNumber";
+        //lstRequisition.DataValueField = "RequisitionNumber";
+        //lstRequisition.DataBind();
+        ListItem li;
+        Int32 i;
+
+        for (i=0;i< items.Count;i ++ )
+        {
+            li= new ListItem ();
+            li.Text =items[i].RequisitionNumber ;
+            li.Value =items[i].RequisitionNumber ;
+            if (IsDropDownContain(lstRequisition, li.Text) == false)
+                lstRequisition.Items.Add (li);
+            
+        }
 
         Collection<Supplier> SupplierList = mainController.GetSupplierController().GetSupplierList();
         lstSupplier.Items.Clear();
@@ -186,6 +198,15 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
         lstSupplier.DataValueField = "supplierID";
         lstSupplier.DataBind();        
     }
+     private  Boolean IsDropDownContain(System.Web.UI.WebControls.ListBox  ddl, string searchText) 
+     {  
+         foreach  (ListItem li in ddl.Items)
+         {
+            if (li.Value.ToLower()== searchText.ToLower ())
+                return true; //'there is a duplicate item
+         }  
+        return false; //'there isn't any duplicate items
+     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         try
