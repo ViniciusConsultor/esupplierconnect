@@ -33,10 +33,8 @@ public partial class UserControls_Header : System.Web.UI.UserControl
                     lblSupplier.Text = loginUserVO.SupplierId + " - " + loginUserVO.SupplierName + " | " + loginUserVO.SupplierAddr;
                     plSupplier.Visible = true;
                 }
-             
-               fnSetClockScript();
-
             }
+            fnSetClockScript();
         }
         catch (Exception ex)
         {
