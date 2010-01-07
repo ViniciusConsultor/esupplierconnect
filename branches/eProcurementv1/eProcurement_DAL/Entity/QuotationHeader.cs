@@ -48,6 +48,12 @@ namespace eProcurement_DAL
             get { return recordStatus; }
             set { recordStatus = value; }
         }
+        string buyerID;
+        public string BuyerID
+        {
+            get { return buyerID ; }
+            set { buyerID  = value; }
+        }
        
     }
 }
