@@ -222,7 +222,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                             qtoHeader.QuotationNumber = "";
                             qtoHeader.QuotationDate = null;
                             qtoHeader.RecordStatus = QuotationStatus.Request;  //[R]equest / [A]cknowledge / [A]cceptance / [R]ejected
-                           
+                            qtoHeader.BuyerID = base.LoginUser.UserId.ToString();
                             /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                              *Request for Quotation Items a.k.a Quotation Items                        
                              *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
