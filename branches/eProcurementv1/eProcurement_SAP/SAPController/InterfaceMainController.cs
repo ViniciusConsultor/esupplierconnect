@@ -23,9 +23,9 @@ namespace eProcurement_SAP
         private InterfaceMaterialController materialController;
         private InterfaceRejectionController rejectionController;
 
-        public InterfaceMainController()
+        public InterfaceMainController(MainController mainControl)
         {
-            mainController = new MainController();
+            this.mainController = mainControl;
             scheduleInterface = new InterfaceForm(this);
             scheduleInterface.Show();
         }

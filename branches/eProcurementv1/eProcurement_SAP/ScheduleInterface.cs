@@ -121,7 +121,7 @@ namespace eProcurement_SAP
 
             if (validsts == 0)
             {
-                InterfaceMainController mainControl = new InterfaceMainController();
+                InterfaceMainController interfaceControl = new InterfaceMainController(mainControl);
             }
 
         }
