@@ -201,7 +201,6 @@ namespace eProcurement_DAL
             SqlParameter p5 = new SqlParameter("@KTEXT1", SqlDbType.VarChar, 40);
             cm.Parameters.Add(p5);
             p5.Value = entity.ServiceText;
-            cm.ExecuteNonQuery();
 
             SqlParameter p6 = new SqlParameter("@LBLN1", SqlDbType.Char, 10);
             cm.Parameters.Add(p6);
@@ -210,6 +209,8 @@ namespace eProcurement_DAL
             SqlParameter p7 = new SqlParameter("@EXTROW", SqlDbType.Char, 10);
             cm.Parameters.Add(p7);
             p7.Value = entity.SheetSequence;
+
+            cm.ExecuteNonQuery();
 
             if (epTran == null)
                 if (connection.State != System.Data.ConnectionState.Closed) connection.Close();

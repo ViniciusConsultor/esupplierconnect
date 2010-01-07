@@ -230,25 +230,32 @@ namespace eProcurement_SAP
                     
                     foreach (ZORDER_SCH schobj in orderSchedule)
                     {
-                        PurchaseOrderItemSchedule posch = new PurchaseOrderItemSchedule ();
-                        posch.PurchaseOrderNumber  = schobj.Ebeln;
-                        posch.PurchaseOrderItemSequence = schobj.Ebelp;
-                        posch.MaterialNumber = schobj.Matnr;
-                        posch.PurchaseOrderScheduleSequence = schobj.Etenr;
-                        posch.DeliveryScheduleQuantity = Convert.ToDecimal(schobj.Menge);
-                        posch.OrderItemScheduleDate = Convert.ToInt64(schobj.Slfdt);
-                        posch.DeliveryDate = Convert.ToInt64(schobj.Eindt);
-                        posch.DeliveredQuantity = Convert.ToDecimal(schobj.Wemng);
-                        posch.AcknowledgementDate = 0;
-                        posch.ExpeditingPromiseDate = 0;
-                        posch.RecordStatus = "";
-                        if (mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO().RetrieveByKey(tran,schobj.Ebeln, schobj.Ebelp, schobj.Etenr) != null)
-                            mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO().Update(tran, posch);  
-                        else
-                            mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO().Insert(tran, posch); 
+                        try
+                        {
+                            PurchaseOrderItemSchedule posch = new PurchaseOrderItemSchedule();
+                            posch.PurchaseOrderNumber = schobj.Ebeln;
+                            posch.PurchaseOrderItemSequence = schobj.Ebelp;
+                            posch.MaterialNumber = schobj.Matnr;
+                            posch.PurchaseOrderScheduleSequence = schobj.Etenr;
+                            posch.DeliveryScheduleQuantity = Convert.ToDecimal(schobj.Menge);
+                            posch.OrderItemScheduleDate = Convert.ToInt64(schobj.Slfdt.Replace(" ", "0"));
+                            posch.DeliveryDate = Convert.ToInt64(schobj.Eindt);
+                            posch.DeliveredQuantity = Convert.ToDecimal(schobj.Wemng);
+                            posch.AcknowledgementDate = 0;
+                            posch.ExpeditingPromiseDate = 0;
+                            posch.RecordStatus = "";
+                            if (mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO().RetrieveByKey(tran, schobj.Ebeln, schobj.Ebelp, schobj.Etenr) != null)
+                                mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO().Update(tran, posch);
+                            else
+                                mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO().Insert(tran, posch);
 
-                        aMsgstr = aMsgstr + schobj.Ebeln + ", ";
-                        aForm.getProgressBar().Increment(wstep);
+                            aMsgstr = aMsgstr + schobj.Ebeln + ", ";
+                            aForm.getProgressBar().Increment(wstep);
+                        }
+                        catch (Exception ex)
+                        {
+                            string wstr = ex.Message;
+                        }
                     }
 
                     //-------------------------------------------
@@ -333,7 +340,7 @@ namespace eProcurement_SAP
 
                         if (tskobj.Lblni != "")
                         {
-                            if (mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().RetrieveByKey(tran, tskobj.Lblni, tskobj.Srvpos) != null)
+                            if (mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().RetrieveByKey(tran, tskobj.Lblni, tskobj.Extrow) != null)
                                 mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().Update(tran, srvtsk);
                             else
                                 mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().Insert(tran, srvtsk);
@@ -413,7 +420,6 @@ namespace eProcurement_SAP
                 throw (ex);
             }
         }
-
 
         private void UpdatePurchaseHistory()
         {
@@ -506,7 +512,6 @@ namespace eProcurement_SAP
                 tran.Dispose();
             }
         }
-
 
         public DataTable GetOrderHeader()
         {
