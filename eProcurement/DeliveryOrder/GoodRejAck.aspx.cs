@@ -78,7 +78,6 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
 
             plMessage.Visible = false;
             lblMessage.Text = string.Empty;
-            btnAcknowledge.Visible = false;
             if (!IsPostBack)
             {
                 //Access control
@@ -274,8 +273,7 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
         {
             CheckSessionTimeOut();
 
-            //string strErrorMsg = ValidateInput();
-            string strErrorMsg = "";
+            string strErrorMsg = ValidateInput();
             if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
             {
                 plMessage.Visible = true;
@@ -285,7 +283,7 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
 
             Collection<RejectedGood> rGoods = new Collection<RejectedGood>();
 
-            RejectedGood rGoodobj = new RejectedGood();
+            
 
             foreach (GridViewRow rowItem in gvData.Rows)
             {
@@ -296,6 +294,7 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
 
                 if (chkAck.Checked == true)
                 {
+                    RejectedGood rGoodobj = new RejectedGood();
                     rGoodobj.OrderNumber = lblOrderNo.Text.ToString();
                     rGoodobj.ItemSequence = lblItemSeq.Text.ToString();
                     rGoodobj.DocumentNumber = lblDocNo.Text.ToString();
@@ -336,7 +335,7 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
             }
         }
 
-        if (bIsValid)
+        if (!bIsValid)
         {
             strErrorMsg.Append(MakeListItem("Please select at least one record to acknowledge."));
         }

@@ -52,7 +52,7 @@
                             </asp:DropDownList>
                         </td>
                     </tr>
-                                        <tr>
+                    <tr>
                         <td align="left" nowrap Width="130px">
                             <asp:Label ID="Label4" runat="server" Text="Delivery No"></asp:Label>
                         </td> 
@@ -138,22 +138,6 @@
                             <ItemStyle Wrap="False" Width="10%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
-                        
-                        <asp:TemplateField HeaderText="Material No">
-                            <ItemTemplate>
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblMaterialNo" runat="server" CssClass="" Text='<%# Eval("MaterialNumber") %> '></asp:Label>  
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table>  
-                            </ItemTemplate> 
-                            <ItemStyle Wrap="False" Width="10%"/>
-                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
-                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Document No">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -169,6 +153,22 @@
                             <ItemStyle Wrap="False" Width="15%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Material No">
+                            <ItemTemplate>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td Width="100%" nowrap="nowrap">
+                                            <asp:Label ID="lblMaterialNo" runat="server" CssClass="" Text='<%# Eval("MaterialNumber") %> '></asp:Label>  
+                                        </td>
+                                       <td>&nbsp;</td>
+                                    </tr>
+                                </table>  
+                            </ItemTemplate> 
+                            <ItemStyle Wrap="False" Width="10%"/>
+                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
+                        </asp:TemplateField>
+                        
                        
                         <asp:TemplateField HeaderText="UOM ">
                             <ItemTemplate>
@@ -253,7 +253,7 @@
             <tr>
                 <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
                 <td nowrap="nowrap">
-                   <asp:Button ID="btnAcknowledge" runat="server" Text="Acknowledge" onclick="btnAcknowledge_Click"/>
+                   <asp:Button ID="btnAcknowledge" runat="server" Text="Acknowledge" Visible ="false"  onclick="btnAcknowledge_Click"/>
                 </td>
                 <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
             </tr> 
