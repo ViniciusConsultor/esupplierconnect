@@ -88,7 +88,8 @@
     <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
 	        <td valign="top" colspan="10" style="height: 20px">
-                <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellPadding="2">
+                <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellPadding="2"
+                OnPageIndexChanging ="gvData_PageIndexChanging" OnRowDataBound="gvData_RowDataBound">
                     <Columns>
                         <asp:TemplateField HeaderText="S/N">
                             <ItemTemplate>
@@ -111,7 +112,8 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:LinkButton runat="server" ID="lbhlOrderNo" Text=' <%# Eval("OrderNumber") %> '></asp:LinkButton>  
+                                            <asp:Label ID="lblOrderNumber" runat="server" CssClass="" Text='<%# Eval("OrderNumber") %> '></asp:Label>      
+      
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -228,13 +230,28 @@
                             <ItemStyle Width="15%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
+                         <asp:TemplateField HeaderText="Acknowledged">
+                            <ItemTemplate>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td Width="100%" >
+                                            <asp:Label ID="lblAcknowledged" runat="server" CssClass="" Text='<%# Eval("AcknowledgeStatus") %>'></asp:Label>
+                                        </td>
+                                       <td>&nbsp;</td>
+                                    </tr>
+                                </table> 
+                            </ItemTemplate> 
+                            <ItemStyle Width="15%"/>
+                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
 	        </td>
         </tr>
         <tr>
         <td align="center">
-                            <asp:Button ID="btnPrint" runat="server" Text="Print" OnClick="btnPrint_Click"/>
+                            <asp:Button ID="btnPrint" runat="server" Visible ="false"  Text="Print" OnClick="btnPrint_Click"/>
                         </td>
         </tr>
         

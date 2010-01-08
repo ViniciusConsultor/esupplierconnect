@@ -102,8 +102,10 @@ public partial class Quotation_QuotationRequestDetails : BaseForm
             {
                 lblRequestNo.Text = quoHeader.RequestNumber.ToString();
                 lblQuotationNumber.Text = quoHeader.QuotationNumber.ToString();
-                lblQuotationDate.Text = GetShortDate(GetDateTimeFormStoredValue(quoHeader.QuotationDate.Value));
-                lblExpiryDate.Text = GetShortDate(GetDateTimeFormStoredValue(quoHeader.ExpiryDate.Value));
+                if(quoHeader.QuotationDate.HasValue) 
+                    lblQuotationDate.Text = GetShortDate(GetDateTimeFormStoredValue(quoHeader.QuotationDate.Value));
+                if (quoHeader.ExpiryDate.HasValue) 
+                    lblExpiryDate.Text = GetShortDate(GetDateTimeFormStoredValue(quoHeader.ExpiryDate.Value));
                 lblSupplierID.Text = quoHeader.SupplierId;
             }
 

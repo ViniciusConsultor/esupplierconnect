@@ -45,7 +45,7 @@
                     <tr>
                         <td class="DetailsTableCaption" colspan="2">Information</td> 
                         <td>
-                            <asp:HyperLink runat="server" ID="hlHeaderText" Text=''></asp:HyperLink>  
+                             <asp:HyperLink runat="server" ID="hlHeaderText" Text='Texts'></asp:HyperLink>  
                         </td>
                     </tr> 
                     <tr>
@@ -378,20 +378,6 @@
                                                 </ItemTemplate> 
                                                 <ItemStyle Wrap="false" Width="12%"/>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Acknowledge Date" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
-                                                <ItemTemplate>
-                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                        <tr>
-                                                            <td>&nbsp;</td>
-                                                            <td Width="100%" nowrap="nowrap">
-                                                                 <DatePicker:DatePicker ID="dtAcknowledgeDate" runat="server" />
-                                                            </td>
-                                                           <td>&nbsp;</td>
-                                                        </tr>
-                                                    </table>  
-                                                </ItemTemplate> 
-                                                <ItemStyle Wrap="false" Width="12%"/>
-                                            </asp:TemplateField>
                                         </Columns>
                                     </asp:GridView>
 	                            </td>
@@ -410,7 +396,7 @@
     <br />
      <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
-           
+           <td nowrap="nowrap" width="50%" style="height: 21px">&nbsp;&nbsp;</td>
             <td nowrap="nowrap" style="height: 21px" align="center">
                <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click"/>
             </td>
@@ -428,27 +414,27 @@
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderHeaderText.aspx", MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("../PurchaseOrder/PurchaseOrderHeaderText.aspx", MyArgs, WinSettings);
         }
         
         function ShowItemText(itemNo)
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderItemText.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("../PurchaseOrder/PurchaseOrderItemText.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
         }
         function ShowComponent(itemNo)
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderComponents.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("../PurchaseOrder/PurchaseOrderComponents.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
             
         }
          function ShowService(itemNo)
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderServices.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("../PurchaseOrder/PurchaseOrderServices.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
             
         }
     </script>	

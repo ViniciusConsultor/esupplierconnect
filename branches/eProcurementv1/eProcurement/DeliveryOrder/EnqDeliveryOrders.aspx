@@ -151,7 +151,8 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:LinkButton runat="server" ID="lbhlOrderNo" Text=' <%# Eval("OrderNumber") %> '></asp:LinkButton>  
+                                            <asp:Label ID="lblOrderNo" runat="server" CssClass="" Text='<%# Eval("OrderNumber") %> '></asp:Label>  
+                                 
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>

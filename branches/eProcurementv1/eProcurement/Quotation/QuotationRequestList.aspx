@@ -82,7 +82,7 @@
                             </asp:DropDownList>
                         </td>
                     </tr>
-                    <asp:Panel ID="pnlSupplier" runat="server" Visible="false">
+                    <asp:Panel ID="pnlSupplier" runat="server" Visible="true">
                     <tr>
                         <td align="left" nowrap Width="130px">
                             <asp:Label ID="Label10" runat="server" Text="Supplier"></asp:Label>
@@ -135,14 +135,29 @@
                             <ItemStyle Width = "5%" HorizontalAlign="Left" />
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Request No">
+                            <ItemTemplate>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td Width="100%" align="right" nowrap>
+                                            <asp:LinkButton runat="server" ID="hlReqNo" Text=' <%# Eval("RequestNumber") %> ' OnClick="hlReqNo_OnClick"></asp:LinkButton>  
+                                            <asp:Label ID="lblReqNo" runat="server" CssClass="" Text='<%# Eval("RequestNumber") %>' Visible="false"></asp:Label>
+                                        </td>
+                                       <td>&nbsp;</td>
+                                    </tr>
+                                </table> 
+                            </ItemTemplate> 
+                            <ItemStyle Width="10%"/>
+                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Quotation No">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:HyperLink runat="server" ID="lbhlQuoNo" Text='<%# Eval("QuotationNumber") %>' ></asp:HyperLink>  
-                                            <asp:LinkButton runat="server" ID="lbhlQuotationNo" Text=' <%# Eval("QuotationNumber") %> ' OnClick="lbhlQuotationNo_OnClick" Visible="false"></asp:LinkButton>  
+                                            <asp:Label ID="lblQuotationNumber" runat="server" CssClass="" Text='<%# Eval("QuotationNumber") %> '></asp:Label>  
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -181,21 +196,7 @@
                             <ItemStyle Wrap="False" Width="10%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Request No">
-                            <ItemTemplate>
-                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td Width="100%" align="right">
-                                            <asp:Label ID="lblReqNo" runat="server" CssClass="" Text='<%# Eval("RequestNumber") %>'></asp:Label>
-                                        </td>
-                                       <td>&nbsp;</td>
-                                    </tr>
-                                </table> 
-                            </ItemTemplate> 
-                            <ItemStyle Width="10%"/>
-                            <HeaderStyle HorizontalAlign="Center" Wrap="False" />
-                        </asp:TemplateField>
+                        
                         <asp:TemplateField HeaderText="Expiry Date">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">

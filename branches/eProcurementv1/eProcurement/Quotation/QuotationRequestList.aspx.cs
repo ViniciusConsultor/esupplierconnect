@@ -74,11 +74,22 @@ public partial class Quotation_QuotationRequestList : BaseForm
                 base.Page_Load(sender, e);
                 /***************************************************/
 
-                imgSupplierSearch.Attributes.Add("onclick", "OpenSupplierDialog('" + txtSupplierId.ClientID + "')");
-                imgSupplierSearch.Attributes.Add("style", "cursor: hand");
 
-                LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
-                pnlSupplier.Visible = loginUser.ProfileType == ProfileType.Supplier ? false : true;
+                if (string.Compare(LoginUser.ProfileType, ProfileType.Supplier, true) == 0)
+                {
+                    txtSupplierId.Text = LoginUser.SupplierId;
+                    txtSupplierId.Enabled = false;
+                    imgSupplierSearch.Visible = false;
+                }
+                else 
+                {
+                    imgSupplierSearch.Attributes.Add("onclick", "OpenSupplierDialog('" + txtSupplierId.ClientID + "')");
+                    imgSupplierSearch.Attributes.Add("style", "cursor: hand");
+
+                }
+
+                //LoginUserVO loginUser = (LoginUserVO)Session[SessionKey.LOGIN_USER];
+                //pnlSupplier.Visible = loginUser.ProfileType == ProfileType.Supplier ? false : true;
                 LoadReqNo();
                 
               //InitGrid();
@@ -123,14 +134,10 @@ public partial class Quotation_QuotationRequestList : BaseForm
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            LinkButton lbhlQuotationNo = (LinkButton)e.Row.FindControl("lbhlQuotationNo");
-            lbhlQuotationNo.Attributes.Add("QuotationNumber", lbhlQuotationNo.Text);
-
-            HyperLink lbhlQuoNo = (HyperLink)e.Row.FindControl("lbhlQuoNo");
+            LinkButton hlReqNo = (LinkButton)e.Row.FindControl("hlReqNo");
             Label lblReqNo = (Label)e.Row.FindControl("lblReqNo");
 
-            lbhlQuoNo.Attributes.Add("lbhlQuoNo", lbhlQuoNo.Text);
-            lbhlQuoNo.NavigateUrl = "QuotationRequestDetails.aspx?RequestNumber=" + lblReqNo.Text;
+            hlReqNo.Attributes.Add("ReqNo", lblReqNo.Text);
         }
     }
 
@@ -140,17 +147,17 @@ public partial class Quotation_QuotationRequestList : BaseForm
         GetData();
     }
 
-    protected void lbhlQuotationNo_OnClick(object sender, System.EventArgs e)
+    protected void hlReqNo_OnClick(object sender, System.EventArgs e)
     {
         try
         {
             CheckSessionTimeOut();
-            LinkButton lbhlQuotationNo = (LinkButton)sender;
-            string quoNo = lbhlQuotationNo.Attributes["QuotationNumber"].ToString();
+            LinkButton hlReqNo = (LinkButton)sender;
+            string quoNo = hlReqNo.Attributes["ReqNo"].ToString();
             string url = "";
 
             url = "~/Quotation/QuotationRequestDetails.aspx?FunctionId=" + base.m_FunctionId;
-            url += "&RequestNumber=" + m_SearchCriteriaVO.RequestNumber;
+            url += "&RequestNumber=" + quoNo;
 
             //url += "&QuotationNumber=" + m_SearchCriteriaVO.QuotationNumber;
             //if (m_SearchCriteriaVO.QuotationFromDate.HasValue)
@@ -226,7 +233,13 @@ public partial class Quotation_QuotationRequestList : BaseForm
 
     private void LoadReqNo()
     {
-        Collection<QuotationHeader> qHeader = this.mainController.GetDAOCreator().CreateQuotationHeaderDAO().RetrieveAll(" EBELN ASC");
+        string whereClause = "";
+        if (string.Compare(LoginUser.ProfileType, ProfileType.Supplier, true) == 0) 
+        {
+            whereClause = " LIFNR='" + Utility.EscapeSQL(LoginUser.SupplierId) + "' ";
+        }    
+        string orderClause = " EBELN ASC ";
+        Collection<QuotationHeader> qHeader = this.mainController.GetDAOCreator().CreateQuotationHeaderDAO().RetrieveByQuery(whereClause,orderClause);
         ddlRequestNo.DataSource = qHeader;
         ddlRequestNo.DataTextField = "RequestNumber";
         ddlRequestNo.DataValueField = "RequestNumber";

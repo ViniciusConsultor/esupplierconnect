@@ -197,65 +197,110 @@ private void InitDataGridView()
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
+        string strErrorMsg = ValidateInput();
 
-        if (validateInputs())
+        if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
         {
-
-            int i = 0;
-            int cnt = 0;
-
-
-
-
-            foreach (GridViewRow row in gvData.Rows)
-            {
-                TextBox txtDeliveryQuantity = (TextBox)row.FindControl("txtDeliveryQuantity");
-
-                if (txtDeliveryQuantity.Text != null || txtDeliveryQuantity.Text != String.Empty)
-                {
-
-                    Label lblMaterialNumber = (Label)row.FindControl("lblMaterialNumber");
-                    Label lblItemSequence = (Label)row.FindControl("lblItemSequence");
-                    Label lblOpenQuantity = (Label)row.FindControl("lblOpenQuantity");
-
-                    DeliveryOrder doorder = new DeliveryOrder();
-
-                    doorder.DeliveryNumber = txtDeliveryNo.Text.Trim();
-                    doorder.DeliveryDate = GetStoredDateValue(dtpDeliveryDate.SelectedDate);
-
-                    doorder.OrderNumber = lblOrderNumber.Text.Trim();
-                    doorder.ItemSequence = lblItemSequence.Text.Trim();
-                    doorder.MaterialNumber = lblMaterialNumber.Text.Trim();
-                    doorder.OpenQuantity = Convert.ToDecimal(lblOpenQuantity.Text.Trim());
-                    doorder.DeliveryQuantity = Convert.ToDecimal(txtDeliveryQuantity.Text.Trim());
-                    doorder.RecordStatus = "V"; // V- Void
-                    doorder.SupplierID = this.mainController.GetLoginUserVO().SupplierId.ToString();
-
-
-                    if (doorder.DeliveryNumber == String.Empty) lblMessage.Text = "Please enter Delivery Number.";
-                    else if (!doorder.DeliveryDate.HasValue) lblMessage.Text = "Please select Delivery Date";
-                    else if (doorder.OpenQuantity < doorder.DeliveryQuantity) lblMessage.Text = "Please make sure Delivery Quantity entered is less then or equal to Open Quantity";
-                    else this.mainController.GetDeliveryController().InsertDeliveryOrder(doorder);
-
-                    cnt++;
-                }
-                i++;
-            }
-
-            Response.Redirect("PurchaseOrderList.aspx?FunctionId=S-0004");
+            plMessage.Visible = true;
+            displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
+            return;
         }
+
+
+        int i = 0;
+        int cnt = 0;
+
+
+
+
+        foreach (GridViewRow row in gvData.Rows)
+        {
+            TextBox txtDeliveryQuantity = (TextBox)row.FindControl("txtDeliveryQuantity");
+
+
+            Label lblMaterialNumber = (Label)row.FindControl("lblMaterialNumber");
+            Label lblItemSequence = (Label)row.FindControl("lblItemSequence");
+            Label lblOpenQuantity = (Label)row.FindControl("lblOpenQuantity");
+
+            DeliveryOrder doorder = new DeliveryOrder();
+
+            doorder.DeliveryNumber = txtDeliveryNo.Text.Trim();
+            doorder.DeliveryDate = GetStoredDateValue(dtpDeliveryDate.SelectedDate);
+
+            doorder.OrderNumber = lblOrderNumber.Text.Trim();
+            doorder.ItemSequence = lblItemSequence.Text.Trim();
+            doorder.MaterialNumber = lblMaterialNumber.Text.Trim();
+            doorder.OpenQuantity = Convert.ToDecimal(lblOpenQuantity.Text.Trim());
+            doorder.DeliveryQuantity = Convert.ToDecimal(txtDeliveryQuantity.Text.Trim());
+            doorder.RecordStatus = "V"; // V- Void
+            doorder.SupplierID = this.mainController.GetLoginUserVO().SupplierId.ToString();
+
+            this.mainController.GetDeliveryController().InsertDeliveryOrder(doorder);
+
+        }
+
+        Response.Redirect("PurchaseOrderList.aspx?FunctionId=S-0004");
+    
     }
 
-    protected bool validateInputs()
+    #region validation
+    private string ValidateInput()
     {
-        if (!(txtDeliveryNo.Text.Length > 0))
+        System.Text.StringBuilder strErrorMsg = new System.Text.StringBuilder(string.Empty);
+        bool bIsValid = true;
+        int iCount = 0;
+
+
+        if (txtDeliveryNo.Text.Trim()=="")
         {
-            lblMessage.Text = "Please enter Delivery Order No, Thanks!";
-            return false;
+            strErrorMsg.Append(MakeListItem("Please select a value for Delivery Order No."));
+            return strErrorMsg.ToString();
+        }
+
+        if (dtpDeliveryDate.Text == "")
+        {
+            bIsValid = false;
+            strErrorMsg.Append(MakeListItem("Please select a value for Delivery  Date."));
         }
         else
         {
-            return true;
+            if (!dtpDeliveryDate.IsValidDate)
+            {
+                bIsValid = false;
+                strErrorMsg.Append(MakeListItem("Please select a valid value for Delivery Date."));
+            }
         }
+
+        if (!bIsValid) 
+        {
+            return strErrorMsg.ToString();
+        }
+
+        foreach (GridViewRow row in gvData.Rows)
+        {
+            TextBox txtDeliveryQuantity = (TextBox)row.FindControl("txtDeliveryQuantity");
+            Label lblOpenQuantity = (Label)row.FindControl("lblOpenQuantity");
+
+            if (txtDeliveryQuantity.Text.Trim() == "") 
+            {
+                strErrorMsg.Append(MakeListItem("Please select a valid value for Delivery Quantity."));
+                return strErrorMsg.ToString();
+            }
+
+            if (!IsNumericText(txtDeliveryQuantity.Text.Trim()))
+            {
+                strErrorMsg.Append(MakeListItem("Please enter a valid Delivery Quantity."));
+                return strErrorMsg.ToString();
+            }
+
+            if (Convert.ToDecimal(lblOpenQuantity.Text.Trim()) < Convert.ToDecimal(txtDeliveryQuantity.Text.Trim())) 
+            {
+                strErrorMsg.Append(MakeListItem("Please make sure Delivery Quantity entered is less then or equal to Open Quantity"));
+                return strErrorMsg.ToString();
+            }
+        }
+
+        return strErrorMsg.ToString();
     }
+    #endregion
 }
