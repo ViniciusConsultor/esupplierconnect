@@ -12,6 +12,7 @@ using System.Web.UI.HtmlControls;
 
 using eProcurement_BLL;
 using eProcurement_DAL;
+using eProcurement_BLL.UserManagement;
 public partial class Quotation_ProcessQuotationList : BaseForm 
 {
     private MainController mainController = null;
@@ -82,22 +83,22 @@ public partial class Quotation_ProcessQuotationList : BaseForm
             {
                 //Access control
                 /***************************************************/
-                //base.m_FunctionIdColl.Add("S-0010");
+                base.m_FunctionIdColl.Add("S-0010");
 
-                //string functionId = Request.QueryString["FunctionId"];
-                //if (string.IsNullOrEmpty(functionId))
-                //{
-                //    throw new Exception("Invalid Function Id.");
-                //}
-                //else
-                //{
-                //    base.m_FunctionId = functionId;
-                //    if (string.Compare(functionId, "S-0010", true) == 0)
-                //    {
-                //        m_FuncFlag = "PROCESS_QUOTATION";
-                //    }
-                   
-                //}
+                string functionId = Request.QueryString["FunctionId"];
+                if (string.IsNullOrEmpty(functionId))
+                {
+                    throw new Exception("Invalid Function Id.");
+                }
+                else
+                {
+                    base.m_FunctionId = functionId;
+                    if (string.Compare(functionId, "S-0010", true) == 0)
+                    {
+                        m_FuncFlag = "PROCESS_QUOTATION";
+                    }
+
+                }
                 base.Page_Load(sender, e);
                 /***************************************************/
                 //imgSupplierSearch.Attributes.Add("onclick", "OpenSupplierDialog('" + txtSupplierId.ClientID + "')");
@@ -113,28 +114,6 @@ public partial class Quotation_ProcessQuotationList : BaseForm
                     {
                         SearchCriteriaVO searchCriteriaVO = new SearchCriteriaVO();
                         
-                        if (!string.IsNullOrEmpty(Request.QueryString["QuoFormDate"]))
-                            searchCriteriaVO.QuoFromDate = Convert.ToInt64(Request.QueryString["QuoFormDate"].ToString());
-                        else
-                            searchCriteriaVO.QuoFromDate = null;
-                        if (!string.IsNullOrEmpty(Request.QueryString["QuoToDate"]))
-                            searchCriteriaVO.QuoToDate = Convert.ToInt64(Request.QueryString["QuoToDate"].ToString());
-                        else
-                            searchCriteriaVO.QuoToDate = null;
-                        
-                        if (!string.IsNullOrEmpty(Request.QueryString["ExpFormDate"]))
-                            searchCriteriaVO.ExpFromDate = Convert.ToInt64(Request.QueryString["ExpFormDate"].ToString());
-                        else
-                            searchCriteriaVO.ExpFromDate = null;
-
-                        if (!string.IsNullOrEmpty(Request.QueryString["ExpToDate"]))
-                            searchCriteriaVO.ExpToDate = Convert.ToInt64(Request.QueryString["ExpToDate"].ToString());
-                        else
-                            searchCriteriaVO.ExpToDate = null;
-                        
-                        searchCriteriaVO.QuotationNumber = Request.QueryString["QuotationNumber"];
-                        searchCriteriaVO.RequestNumber = Request.QueryString["RequestNumber"];
-                        //searchCriteriaVO.Status = Request.QueryString["Status"];
                         m_SearchCriteriaVO = searchCriteriaVO;
 
                         if (!string.IsNullOrEmpty(Request.QueryString["PageIdx"]))
@@ -163,9 +142,7 @@ public partial class Quotation_ProcessQuotationList : BaseForm
             if (string.Compare(m_FuncFlag, "PROCESS_QUOTATION", false) == 0)
             {
                 lblSubPath.Text = "Process Quotation";
-                //plshSupplier.Visible = false;
-                //plshBuyer.Visible = true;
-                //plshStatus.Visible = false;
+                ShowData();           
             }
         }
         catch (Exception ex)
@@ -174,29 +151,6 @@ public partial class Quotation_ProcessQuotationList : BaseForm
         }
     }
 
-
-    private void StoreSearchCriteria()
-    {
-        SearchCriteriaVO searchCriteriaVO = new SearchCriteriaVO();
-        
-        searchCriteriaVO.QuotationNumber  = txtQuotationNo.Text.Trim();
-        if (dtQuoDtFrom.Text != "")
-            searchCriteriaVO.QuoFromDate = GetStoredDateValue(dtQuoDtFrom.SelectedDate);
-        else
-            searchCriteriaVO.QuoFromDate  = null;
-        if (dtQuoDtFrom.Text != "")
-            searchCriteriaVO.QuoToDate = GetStoredDateValue(dtQuoDtTo.SelectedDate);
-        else
-            searchCriteriaVO.QuoToDate = null;
-        if (dtExpDtFrom.Text != "")
-            searchCriteriaVO.ExpFromDate = GetStoredDateValue(dtExpDtFrom.SelectedDate);
-        else
-            searchCriteriaVO.ExpFromDate = null;
-        //searchCriteriaVO.SupplierId = txtSupplierId.Text.Trim();
-        //searchCriteriaVO.BuyerName = txtBuyer.Text.Trim();
-        //searchCriteriaVO.Status = "R";//for request
-        m_SearchCriteriaVO = searchCriteriaVO;
-    }
 
     private void ShowData()
     {
@@ -211,19 +165,13 @@ public partial class Quotation_ProcessQuotationList : BaseForm
     private Collection<QuotationHeader> GetData()
     {
         Collection<QuotationHeader> qoColl = new Collection<QuotationHeader>();
-        //if (string.Compare(m_FuncFlag, "PROCESS_QUOTATION", false) == 0)
-        //{
-            qoColl = mainController.GetQuotationController().GetQuotationHeaderList
-           (m_SearchCriteriaVO.QuotationNumber.ToString(), 
-           GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.QuoFromDate)),
-           GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.QuoToDate)),
-           GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.ExpFromDate)), 
-           GetStoredDateValue(Convert.ToDateTime(m_SearchCriteriaVO.ExpToDate)),
-           m_SearchCriteriaVO.RequestNumber.ToString (), 
-           Session[SessionKey.LOGIN_USER].ToString());
-        //}
-
-       return qoColl;
+    
+        LoginUserVO loginUserVO = (LoginUserVO)Session[SessionKey.LOGIN_USER];
+        string SupID;
+        SupID = loginUserVO.SupplierId;
+        qoColl = mainController.GetQuotationController().GetPendingProcessQuotationList(SupID);
+    
+        return qoColl;
     }
 
     protected void gvData_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -233,49 +181,40 @@ public partial class Quotation_ProcessQuotationList : BaseForm
     }
 
 
-    protected void gvData_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+
+    protected void gvData_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            LinkButton lbhlQuotationNo = (LinkButton)e.Row.FindControl("lbhlQuotationNo");
-            lbhlQuotationNo.Attributes.Add("QuotationNumber", lbhlQuotationNo.Text);
+            LinkButton lbhlRFQNo = (LinkButton)e.Row.FindControl("hlRFQNo");
+            lbhlRFQNo.Attributes.Add("RequestNumber", lbhlRFQNo.Text);
+
+            Label lblRecSts = (Label)e.Row.FindControl("lblRecordStatus");
+            if (string.Compare(lblRecSts.Text, QuotationStatus.Request, true) == 0)
+            {
+                lblRecSts.Text = "Request";
+            }
+
         }
     }
 
-    protected void hlQuotationNo_OnClick(object sender, System.EventArgs e)
+    protected void hlRFQNo_OnClick(object sender, System.EventArgs e)
     {
         try
         {
             CheckSessionTimeOut();
-            LinkButton lbhlQuotationNo = (LinkButton)sender;
-            string quotationNo = lbhlQuotationNo.Attributes["QuotationNumber"].ToString();
+            LinkButton lbhlRFQNo = (LinkButton)sender;
+            string requestNo = lbhlRFQNo.Text.ToString();
             string url = "";
             if (string.Compare(m_FuncFlag, "PROCESS_QUOTATION", false) == 0)
             {
-                url = "~/DeliveryOrder/ProcessQuotationDetails.aspx?FunctionId=" + base.m_FunctionId;
-                url += "&QuotationNumber=" + m_SearchCriteriaVO.QuotationNumber;
-                if (m_SearchCriteriaVO.QuoFromDate.HasValue)
-                {
-                    url += "&QuoFromDate=" + m_SearchCriteriaVO.QuoFromDate.Value.ToString();
-                }
-                if (m_SearchCriteriaVO.QuoToDate.HasValue)
-                {
-                    url += "&QuoToDate=" + m_SearchCriteriaVO.QuoToDate.Value.ToString();
-                }
-                if (m_SearchCriteriaVO.ExpFromDate.HasValue)
-                {
-                    url += "&ExpFromDate=" + m_SearchCriteriaVO.ExpFromDate.Value.ToString();
-                }
-                if (m_SearchCriteriaVO.ExpToDate.HasValue)
-                {
-                    url += "&ExpToDate=" + m_SearchCriteriaVO.ExpToDate.Value.ToString();
-                }
-                //url += "&BuyerName=" + m_SearchCriteriaVO.BuyerName;
+                url = "~/Quotation/ProcessQuotationDetail.aspx?FunctionId=" + base.m_FunctionId;
+                url += "&RequestNumber=" + requestNo;
                 url += "&PageIdx=" + gvData.PageIndex.ToString();
 
-                //Session[SessionKey.Q] = orderNo;
+                Session[SessionKey.RequestNumber] = requestNo;
             }
-                if (url != null)
+            if (url != null)
                 Response.Redirect(url);
         }
         catch (Exception ex)
@@ -287,104 +226,5 @@ public partial class Quotation_ProcessQuotationList : BaseForm
         }
     }
 
-
-    #region validation
-    private string ValidateInput()
-    {
-        System.Text.StringBuilder strErrorMsg = new System.Text.StringBuilder(string.Empty);
-
-        bool bIsValid = true;
-        bool bIsValidExp = true; 
-
-        if (dtQuoDtFrom.Text != "")
-        {
-            if (!dtQuoDtFrom.IsValidDate)
-            {
-                bIsValid = false;
-                strErrorMsg.Append(MakeListItem("Please select a valid value for Quotation Date From."));
-            }
-        }
-
-        if (dtQuoDtTo.Text != "")
-        {
-            if (!dtQuoDtTo.IsValidDate)
-            {
-                bIsValid = false;
-                strErrorMsg.Append(MakeListItem("Please select a valid value for Quotation Date To."));
-            }
-        }
-        if (dtExpDtFrom.Text != "")
-        {
-            if (!dtExpDtFrom.IsValidDate)
-            {
-                bIsValidExp = false;
-                strErrorMsg.Append(MakeListItem("Please select a valid value for Expiry Date From."));
-            }
-        }
-
-        if (dtExpDtTo.Text != "")
-        {
-            if (!dtExpDtTo.IsValidDate)
-            {
-                bIsValidExp = false;
-                strErrorMsg.Append(MakeListItem("Please select a valid value for Expiry Date To."));
-            }
-        }
-        if ((!bIsValid) || (!bIsValidExp))
-        {
-            return strErrorMsg.ToString();
-        }
-
-        if (dtQuoDtFrom.SelectedDateString != "" && dtQuoDtTo.SelectedDateString != "")
-        {
-            DateTime dtQFrom = dtQuoDtFrom.SelectedDate;
-            DateTime dtQTo = dtQuoDtTo.SelectedDate;
-
-            if (dtQFrom.CompareTo(dtQTo) > 0) //quotation fromdate - quotation todate (0=equal, 1=greater, -1=smaller)
-            {
-                strErrorMsg.Append(MakeListItem("Quotation Date To must be equal or greater than Quotation Date From."));
-                return strErrorMsg.ToString();
-            }
-        }
-
-        if (dtExpDtFrom.SelectedDateString != "" && dtExpDtTo.SelectedDateString != "")
-        {
-            DateTime dtEFrom = dtExpDtFrom.SelectedDate;
-            DateTime dtETo = dtExpDtTo.SelectedDate;
-
-            if (dtEFrom.CompareTo(dtETo) > 0) //expiry fromdate - expiry todate (0=equal, 1=greater, -1=smaller)
-            {
-                strErrorMsg.Append(MakeListItem("Expiry Date To must be equal or greater than Expiry Date From."));
-                return strErrorMsg.ToString();
-            }
-        }
-        return strErrorMsg.ToString();
-    }
-    #endregion
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            CheckSessionTimeOut();
-
-            string strErrorMsg = ValidateInput();
-
-            if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
-            {
-                plMessage.Visible = true;
-                displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
-                return;
-            }
-
-            StoreSearchCriteria();
-            ShowData();
-        }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            displayCustomMessage(ex.Message, lblMessage, SystemMessageType.Error);
-        }
-    }
-    
+   
 }

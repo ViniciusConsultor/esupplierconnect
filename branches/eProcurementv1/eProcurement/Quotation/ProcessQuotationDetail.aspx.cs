@@ -86,19 +86,19 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionId = "B-0007";
+                //base.m_FunctionId = "B-0007";
                  
-                m_FuncFlag = "PROCESS_QUOTATION";
+                //m_FuncFlag = "PROCESS_QUOTATION";
        
                 //base.Page_Load(sender, e);
                 /***************************************************/
 
                 //Initialize Page
-                InitPage();
+                //InitPage();
 
                 //Check access right
-                if (CheckAccessRight() == false)
-                    GotoTimeOutPage();
+                //if (CheckAccessRight() == false)
+                //    GotoTimeOutPage();
 
                 //store querystring in viewstate, it will be used to pass back to list page
                 string queryString = Request.QueryString.ToString();
@@ -117,45 +117,15 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
         }
     }
 
-    private void InitPage()
+   private void InitQuotationHeader()
     {
-        try
-        {
-            if (string.Compare(m_FuncFlag, "PROCESS_QUOTATION", false) == 0)
-            {
-                lblSubPath.Text = "Process Quotation";
-                btnSubmit.Visible = true;
-                btnReturn.Visible = true;
-            }
-        }
-        catch (Exception ex)
-        {
-            throw (ex);
-        }
-    }
-    private bool CheckAccessRight()
-    {
-        if (string.Compare(m_FuncFlag, "PROCESS_QUOTATION", false) == 0)
-        {
-
-        }
-        return true;
-    }
-
-    private void InitQuotationHeader()
-    {
-        Collection<QuotationHeader> qHeaders = new Collection<QuotationHeader>();
-
-        qHeaders = mainController.GetQuotationController().GetQuotationHeader(lblQuotationNo.Text.ToString ()  );
-
         QuotationHeader qHeader = new QuotationHeader();
-        if (qHeaders.Count > 0 ){}
-
-        qHeader=qHeaders[0];
+        qHeader = mainController.GetDAOCreator().CreateQuotationHeaderDAO().RetrieveByKey(Session[SessionKey.RequestNumber].ToString());
+   
 
         if (qHeader == null)
         {
-            throw new Exception("Invalid Quotation Number.");
+            throw new Exception("Invalid Request Number.");
         }
 
         Supplier supplier = mainController.GetSupplierController().GetSupplier(qHeader.SupplierId.ToString () );
@@ -166,124 +136,136 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
         lblPostalCode.Text = "Singapore " + supplier.PostalCode;
         lblCountry.Text = supplier.CountryCode;
 
-        lblShipmentAddress.Text = "";
+        //lblShipmentAddress.Text = "";
 
         lblRequestNumber.Text = qHeader.RequestNumber;
-        //lblRFQDate.Text=""
-        lblQuotationNo.Text = qHeader.QuotationNumber;
-        if (qHeader.QuotationDate.HasValue)
-            lblQuotationDate.Text = GetShortDate(GetDateTimeFormStoredValue(qHeader.QuotationDate.Value));
-        else
-            lblQuotationDate.Text = "";
         if (qHeader.ExpiryDate.HasValue)
-            lbExpiryDate.Text = GetShortDate(GetDateTimeFormStoredValue(qHeader.ExpiryDate.Value));
+           lblRFQExpDate.Text = GetShortDate(GetDateTimeFormStoredValue(qHeader.ExpiryDate.Value));
         else
-            lbExpiryDate.Text = "";
+           lblRFQExpDate.Text = "";
+
         //for attachment
+
        
     }
-
+    
     private void InitItems()
     {
-        string whereClause = " ANGNR = '" + lblQuotationNo.Text + "'";
+        string whereClause = " EBELN = '" + Session[SessionKey.RequestNumber].ToString() + "'";
         Collection<QuotationItem> items = mainController.GetDAOCreator().CreateQuotationItemDAO().RetrieveByQuery(whereClause);    
         gvItem.DataSource = items;
         gvItem.DataBind();
+        lblCount.Text = items.Count.ToString() + " Record(s) was found.";
+        if (items.Count > 0)
+        {
+            plResult.Visible = true;
+            btnReturn.Visible = true;
+            btnSubmit.Visible = true;
+        }
 
     }
-    protected void gvItem_ItemDataBound(Object sender, RepeaterItemEventArgs e)
+              
+    protected void gvItem_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            //GridView gvSchedule = (GridView)e.Item.FindControl("gvSchedule");
-            Label lblMaterialNo = (Label)e.Item.FindControl("lblMaterialNumber");
-            Label lblPlant = (Label)e.Item.FindControl("lblPlant");
-            Label lblRequiredQuantity = (Label)e.Item.FindControl("lblRequiredQuantity");
-            Label lblRQUnitMeasure = (Label)e.Item.FindControl("lblRQUnitMeasure");
-            Label lblSupplyQuantity = (Label)e.Item.FindControl("lblSupplyQuantity");
-            Label lblSQUnitMeasure = (Label)e.Item.FindControl("lblSQUnitMeasure");
-            Label lblPriceUnit = (Label)e.Item.FindControl("lblPriceUnit");
-            Label lblNetPrice = (Label)e.Item.FindControl("lblNetPrice");
-            Label lblNetAmount = (Label)e.Item.FindControl("lblNetAmount");
-            decimal amount = Convert.ToDecimal(lblPriceUnit.Text) * Convert.ToDecimal(lblNetPrice.Text);
-            lblNetAmount.Text = amount.ToString();
-
-            //HyperLink hlItemText = (HyperLink)e.Item.FindControl("hlItemText");
-            //HyperLink hlComponent = (HyperLink)e.Item.FindControl("hlComponent");
-            //HyperLink hlService = (HyperLink)e.Item.FindControl("hlService");
-
-            //hlItemText.NavigateUrl = "javascript:ShowItemText('" + lblItemSequence.Text + "')";
-            //hlComponent.NavigateUrl = "javascript:ShowComponent('" + lblItemSequence.Text + "')";
-            //hlService.NavigateUrl = "javascript:ShowService('" + lblItemSequence.Text + "')";
-
-            //Collection<PurchaseOrderItemSchedule> schedules = mainController.GetOrderItemController()
-            //    .GetPurchaseOrderItemSchedules(Session[SessionKey.OrderNumber].ToString(), lblItemSequence.Text);
-            //gvSchedule.DataSource = schedules;
-            //gvSchedule.DataBind();
+            Label lblReqSeq = (Label)e.Row.FindControl("lblReqSeq");
+            Label lblMaterialNo = (Label)e.Row.FindControl("lblMaterialNumber");
+            Label lblPlant = (Label)e.Row.FindControl("lblPlant");
+            Label lblRequiredQuantity = (Label)e.Row.FindControl("lblReqQty");
+            Label lblRQUnitMeasure = (Label)e.Row.FindControl("lblReqUOM");
+            Label lblNetValue = (Label)e.Row.FindControl("lblNetValue");
+            TextBox txtSupQty = (TextBox)e.Row.FindControl("txtSupQty");
+            TextBox txtSupUOM = (TextBox)e.Row.FindControl("txtSupUOM");
+            TextBox txtNetPrice = (TextBox)e.Row.FindControl("txtNetPrice");
+            TextBox txtUnitPrice = (TextBox)e.Row.FindControl("txtUnitPrice");
+            
+            ////CalculateNetPrice
+            //lblNetValue.Text = "javascript:CalculateNetPrice(" + txtNetPrice.Text + "," + txtUnitPrice.Text + " ," + txtSupQty.Text + ")";
         }
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        try
+        //ValidateInput();
+        string errorMsg;
+        errorMsg = ValidateInput();
+        if (errorMsg == "")
         {
-            EpTransaction tran = DataManager.BeginTransaction();
             try
             {
-                QuotationHeader header = new QuotationHeader();
-                header = mainController.GetDAOCreator().CreateQuotationHeaderDAO().RetrieveByKey(tran, lblRequestNumber.Text.ToString());                
-
-
-                //Check whether the order has already been acknowledged 
-                if (string.Compare(header.RecordStatus, QuotationStatus.Acknowledge, true) == 0)
+                EpTransaction tran = DataManager.BeginTransaction();
+                try
                 {
-                    throw new Exception("The quotation has already been acknowledged by other user.");
-                }
+                    QuotationHeader header = new QuotationHeader();
+                    header = mainController.GetDAOCreator().CreateQuotationHeaderDAO().RetrieveByKey(tran, lblRequestNumber.Text.ToString());
 
-                //Update Order header
-                header.RecordStatus  = QuotationStatus.Acknowledge ;
-                //header.AcknowledgeBy = mainController.GetLoginUserVO().UserId;
-                mainController.GetDAOCreator().CreateQuotationHeaderDAO().Update(header);
 
-                //Update Order Item
-                /*foreach (PurchaseOrderItemSchedule schedule in schedules)
-                {
-                    scheduleSeq = schedule.PurchaseOrderScheduleSequence;
-
-                    //Update Order Item
-                    if (string.Compare(itemSeq, schedule.PurchaseOrderItemSequence, false) != 0)
+                    //Check whether the order has already been acknowledged 
+                    if (string.Compare(header.RecordStatus, QuotationStatus.Acknowledge, true) == 0)
                     {
-                        PurchaseOrderItem item = mainController.GetDAOCreator().CreatePurchaseOrderItemDAO()
-                            .RetrieveByKey(tran, orderNumber, schedule.PurchaseOrderItemSequence);
-                        item.AcknowledgementStatus = POAckStatus.Yes;
-                        mainController.GetDAOCreator().CreatePurchaseOrderItemDAO().Update(tran, item);
-                        itemSeq = schedule.PurchaseOrderItemSequence;
+                        throw new Exception("The quotation has already been processed by other user.");
                     }
 
-                    //Update Order Item Schedule
-                    scheduleSeq = schedule.PurchaseOrderScheduleSequence;
-                    PurchaseOrderItemSchedule scheduleUpdt = mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO()
-                        .RetrieveByKey(tran, orderNumber, schedule.PurchaseOrderItemSequence, scheduleSeq);
-                    scheduleUpdt.AcknowledgementDate = schedule.AcknowledgementDate;
-                    mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO()
-                        .Update(tran, scheduleUpdt);
+                    //Update Order header
+                    header.RecordStatus = QuotationStatus.Acknowledge;
+                    header.QuotationNumber = txtQuotationNo.Text;
+                    header.QuotationDate = GetStoredDateValue(dtpQuotationDate.SelectedDate);
+                    header.QuotationExpiryDate = GetStoredDateValue(dtpExpiryDate.SelectedDate);
+                    mainController.GetDAOCreator().CreateQuotationHeaderDAO().Update(header);
 
-                }*/
-                //tran.Commit();
+                    //Collection<QuotationItem> qItems = new Collection<QuotationItem>();
+
+                    foreach (GridViewRow rowItem in gvItem.Rows)
+                    {
+                        Label lblItemNo = (Label)rowItem.FindControl("lblReqSeq");
+                        //GridView gvSchedule = (GridView)rowItem.FindControl("gvSchedule");
+                        QuotationItem item = new QuotationItem();
+                        item = mainController.GetDAOCreator().CreateQuotationItemDAO().RetrieveByKey(lblRequestNumber.Text, lblItemNo.Text);
+
+                        Label lblNetValue = (Label)rowItem.FindControl("lblNetValue");
+                        TextBox txtSupQty = (TextBox)rowItem.FindControl("txtSupQty");
+                        TextBox txtSupUOM = (TextBox)rowItem.FindControl("txtSupUOM");
+                        TextBox txtNetPrice = (TextBox)rowItem.FindControl("txtNetPrice");
+                        TextBox txtUnitPrice = (TextBox)rowItem.FindControl("txtUnitPrice");
+
+                        item.SupplyQuantity = Convert.ToDecimal(txtSupQty.Text);
+                        item.SupplyUnitMeasure = txtSupUOM.Text;
+                        item.PriceUnit = Convert.ToDecimal(txtUnitPrice.Text);
+                        item.NetPrice = Convert.ToDecimal(txtNetPrice.Text);
+                        item.NetValue = Convert.ToDecimal(lblNetValue.Text);
+                        item.RecordStatus = QuotationStatus.Acknowledge;
+                        mainController.GetDAOCreator().CreateQuotationItemDAO().Update(tran, item);
+                    }
+
+                    tran.Commit();
+                    plMessage.Visible = true;
+                    lblMessage.Visible = true;
+                    string sMessage = "Quotation has been processed successfully.";
+                    displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information);
+                    btnSubmit.Enabled = false; 
+
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw (ex);
+                }
+                finally
+                {
+                    tran.Dispose();
+                }
             }
             catch (Exception ex)
             {
-                tran.Rollback();
+                Utility.ExceptionLog(ex);
                 throw (ex);
             }
-            finally
-            {
-                tran.Dispose();
-            }
         }
-        catch (Exception ex)
+        else
         {
-            Utility.ExceptionLog(ex);
-            throw (ex);
+            plMessage.Visible = true;
+            lblMessage.Visible = true;
+            displayCustomMessage(errorMsg, lblMessage, SystemMessageType.Information);
         }
     }
 
@@ -291,7 +273,8 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
     {
         try
         {
-           
+            string url = "~/Quotation/ProcessQuotationList.aspx?FunctionId=S-0010";
+            Response.Redirect(url);
         }
         catch (Exception ex)
         {
@@ -302,5 +285,77 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
         }
     }
 
+    protected void TextChangedEvent(object sender, EventArgs e)
+    {
+        TextBox txtNPrice = (TextBox)sender;
+        GridViewRow gvItem = (GridViewRow)txtNPrice.Parent.Parent;
+        int row = gvItem.RowIndex;
+        
+        //rowChanged[row] = true;
+        Label lblNetValue = (Label)gvItem.FindControl("lblNetValue");
+        TextBox txtSupQty = (TextBox)gvItem.FindControl("txtSupQty");
+        TextBox txtNetPrice = (TextBox)gvItem.FindControl("txtNetPrice");
+        TextBox txtUnitPrice = (TextBox)gvItem.FindControl("txtUnitPrice");
+        //Net Value	((net price / unit price) * supply qty =net value)
+        decimal NetValue;
+        string NValue;
+        NetValue  =(Convert.ToDecimal(txtNetPrice.Text) / Convert.ToDecimal(txtUnitPrice.Text)) * Convert.ToDecimal(txtSupQty.Text);
+        //Convert.ToDouble(NetValue);
 
+        NetValue = decimal.Parse(NetValue.ToString("####0.00"));
+
+        //NValue = Convert.ToString(NetValue);
+        //lblNetValue.Text = string.Format("{###0.00}", NValue);
+        lblNetValue.Text = NetValue.ToString();
+        //((Label)gvItem.FindControl("lblNetValue")).Text = NValue;
+        
+    }
+
+    #region validation
+    private string ValidateInput()
+    {
+        System.Text.StringBuilder strErrorMsg = new System.Text.StringBuilder(string.Empty);
+
+        bool bIsValid = true;
+        bool bIsValidExp = true;
+
+        if (dtpQuotationDate.Text != "")
+        {
+            if (!dtpQuotationDate.IsValidDate)
+            {
+                bIsValid = false;
+                strErrorMsg.Append(MakeListItem("Please select a valid value for Quotation Date."));
+            }
+        }
+
+        if (dtpExpiryDate.Text != "")
+        {
+            if (!dtpExpiryDate.IsValidDate)
+            {
+                bIsValidExp = false;
+                strErrorMsg.Append(MakeListItem("Please select a valid value for Expiry Date."));
+            }
+        }
+               
+        if ((!bIsValid) || (!bIsValidExp))
+        {
+            return strErrorMsg.ToString();
+        }
+
+        if (dtpQuotationDate.SelectedDateString != "" && dtpExpiryDate.SelectedDateString != "")
+        {
+            DateTime dtQDate = dtpQuotationDate.SelectedDate;
+            DateTime dtEDate = dtpExpiryDate.SelectedDate;
+
+            if (dtQDate.CompareTo(dtEDate) > 0) //quotation date - expiry date (0=equal, 1=greater, -1=smaller)
+            {
+                strErrorMsg.Append(MakeListItem("Expiry Date must be equal or greater than Quotation Date."));
+                return strErrorMsg.ToString();
+            }
+        }
+                
+        return strErrorMsg.ToString();
+    }
+    #endregion
+  
 }
