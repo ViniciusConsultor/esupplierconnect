@@ -290,7 +290,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [EBELN],[LIFNR],[ANGDT],[ANGNR],[KDATB],[RECSTS] FROM rfqhdr";
+            string selectCommand = "SELECT [EBELN],[LIFNR],[ANGDT],[ANGNR],[KDATB],[RECSTS],[BUYER] FROM rfqhdr";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClause)) selectCommand += " order by " + sortClause;
 
@@ -326,7 +326,7 @@ namespace eProcurement_DAL
                     entity.RecordStatus = null;
                 else
                     entity.RecordStatus = rd["RECSTS"].ToString();
-
+                entity.BuyerID  = rd["BUYER"].ToString();
                 entities.Add(entity);
 
             }
