@@ -209,7 +209,7 @@ namespace eProcurement_BLL.Delivery
         /// <param name="documentnumber">documentnumber goes here</param>
         /// <param name="supplierid">supplierid goes here</param>
         /// <returns>Collection<eProcurement_DAL.RejectedGood> returns here</returns>
-        public Collection<eProcurement_DAL.RejectedGood> RetrieveByQueryRejectedGood(string ordernumber, string materialnumber, string deliverynumber, string documentnumber, string supplierid,string acknowleded)
+        public Collection<eProcurement_DAL.RejectedGood> RetrieveByQueryRejectedGood(string ordernumber, string materialnumber, string deliverynumber, string documentnumber, string supplierid)
         {
             try
             {
@@ -226,9 +226,6 @@ namespace eProcurement_BLL.Delivery
 
                 if (deliverynumber != "")
                     whereclause += "  AND r.DOCNO like'" + Utility.EscapeSQL(documentnumber) + "' ";
-                if (acknowleded != "")
-                    whereclause += "  AND isnull(r.ACKSTS,'N') ='" + Utility.EscapeSQL(acknowleded) + "' ";
-
 
 
                 return mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByQueryCustom1(whereclause);
@@ -240,7 +237,44 @@ namespace eProcurement_BLL.Delivery
             }
         }
 
+        /// <summary>
+        /// public Collection<eProcurement_DAL.DeliveryOrder> RetrieveByQueryRejectedGood(string ordernumber, string materialnumber, string deliverynumber, string documentnumber, string supplierid)
+        /// 
+        /// To retrieve RejectedGood based on search criteria
+        /// </summary>
+        /// <param name="ordernumber">ordernumber goes here</param>
+        /// <param name="materialnumber">materialnumber goes here</param>
+        /// <param name="deliverynumber">deliverynumber goes here</param>
+        /// <param name="documentnumber">documentnumber goes here</param>
+        /// <param name="supplierid">supplierid goes here</param>
+        /// <returns>Collection<eProcurement_DAL.RejectedGood> returns here</returns>
+        public Collection<eProcurement_DAL.RejectedGood> GetPendingAckRejectedGood(string ordernumber, string materialnumber, string deliverynumber, string documentnumber, string supplierid)
+        {
+            try
+            {
+                string whereclause = "p.LIFNR='" + Utility.EscapeSQL(supplierid) + "' ";
+                whereclause += "  AND isnull(r.ACKSTS,'N') <>'Y' ";
 
+                if (ordernumber != "")
+                    whereclause += "AND r.EBELN like'" + Utility.EscapeSQL(ordernumber) + "' ";
+
+                if (materialnumber != "")
+                    whereclause += " AND r.MATNR like'" + Utility.EscapeSQL(materialnumber) + "' ";
+
+                if (deliverynumber != "")
+                    whereclause += "  AND r.REFNO like'" + Utility.EscapeSQL(deliverynumber) + "' ";
+
+                if (deliverynumber != "")
+                    whereclause += "  AND r.DOCNO like'" + Utility.EscapeSQL(documentnumber) + "' ";
+
+                return mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByQueryCustom1(whereclause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+            }
+        }
       
 
        /* public Collection<RejectedGood> EnquirePendingAckPOList(string orderNumber, string itemSequence, string documentNumber, string materialNumber)
