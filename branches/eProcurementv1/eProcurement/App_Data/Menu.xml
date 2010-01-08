@@ -49,9 +49,17 @@
       <TITLE>Create Delivery Order</TITLE>
       <HREF>~/DeliveryOrder/PurchaseOrderList.aspx</HREF>
     </ITEM>
-    <ITEM FID="S-0005,W-0001">
+    <ITEM FID="S-0005">
       <TITLE>Enquire Delivery Orders</TITLE>
-      <HREF>~/DeliveryOrder/EnqDeliveryOrders.aspx</HREF>
+      <HREF>~/DeliveryOrder/EnqDeliveryOrders.aspx?FunctionId=S-0005</HREF>
+    </ITEM>
+    <ITEM FID="W-0001">
+      <TITLE>Enquire Delivery Orders</TITLE>
+      <HREF>~/DeliveryOrder/EnqDeliveryOrders.aspx?FunctionId=W-0001</HREF>
+    </ITEM>
+    <ITEM FID="S-0015">
+      <TITLE>Acknowledge Rejected Goods</TITLE>
+      <HREF>~/DeliveryOrder/GoodRejAck.aspx</HREF>
     </ITEM>
     <ITEM FID="S-0016">
       <TITLE>Enquire Goods Rejection</TITLE>
