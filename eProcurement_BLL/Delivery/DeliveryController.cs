@@ -209,7 +209,7 @@ namespace eProcurement_BLL.Delivery
         /// <param name="documentnumber">documentnumber goes here</param>
         /// <param name="supplierid">supplierid goes here</param>
         /// <returns>Collection<eProcurement_DAL.RejectedGood> returns here</returns>
-        public Collection<eProcurement_DAL.RejectedGood> RetrieveByQueryRejectedGood(string ordernumber, string materialnumber, string deliverynumber, string documentnumber, string supplierid)
+        public Collection<eProcurement_DAL.RejectedGood> RetrieveByQueryRejectedGood(string ordernumber, string materialnumber, string deliverynumber, string documentnumber, string supplierid,string acknowleded)
         {
             try
             {
@@ -226,6 +226,8 @@ namespace eProcurement_BLL.Delivery
 
                 if (deliverynumber != "")
                     whereclause += "  AND r.DOCNO like'" + Utility.EscapeSQL(documentnumber) + "' ";
+                if (acknowleded != "")
+                    whereclause += "  AND isnull(r.ACKSTS,'N') ='" + Utility.EscapeSQL(acknowleded) + "' ";
 
 
 
@@ -369,45 +371,6 @@ namespace eProcurement_BLL.Delivery
                     //pending filter by purchase group
                 }
 
-                if (status != "")
-                {
-                    //Pending Acknowledgement
-                    if (string.Compare(status, "PA", true) == 0)
-                    {
-                        whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.No + "' ";
-                    }
-
-                    //Pending Confirm Order Acknowledgement
-                    if (string.Compare(status, "PC", true) == 0)
-                    {
-                        whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
-                        whereClause += " AND isnull(RECSTS,'') <> '" + PORecStatus.Accept + "' ";
-                        whereClause += " AND isnull(RECSTS,'') <> '" + PORecStatus.Reject2 + "' ";
-                    }
-
-                    //Accepted
-                    if (string.Compare(status, "AC", true) == 0)
-                    {
-                        whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
-                        whereClause += " AND isnull(RECSTS,'') = '" + PORecStatus.Accept + "' ";
-                    }
-
-                    //Reject
-                    if (string.Compare(status, "RE", true) == 0)
-                    {
-                        //whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
-                        whereClause += " AND isnull(RECSTS,'') = '" + PORecStatus.Reject2 + "' ";
-                    }
-
-                    //Complete
-                    if (string.Compare(status, "CP", true) == 0)
-                    {
-                        //whereClause += " AND isnull(ACKSTS,'') = '" + POAckStatus.Yes + "' ";
-                        whereClause += " AND isnull(STAT,'') = '" + POStatus.Complete + "' ";
-                    }
-
-                }
-
                 if (orderNumber != "")
                 {
                     whereClause += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
@@ -517,7 +480,7 @@ namespace eProcurement_BLL.Delivery
                     foreach (RejectedGood vo in rejgood)
                     {
                         RejectedGood rgood = new RejectedGood();
-                        rgood = mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByKey(vo.OrderNumber, vo.ItemSequence, vo.DocumentNumber);
+                        rgood = mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByKey(tran,vo.OrderNumber, vo.ItemSequence, vo.DocumentNumber);
                         if (rejgood == null)
                         {
                             throw new Exception(string.Format("Rejected Good record doesn't exist. Order Number:{0}, Item Sequence:{1}, Document Number:{2}.",
@@ -532,7 +495,7 @@ namespace eProcurement_BLL.Delivery
 
                         rgood.AcknowledgeStatus = RejAckStatus.Yes;
 
-                        mainController.GetDAOCreator().CreateRejectedGoodDAO().Update(rgood);
+                        mainController.GetDAOCreator().CreateRejectedGoodDAO().Update(tran,rgood);
                     }
 
                     tran.Commit();
