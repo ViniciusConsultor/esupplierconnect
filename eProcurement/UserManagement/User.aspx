@@ -30,7 +30,7 @@
                     <td align="left" ><asp:Label ID="Label2" runat="server" Width="130px" Text="Email"></asp:Label> </td>
                     <td  align="left" style="width: 70%" ><asp:TextBox runat="server" id="txtEmail" MaxLength="70"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" Display="Dynamic" ControlToValidate="txtEmail" ErrorMessage="Please enter email."></asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic" ControlToValidate="txtEmail" ErrorMessage="Invalid email." Enabled="false" ValidationExpression='@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"' />
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic" ControlToValidate="txtEmail" ErrorMessage="Invalid email." ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" />
                     </td>
                 </tr>                
                 <tr>
