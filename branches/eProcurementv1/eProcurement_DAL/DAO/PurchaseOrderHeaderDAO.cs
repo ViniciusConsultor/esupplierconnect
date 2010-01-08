@@ -211,7 +211,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO purhdr ([EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[LOEKZ],[RECSTS],[ACKSTS],[ACKBY],[TELPHN], [BSTYP], [BSART]) VALUES(@EBELN,@LIFNR,@BEDAT,@AMTPR,@GSTPR,@WAERS,@ZTERM,@BUYER,@AD_TLNMBR,@VERKF,@ADRNR_TXT,@REMARK,@LOEKZ,@RECSTS,@ACKSTS,@ACKBY,@TELPHN, @BSTYP, @BSART, @EKGRP, @EKORG)";
+            cm.CommandText = "INSERT INTO purhdr ([EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[LOEKZ],[RECSTS],[ACKSTS],[ACKBY],[TELPHN], [BSTYP], [BSART],[EKGRP], [EKORG]) VALUES(@EBELN,@LIFNR,@BEDAT,@AMTPR,@GSTPR,@WAERS,@ZTERM,@BUYER,@AD_TLNMBR,@VERKF,@ADRNR_TXT,@REMARK,@LOEKZ,@RECSTS,@ACKSTS,@ACKBY,@TELPHN, @BSTYP, @BSART, @EKGRP, @EKORG)";
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.OrderNumber;
@@ -505,7 +505,7 @@ namespace eProcurement_DAL
                 cm.Transaction = epTran.GetSqlTransaction();
 
             //Retrieve Data
-            string selectCommand = "SELECT [EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[LOEKZ],[RECSTS],[ACKSTS],[ACKBY],[TELPHN] FROM purhdr";
+            string selectCommand = "SELECT [EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[LOEKZ],[RECSTS],[ACKSTS],[ACKBY],[TELPHN], [BSTYP],[BSART],[EKGRP], [EKORG] FROM purhdr";
             if (!string.IsNullOrEmpty(whereClause)) selectCommand += " where " + whereClause;
             if (!string.IsNullOrEmpty(sortClaues)) selectCommand += " order by " + sortClaues;
 
@@ -545,6 +545,12 @@ namespace eProcurement_DAL
                 entity.AcknowledgeStatus = rd["ACKSTS"].ToString();
                 entity.AcknowledgeBy = rd["ACKBY"].ToString();
                 entity.BuyerPhone = rd["TELPHN"].ToString();
+                entity.OrderType  = rd["BSTYP"].ToString();
+                entity.OrderCategory  = rd["BSART"].ToString();
+                entity.PurchaseGroup  = rd["EKGRP"].ToString();
+                entity.PurchaseOrg  = rd["EKORG"].ToString();
+
+   
                 entities.Add(entity);
 
             }
