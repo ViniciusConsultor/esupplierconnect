@@ -102,8 +102,7 @@ public partial class DeliveryOrder_CreateDeliveryOrder : BaseForm
             InitPOHeader();
             InitDataGridView();
 
-
-
+            dtpDeliveryDate.SelectedDate = DateTime.Now;
 
         }
         catch (Exception ex)
@@ -183,7 +182,9 @@ private void InitDataGridView()
     {
         try
         {
-            string url = "~/DeliveryOrder/PurchaseOrderList.aspx?" + m_QueryString;
+            string url = "~/DeliveryOrder/PurchaseOrderDetail.aspx?FunctionId=" + "S-0002";
+            url += "&OrderNumber=" + Session[SessionKey.OrderNumber].ToString();
+
             Response.Redirect(url);
         }
         catch (Exception ex)
@@ -197,48 +198,64 @@ private void InitDataGridView()
     protected void btnSave_Click(object sender, EventArgs e)
     {
 
-        int i = 0;
-        int cnt = 0;
-
-
-        foreach (GridViewRow row in gvData.Rows)
+        if (validateInputs())
         {
-            TextBox txtDeliveryQuantity=(TextBox)row.FindControl("txtDeliveryQuantity");
 
-            if (txtDeliveryQuantity.Text != null || txtDeliveryQuantity.Text != String.Empty)
+            int i = 0;
+            int cnt = 0;
+
+
+
+
+            foreach (GridViewRow row in gvData.Rows)
             {
+                TextBox txtDeliveryQuantity = (TextBox)row.FindControl("txtDeliveryQuantity");
 
-                Label lblMaterialNumber = (Label)row.FindControl("lblMaterialNumber");
-                Label lblItemSequence = (Label)row.FindControl("lblItemSequence");
-                Label lblOpenQuantity = (Label)row.FindControl("lblOpenQuantity");
+                if (txtDeliveryQuantity.Text != null || txtDeliveryQuantity.Text != String.Empty)
+                {
 
-                
+                    Label lblMaterialNumber = (Label)row.FindControl("lblMaterialNumber");
+                    Label lblItemSequence = (Label)row.FindControl("lblItemSequence");
+                    Label lblOpenQuantity = (Label)row.FindControl("lblOpenQuantity");
+
+                    DeliveryOrder doorder = new DeliveryOrder();
+
+                    doorder.DeliveryNumber = txtDeliveryNo.Text.Trim();
+                    doorder.DeliveryDate = GetStoredDateValue(dtpDeliveryDate.SelectedDate);
+
+                    doorder.OrderNumber = lblOrderNumber.Text.Trim();
+                    doorder.ItemSequence = lblItemSequence.Text.Trim();
+                    doorder.MaterialNumber = lblMaterialNumber.Text.Trim();
+                    doorder.OpenQuantity = Convert.ToDecimal(lblOpenQuantity.Text.Trim());
+                    doorder.DeliveryQuantity = Convert.ToDecimal(txtDeliveryQuantity.Text.Trim());
+                    doorder.RecordStatus = "V"; // V- Void
+                    doorder.SupplierID = this.mainController.GetLoginUserVO().SupplierId.ToString();
 
 
-                DeliveryOrder doorder = new DeliveryOrder();
+                    if (doorder.DeliveryNumber == String.Empty) lblMessage.Text = "Please enter Delivery Number.";
+                    else if (!doorder.DeliveryDate.HasValue) lblMessage.Text = "Please select Delivery Date";
+                    else if (doorder.OpenQuantity < doorder.DeliveryQuantity) lblMessage.Text = "Please make sure Delivery Quantity entered is less then or equal to Open Quantity";
+                    else this.mainController.GetDeliveryController().InsertDeliveryOrder(doorder);
 
-                doorder.DeliveryNumber = txtDeliveryNo.Text.Trim();
-                doorder.DeliveryDate =  GetStoredDateValue(dtpDeliveryDate.SelectedDate);           
-
-                doorder.OrderNumber = lblOrderNumber.Text.Trim();
-                doorder.ItemSequence = lblItemSequence.Text.Trim();
-                doorder.MaterialNumber = lblMaterialNumber.Text.Trim();
-                doorder.OpenQuantity = Convert.ToDecimal(lblOpenQuantity.Text.Trim());                
-                doorder.DeliveryQuantity = Convert.ToDecimal(txtDeliveryQuantity.Text.Trim());
-                doorder.RecordStatus = "V"; // V- Void
-                doorder.SupplierID = this.mainController.GetLoginUserVO().SupplierId.ToString();
-
-
-                if (doorder.DeliveryNumber == String.Empty) lblMessage.Text = "Please enter Delivery Number.";
-                else if (!doorder.DeliveryDate.HasValue) lblMessage.Text = "Please select Delivery Date";
-                else if(doorder.OpenQuantity < doorder.DeliveryQuantity) lblMessage.Text = "Please make sure Delivery Quantity entered is less then or equal to Open Quantity";
-                else this.mainController.GetDeliveryController().InsertDeliveryOrder(doorder);
-
-                cnt++;
+                    cnt++;
+                }
+                i++;
             }
-            i++;
-        }
 
-        Response.Redirect("EnqDeliveryOrders.aspx");
+            Response.Redirect("PurchaseOrderList.aspx?FunctionId=S-0004");
+        }
+    }
+
+    protected bool validateInputs()
+    {
+        if (!(txtDeliveryNo.Text.Length > 0))
+        {
+            lblMessage.Text = "Please enter Delivery Order No, Thanks!";
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }
