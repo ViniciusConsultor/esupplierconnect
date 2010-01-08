@@ -21,25 +21,25 @@
             <td valign="top" style="height: 8px">
                <table id="tblSearch" cellspacing="0" cellpadding="1" width="820" border="0">
                     <tr>
-                       <td align="left"  style="width : 130px; height: 20px;">
+                       <td align="left"  style="width : 130px; height: 20px;" nowrap>
                             <asp:Label ID="Label4" runat="server" Text="Requisition No." Width="114px"></asp:Label>
-                            <span class="redtxt">*</span> 
+                         
                         </td> 
-                        <td  align="left" colspan="3" style="width: 100%; height: 20px;">
+                        <td  align="left" colspan="3" style="width: 100%; height: 20px;" >
                             <asp:TextBox runat="server" id="txtRequisitionNo" AutoPostBack="True" OnTextChanged="txtRequisitionNo_TextChanged"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
-                        <td align="left"  style="width : 130px">
+                        <td align="left"  style="width : 130px" nowrap>
                             <asp:Label ID="Label3" runat="server" Text="Material No."></asp:Label>
-                            <span class="redtxt">*</span> 
+                       
                         </td> 
                         <td  align="left" colspan="3" style="width: 100%">
-                            <asp:DropDownList ID="ddlMaterialNo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMaterialNo_SelectedIndexChanged">                             
+                            <asp:DropDownList ID="ddlMaterialNo" runat="server" AutoPostBack="false" OnSelectedIndexChanged="ddlMaterialNo_SelectedIndexChanged" Width="600px">                             
                             </asp:DropDownList>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                        <td align="left" style="width : 130px">
                             <asp:Label ID="Label6" runat="server" Text="Material Desc"></asp:Label>
                         </td> 
@@ -52,19 +52,27 @@
                             <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"/>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td align="left"  colspan ="4" style="width:100%">
+                             <hr />
+                        </td>
+                    </tr>     
                     <tr>
                         <td align="left" style="width : 130px">
                             <asp:Label ID="Label5" runat="server" Text="Requisition"></asp:Label>
-                        </td> 
-                        <td  align="left" style="width: 120px">
-                            &nbsp;<asp:ListBox ID="lstRequisition" runat="server" Width="227px"></asp:ListBox></td>
+                        </td>
+                        <td align="left"  colspan ="3" style="width:500px">
+                             <asp:ListBox ID="lstRequisition" runat="server" Width="300px"></asp:ListBox>
+                        </td>
+                    </tr>     
+                    <tr>
                         <td align="left" style="width : 130px">
-                            <asp:Label ID="Label8" runat="server" Text="Supplier"></asp:Label>
-                        </td> 
-                        <td  align="left" style="width: 120px">
-                            &nbsp;<asp:ListBox ID="lstSupplier" runat="server" Width="211px" SelectionMode="Multiple"></asp:ListBox></td>
-                    </tr>
+                           <asp:Label ID="Label8" runat="server" Text="Supplier"></asp:Label>
+                        </td>
+                        <td align="left"  colspan ="3" style="width:500px">
+                             <asp:ListBox ID="lstSupplier" runat="server" Width="500px" SelectionMode="Multiple"></asp:ListBox>
+                        </td>
+                    </tr>   
                     <tr>
                         <td align="left" style="width : 130px">
                          <asp:Label ID="lblExpiryDate" Text="Expiry Date" runat="server"></asp:Label>
@@ -232,7 +240,7 @@
     <table cellspacing="0" cellpadding="0" width="100%" border="0">   
        <tr>   
              <td nowrap="nowrap" align= "left"  style="width : 100%">
-               <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click"/>
+               <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click" Visible ="false"/>
 
                <asp:Button ID="btnSubmit" runat="server" Text="Submit" onclick="btnSubmit_Click"/>
             </td>                        
