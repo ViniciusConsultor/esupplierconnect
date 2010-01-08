@@ -25,7 +25,7 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
     private MainController mainController = null;
     protected void Page_Load(object sender, EventArgs e)
     {
-        this.mainController = new MainController((LoginUserVO)Session[SessionKey.LOGIN_USER]); 
+        //this.mainController = new MainController((LoginUserVO)Session[SessionKey.LOGIN_USER]); 
     }
 
     #endregion
@@ -134,7 +134,7 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
         {
             RfqNumber = rfqNumber;
             ReadOnly = readOnly;
-
+            AttachmentIds.Clear();
             if (readOnly)
                 tblUpload.Visible = false;
             else
@@ -180,6 +180,9 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
 
             if (!CheckFileSize())
                 return;
+
+            if(this.mainController ==null)
+                this.mainController = new MainController((LoginUserVO)Session[SessionKey.LOGIN_USER]); 
 
             // Save Documents
             Attachment objDoc = new Attachment();
@@ -228,6 +231,9 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
                     attachments.Add(att); 
                 }
             }
+
+            if (this.mainController == null)
+                this.mainController = new MainController((LoginUserVO)Session[SessionKey.LOGIN_USER]); 
 
             if (attachments.Count > 0) 
             {
@@ -303,6 +309,9 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
 
     protected void gvFileUpload_RowDataBound(object sender, GridViewRowEventArgs e)
     {
+        if (this.mainController == null)
+            this.mainController = new MainController((LoginUserVO)Session[SessionKey.LOGIN_USER]); 
+        
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             CheckBox chkDel = (CheckBox)e.Row.FindControl("chkDeleted");
@@ -323,6 +332,9 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
     {
         try
         {
+            if (this.mainController == null)
+                this.mainController = new MainController((LoginUserVO)Session[SessionKey.LOGIN_USER]); 
+            
             Collection<Attachment> attachments = new Collection<Attachment>(); 
 
             if (!string.IsNullOrEmpty(RfqNumber))
@@ -349,6 +361,9 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
 
     private void DownloadDocument(Guid docSId)
     {
+        if (this.mainController == null)
+            this.mainController = new MainController((LoginUserVO)Session[SessionKey.LOGIN_USER]); 
+        
         Attachment objDoc = mainController.GetAttachmentController().GetAttachment(docSId);
 
         // Identify the file name.
@@ -438,6 +453,9 @@ public partial class UserControls_AttachmentPanel : System.Web.UI.UserControl
                 is limited to '{0}' MB.", UploadFileSize / 1024000);
             return false;
         }
+
+        if (this.mainController == null)
+            this.mainController = new MainController((LoginUserVO)Session[SessionKey.LOGIN_USER]); 
 
         long totalSize = 0;
         Label lblProfileType, lblFileSize;

@@ -113,15 +113,42 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     }
     private void InitItems()
     {
-        Collection<MaterialStock> items = mainController.GetDAOCreator().CreateMaterialStockDAO().RetrieveAll();        
-        ddlMaterialNo.DataSource = items;
-        ddlMaterialNo.DataTextField = "materialNumber";
-        ddlMaterialNo.DataValueField = "materialNumber";
-        ddlMaterialNo.DataBind();
-        ddlMaterialNo.Items.Add(new ListItem("", "0"));
-        ddlMaterialNo.SelectedValue = "0";
-        
+        Collection<MaterialStock> items = mainController.GetDAOCreator().CreateMaterialStockDAO().RetrieveAll();
 
+        ddlMaterialNo.Items.Clear();
+
+        ListItem liAdd;
+        string sText, sValue;
+
+        liAdd = new ListItem();
+        sText = "- All -";
+        sValue = "";
+        liAdd.Text = sText;
+        liAdd.Value = sValue;
+        ddlMaterialNo.Items.Add(liAdd);
+
+        foreach (MaterialStock materialStock in items) 
+        {
+            liAdd = new ListItem();
+            sText = materialStock.MaterialNumber + " - " + materialStock.MaterialDescription;
+            sValue = materialStock.MaterialNumber;
+            liAdd.Text = sText;
+            liAdd.Value = sValue;
+            ddlMaterialNo.Items.Add(liAdd);
+        }
+
+        Collection<Supplier> SupplierList = mainController.GetSupplierController().GetSupplierList();
+        lstSupplier.Items.Clear();
+
+        foreach (Supplier supplier in SupplierList)
+        {
+            liAdd = new ListItem();
+            sText = supplier.SupplierID + " - " + supplier.SupplierName ;
+            sValue = supplier.SupplierID;
+            liAdd.Text = sText;
+            liAdd.Value = sValue;
+            lstSupplier.Items.Add(liAdd);
+        } 
     }
     private void InitPage()
     {
@@ -189,14 +216,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
             if (IsDropDownContain(lstRequisition, li.Text) == false)
                 lstRequisition.Items.Add (li);
             
-        }
-
-        Collection<Supplier> SupplierList = mainController.GetSupplierController().GetSupplierList();
-        lstSupplier.Items.Clear();
-        lstSupplier.DataSource = SupplierList;
-        lstSupplier.DataTextField = "supplierName";
-        lstSupplier.DataValueField = "supplierID";
-        lstSupplier.DataBind();        
+        }           
     }
      private  Boolean IsDropDownContain(System.Web.UI.WebControls.ListBox  ddl, string searchText) 
      {  
@@ -235,7 +255,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                             /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                             * Request for Quotation Header a.k.a Quotation Header                        
                             *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-                            string strResqNo = lstRequisition.Items[RequisitionItem].Text + "-" + lstSupplier.Items[SupplierItem].Text;
+                            string strResqNo = lstRequisition.Items[RequisitionItem].Text + "-" + lstSupplier.Items[SupplierItem].Value;
                             qtoHeader = new QuotationHeader();
                             qtoHeader.RequestNumber = strResqNo;
                             qtoHeader.SupplierId = lstSupplier.Items[SupplierItem].Text;
@@ -253,7 +273,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                             //RequisitionItem item;
                             string requisitionNO = lstRequisition.Items[RequisitionItem].Text.Trim();
                             Collection<RequisitionItem> items = mainController.GetRequisitionController().GetRequisitionList(requisitionNO);
-
+                            quotationItemList = new Collection<QuotationItem>();
                             if (items.Count > 0)
                             {
                                 for (requestSequence = 0; requestSequence <= items.Count - 1; requestSequence++)
@@ -290,9 +310,15 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                 }//end if selected Requisition
 
             }//end for Requisition
-            string sMessage = "Quotation has been created successfully.";
-            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information);
+            InitAttachmentPanel();
+            
+            gvItem.DataSource = new Collection<QuotationItem>();
+            gvItem.DataBind();
+            lblCount.Text = "0 Record(s) found.";   
 
+            plMessage.Visible = true;
+            string sMessage = "Quotation has been created successfully.";
+            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information); 
         }
         catch (Exception ex)
         {
@@ -334,12 +360,15 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     {
         try
         {
-            if (Convert.ToString(dtpExpiry.Text) == "")
+            string strErrorMsg = ValidateInput();
+
+            if (!string.IsNullOrEmpty(strErrorMsg.ToString()))
             {
-                string sMessage = "Enter Expiry Date";
-                displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
+                plMessage.Visible = true;
+                displayCustomMessage(FormatErrorMessage(strErrorMsg.ToString()), lblMessage, SystemMessageType.Error);
                 return;
             }
+            
 
             //lstRequisition
             //lstSupplier
@@ -365,7 +394,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                             /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                             * Request for Quotation Header a.k.a Quotation Header                        
                             *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-                            string strResqNo = lstRequisition.Items[RequisitionItem].Text + "-" + lstSupplier.Items[SupplierItem].Text;
+                            string strResqNo = lstRequisition.Items[RequisitionItem].Text + "-" + lstSupplier.Items[SupplierItem].Value;
                             qtoHeader = new QuotationHeader();
                             qtoHeader.RequestNumber = strResqNo; 
                             qtoHeader.SupplierId = lstSupplier.Items[SupplierItem].Text;
@@ -444,6 +473,30 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
     ////////        }
     ////////    }
     ////////}
+
+    #region validation
+    private string ValidateInput()
+    {
+        System.Text.StringBuilder strErrorMsg = new System.Text.StringBuilder(string.Empty);
+        bool bIsValid = true;
+
+        if (dtpExpiry.Text == "")
+        {
+            bIsValid = false;
+            strErrorMsg.Append(MakeListItem("Please select a value for Expiry Date."));
+        }
+        else
+        {
+            if (!dtpExpiry.IsValidDate)
+            {
+                bIsValid = false;
+                strErrorMsg.Append(MakeListItem("Please select a valid value for Expiry Date."));
+            }
+        }
+        
+        return strErrorMsg.ToString();
+    }
+    #endregion
 
     
 }

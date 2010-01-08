@@ -65,11 +65,11 @@
                     <tr>
                        <td align="left" nowrap Width="130px">
                             <asp:Label ID="Label6" runat="server" Text="Quotation No"></asp:Label>
-                            <span class="redtxt">*</span> 
+                           
                         </td> 
                         <td  align="left" style="width: 100%">
                             <asp:TextBox runat="server" id="txtQuotationNo"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" Display="Dynamic" ControlToValidate="txtQuotationNo" ErrorMessage="Please enter Quotation Number."></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" Enabled="false"  runat="server" Display="Dynamic" ControlToValidate="txtQuotationNo" ErrorMessage="Please enter Quotation Number."></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
