@@ -1,0 +1,150 @@
+FUNCTION zretrieveorderhistory.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  TABLES
+*"      PURCHASE_HISTORY STRUCTURE  ZORDER_HISTORY
+*"      PURCHASE_CLOSE STRUCTURE  ZORDER_CLOSE
+*"  EXCEPTIONS
+*"      RECORDNOTFOUND
+*"----------------------------------------------------------------------
+
+  DATA : zpurchase TYPE REF TO zpurchase_order,
+         zclsorder TYPE REF TO zgetclosedorder.
+
+  DATA : zordcls LIKE zorder_close OCCURS 0 WITH HEADER LINE.
+
+  CREATE OBJECT zpurchase.
+
+  CALL METHOD zpurchase->getorderhistory.
+
+  IF zpurchase->purhst_tab IS NOT INITIAL.
+
+*-------------------------------------------------
+* 1. To Retrieve Purchase History Details
+*-------------------------------------------------
+
+    LOOP AT zpurchase->purhst_tab INTO zpurchase->purhst_obj.
+
+      CALL METHOD zpurchase->purhst_obj->getordernumber
+        IMPORTING
+          get_value = purchase_history-ebeln.
+      CALL METHOD zpurchase->purhst_obj->getorderitem
+        IMPORTING
+          get_value = purchase_history-ebelp.
+      CALL METHOD zpurchase->purhst_obj->gettrantype
+        IMPORTING
+          get_value = purchase_history-bewtp.
+      CALL METHOD zpurchase->purhst_obj->getinvdocument
+        IMPORTING
+          get_value = purchase_history-belnr.
+      CALL METHOD zpurchase->purhst_obj->getinvserial
+        IMPORTING
+          get_value = purchase_history-buzei.
+      CALL METHOD zpurchase->purhst_obj->getmovetype
+        IMPORTING
+          get_value = purchase_history-bwart.
+      CALL METHOD zpurchase->purhst_obj->getpostdate
+        IMPORTING
+          get_value = purchase_history-budat.
+      CALL METHOD zpurchase->purhst_obj->gettrnquantity
+        IMPORTING
+          get_value = purchase_history-menge.
+      CALL METHOD zpurchase->purhst_obj->getlocalvalue
+        IMPORTING
+          get_value = purchase_history-dmbtr.
+      CALL METHOD zpurchase->purhst_obj->gettransvalue
+        IMPORTING
+          get_value = purchase_history-wrbtr.
+      CALL METHOD zpurchase->purhst_obj->getcurrency
+        IMPORTING
+          get_value = purchase_history-waers.
+      CALL METHOD zpurchase->purhst_obj->getdbcr
+        IMPORTING
+          get_value = purchase_history-shkzg.
+      CALL METHOD zpurchase->purhst_obj->getrefdocument
+        IMPORTING
+          get_value = purchase_history-xblnr.
+      CALL METHOD zpurchase->purhst_obj->getmaterial
+        IMPORTING
+          get_value = purchase_history-matnr.
+      CALL METHOD zpurchase->purhst_obj->getplant
+        IMPORTING
+          get_value = purchase_history-werks.
+
+      APPEND purchase_history.
+      CLEAR  purchase_history.
+
+    ENDLOOP.
+
+    CREATE OBJECT zclsorder.
+    CALL METHOD zclsorder->getcloseorder.
+    IF zclsorder->clsord_tab IS NOT INITIAL.
+
+      LOOP AT zclsorder->clsord_tab INTO zclsorder->clsord_obj.
+
+        CALL METHOD zclsorder->clsord_obj->getordernumber
+          IMPORTING
+            get_value = purchase_close-ebeln.
+
+        CALL METHOD zclsorder->clsord_obj->getitemsequence
+          IMPORTING
+            get_value = purchase_close-ebelp.
+
+        CALL METHOD zclsorder->clsord_obj->getitemstatus
+          IMPORTING
+            get_value = purchase_close-itsts.
+
+        APPEND purchase_close.
+        CLEAR  purchase_close.
+
+      ENDLOOP.
+
+      APPEND LINES OF purchase_close TO zordcls.
+
+      SORT purchase_close.
+      SORT zordcls.
+
+      LOOP AT zordcls.
+
+        IF purchase_close-posts <> 'Z'.
+
+          IF zordcls-itsts = 'C' AND
+             purchase_close-posts = 'C'.
+            purchase_close-posts = 'C'.
+          ELSE.
+            IF zordcls-itsts = 'I' AND
+               purchase_close-posts = 'I'.
+              purchase_close-posts = 'I'.
+            ELSE.
+              IF zordcls-itsts = 'I' AND
+                 purchase_close-posts = 'C'.
+                purchase_close-posts = 'C'.
+              ELSE.
+                IF zordcls-itsts = ' '.
+                  purchase_close-posts = 'Z'.
+                ELSE.
+                  IF purchase_close-posts = ' '.
+                    purchase_close-posts = zordcls-itsts.
+                  ENDIF.
+                ENDIF.
+              ENDIF.
+            ENDIF.
+
+          ENDIF.
+        ENDIF.
+
+        AT END OF ebeln.
+          MODIFY purchase_close TRANSPORTING posts
+           WHERE ebeln = zordcls-ebeln.
+          CLEAR : purchase_close.
+        ENDAT.
+
+      ENDLOOP.
+
+    ENDIF.
+
+  ELSE.
+    RAISE recordnotfound.
+  ENDIF.
+
+ENDFUNCTION.

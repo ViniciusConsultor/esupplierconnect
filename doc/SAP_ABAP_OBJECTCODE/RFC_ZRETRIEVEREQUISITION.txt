@@ -1,0 +1,132 @@
+FUNCTION zretrieverequisition.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  TABLES
+*"      REQUISITION_HEADER STRUCTURE  ZREQN_HDR
+*"      REQUISITION_ITEM STRUCTURE  ZREQN_ITM
+*"  EXCEPTIONS
+*"      RECORDNOTFOUND
+*"----------------------------------------------------------------------
+
+
+  DATA : zrequisition TYPE REF TO zpurchase_requisition.
+
+  CREATE OBJECT zrequisition.
+
+  CALL METHOD zrequisition->getrequisition.
+
+  IF zrequisition->reqhdr_tab IS NOT INITIAL.
+
+*------------------------------------------------
+* 1.To Retrieve Requisition Header Details
+*------------------------------------------------
+
+    LOOP AT zrequisition->reqhdr_tab INTO zrequisition->reqhdr_obj.
+
+      CALL METHOD zrequisition->reqhdr_obj->getreqnumber
+        IMPORTING
+          get_value = requisition_header-banfn.
+      CALL METHOD zrequisition->reqhdr_obj->getdocumenttype
+        IMPORTING
+          get_value = requisition_header-bsart.
+      CALL METHOD zrequisition->reqhdr_obj->getcategroy
+        IMPORTING
+          get_value = requisition_header-bstyp.
+      CALL METHOD zrequisition->reqhdr_obj->getreqdate
+        IMPORTING
+          get_value = requisition_header-badat.
+      CALL METHOD zrequisition->reqhdr_obj->getreqstatus
+        IMPORTING
+          get_value = requisition_header-statu.
+      CALL METHOD zrequisition->reqhdr_obj->getreleasestatus
+        IMPORTING
+          get_value = requisition_header-frgzu.
+      CALL METHOD zrequisition->reqhdr_obj->getreleasedate
+        IMPORTING
+          get_value = requisition_header-frgdt.
+      CALL METHOD zrequisition->reqhdr_obj->getrequisitioner
+        IMPORTING
+          get_value = requisition_header-ernam.
+
+      APPEND requisition_header.
+      CLEAR  requisition_header.
+
+    ENDLOOP.
+
+*------------------------------------------------
+* 2.To Retrieve Requisition Item Details
+*------------------------------------------------
+
+    LOOP AT zrequisition->reqitm_tab INTO zrequisition->reqitm_obj.
+
+      CALL METHOD zrequisition->reqitm_obj->getreqnumber
+        IMPORTING
+          get_value = requisition_item-banfn.
+      CALL METHOD zrequisition->reqitm_obj->getreqsequence
+        IMPORTING
+          get_value = requisition_item-bnfpo.
+      CALL METHOD zrequisition->reqitm_obj->getpurchasegroup
+        IMPORTING
+          get_value = requisition_item-ekgrp.
+      CALL METHOD zrequisition->reqitm_obj->getpurchaseorg
+        IMPORTING
+          get_value = requisition_item-ekorg.
+      CALL METHOD zrequisition->reqitm_obj->getmaterial
+        IMPORTING
+          get_value = requisition_item-matnr.
+      CALL METHOD zrequisition->reqitm_obj->getdescription
+        IMPORTING
+          get_value = requisition_item-txz01.
+      CALL METHOD zrequisition->reqitm_obj->getplant
+        IMPORTING
+          get_value = requisition_item-werks.
+      CALL METHOD zrequisition->reqitm_obj->getreqquantity
+        IMPORTING
+          get_value = requisition_item-menge.
+      CALL METHOD zrequisition->reqitm_obj->getunitmeasure
+        IMPORTING
+          get_value = requisition_item-meins.
+      CALL METHOD zrequisition->reqitm_obj->getrequiredate
+        IMPORTING
+          get_value = requisition_item-lfdat.
+      CALL METHOD zrequisition->reqitm_obj->getprice
+        IMPORTING
+          get_value = requisition_item-preis.
+      CALL METHOD zrequisition->reqitm_obj->getpriceunit
+        IMPORTING
+          get_value = requisition_item-peinh.
+      CALL METHOD zrequisition->reqitm_obj->getordernumber
+        IMPORTING
+          get_value = requisition_item-ebeln.
+      CALL METHOD zrequisition->reqitm_obj->getorderitem
+        IMPORTING
+          get_value = requisition_item-ebelp.
+      CALL METHOD zrequisition->reqitm_obj->getorderquantity
+        IMPORTING
+          get_value = requisition_item-bedat.
+      CALL METHOD zrequisition->reqitm_obj->getcurrency
+        IMPORTING
+          get_value = requisition_item-bsmng.
+      CALL METHOD zrequisition->reqitm_obj->gettotalvalue
+        IMPORTING
+          get_value = requisition_item-waers.
+      CALL METHOD zrequisition->reqitm_obj->getrequestor
+        IMPORTING
+          get_value = requisition_item-rlwrt.
+      CALL METHOD zrequisition->reqitm_obj->getfixedvendor
+        IMPORTING
+          get_value = requisition_item-afnam.
+      CALL METHOD zrequisition->reqitm_obj->getindicator
+        IMPORTING
+          get_value = requisition_item-loekz.
+
+      APPEND requisition_item.
+      CLEAR  requisition_item.
+
+    ENDLOOP.
+
+  ELSE.
+    RAISE recordnotfound.
+  ENDIF.
+
+ENDFUNCTION.

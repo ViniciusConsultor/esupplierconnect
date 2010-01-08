@@ -1,0 +1,130 @@
+FUNCTION zretrievecontract.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  TABLES
+*"      CONTRACT_HEADER STRUCTURE  ZCONTRACT_HDR
+*"      CONTRACT_ITEM STRUCTURE  ZCONTRACT_ITM
+*"  EXCEPTIONS
+*"      RECORDNOTFOUND
+*"----------------------------------------------------------------------
+
+  DATA : zcontract TYPE REF TO zpurchase_contract.
+  DATA : zchdr     TYPE REF TO zcontractheader.
+  DATA : zitm      TYPE REF TO zcontractitem.
+
+  CREATE OBJECT zcontract.
+
+  CALL METHOD zcontract->getcontractheader.
+
+  IF zcontract->chdr_tab IS NOT INITIAL.
+
+    LOOP AT zcontract->chdr_tab INTO zchdr.
+      CALL METHOD zchdr->getcontractnumber
+        IMPORTING
+          get_value = contract_header-ebeln.
+      CALL METHOD zchdr->getdocumentdate
+        IMPORTING
+          get_value = contract_header-bedat.
+      CALL METHOD zchdr->getdocumentcategory
+        IMPORTING
+          get_value = contract_header-bstyp.
+      CALL METHOD zchdr->getdocumenttype
+        IMPORTING
+          get_value = contract_header-bsart.
+      CALL METHOD zchdr->getbuyername
+        IMPORTING
+          get_value = contract_header-ernam.
+      CALL METHOD zchdr->getvendor
+        IMPORTING
+          get_value = contract_header-lifnr.
+      CALL METHOD zchdr->getpaymentterms
+        IMPORTING
+          get_value = contract_header-zterm.
+      CALL METHOD zchdr->getpurchasinggroup
+        IMPORTING
+          get_value = contract_header-ekgrp.
+      CALL METHOD zchdr->getcurrency
+        IMPORTING
+          get_value = contract_header-waers.
+      CALL METHOD zchdr->getexchangerate
+        IMPORTING
+          get_value = contract_header-wkurs.
+      CALL METHOD zchdr->getvaliditystart
+        IMPORTING
+          get_value = contract_header-kdatb.
+      CALL METHOD zchdr->getvailidtyend
+        IMPORTING
+          get_value = contract_header-kdate.
+      CALL METHOD zchdr->getsalesperson
+        IMPORTING
+          get_value = contract_header-verkf.
+      CALL METHOD zchdr->gettelephone
+        IMPORTING
+          get_value = contract_header-telf1.
+      CALL METHOD zchdr->gettargetval
+        IMPORTING
+          get_value = contract_header-ktwrt.
+
+      APPEND contract_header.
+      CLEAR  contract_header.
+    ENDLOOP.
+
+    CALL METHOD zcontract->getcontractitem.
+    LOOP AT zcontract->citm_tab INTO zitm.
+      CALL METHOD zitm->getcontractnumber
+        IMPORTING
+          get_value = contract_item-ebeln.
+
+      CALL METHOD zitm->getcontractitem
+        IMPORTING
+          get_value = contract_item-ebelp.
+      CALL METHOD zitm->getdescription
+        IMPORTING
+          get_value = contract_item-txz01.
+      CALL METHOD zitm->getmaterial
+        IMPORTING
+          get_value = contract_item-matnr.
+      CALL METHOD zitm->getplant
+        IMPORTING
+          get_value = contract_item-werks.
+      CALL METHOD zitm->getmaterialgroup
+        IMPORTING
+          get_value = contract_item-matkl.
+      CALL METHOD zitm->getquantity
+        IMPORTING
+          get_value = contract_item-ktmng.
+      CALL METHOD zitm->getuom
+        IMPORTING
+          get_value = contract_item-meins.
+      CALL METHOD zitm->getunitprice
+        IMPORTING
+          get_value = contract_item-netpr.
+      CALL METHOD zitm->getperunit
+        IMPORTING
+          get_value = contract_item-peinh.
+      CALL METHOD zitm->getnetvalue
+        IMPORTING
+          get_value = contract_item-brtwr.
+      CALL METHOD zitm->getrfq
+        IMPORTING
+          get_value = contract_item-anfnr.
+      CALL METHOD zitm->getrequisition
+        IMPORTING
+          get_value = contract_item-banfn.
+      CALL METHOD zitm->getrequisitioner
+        IMPORTING
+          get_value = contract_item-afnam.
+
+      APPEND contract_item.
+      CLEAR  contract_item.
+    ENDLOOP.
+
+  ELSE.
+
+    RAISE recordnotfound.
+
+  ENDIF.
+
+
+
+ENDFUNCTION.

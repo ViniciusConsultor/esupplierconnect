@@ -1,0 +1,165 @@
+*----------------------------------------------------------------------*
+***INCLUDE LZEPROCUREMENTP06 .
+***Author : Chetan Potnis
+***Description: Implementation of eProcurement Goods Rejection Classes
+***eProcurement and SAP Interface Module
+***Remote SAP Server side Classes
+*----------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZORDERREJECTION
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zorderrejection IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln = ebeln.
+    zebelp = ebelp.
+    zmblnr = mblnr.
+    zmatnr = matnr.
+    zwerks = werks.
+    zlgort = lgort.
+    zlifnr = lifnr.
+    zmenge = menge.
+    zmeins = meins.
+    zdmbtr = dmbtr.
+    zwaers = waers.
+    zbudat = budat.
+    zshkzg = shkzg.
+    zxblnr = xblnr.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getordernumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getordernumber
+
+  METHOD getordersequence.
+    get_value = zebelp.
+  ENDMETHOD.                    "getordersequence
+
+  METHOD getdocumentnumber.
+    get_value = zmblnr.
+  ENDMETHOD.                    "getdocumentnumber
+
+  METHOD getmaterial.
+    get_value = zmatnr.
+  ENDMETHOD.                    "getmaterial
+
+  METHOD getplant.
+    get_value = zwerks.
+  ENDMETHOD.                    "getplant
+
+  METHOD getlocation.
+    get_value = zlgort.
+  ENDMETHOD.                    "getlocation
+
+  METHOD getsupplier.
+    get_value = zlifnr.
+  ENDMETHOD.                    "getsupplier
+
+  METHOD gettrnquantity.
+    get_value = zmenge.
+  ENDMETHOD.                    "gettrnquantity
+
+  METHOD getunitmeasure.
+    get_value = zmeins.
+  ENDMETHOD.                    "getunitmeasure
+
+  METHOD gettrnamount.
+    get_value = zdmbtr.
+  ENDMETHOD.                    "gettrnamount
+
+  METHOD getcurrency.
+    get_value = zwaers.
+  ENDMETHOD.                    "getcurrency
+
+  METHOD getpostingdate.
+    get_value = zbudat.
+  ENDMETHOD.                    "getpostingdate
+
+  METHOD getdbcrindicator.
+    get_value = zshkzg.
+  ENDMETHOD.                    "getdbcrindicator
+
+  METHOD getdeliverynumber.
+    get_value = zxblnr.
+  ENDMETHOD.                    "getdeliverynumber
+
+ENDCLASS.               "ZORDERREJECTION
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZREJECTION_GOODS
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zrejection_goods IMPLEMENTATION.
+
+  METHOD  getrejection.
+
+    CLEAR : zextdt.
+
+    SELECT SINGLE zrjupd INTO zextdt
+      FROM zeproc_ctl.
+
+    IF sy-subrc IS NOT INITIAL.
+      zextdt = sy-datum.
+    ENDIF.
+
+    SELECT a~ebeln a~ebelp a~mblnr a~matnr a~werks
+           a~lgort a~lifnr a~menge a~meins a~dmbtr a~waers
+           b~budat a~shkzg b~xblnr
+      INTO (yebeln, yebelp, ymblnr, ymatnr, ywerks,
+            ylgort, ylifnr, ymenge, ymeins, ydmbtr,ywaers,
+            ybudat, yshkzg, yxblnr)
+      FROM mseg AS a INNER JOIN mkpf AS b ON a~mblnr = b~mblnr AND
+                                             a~mjahr = b~mjahr
+     WHERE b~budat >= zextdt AND
+           a~bwart = '122'   AND
+           a~lifnr <> ''.
+
+      CREATE OBJECT reject EXPORTING ebeln = yebeln
+                                     ebelp = yebelp
+                                     mblnr = ymblnr
+                                     matnr = ymatnr
+                                     werks = ywerks
+                                     lgort = ylgort
+                                     lifnr = ylifnr
+                                     menge = ymenge
+                                     meins = ymeins
+                                     dmbtr = ydmbtr
+                                     waers = ywaers
+                                     budat = ybudat
+                                     shkzg = yshkzg
+                                     xblnr = yxblnr.
+
+
+      APPEND reject TO reject_tab.
+
+    ENDSELECT.
+
+  ENDMETHOD.                    "getrejection
+
+ENDCLASS.               "ZREJECTION_GOODS
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZHISTORY_CTLUPDATE
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zcontrolupdate IMPLEMENTATION.
+
+  METHOD update_rejection.
+
+    UPDATE zeproc_ctl SET zrjupd = sy-datum.
+
+  ENDMETHOD.                    "update_reject
+
+
+  METHOD update_history.
+
+    UPDATE zeproc_ctl SET zcpudt = sy-datum.
+
+  ENDMETHOD.                    "update_history
+
+ENDCLASS.               "ZHISTORY_CTLUPDATE

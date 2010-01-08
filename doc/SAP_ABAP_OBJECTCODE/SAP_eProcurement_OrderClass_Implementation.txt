@@ -1,0 +1,1295 @@
+*----------------------------------------------------------------------*
+***INCLUDE LZEPROCUREMENTP02 .
+***Author : Chetan Potnis
+***Description: Implementation of eProcurement Purchase Order Classes
+***eProcurement and SAP Interface Module
+***Remote SAP Server side Classes
+*----------------------------------------------------------------------*
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZORDERHEADER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zorderheader IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln = ebeln.
+    zbedat = bedat.
+    zbstyp = bstyp.
+    zbsart = bsart.
+    zernam = ernam.
+    zbuyer = buyer.
+    zphone = phone.
+    zlifnr = lifnr.
+    zzterm = zterm.
+    zekgrp = ekgrp.
+    zekorg = ekorg.
+    zwaers = waers.
+    zwkurs = wkurs.
+    zverkf = verkf.
+    ztelf1 = telf1.
+    zamtpr = amtpr.
+    zgstam = gstam.
+    zladdr = laddr.
+    zadnbr = adnbr.
+    ztxt01 = txt01.
+    zloekz = loekz.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getordernumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getordernumber
+
+  METHOD getdocumentdate.
+    get_value = zbedat.
+  ENDMETHOD.                    "getdocumentdate
+
+  METHOD getdocumentcategory.
+    get_value = zbstyp.
+  ENDMETHOD.                    "getdocumentcategory
+
+  METHOD getdocumenttype.
+    get_value = zbsart.
+  ENDMETHOD.                    "getdocumenttype
+
+  METHOD getcreatename.
+    get_value = zernam.
+  ENDMETHOD.                    "getcreatename
+
+  METHOD getbuyername.
+    get_value = zbuyer.
+  ENDMETHOD.                    "getbuyername
+
+  METHOD getbuyerphone.
+    get_value = zphone.
+  ENDMETHOD.                    "getbuyerphone
+
+  METHOD getvendor.
+    get_value = zlifnr.
+  ENDMETHOD.                    "getvendor
+
+  METHOD getpaymentterms.
+    get_value = zzterm.
+  ENDMETHOD.                    "getpaymentterms
+
+  METHOD getpurchasinggroup.
+    get_value = zekgrp.
+  ENDMETHOD.                    "getpurchasinggroup
+
+  METHOD getpurchasingorg.
+    get_value = zekorg.
+  ENDMETHOD.                    "getpurchasingorg
+
+  METHOD getcurrency.
+    get_value = zwaers.
+  ENDMETHOD.                    "getcurrency
+
+  METHOD getexchangerate.
+    get_value = zwkurs.
+  ENDMETHOD.                    "getexchangerate
+
+  METHOD getsalesperson.
+    get_value = zverkf.
+  ENDMETHOD.                    "getsalesperson
+
+  METHOD gettelephone.
+    get_value = ztelf1.
+  ENDMETHOD.                    "gettelephone
+
+  METHOD getpuramt.
+    get_value = zamtpr.
+  ENDMETHOD.                    "getpuramt
+
+  METHOD getpurgst.
+    get_value = zgstam.
+  ENDMETHOD.                    "getpurgst
+
+  METHOD getaddress.
+    get_value = zladdr.
+  ENDMETHOD.                    "getaddress
+
+  METHOD gettelnumber.
+    get_value = zadnbr.
+  ENDMETHOD.                    "gettelnumber
+
+  METHOD getremark.
+    get_value = ztxt01.
+  ENDMETHOD.                    "getremark
+
+  METHOD getdeletestatus.
+    get_value = zloekz.
+  ENDMETHOD.                    "getdeletestatus
+
+
+ENDCLASS.               "ZORDERHEADER
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZORDERITEM
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zorderitem IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln = ebeln.
+    zebelp = ebelp.
+    zpstyp = pstyp.
+    zmatnr = matnr.
+    ztxz01 = txz01.
+    zbismt = bismt.
+    zmenge = menge.
+    zpeinh = peinh.
+    zmeins = meins.
+    znetpr = netpr.
+    znetwr = netwr.
+    zwemng = wemng.
+    zktext = ktext.
+    zkostl = kostl.
+    zaufnr = aufnr.
+    zlgort = lgort.
+    zloekz = loekz.
+    ztxt01 = txt01.
+
+  ENDMETHOD.                    "constructor
+
+
+  METHOD getordernumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getordernumber
+
+  METHOD getorderitem.
+    get_value = zebelp.
+  ENDMETHOD.                    "getorderitem
+
+  METHOD getmaterial.
+    get_value = zmatnr.
+  ENDMETHOD.                    "getmaterial
+
+  METHOD getdescription.
+    get_value = ztxz01.
+  ENDMETHOD.                    "getdescription
+
+  METHOD getoldmaterial.
+    get_value = zbismt.
+  ENDMETHOD.                    "getoldmaterial
+
+  METHOD getorderqty.
+    get_value = zmenge.
+  ENDMETHOD.                    "getorderqty
+
+  METHOD getorderunit.
+    get_value = zpeinh.
+  ENDMETHOD.                    "getorderunit
+
+  METHOD getunitmeasure.
+    get_value = zmeins.
+  ENDMETHOD.                    "getunitmeasure
+
+  METHOD getnetprice.
+    get_value = znetpr.
+  ENDMETHOD.                    "getnetprice
+
+  METHOD getnetvalue.
+    get_value = znetwr.
+  ENDMETHOD.                    "getnetvalue
+
+  METHOD getdeliveryqty.
+    get_value = zwemng.
+  ENDMETHOD.                    "getdeliveryqty
+
+  METHOD getcostctrdesc.
+    get_value = zktext.
+  ENDMETHOD.                    "getcostctrdesc
+
+  METHOD getcostcentre.
+    get_value = zkostl.
+  ENDMETHOD.                    "getcostcentre
+
+  METHOD getprdorder.
+    get_value = zaufnr.
+  ENDMETHOD.                    "getprdorder
+
+  METHOD getstorageloc.
+    get_value = zlgort.
+  ENDMETHOD.                    "getstorageloc
+
+  METHOD getdeleteindc.
+    get_value = zloekz.
+  ENDMETHOD.                    "getdeleteindc
+
+  METHOD getremark.
+    get_value = ztxt01.
+  ENDMETHOD.                    "getremark
+
+  METHOD getcategory.
+    get_value = zpstyp.
+  ENDMETHOD.                    "getcategory
+
+
+ENDCLASS.               "ZORDERITEM
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZORDERSCHEDULE
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zorderschedule IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln = ebeln.
+    zebelp = ebelp.
+    zmatnr = matnr.
+    zetenr = etenr.
+    zslfdt = slfdt.
+    zmenge = menge.
+    zeindt = eindt.
+    zwemng = wemng.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getordernumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getordernumber
+
+  METHOD getorderitem.
+    get_value = zebelp.
+  ENDMETHOD.                    "getorderitem
+
+  METHOD getmaterial.
+    get_value = zmatnr.
+  ENDMETHOD.                    "getmaterial
+
+  METHOD getschline.
+    get_value = zetenr.
+  ENDMETHOD.                    "getschline
+
+  METHOD getschdate.
+    get_value = zslfdt.
+  ENDMETHOD.                    "getschdate
+
+  METHOD getschqty.
+    get_value = zmenge.
+  ENDMETHOD.                    "getschqty
+
+  METHOD getdeliverydate.
+    get_value = zeindt.
+  ENDMETHOD.                    "getdeliverydate
+
+  METHOD getdeliveryqty.
+    get_value = zwemng.
+  ENDMETHOD.                    "getdeliveryqty
+
+
+ENDCLASS.               "ZORDERSCHEDULE
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZORDERCOMPONENT
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zordercomponent IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln = ebeln.
+    zebelp = ebelp.
+    zcompl = compl.
+    zmatnr = matnr.
+    zmaktx = maktx.
+    zbdmng = bdmng.
+    zmeins = meins.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getordernumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getordernumber
+
+  METHOD getorderitem.
+    get_value = zebelp.
+  ENDMETHOD.                    "getorderitem
+
+  METHOD getcompoenentline.
+    get_value = zcompl.
+  ENDMETHOD.                    "getcompoenentline
+
+  METHOD getmaterial.
+    get_value = zmatnr.
+  ENDMETHOD.                    "getmaterial
+
+  METHOD getdescription.
+    get_value = zmaktx.
+  ENDMETHOD.                    "getmaktx
+
+  METHOD getcomponentqty.
+    get_value = zbdmng.
+  ENDMETHOD.                    "getcomponentqty
+
+  METHOD getunitmeasure.
+    get_value = zmeins.
+  ENDMETHOD.                    "getunitmeasure
+
+
+ENDCLASS.               "ZORDERCOMPONENT
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZORDERSERVICE
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zorderservice IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln  = ebeln.
+    zebelp  = ebelp.
+    zlblni  = lblni.
+    zktext1 = ktext1.
+    zmenge  = menge.
+    zpreis  = preis.
+    zbrtwr  = brtwr.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getordernumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getordernumber
+
+  METHOD getorderitem.
+    get_value = zebelp.
+  ENDMETHOD.                    "getorderitem
+
+  METHOD getserviceline.
+    get_value = zlblni.
+  ENDMETHOD.                    "getserviceline
+
+  METHOD getdescription.
+    get_value = zktext1.
+  ENDMETHOD.                    "getdescription
+
+  METHOD getserviceqty.
+    get_value = zmenge.
+  ENDMETHOD.                    "getserviceqty
+
+  METHOD getserviceprice.
+    get_value = zpreis.
+  ENDMETHOD.                    "getserviceprice
+
+  METHOD getservicevalue.
+    get_value = zbrtwr.
+  ENDMETHOD.                    "getservicevalue
+
+ENDCLASS.               "ZORDERSERVICE
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZSERVICETASK
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zservicetask IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zlblni  = lblni.
+    zextrow = extrow.
+    zsrvpos = srvpos.
+    zmengev = mengev.
+    zmeins  = meins.
+    zsbrtwr = sbrtwr.
+    zktext1 = ktext1.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getserviceline.
+    get_value = zlblni.
+  ENDMETHOD.                    "getserviceline
+
+  METHOD getsequence.
+    get_value = zextrow.
+  ENDMETHOD.                    "getsequence
+
+  METHOD getposition.
+    get_value = zsrvpos.
+  ENDMETHOD.                    "getposition
+
+  METHOD getserviceqty.
+    get_value = zmengev.
+  ENDMETHOD.                    "getserviceqty
+
+  METHOD getunitmeasure.
+    get_value = zmeins.
+  ENDMETHOD.                    "getunitmeasure
+
+  METHOD getserviceprice.
+    get_value = zsbrtwr.
+  ENDMETHOD.                    "getserviceprice
+
+  METHOD getservicevalue.
+    get_value = zktext1.
+  ENDMETHOD.                    "getservicevalue
+
+ENDCLASS.               "ZSERVICETASK
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZHEADERTEXT
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zheadertext IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln  = ebeln.
+    ztxtitm = txtitm.
+    zltxt   = ltxt.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getordernumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getordernumber
+
+  METHOD getsequence.
+    get_value = ztxtitm.
+  ENDMETHOD.                    "getsequence
+
+  METHOD getdescription.
+    get_value = zltxt.
+  ENDMETHOD.                    "getdescription
+
+ENDCLASS.               "ZHEADERTEXT
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZITEMTEXT
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zitemtext IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln  = ebeln.
+    zebelp  = ebelp.
+    ztxtitm = txtitm.
+    zltxt   = ltxt.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getordernumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getordernumber
+
+  METHOD getorderitem.
+    get_value = zebelp.
+  ENDMETHOD.                    "getorderitem
+
+  METHOD getsequence.
+    get_value = ztxtitm.
+  ENDMETHOD.                    "getsequence
+
+  METHOD getdescription.
+    get_value = zltxt.
+  ENDMETHOD.                    "getdescription
+
+ENDCLASS.               "ZITEMTEXT
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZPURCHASEHISTORY
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zpurchasehistory IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln = ebeln.
+    zebelp = ebelp.
+    zbewtp = bewtp.
+    zbelnr = belnr.
+    zbuzei = buzei.
+    zbwart = bwart.
+    zbudat = budat.
+    zmenge = menge.
+    zdmbtr = dmbtr.
+    zwrbtr = wrbtr.
+    zwaers = waers.
+    zshkzg = shkzg.
+    zxblnr = xblnr.
+    zmatnr = matnr.
+    zwerks = werks.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getordernumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getordernumber
+
+  METHOD getorderitem.
+    get_value = zebelp.
+  ENDMETHOD.                    "getorderitem
+
+  METHOD gettrantype.
+    get_value = zbewtp.
+  ENDMETHOD.                    "gettrantype
+
+  METHOD getinvdocument.
+    get_value = zbelnr.
+  ENDMETHOD.                    "getinvdocument
+
+  METHOD getinvserial.
+    get_value = zbuzei.
+  ENDMETHOD.                    "getinvserial
+
+  METHOD getmovetype.
+    get_value = zbwart.
+  ENDMETHOD.                    "getmovetype
+
+  METHOD getpostdate.
+    get_value = zbudat.
+  ENDMETHOD.                    "getpostdate
+
+  METHOD gettrnquantity.
+    get_value = zmenge.
+  ENDMETHOD.                    "gettrnquantity
+
+  METHOD getlocalvalue.
+    get_value = zdmbtr.
+  ENDMETHOD.                    "getlocalvalue
+
+  METHOD gettransvalue.
+    get_value = zwrbtr.
+  ENDMETHOD.                    "gettransvalue
+
+  METHOD getcurrency.
+    get_value = zwaers.
+  ENDMETHOD.                    "getcurrency
+
+  METHOD getdbcr.
+    get_value = zshkzg.
+  ENDMETHOD.                    "getdbcr
+
+  METHOD getrefdocument.
+    get_value = zxblnr.
+  ENDMETHOD.                    "getrefdocument
+
+  METHOD getmaterial.
+    get_value = zmatnr.
+  ENDMETHOD.                    "getmaterial
+
+  METHOD getplant.
+    get_value = zwerks.
+  ENDMETHOD.                    "getplant
+
+ENDCLASS.               "ZPURCHASEHISTORY
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZPURCHASE_ORDER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zpurchase_order IMPLEMENTATION.
+
+*===========================================================
+* Method to get purchase order Header details
+*===========================================================
+
+  METHOD getorderheader.
+
+*----------------------------------------------------------
+* To Get the details of orders from purchase order history
+*----------------------------------------------------------
+
+    CLEAR : uebeln, zcpudt, wa_zscs01.
+
+    SELECT SINGLE zcpudt INTO zcpudt
+      FROM zeproc_ctl.
+
+    IF sy-subrc IS NOT INITIAL.
+      zcpudt = sy-datum.
+    ENDIF.
+
+    SELECT DISTINCT ebeln FROM ekbe INTO wa_zscs01-ebeln
+     WHERE cpudt >= zcpudt.
+      SELECT SINGLE ebeln INTO uebeln FROM zscs01
+       WHERE ebeln = wa_zscs01-ebeln.
+      IF sy-subrc IS NOT INITIAL.
+        INSERT INTO zscs01 VALUES wa_zscs01.
+        CLEAR : uebeln, wa_zscs01.
+      ENDIF.
+    ENDSELECT.
+
+    CLEAR : uebeln, zcpudt, wa_zscs01.
+
+    SELECT SINGLE zrjupd INTO zcpudt
+      FROM zeproc_ctl.
+
+    IF sy-subrc IS NOT INITIAL.
+      zcpudt = sy-datum.
+    ENDIF.
+
+    SELECT a~ebeln INTO wa_zscs01
+      FROM mseg AS a INNER JOIN mkpf AS b ON a~mblnr = b~mblnr AND
+                                             a~mjahr = b~mjahr
+     WHERE b~budat >= zcpudt AND
+           a~bwart = '122'   AND
+           a~lifnr <> ''.
+
+      IF sy-subrc IS NOT INITIAL.
+        INSERT INTO zscs01 VALUES wa_zscs01.
+        CLEAR : uebeln, wa_zscs01.
+      ENDIF.
+
+    ENDSELECT.
+*----------------------------------------------------------
+
+
+    SELECT * FROM ekko  AS a
+      INNER JOIN zscs01 AS b ON  a~ebeln = b~ebeln
+*                            AND a~bstyp = b~bstyp
+      INTO CORRESPONDING FIELDS OF wa_ekko
+     WHERE a~bstyp = 'F' AND
+           a~bsart IN ('NB','YNB').
+
+*----------------------------------------------------
+* To Get the details of buyer
+*----------------------------------------------------
+      CLEAR wa_t024.
+      SELECT SINGLE * FROM t024 INTO wa_t024
+       WHERE ekgrp = wa_ekko-ekgrp.
+
+      IF sy-subrc NE 0.
+        CLEAR wa_t024.
+      ENDIF.
+
+*----------------------------------------------------
+* To get the details of Ship to Address
+*----------------------------------------------------
+      CLEAR : zadrnr, zshiptoaddr.
+      SELECT SINGLE adrnr FROM t001
+                    INTO zadrnr
+                    WHERE bukrs = wa_ekko-bukrs.
+
+      IF sy-subrc EQ 0.
+        SELECT SINGLE * FROM adrc INTO wa_adrc
+                WHERE addrnumber = zadrnr.
+
+        IF sy-subrc EQ 0.
+
+          CONCATENATE wa_adrc-name1
+                      wa_adrc-name2
+                      wa_adrc-name3
+                      wa_adrc-name4
+                      wa_adrc-street
+                      wa_adrc-city1
+                      wa_adrc-post_code1
+                      INTO zshiptoaddr SEPARATED BY space.
+        ELSE.
+          CLEAR : zshiptoaddr.
+        ENDIF.
+      ENDIF.
+
+*------------------------------------------------------
+* To get the details of Total PO Amount and GST Amt
+*------------------------------------------------------
+      CLEAR : wa_ekpo, zgstpr, znetpr.
+      SELECT * FROM ekpo INTO wa_ekpo
+       WHERE ebeln = wa_ekko-ebeln.
+
+        zgstpr = zgstpr + wa_ekpo-netwr.
+        znetpr = znetpr + wa_ekpo-brtwr.
+        CLEAR wa_ekpo.
+
+      ENDSELECT.
+
+*------------------------------------------------------
+* To get the Purchase Header Text
+*------------------------------------------------------
+      CLEAR : wa_ftxt,
+              wa_stxh,
+              ztdline,
+              ztdline1.
+
+      REFRESH : tb_ftxt,
+                tb_stxh.
+
+      SELECT * FROM stxh INTO TABLE tb_stxh
+                  WHERE tdobject = 'EKKO'
+                    AND tdname = wa_ekko-ebeln.
+
+
+      IF tb_stxh[] IS NOT INITIAL.
+
+        LOOP AT tb_stxh INTO wa_stxh
+          WHERE tdname = wa_ekko-ebeln.
+
+          CLEAR : wa_ftxt,
+                  ztdline1,
+                  ztdline.
+
+          CALL FUNCTION 'READ_TEXT'
+            EXPORTING
+              id       = wa_stxh-tdid
+              language = wa_stxh-tdspras
+              name     = wa_stxh-tdname
+              object   = wa_stxh-tdobject
+            TABLES
+              lines    = tb_ftxt.
+
+          IF sy-subrc EQ 0 AND tb_ftxt[] IS NOT INITIAL.
+
+*         GETTING THE PO HEADER TEXT
+
+            LOOP AT tb_ftxt INTO wa_ftxt.
+
+              CONDENSE wa_ftxt-tdline.
+
+              CONCATENATE ztdline1
+                          wa_ftxt-tdline
+                          INTO ztdline1 SEPARATED BY space.
+
+            ENDLOOP.
+
+            CONDENSE ztdline1.
+            CLEAR ytxt01.
+            MOVE ztdline1 TO ytxt01.
+            CALL METHOD me->getorderheadertext.
+          ENDIF.
+
+        ENDLOOP.
+
+      ELSE.
+        CLEAR ytxt01.
+      ENDIF.
+
+*--------------------------------------------------------
+* To Create the object and add to the collection - table
+*--------------------------------------------------------
+
+      CREATE OBJECT purhdr EXPORTING ebeln = wa_ekko-ebeln
+                                     bedat = wa_ekko-bedat
+                                     bstyp = wa_ekko-bstyp
+                                     bsart = wa_ekko-bsart
+                                     ernam = wa_ekko-ernam
+                                     buyer = wa_t024-telfx
+                                     phone = wa_t024-ektel
+                                     lifnr = wa_ekko-lifnr
+                                     zterm = wa_ekko-zterm
+                                     ekgrp = wa_ekko-ekgrp
+                                     ekorg = wa_ekko-ekorg
+                                     waers = wa_ekko-waers
+                                     wkurs = wa_ekko-wkurs
+                                     verkf = wa_ekko-verkf
+                                     telf1 = wa_ekko-telf1
+                                     amtpr = znetpr
+                                     gstam = zgstpr
+                                     laddr = zshiptoaddr
+                                     adnbr = wa_t024-tel_number
+                                     txt01 = ytxt01
+                                     loekz = wa_ekko-loekz.
+
+      APPEND purhdr TO purhdr_tab.
+
+    ENDSELECT.
+
+  ENDMETHOD.                    "getorderheader
+
+*===========================================================
+* Method to get purchase order Item details
+*===========================================================
+
+  METHOD getorderitem.
+
+    SELECT * FROM ekpo AS a
+     INNER JOIN zscs01 AS b ON a~ebeln = b~ebeln
+     INNER JOIN ekko   AS c ON b~ebeln = c~ebeln
+      INTO CORRESPONDING FIELDS OF wa_ekpo
+     WHERE c~bstyp = 'F' AND
+           c~bsart IN ('NB','YNB').
+
+*--------------------------------------------------------
+* To get old material number
+*--------------------------------------------------------
+
+      CLEAR : zbismt.
+      SELECT SINGLE bismt FROM mara
+        INTO zbismt
+       WHERE matnr = wa_ekpo-matnr.
+
+      IF sy-subrc NE 0.
+        CLEAR : zbismt.
+      ENDIF.
+
+*--------------------------------------------------------
+* To get Cost Centre Details
+*--------------------------------------------------------
+
+      CLEAR : wa_ekkn, zktext.
+
+      SELECT * FROM ekkn INTO wa_ekkn
+       WHERE ebeln = wa_ekpo-ebeln AND
+             ebelp = wa_ekpo-ebelp.
+
+        SELECT SINGLE ktext FROM cskt INTO zktext
+         WHERE kostl = wa_ekkn-kostl AND
+               kokrs = wa_ekkn-kokrs AND
+               spras = sy-langu.
+
+        IF sy-subrc NE 0.
+          CLEAR : zktext.
+        ENDIF.
+
+      ENDSELECT.
+
+      IF sy-subrc NE 0.
+        CLEAR : wa_ekkn, zktext.
+      ENDIF.
+
+*--------------------------------------------------------
+* To get Production Order Details
+*--------------------------------------------------------
+
+      SELECT SINGLE aufnr kostl FROM ekkn
+        INTO (zaufnr, zkostl)
+       WHERE ebeln = wa_ekpo-ebeln AND
+             ebelp = wa_ekpo-ebelp.
+
+*--------------------------------------------------------
+* To get Purchase Order Item Text
+*--------------------------------------------------------
+
+
+      CLEAR : wa_stxh,
+              wa_ftxt,
+              ztdname,
+              ztdline1,
+              ztdline.
+
+      REFRESH : tb_stxh,
+                tb_ftxt.
+
+      ztdname(10)   = wa_ekpo-ebeln.
+      ztdname+10(5) = wa_ekpo-ebelp.
+
+
+      SELECT * FROM stxh INTO TABLE tb_stxh
+       WHERE tdobject = 'EKPO' AND
+             tdname   = ztdname.
+
+      IF tb_stxh[] IS NOT INITIAL.
+
+        LOOP AT tb_stxh INTO wa_stxh.
+
+          CLEAR : wa_ftxt,
+                  ztdline1,
+                  ztdline.
+
+          CALL FUNCTION 'READ_TEXT'
+            EXPORTING
+              id       = wa_stxh-tdid
+              language = wa_stxh-tdspras
+              name     = wa_stxh-tdname
+              object   = wa_stxh-tdobject
+            TABLES
+              lines    = tb_ftxt.
+
+          IF sy-subrc EQ 0 AND tb_ftxt[] IS NOT INITIAL.
+
+            LOOP AT tb_ftxt INTO wa_ftxt.
+
+              CONDENSE wa_ftxt-tdline.
+
+              CONCATENATE ztdline1
+                          wa_ftxt-tdline
+                          INTO ztdline1 SEPARATED BY space.
+
+            ENDLOOP.
+
+            CONDENSE ztdline1.
+            CLEAR ytxt01.
+            MOVE ztdline1 TO ytxt01.
+            CALL METHOD me->getorderitemtext.
+          ENDIF.
+
+        ENDLOOP.
+
+      ELSE.
+        CLEAR ytxt01.
+      ENDIF.
+
+*--------------------------------------------------------
+* To Create the object and add to the collection - table
+*--------------------------------------------------------
+
+      CREATE OBJECT puritm EXPORTING ebeln = wa_ekpo-ebeln
+                                     ebelp = wa_ekpo-ebelp
+                                     pstyp = wa_ekpo-pstyp
+                                     matnr = wa_ekpo-matnr
+                                     txz01 = wa_ekpo-txz01
+                                     bismt = zbismt
+                                     menge = wa_ekpo-menge
+                                     peinh = wa_ekpo-peinh
+                                     meins = wa_ekpo-meins
+                                     netpr = wa_ekpo-netpr
+                                     netwr = wa_ekpo-netwr
+                                     wemng = wa_ekpo-menge
+                                     ktext = zktext
+                                     kostl = zkostl
+                                     aufnr = zaufnr
+                                     lgort = wa_ekpo-lgort
+                                     loekz = wa_ekpo-loekz
+                                     txt01 = ytxt01.
+      APPEND puritm TO puritm_tab.
+
+*--------------------------------------------------------
+* To get Purchase Order Schedule
+*--------------------------------------------------------
+
+      CLEAR : wa_eket, wa_resb.
+
+      SELECT * FROM eket INTO wa_eket
+       WHERE ebeln = wa_ekpo-ebeln AND
+             ebelp = wa_ekpo-ebelp.
+        CALL METHOD me->getorderschedule.
+      ENDSELECT.
+
+*--------------------------------------------------------
+* To get Purchase Order Components
+*--------------------------------------------------------
+
+      SELECT * FROM resb INTO wa_resb
+       WHERE ebeln = wa_ekpo-ebeln AND
+             ebelp = wa_ekpo-ebelp.
+        CALL METHOD me->getordercomponent.
+      ENDSELECT.
+
+*--------------------------------------------------------
+* To get Purchase Order Services
+*--------------------------------------------------------
+
+      SELECT * FROM essr_rel INTO wa_essr
+       WHERE ebeln = wa_ekpo-ebeln AND
+             ebelp = wa_ekpo-ebelp.
+
+        CALL METHOD me->getorderservice.
+
+*--------------------------------------------------------
+* To get Service Entry Tasks
+*--------------------------------------------------------
+
+        SELECT * FROM esll INTO wa_esll
+         WHERE packno = wa_essr-packno_p.
+          SELECT * FROM esll INTO ya_esll
+           WHERE packno = wa_esll-sub_packno.
+
+            CALL METHOD me->getorderservicetask.
+          ENDSELECT.
+
+        ENDSELECT.
+
+      ENDSELECT.
+
+    ENDSELECT.
+
+  ENDMETHOD.                    "getorderitem
+
+*===========================================================
+* Method to get purchase order Item Schedule Details
+*===========================================================
+
+  METHOD getorderschedule.
+
+    CREATE OBJECT pursch EXPORTING ebeln  = wa_ekpo-ebeln
+                                   ebelp  = wa_ekpo-ebelp
+                                   matnr  = wa_ekpo-matnr
+                                   etenr  = wa_eket-etenr
+                                   slfdt  = wa_eket-slfdt
+                                   menge  = wa_eket-menge
+                                   eindt  = wa_eket-eindt
+                                   wemng  = wa_eket-wemng.
+
+    APPEND pursch TO pursch_tab.
+
+  ENDMETHOD.                    "getorderschedule
+
+*===========================================================
+* Method to get purchase order Item Components
+*===========================================================
+
+  METHOD getordercomponent.
+
+    CLEAR : zmaktx.
+    SELECT SINGLE maktx FROM makt INTO zmaktx
+     WHERE matnr = wa_resb-matnr.
+    IF sy-subrc NE 0.
+      CLEAR: zmaktx.
+    ENDIF.
+
+    CREATE OBJECT purcmp EXPORTING ebeln = wa_resb-ebeln
+                                   ebelp = wa_resb-ebelp
+                                   compl = wa_resb-ebele
+                                   matnr = wa_resb-matnr
+                                   maktx = zmaktx
+                                   bdmng = wa_resb-bdmng
+                                   meins = wa_resb-meins.
+    APPEND purcmp TO purcmp_tab.
+
+
+  ENDMETHOD.                    "getordercomponent
+
+*===========================================================
+* Method to get purchase order Service Items
+*===========================================================
+
+  METHOD getorderservice.
+
+    CREATE OBJECT pursrv EXPORTING ebeln  = wa_essr-ebeln
+                                   ebelp  = wa_essr-ebelp
+                                   lblni  = wa_essr-lblni
+                                   ktext1 = wa_essr-txz01
+                                   menge  = wa_essr-menge
+                                   preis  = wa_essr-netwr
+                                   brtwr  = wa_essr-brtwr.
+    APPEND pursrv TO pursrv_tab.
+
+
+  ENDMETHOD.                    "getorderservice
+
+*===========================================================
+* Method to get purchase order Service Tasks
+*===========================================================
+
+  METHOD getorderservicetask.
+
+    CREATE OBJECT purtsk EXPORTING lblni  = wa_essr-lblni
+                                   extrow = ya_esll-extrow
+                                   srvpos = ya_esll-srvpos
+                                   mengev = ya_esll-menge
+                                   meins  = ya_esll-meins
+                                   sbrtwr = ya_esll-netwr
+                                   ktext1 = ya_esll-ktext1.
+
+    APPEND purtsk TO purtsk_tab.
+
+  ENDMETHOD.                    "getorderservicetask
+
+*===========================================================
+* Method to get purchase order Header Text
+*===========================================================
+
+  METHOD getorderheadertext.
+
+    CREATE OBJECT purhtxt EXPORTING ebeln  = wa_ekko-ebeln
+                                    txtitm = wa_stxh-tdid
+                                    ltxt   = ztdline1.
+    APPEND purhtxt TO hdrtxt_tab.
+
+  ENDMETHOD.                    "getorderheadertext
+
+*===========================================================
+* Method to get purchase order Item Text
+*===========================================================
+
+  METHOD getorderitemtext.
+
+    CREATE OBJECT puritxt EXPORTING ebeln  = wa_ekpo-ebeln
+                                    ebelp  = wa_ekpo-ebelp
+                                    txtitm = wa_stxh-tdid
+                                    ltxt   = ztdline1.
+    APPEND puritxt TO itmtxt_tab.
+
+  ENDMETHOD.                    "getorderitemtext
+
+*===========================================================
+* Method to get purchase order History
+*===========================================================
+
+  METHOD getorderhistory.
+
+    CLEAR : wa_ekbe, zcpudt.
+
+    SELECT SINGLE zcpudt INTO zcpudt
+      FROM zeproc_ctl.
+
+    IF sy-subrc IS NOT INITIAL.
+      zcpudt = sy-datum.
+    ENDIF.
+
+    SELECT * FROM ekbe INTO CORRESPONDING FIELDS OF wa_ekbe
+     WHERE cpudt >= zcpudt.
+
+      CREATE OBJECT purhst EXPORTING  ebeln = wa_ekbe-ebeln
+                                      ebelp = wa_ekbe-ebelp
+                                      bewtp = wa_ekbe-bewtp
+                                      belnr = wa_ekbe-belnr
+                                      buzei = wa_ekbe-buzei
+                                      bwart = wa_ekbe-bwart
+                                      budat = wa_ekbe-budat
+                                      menge = wa_ekbe-menge
+                                      dmbtr = wa_ekbe-dmbtr
+                                      wrbtr = wa_ekbe-wrbtr
+                                      waers = wa_ekbe-waers
+                                      shkzg = wa_ekbe-shkzg
+                                      xblnr = wa_ekbe-xblnr
+                                      matnr = wa_ekbe-matnr
+                                      werks = wa_ekbe-werks.
+      APPEND purhst TO purhst_tab.
+
+    ENDSELECT.
+
+  ENDMETHOD.                    "getorderhistory
+
+ENDCLASS.               "ZPURCHASE_ORDER
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZCLEARORDER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zclearorder IMPLEMENTATION.
+
+  METHOD   clearorder.
+
+    DELETE FROM zscs01.
+
+  ENDMETHOD.                    "clearorder
+
+
+ENDCLASS.               "ZCLEARCONTRACT
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  zcloseorder
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zcloseorder IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln = ebeln.
+    zebelp = ebelp.
+    zposts = posts.
+    zitsts = itsts.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getordernumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getordernumber
+
+  METHOD getitemsequence.
+    get_value = zebelp.
+  ENDMETHOD.                    "getitemsequence
+
+  METHOD getorderstatus.
+    get_value = zposts.
+  ENDMETHOD.                    "getorderstatus
+
+  METHOD getitemstatus.
+    get_value = zitsts.
+  ENDMETHOD.                    "getitemstatus
+
+  METHOD setitemstatus.
+    zitsts = set_value.
+  ENDMETHOD.                    "setitemstatus
+
+ENDCLASS.               "zcloseorder
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZCLOSEORDER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zgetclosedorder IMPLEMENTATION.
+
+  METHOD getcloseorder.
+
+    CLEAR : yebeln, yebelp, zcpudt.
+
+    SELECT SINGLE zcpudt INTO zcpudt
+       FROM zeproc_ctl.
+
+    SELECT DISTINCT ebeln ebelp FROM ekbe INTO (yebeln, yebelp)
+     WHERE cpudt >= zcpudt.
+
+      CREATE OBJECT clsord EXPORTING ebeln = yebeln
+                                     ebelp = yebelp
+                                     posts = ' '
+                                     itsts = ' '.
+
+      APPEND clsord TO clsord_tab.
+    ENDSELECT.
+
+    SORT clsord_tab.
+
+    LOOP AT clsord_tab INTO clsord.
+
+      CALL METHOD clsord->getordernumber
+        IMPORTING
+          get_value = yebeln.
+
+      CALL METHOD clsord->getitemsequence
+        IMPORTING
+          get_value = yebelp.
+
+      CLEAR : ztqty, zmenge.
+
+      SELECT * FROM ekbe INTO CORRESPONDING FIELDS OF wa_ekbe
+       WHERE ebeln = yebeln AND
+             ebelp = yebelp AND
+             vgabe = '1'.
+
+        IF wa_ekbe-shkzg = 'S'.
+          ztqty = ztqty + wa_ekbe-menge.
+        ELSE.
+          ztqty = ztqty - wa_ekbe-menge.
+        ENDIF.
+
+      ENDSELECT.
+
+
+      SELECT SINGLE menge INTO zmenge FROM ekpo
+       WHERE ebeln = yebeln AND
+             ebelp = yebelp.
+
+      IF ztqty >= zmenge.
+        yloekz = 'C'.
+        CALL METHOD clsord->setitemstatus
+          EXPORTING
+            set_value = yloekz.
+        MODIFY clsord_tab FROM clsord.
+      ENDIF.
+
+
+      CLEAR : ztqty.
+
+      SELECT * FROM ekbe INTO CORRESPONDING FIELDS OF wa_ekbe
+       WHERE ebeln = yebeln AND
+             ebelp = yebelp AND
+             vgabe = '2'.
+
+        IF wa_ekbe-shkzg = 'S'.
+          ztqty = ztqty + wa_ekbe-menge.
+        ELSE.
+          ztqty = ztqty - wa_ekbe-menge.
+        ENDIF.
+
+      ENDSELECT.
+
+      IF ztqty >= zmenge.
+        yloekz = 'I'.
+        CALL METHOD clsord->getitemstatus
+          IMPORTING
+            get_value = yloekz.
+        MODIFY clsord_tab FROM clsord.
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.                    "getcloseorder
+
+ENDCLASS.               "ZCLOSEORDER

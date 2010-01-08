@@ -1,0 +1,367 @@
+FUNCTION zretrieveorder.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  TABLES
+*"      PURCHASE_HEADER STRUCTURE  ZORDER_HDR
+*"      PURCHASE_ITEM STRUCTURE  ZORDER_ITM
+*"      PURCHASE_SCHEDULE STRUCTURE  ZORDER_SCH
+*"      PURCHASE_COMPONENT STRUCTURE  ZORDER_COMP
+*"      PURCHASE_SERVICE_ITEM STRUCTURE  ZORDER_SRV
+*"      PURCHASE_SERVICE_TASK STRUCTURE  ZORDER_SRVTSK
+*"      PURCHASE_HEADER_TEXT STRUCTURE  ZORDER_HDRTXT
+*"      PURCHASE_ITEM_TEXT STRUCTURE  ZORDER_ITMTXT
+*"  EXCEPTIONS
+*"      RECORDNOTFOUND
+*"----------------------------------------------------------------------
+
+  DATA : zpurchase TYPE REF TO zpurchase_order.
+
+  CREATE OBJECT zpurchase.
+
+  CALL METHOD zpurchase->getorderheader.
+
+  IF zpurchase->purhdr_tab IS NOT INITIAL.
+
+*------------------------------------------------
+* 1.To Retrieve Purchase Order Header Details
+*------------------------------------------------
+
+    LOOP AT zpurchase->purhdr_tab INTO zpurchase->purhdr_obj.
+
+      CALL METHOD zpurchase->purhdr_obj->getordernumber
+        IMPORTING
+          get_value = purchase_header-ebeln.
+      CALL METHOD zpurchase->purhdr_obj->getdocumentdate
+        IMPORTING
+          get_value = purchase_header-bedat.
+      CALL METHOD zpurchase->purhdr_obj->getdocumentcategory
+        IMPORTING
+          get_value = purchase_header-bstyp.
+      CALL METHOD zpurchase->purhdr_obj->getdocumenttype
+        IMPORTING
+          get_value = purchase_header-bsart.
+      CALL METHOD zpurchase->purhdr_obj->getcreatename
+        IMPORTING
+          get_value = purchase_header-ernam.
+      CALL METHOD zpurchase->purhdr_obj->getbuyername
+        IMPORTING
+          get_value = purchase_header-buyer.
+      CALL METHOD zpurchase->purhdr_obj->getbuyerphone
+        IMPORTING
+          get_value = purchase_header-phone.
+      CALL METHOD zpurchase->purhdr_obj->getvendor
+        IMPORTING
+          get_value = purchase_header-lifnr.
+      CALL METHOD zpurchase->purhdr_obj->getpaymentterms
+        IMPORTING
+          get_value = purchase_header-zterm.
+      CALL METHOD zpurchase->purhdr_obj->getpurchasinggroup
+        IMPORTING
+          get_value = purchase_header-ekgrp.
+      CALL METHOD zpurchase->purhdr_obj->getpurchasingorg
+        IMPORTING
+          get_value = purchase_header-ekorg.
+      CALL METHOD zpurchase->purhdr_obj->getcurrency
+        IMPORTING
+          get_value = purchase_header-waers.
+      CALL METHOD zpurchase->purhdr_obj->getexchangerate
+        IMPORTING
+          get_value = purchase_header-wkurs.
+      CALL METHOD zpurchase->purhdr_obj->getsalesperson
+        IMPORTING
+          get_value = purchase_header-verkf.
+      CALL METHOD zpurchase->purhdr_obj->gettelephone
+        IMPORTING
+          get_value = purchase_header-telf1.
+      CALL METHOD zpurchase->purhdr_obj->getpuramt
+        IMPORTING
+          get_value = purchase_header-amtpr.
+      CALL METHOD zpurchase->purhdr_obj->getpurgst
+        IMPORTING
+          get_value = purchase_header-gstam.
+      CALL METHOD zpurchase->purhdr_obj->getaddress
+        IMPORTING
+          get_value = purchase_header-laddr.
+      CALL METHOD zpurchase->purhdr_obj->gettelnumber
+        IMPORTING
+          get_value = purchase_header-adnbr.
+      CALL METHOD zpurchase->purhdr_obj->getremark
+        IMPORTING
+          get_value = purchase_header-txt01.
+      CALL METHOD zpurchase->purhdr_obj->getdeletestatus
+        IMPORTING
+          get_value = purchase_header-loekz.
+
+      APPEND purchase_header.
+      CLEAR  purchase_header.
+
+    ENDLOOP.
+
+*-------------------------------------------------
+* 2. To Retrieve Purchase Order Item Details
+*-------------------------------------------------
+
+    CALL METHOD zpurchase->getorderitem.
+
+    LOOP AT zpurchase->puritm_tab INTO zpurchase->puritm_obj.
+
+      CALL METHOD zpurchase->puritm_obj->getordernumber
+        IMPORTING
+          get_value = purchase_item-ebeln.
+      CALL METHOD zpurchase->puritm_obj->getorderitem
+        IMPORTING
+          get_value = purchase_item-ebelp.
+      CALL METHOD zpurchase->puritm_obj->getmaterial
+        IMPORTING
+          get_value = purchase_item-matnr.
+      CALL METHOD zpurchase->puritm_obj->getdescription
+        IMPORTING
+          get_value = purchase_item-txz01.
+      CALL METHOD zpurchase->puritm_obj->getoldmaterial
+        IMPORTING
+          get_value = purchase_item-bismt.
+      CALL METHOD zpurchase->puritm_obj->getorderqty
+        IMPORTING
+          get_value = purchase_item-menge.
+      CALL METHOD zpurchase->puritm_obj->getorderunit
+        IMPORTING
+          get_value = purchase_item-peinh.
+      CALL METHOD zpurchase->puritm_obj->getunitmeasure
+        IMPORTING
+          get_value = purchase_item-meins.
+      CALL METHOD zpurchase->puritm_obj->getnetprice
+        IMPORTING
+          get_value = purchase_item-netpr.
+      CALL METHOD zpurchase->puritm_obj->getnetvalue
+        IMPORTING
+          get_value = purchase_item-netwr.
+      CALL METHOD zpurchase->puritm_obj->getdeliveryqty
+        IMPORTING
+          get_value = purchase_item-wemng.
+      CALL METHOD zpurchase->puritm_obj->getcostctrdesc
+        IMPORTING
+          get_value = purchase_item-ktext.
+      CALL METHOD zpurchase->puritm_obj->getcostcentre
+        IMPORTING
+          get_value = purchase_item-kostl.
+      CALL METHOD zpurchase->puritm_obj->getprdorder
+        IMPORTING
+          get_value = purchase_item-aufnr.
+      CALL METHOD zpurchase->puritm_obj->getstorageloc
+        IMPORTING
+          get_value = purchase_item-lgort.
+      CALL METHOD zpurchase->puritm_obj->getdeleteindc
+        IMPORTING
+          get_value = purchase_item-loekz.
+      CALL METHOD zpurchase->puritm_obj->getremark
+        IMPORTING
+          get_value = purchase_item-txt01.
+      CALL METHOD zpurchase->puritm_obj->getcategory
+        IMPORTING
+          get_value = purchase_item-pstyp.
+
+      APPEND purchase_item.
+      CLEAR  purchase_item.
+
+    ENDLOOP.
+
+*-------------------------------------------------
+* 3. To Retrieve Purchase Order Schedule Details
+*-------------------------------------------------
+
+    CALL METHOD zpurchase->getorderschedule.
+
+    LOOP AT zpurchase->pursch_tab INTO zpurchase->pursch_obj.
+
+      CALL METHOD zpurchase->pursch_obj->getordernumber
+        IMPORTING
+          get_value = purchase_schedule-ebeln.
+      CALL METHOD zpurchase->pursch_obj->getorderitem
+        IMPORTING
+          get_value = purchase_schedule-ebelp.
+      CALL METHOD zpurchase->pursch_obj->getmaterial
+        IMPORTING
+          get_value = purchase_schedule-matnr.
+      CALL METHOD zpurchase->pursch_obj->getschline
+        IMPORTING
+          get_value = purchase_schedule-etenr.
+      CALL METHOD zpurchase->pursch_obj->getschdate
+        IMPORTING
+          get_value = purchase_schedule-slfdt.
+      CALL METHOD zpurchase->pursch_obj->getschqty
+        IMPORTING
+          get_value = purchase_schedule-menge.
+      CALL METHOD zpurchase->pursch_obj->getdeliverydate
+        IMPORTING
+          get_value = purchase_schedule-eindt.
+      CALL METHOD zpurchase->pursch_obj->getdeliveryqty
+        IMPORTING
+          get_value = purchase_schedule-wemng.
+
+      APPEND purchase_schedule.
+      CLEAR  purchase_schedule.
+
+    ENDLOOP.
+
+*-------------------------------------------------
+* 4. To Retrieve Purchase Order Component Details
+*-------------------------------------------------
+
+    CALL METHOD zpurchase->getordercomponent.
+
+    LOOP AT zpurchase->purcmp_tab INTO zpurchase->purcmp_obj.
+
+      CALL METHOD zpurchase->purcmp_obj->getordernumber
+        IMPORTING
+          get_value = purchase_component-ebeln.
+      CALL METHOD zpurchase->purcmp_obj->getordernumber
+        IMPORTING
+          get_value = purchase_component-ebeln.
+      CALL METHOD zpurchase->purcmp_obj->getorderitem
+        IMPORTING
+          get_value = purchase_component-ebelp.
+      CALL METHOD zpurchase->purcmp_obj->getcompoenentline
+        IMPORTING
+          get_value = purchase_component-compl.
+      CALL METHOD zpurchase->purcmp_obj->getmaterial
+        IMPORTING
+          get_value = purchase_component-matnr.
+      CALL METHOD zpurchase->purcmp_obj->getdescription
+        IMPORTING
+          get_value = purchase_component-maktx.
+      CALL METHOD zpurchase->purcmp_obj->getcomponentqty
+        IMPORTING
+          get_value = purchase_component-bdmng.
+      CALL METHOD zpurchase->purcmp_obj->getunitmeasure
+        IMPORTING
+          get_value = purchase_component-meins.
+
+      APPEND purchase_component.
+      CLEAR  purchase_component.
+
+    ENDLOOP.
+
+*-------------------------------------------------
+* 5. To Retrieve Purchase Order Service Details
+*-------------------------------------------------
+
+    CALL METHOD zpurchase->getorderservice.
+
+    LOOP AT zpurchase->pursrv_tab INTO zpurchase->pursrv_obj.
+
+      CALL METHOD zpurchase->pursrv_obj->getordernumber
+        IMPORTING
+          get_value = purchase_service_item-ebeln.
+      CALL METHOD zpurchase->pursrv_obj->getorderitem
+        IMPORTING
+          get_value = purchase_service_item-ebelp.
+      CALL METHOD zpurchase->pursrv_obj->getserviceline
+        IMPORTING
+          get_value = purchase_service_item-lblni.
+      CALL METHOD zpurchase->pursrv_obj->getdescription
+        IMPORTING
+          get_value = purchase_service_item-ktext1.
+      CALL METHOD zpurchase->pursrv_obj->getserviceqty
+        IMPORTING
+          get_value = purchase_service_item-menge.
+      CALL METHOD zpurchase->pursrv_obj->getserviceprice
+        IMPORTING
+          get_value = purchase_service_item-preis.
+      CALL METHOD zpurchase->pursrv_obj->getservicevalue
+        IMPORTING
+          get_value = purchase_service_item-brtwr.
+
+      APPEND purchase_service_item.
+      CLEAR  purchase_service_item.
+
+    ENDLOOP.
+
+*-------------------------------------------------
+* 6. To Retrieve Purchase Service Task Details
+*-------------------------------------------------
+
+    CALL METHOD zpurchase->getorderservicetask.
+
+    LOOP AT zpurchase->purtsk_tab INTO zpurchase->purtsk_obj.
+
+      CALL METHOD zpurchase->purtsk_obj->getserviceline
+        IMPORTING
+          get_value = purchase_service_task-lblni.
+      CALL METHOD zpurchase->purtsk_obj->getsequence
+        IMPORTING
+          get_value = purchase_service_task-extrow.
+      CALL METHOD zpurchase->purtsk_obj->getposition
+        IMPORTING
+          get_value = purchase_service_task-srvpos.
+      CALL METHOD zpurchase->purtsk_obj->getserviceqty
+        IMPORTING
+          get_value = purchase_service_task-mengev.
+      CALL METHOD zpurchase->purtsk_obj->getunitmeasure
+        IMPORTING
+          get_value = purchase_service_task-meins.
+      CALL METHOD zpurchase->purtsk_obj->getserviceprice
+        IMPORTING
+          get_value = purchase_service_task-sbrtwr.
+      CALL METHOD zpurchase->purtsk_obj->getservicevalue
+        IMPORTING
+          get_value = purchase_service_task-ktext1.
+
+      APPEND purchase_service_task.
+      CLEAR  purchase_service_task.
+
+    ENDLOOP.
+
+*-------------------------------------------------
+* 7. To Retrieve Purchase Header Text Details
+*-------------------------------------------------
+
+    CALL METHOD zpurchase->getorderheadertext.
+
+    LOOP AT zpurchase->hdrtxt_tab INTO zpurchase->hdrtxt_obj.
+
+      CALL METHOD zpurchase->hdrtxt_obj->getordernumber
+        IMPORTING
+          get_value = purchase_header_text-ebeln.
+      CALL METHOD zpurchase->hdrtxt_obj->getsequence
+        IMPORTING
+          get_value = purchase_header_text-txtitm.
+      CALL METHOD zpurchase->hdrtxt_obj->getdescription
+        IMPORTING
+          get_value = purchase_header_text-ltxt.
+
+      APPEND purchase_header_text.
+      CLEAR  purchase_header_text.
+
+    ENDLOOP.
+
+*-------------------------------------------------
+* 8. To Retrieve Purchase Item Text Details
+*-------------------------------------------------
+
+    CALL METHOD zpurchase->getorderitemtext.
+
+    LOOP AT zpurchase->itmtxt_tab INTO zpurchase->itmtxt_obj.
+      CALL METHOD zpurchase->itmtxt_obj->getordernumber
+        IMPORTING
+          get_value = purchase_item_text-ebeln.
+      CALL METHOD zpurchase->itmtxt_obj->getorderitem
+        IMPORTING
+          get_value = purchase_item_text-ebelp.
+      CALL METHOD zpurchase->itmtxt_obj->getsequence
+        IMPORTING
+          get_value = purchase_item_text-txtitm.
+      CALL METHOD zpurchase->itmtxt_obj->getdescription
+        IMPORTING
+          get_value = purchase_item_text-ltxt.
+
+      APPEND purchase_item_text.
+      CLEAR  purchase_item_text.
+
+    ENDLOOP.
+
+  ELSE.
+    RAISE recordnotfound.
+  ENDIF.
+
+
+ENDFUNCTION.
