@@ -1,0 +1,250 @@
+*----------------------------------------------------------------------*
+***INCLUDE LZEPROCUREMENTP03 .
+***Author : Chetan Potnis
+***Description: Implementation of eProcurement Requisition Classes
+***eProcurement and SAP Interface Module
+***Remote SAP Server side Classes
+*----------------------------------------------------------------------*
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZREQUISTIONHEADER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zrequistionheader IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zbanfn = banfn.
+    zbsart = bsart.
+    zbstyp = bstyp.
+    zbadat = badat.
+    zstatu = statu.
+    zfrgzu = frgzu.
+    zfrgdt = frgdt.
+    zernam = ernam.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getreqnumber.
+    get_value = zbanfn.
+  ENDMETHOD.                    "getreqnumber
+
+  METHOD getdocumenttype.
+    get_value = zbsart.
+  ENDMETHOD.                    "getdocumenttype
+
+  METHOD getcategroy.
+    get_value = zbstyp.
+  ENDMETHOD.                    "getcategroy
+
+  METHOD getreqdate.
+    get_value = zbadat.
+  ENDMETHOD.                    "getreqdate
+
+  METHOD getreqstatus.
+    get_value = zstatu.
+  ENDMETHOD.                    "getreqstatus
+
+  METHOD getreleasestatus.
+    get_value = zfrgzu.
+  ENDMETHOD.                    "getreleasestatus
+
+  METHOD getreleasedate.
+    get_value = zfrgdt.
+  ENDMETHOD.                    "getreleasedate
+
+  METHOD getrequisitioner.
+    get_value = zernam.
+  ENDMETHOD.                    "getrequisitioner
+
+ENDCLASS.               "ZREQUISTIONHEADER
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZREQUISTIONITEM
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zrequistionitem IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zbanfn = banfn.
+    zbnfpo = bnfpo.
+    zekgrp = ekgrp.
+    zekorg = ekorg.
+    zmatnr = matnr.
+    ztxz01 = txz01.
+    zwerks = werks.
+    zmenge = menge.
+    zmeins = meins.
+    zlfdat = lfdat.
+    zpreis = preis.
+    zpeinh = peinh.
+    zebeln = ebeln.
+    zebelp = ebelp.
+    zbedat = bedat.
+    zbsmng = bsmng.
+    zwaers = waers.
+    zrlwrt = rlwrt.
+    zafnam = afnam.
+    zflief = flief.
+    zloekz = loekz.
+
+  ENDMETHOD.                    "constructor
+
+
+  METHOD getreqnumber.
+    get_value = zbanfn.
+  ENDMETHOD.                    "getreqnumber
+
+  METHOD getreqsequence.
+    get_value = zbnfpo.
+  ENDMETHOD.                    "getreqsequence
+
+  METHOD getpurchasegroup.
+    get_value = zekgrp.
+  ENDMETHOD.                    "getpurchasegroup
+
+  METHOD getpurchaseorg.
+    get_value = zekorg.
+  ENDMETHOD.                    "getpurchaseorg
+
+  METHOD getmaterial.
+    get_value = zmatnr.
+  ENDMETHOD.                    "getmaterial
+
+  METHOD getdescription.
+    get_value = ztxz01.
+  ENDMETHOD.                    "getdescription
+
+  METHOD getplant.
+    get_value = zwerks.
+  ENDMETHOD.                    "getplant
+
+  METHOD getreqquantity.
+    get_value = zmenge.
+  ENDMETHOD.                    "getreqquantity
+
+  METHOD getunitmeasure.
+    get_value = zmeins.
+  ENDMETHOD.                    "getunitmeasure
+
+  METHOD getrequiredate.
+    get_value = zlfdat.
+  ENDMETHOD.                    "getrequiredate
+
+  METHOD getprice.
+    get_value = zpreis.
+  ENDMETHOD.                    "getprice
+
+  METHOD getpriceunit.
+    get_value = zpeinh.
+  ENDMETHOD.                    "getpriceunit
+
+  METHOD getordernumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getordernumber
+
+  METHOD getorderitem.
+    get_value = zebelp.
+  ENDMETHOD.                    "getorderitem
+
+  METHOD getorderquantity.
+    get_value = zbedat.
+  ENDMETHOD.                    "getorderquantity
+
+  METHOD getcurrency.
+    get_value = zbsmng.
+  ENDMETHOD.                    "getcurrency
+
+  METHOD gettotalvalue.
+    get_value = zwaers.
+  ENDMETHOD.                    "gettotalvalue
+
+  METHOD getrequestor.
+    get_value = zrlwrt.
+  ENDMETHOD.                    "getrequestor
+
+  METHOD getfixedvendor.
+    get_value = zafnam.
+  ENDMETHOD.                    "getfixedvendor
+
+  METHOD getindicator.
+    get_value = zloekz.
+  ENDMETHOD.                    "getindicator
+
+ENDCLASS.               "ZREQUISTIONITEM
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZPURCHASE_REQUISITION
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zpurchase_requisition IMPLEMENTATION.
+
+  METHOD getrequisition.
+
+    SELECT * FROM eban  AS a
+      INNER JOIN zscs05 AS b ON a~banfn = b~banfn
+      INTO CORRESPONDING FIELDS OF wa_eban
+     WHERE a~bstyp = 'B' AND
+           a~bsart IN ('NB','ZF1').
+
+      CREATE OBJECT reqhdr EXPORTING  banfn = wa_eban-banfn
+                                      bsart = wa_eban-bsart
+                                      bstyp = wa_eban-bstyp
+                                      badat = wa_eban-badat
+                                      statu = wa_eban-statu
+                                      frgzu = wa_eban-frgzu
+                                      frgdt = wa_eban-frgdt
+                                      ernam = wa_eban-ernam.
+
+      APPEND reqhdr TO reqhdr_tab.
+
+
+      CREATE OBJECT reqitm EXPORTING  banfn = wa_eban-banfn
+                                      bnfpo = wa_eban-bnfpo
+                                      ekgrp = wa_eban-ekgrp
+                                      ekorg = wa_eban-ekorg
+                                      matnr = wa_eban-matnr
+                                      txz01 = wa_eban-txz01
+                                      werks = wa_eban-werks
+                                      menge = wa_eban-menge
+                                      meins = wa_eban-meins
+                                      lfdat = wa_eban-lfdat
+                                      preis = wa_eban-preis
+                                      peinh = wa_eban-peinh
+                                      ebeln = wa_eban-ebeln
+                                      ebelp = wa_eban-ebelp
+                                      bedat = wa_eban-bedat
+                                      bsmng = wa_eban-bsmng
+                                      waers = wa_eban-waers
+                                      rlwrt = wa_eban-rlwrt
+                                      afnam = wa_eban-afnam
+                                      flief = wa_eban-flief
+                                      loekz = wa_eban-loekz.
+
+      APPEND reqitm TO reqitm_tab.
+
+    ENDSELECT.
+
+  ENDMETHOD.                    "getrequisition
+
+ENDCLASS.               "ZPURCHASE_REQUISITION
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZCLEARREQUISITION
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zclearrequisition IMPLEMENTATION.
+
+  METHOD   clearrequisition.
+
+    DELETE FROM zscs05.
+
+  ENDMETHOD.                    "clearrequisition
+
+
+ENDCLASS.                    "zclearrequisition IMPLEMENTATION

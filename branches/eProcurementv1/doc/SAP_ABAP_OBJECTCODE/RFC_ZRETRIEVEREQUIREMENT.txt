@@ -1,0 +1,44 @@
+FUNCTION zretrieverequirement.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  TABLES
+*"      MATERIAL_REQUIREMENT STRUCTURE  ZMATL_REQUIRE
+*"  EXCEPTIONS
+*"      RECORDNOTFOUND
+*"----------------------------------------------------------------------
+
+  DATA : zrequirement TYPE REF TO zmaterialdetail.
+
+  CREATE OBJECT zrequirement.
+
+  CALL METHOD zrequirement->getmaterialrequirement.
+
+  IF zrequirement->mtlreq_tab IS NOT INITIAL.
+
+    LOOP AT zrequirement->mtlreq_tab INTO zrequirement->mtlreq_obj.
+
+      CALL METHOD zrequirement->mtlreq_obj->getmaterial
+        IMPORTING
+          get_value = material_requirement-matnr.
+      CALL METHOD zrequirement->mtlreq_obj->getplant
+        IMPORTING
+          get_value = material_requirement-werks.
+      CALL METHOD zrequirement->mtlreq_obj->getrequiredqty
+        IMPORTING
+          get_value = material_requirement-bdmng.
+      CALL METHOD zrequirement->mtlreq_obj->getrequireddate
+        IMPORTING
+          get_value = material_requirement-bdter.
+      CALL METHOD zrequirement->mtlreq_obj->getunitmeasure
+        IMPORTING
+          get_value = material_requirement-meins.
+
+      APPEND material_requirement.
+
+    ENDLOOP.
+
+  ELSE.
+    RAISE recordnotfound.
+  ENDIF.
+
+ENDFUNCTION.

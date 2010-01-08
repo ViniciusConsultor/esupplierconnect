@@ -1,0 +1,24 @@
+FUNCTION ZREMOVECONTRACT.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  EXCEPTIONS
+*"      ERRORDELETION
+*"----------------------------------------------------------------------
+
+  DATA : zdeletecontract TYPE REF TO zclearcontract,
+         exc TYPE REF TO cx_root,
+         text TYPE string.
+
+  TRY.
+      CREATE OBJECT zdeletecontract.
+      CALL METHOD zdeletecontract->cleardata.
+
+    CATCH  cx_root INTO exc  .
+
+      text = exc->get_text( ).
+      MESSAGE text TYPE 'I'.
+      RAISE errordeletion.
+
+  ENDTRY.
+
+ENDFUNCTION.

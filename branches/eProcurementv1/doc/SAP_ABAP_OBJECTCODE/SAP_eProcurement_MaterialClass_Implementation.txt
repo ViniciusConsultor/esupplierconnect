@@ -1,0 +1,156 @@
+*----------------------------------------------------------------------*
+***INCLUDE LZEPROCUREMENTP04 .
+***Author : Chetan Potnis
+***Description: Implementation of eProcurement Material Stock
+*** and Material Requirement Classes
+***eProcurement and SAP Interface Module
+***Remote SAP Server side Classes
+*----------------------------------------------------------------------*
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZMATERIALSTOCK
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zmaterialstock IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zmatnr = matnr.
+    zwerks = werks.
+    zmaktx = maktx.
+    zlabst = labst.
+    zinsme = insme.
+    zmeins = meins.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getmaterial.
+    get_value = zmatnr.
+  ENDMETHOD.                    "getmaterial
+
+  METHOD getplant.
+    get_value = zwerks.
+  ENDMETHOD.                    "getplant
+
+  METHOD getdescription.
+    get_value = zmaktx.
+  ENDMETHOD.                    "getdescription
+
+  METHOD getstockbalance.
+    get_value = zlabst.
+  ENDMETHOD.                    "getstockbalance
+
+  METHOD getqualitystock.
+    get_value = zinsme.
+  ENDMETHOD.                    "getqualitystock
+
+  METHOD getunitmeasure.
+    get_value = zmeins.
+  ENDMETHOD.                    "getunitmeasure
+
+ENDCLASS.               "ZMATERIALSTOCK
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZMATERIALREQUIREMENT
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zmaterialrequirement IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zmatnr = matnr.
+    zwerks = werks.
+    zbdmng = bdmng.
+    zbdter = bdter.
+    zmeins = meins.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getmaterial.
+    get_value = zmatnr.
+  ENDMETHOD.                    "getmaterial
+
+  METHOD getplant.
+    get_value = zwerks.
+  ENDMETHOD.                    "getplant
+
+  METHOD getrequiredqty.
+    get_value = zbdmng.
+  ENDMETHOD.                    "getrequiredqty
+
+  METHOD getrequireddate.
+    get_value = zbdter.
+  ENDMETHOD.                    "getrequireddate
+
+  METHOD getunitmeasure.
+    get_value = zmeins.
+  ENDMETHOD.                    "getunitmeasure
+
+ENDCLASS.               "ZMATERIALREQUIREMENT
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  zmaterialdetail
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zmaterialdetail IMPLEMENTATION.
+
+
+  METHOD getmaterialstock.
+
+    CLEAR wa_mard.
+
+    SELECT a~matnr a~werks a~labst a~insme b~meins c~maktx
+      INTO (wa_mard-matnr, wa_mard-werks, wa_mard-labst,
+            wa_mard-insme, wa_mard-meins, wa_mard-maktx)
+      FROM mard AS a INNER JOIN mara AS b ON a~matnr = b~matnr
+                     INNER JOIN makt AS c ON a~matnr = c~matnr
+     WHERE a~lvorm <> 'X'  AND
+           b~lvorm <> 'X'  AND
+         ( a~labst <> 0    OR
+            a~insme <> 0 ) AND
+           c~spras = 'EN'.
+
+      CREATE OBJECT mtlstk EXPORTING matnr = wa_mard-matnr
+                                     werks = wa_mard-werks
+                                     maktx = wa_mard-maktx
+                                     labst = wa_mard-labst
+                                     insme = wa_mard-insme
+                                     meins = wa_mard-meins.
+
+      APPEND  mtlstk TO mtlstk_tab.
+
+    ENDSELECT.
+
+
+  ENDMETHOD.                    "getmaterialstock
+
+
+  METHOD getmaterialrequirement.
+
+    CLEAR wa_mdrs.
+
+    SELECT a~matnr a~werks a~bdter b~meins sum( a~bdmng )
+      INTO (wa_mdrs-matnr, wa_mdrs-werks, wa_mdrs-bdter,
+            wa_mard-meins, wa_mdrs-bdmng)
+      FROM mdrs as a inner join mara as b on a~matnr = b~matnr
+     WHERE a~xloek <> 'X'  AND
+           a~kzear <> 'X'  AND
+           b~lvorm <> 'X'
+     group by a~matnr a~werks a~bdter b~meins.
+
+      CREATE OBJECT mtlreq EXPORTING matnr = wa_mdrs-matnr
+                                     werks = wa_mdrs-werks
+                                     bdmng = wa_mdrs-bdmng
+                                     bdter = wa_mdrs-bdter
+                                     meins = wa_mard-meins.
+
+      APPEND  mtlreq TO mtlreq_tab.
+
+    ENDSELECT.
+
+  ENDMETHOD.                    "getmaterialstock
+
+ENDCLASS.               "zmaterialdetail

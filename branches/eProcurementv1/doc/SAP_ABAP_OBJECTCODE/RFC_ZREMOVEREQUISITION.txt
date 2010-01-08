@@ -1,0 +1,27 @@
+FUNCTION ZREMOVEREQUISITION.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  EXCEPTIONS
+*"      ERRORDELETION
+*"----------------------------------------------------------------------
+
+DATA : zdeleterequisition TYPE REF TO zclearrequisition,
+         exc TYPE REF TO cx_root,
+         text TYPE string.
+
+  TRY.
+      CREATE OBJECT zdeleterequisition.
+      CALL METHOD zdeleterequisition->clearrequisition.
+
+    CATCH  cx_root INTO exc  .
+
+      text = exc->get_text( ).
+      MESSAGE text TYPE 'I'.
+      RAISE errordeletion.
+
+  ENDTRY.
+
+
+
+
+ENDFUNCTION.

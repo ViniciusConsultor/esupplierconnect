@@ -1,0 +1,24 @@
+FUNCTION ZREMOVEORDER.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  EXCEPTIONS
+*"      ERRORDELETION
+*"----------------------------------------------------------------------
+
+ DATA : zdeleteorder TYPE REF TO zclearorder,
+         exc TYPE REF TO cx_root,
+         text TYPE string.
+
+  TRY.
+      CREATE OBJECT zdeleteorder.
+      CALL METHOD zdeleteorder->clearorder.
+
+    CATCH  cx_root INTO exc  .
+
+      text = exc->get_text( ).
+      MESSAGE text TYPE 'I'.
+      RAISE errordeletion.
+
+  ENDTRY.
+
+ENDFUNCTION.

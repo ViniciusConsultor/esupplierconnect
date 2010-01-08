@@ -1,0 +1,29 @@
+FUNCTION ZUPD_HISTORYCTL.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  EXCEPTIONS
+*"      ERRORUPDATE
+*"----------------------------------------------------------------------
+
+
+  DATA : zupdctldate TYPE REF TO zcontrolupdate,
+         exc TYPE REF TO cx_root,
+         text TYPE string.
+
+  TRY.
+      CREATE OBJECT zupdctldate.
+      CALL METHOD zupdctldate->update_history.
+
+    CATCH  cx_root INTO exc  .
+
+      text = exc->get_text( ).
+      MESSAGE text TYPE 'I'.
+      RAISE errorupdate.
+
+  ENDTRY.
+
+
+
+
+
+ENDFUNCTION.

@@ -1,0 +1,267 @@
+*----------------------------------------------------------------------*
+***INCLUDE LZEPROCUREMENTP01 .
+***Author : Chetan Potnis
+***Description: Implementation of eProcurement Purchase Contract Classes
+***eProcurement and SAP Interface Module
+***Remote SAP Server side Classes
+*----------------------------------------------------------------------*
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZCONTRACTHEADER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zcontractheader IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln = ebeln.
+    zbedat = bedat.
+    zbstyp = bstyp.
+    zbsart = bsart.
+    zernam = ernam.
+    zlifnr = lifnr.
+    zzterm = zterm.
+    zekgrp = ekgrp.
+    zwaers = waers.
+    zwkurs = wkurs.
+    zkdatb = kdatb.
+    zkdate = kdate.
+    zverkf = verkf.
+    ztelf1 = telf1.
+    zktwrt = ktwrt.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getcontractnumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getcontractnumber
+
+  METHOD  getdocumentdate.
+    get_value = zbedat.
+  ENDMETHOD.                    "getdocumentdate
+
+  METHOD  getdocumentcategory.
+    get_value = zbstyp.
+  ENDMETHOD.                    "getdocumentcategory
+
+  METHOD getdocumenttype.
+    get_value = zbsart.
+  ENDMETHOD.                    "getdocumenttype
+
+  METHOD getbuyername.
+    get_value = zernam.
+  ENDMETHOD.                    "getbuyername
+
+  METHOD getvendor.
+    get_value = zlifnr.
+  ENDMETHOD.                    "getvendor
+
+  METHOD getpaymentterms.
+    get_value = zzterm.
+  ENDMETHOD.                    "getpaymentterms
+
+  METHOD getpurchasinggroup.
+    get_value = zekgrp.
+  ENDMETHOD.                    "getpurchasinggroup
+
+  METHOD getcurrency.
+    get_value = zwaers.
+  ENDMETHOD.                    "getcurrency
+
+  METHOD getexchangerate.
+    get_value = zwkurs.
+  ENDMETHOD.                    "getexchangerate
+
+  METHOD getvaliditystart.
+    get_value = zkdatb.
+  ENDMETHOD.                    "getvaliditystart
+
+  METHOD getvailidtyend.
+    get_value = zkdate.
+  ENDMETHOD.                    "getvailidtyend
+
+  METHOD getsalesperson.
+    get_value = zverkf.
+  ENDMETHOD.                    "getsalesperson
+
+  METHOD gettelephone.
+    get_value = ztelf1.
+  ENDMETHOD.                    "gettelephone
+
+  METHOD gettargetvaue.
+    get_value = zktwrt.
+  ENDMETHOD.                    "gettargetval
+
+  METHOD gettargetval.
+    get_value = zktwrt.
+  ENDMETHOD.                    "gettargetval
+
+ENDCLASS.               "ZCONTRACTHEADER
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZCONTRACTITEM
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zcontractitem IMPLEMENTATION.
+
+  METHOD constructor.
+
+    zebeln = ebeln.
+    zebelp = ebelp.
+    ztxz01 = txz01.
+    zmatnr = matnr.
+    zwerks = werks.
+    zmatkl = matkl.
+    zktmng = ktmng.
+    zmeins = meins.
+    znetpr = netpr.
+    zpeinh = peinh.
+    zbrtwr = brtwr.
+    zanfnr = anfnr.
+    zbanfn = banfn.
+    zafnam = afnam.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getcontractnumber.
+    get_value = zebeln.
+  ENDMETHOD.                    "getcontractnumber
+
+  METHOD getcontractitem.
+    get_value = zebelp.
+  ENDMETHOD.                    "getcontractitem
+
+  METHOD getdescription.
+    get_value = ztxz01.
+  ENDMETHOD.                    "getdescription
+
+  METHOD getmaterial.
+    get_value = zmatnr.
+  ENDMETHOD.                    "getmaterial
+
+  METHOD getplant.
+    get_value = zwerks.
+  ENDMETHOD.                    "getplant
+
+  METHOD getmaterialgroup.
+    get_value = zmatkl.
+  ENDMETHOD.                    "getmaterialgroup
+
+  METHOD getquantity.
+    get_value = zktmng.
+  ENDMETHOD.                    "getquantity
+
+  METHOD getuom.
+    get_value = zmeins.
+  ENDMETHOD.                    "getuom
+
+  METHOD getunitprice.
+    get_value = znetpr.
+  ENDMETHOD.                    "getunitprice
+
+  METHOD getperunit.
+    get_value = zpeinh.
+  ENDMETHOD.                    "getperunit
+
+  METHOD getnetvalue.
+    get_value = zbrtwr.
+  ENDMETHOD.                    "getnetvalue
+
+  METHOD getrfq.
+    get_value = zanfnr.
+  ENDMETHOD.                    "getrfq
+
+  METHOD getrequisition.
+    get_value = zbanfn.
+  ENDMETHOD.                    "getrequisition
+
+  METHOD getrequisitioner.
+    get_value = zafnam.
+  ENDMETHOD.                    "getrequisitioner
+
+ENDCLASS.               "ZCONTRACTITEM
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  zPurchase_Contract
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zpurchase_contract IMPLEMENTATION.
+
+  METHOD getcontractheader.
+
+    SELECT * FROM ekko  AS a
+      INNER JOIN zscs04 AS b ON a~ebeln = b~ebeln AND
+                                a~bstyp = b~bstyp
+      INTO CORRESPONDING FIELDS OF wa_ekko
+     WHERE a~bstyp = 'K' AND
+           a~bsart = 'MK'.
+
+      CREATE OBJECT chdr EXPORTING ebeln = wa_ekko-ebeln
+                                   bedat = wa_ekko-bedat
+                                   bstyp = wa_ekko-bstyp
+                                   bsart = wa_ekko-bsart
+                                   ernam = wa_ekko-ernam
+                                   lifnr = wa_ekko-lifnr
+                                   zterm = wa_ekko-zterm
+                                   ekgrp = wa_ekko-ekgrp
+                                   waers = wa_ekko-waers
+                                   wkurs = wa_ekko-wkurs
+                                   kdatb = wa_ekko-kdatb
+                                   kdate = wa_ekko-kdate
+                                   verkf = wa_ekko-verkf
+                                   telf1 = wa_ekko-telf1
+                                   ktwrt = wa_ekko-ktwrt.
+      APPEND chdr TO chdr_tab.
+    ENDSELECT.
+
+  ENDMETHOD.                    "getcontractheader
+
+
+  METHOD getcontractitem.
+
+    SELECT * FROM ekpo AS a
+     INNER JOIN zscs04 AS b ON a~ebeln = b~ebeln AND
+                               a~bstyp = b~bstyp
+      INTO CORRESPONDING FIELDS OF wa_ekpo
+     WHERE a~bstyp = 'K'.
+
+      CREATE OBJECT citm EXPORTING ebeln = wa_ekpo-ebeln
+                                   ebelp = wa_ekpo-ebelp
+                                   txz01 = wa_ekpo-txz01
+                                   matnr = wa_ekpo-matnr
+                                   werks = wa_ekpo-werks
+                                   matkl = wa_ekpo-matkl
+                                   ktmng = wa_ekpo-ktmng
+                                   meins = wa_ekpo-meins
+                                   netpr = wa_ekpo-netpr
+                                   peinh = wa_ekpo-peinh
+                                   brtwr = wa_ekpo-brtwr
+                                   anfnr = wa_ekpo-anfnr
+                                   banfn = wa_ekpo-banfn
+                                   afnam = wa_ekpo-afnam.
+      APPEND citm TO citm_tab.
+    ENDSELECT.
+
+
+  ENDMETHOD.                    "getcontractheader
+
+ENDCLASS.               "zPurchase_Contract
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZCLEARCONTRACT
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zclearcontract IMPLEMENTATION.
+
+  METHOD   cleardata.
+
+    DELETE FROM zscs04.
+
+  ENDMETHOD.                    "cleardata
+
+
+ENDCLASS.               "ZCLEARCONTRACT

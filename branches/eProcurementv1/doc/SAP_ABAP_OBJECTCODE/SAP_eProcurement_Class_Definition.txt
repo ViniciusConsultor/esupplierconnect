@@ -1,0 +1,1288 @@
+*----------------------------------------------------------------------*
+***Author : Chetan Potnis
+***Description: Definition of eProcurement Classes
+***eProcurement and SAP Interface Module
+***Remote SAP Server side Classes
+*----------------------------------------------------------------------*
+FUNCTION-POOL zeprocurement.                "MESSAGE-ID ..
+
+*&---------------------------------------------------------------------*
+*&       Class ZCONTRACTHEADER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zcontractheader DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING ebeln TYPE ekko-ebeln
+                                    bedat TYPE ekko-bedat
+                                    bstyp TYPE ekko-bstyp
+                                    bsart TYPE ekko-bsart
+                                    ernam TYPE ekko-ernam
+                                    lifnr TYPE ekko-lifnr
+                                    zterm TYPE ekko-zterm
+                                    ekgrp TYPE ekko-ekgrp
+                                    waers TYPE ekko-waers
+                                    wkurs TYPE ekko-wkurs
+                                    kdatb TYPE ekko-kdatb
+                                    kdate TYPE ekko-kdate
+                                    verkf TYPE ekko-verkf
+                                    telf1 TYPE ekko-telf1
+                                    ktwrt TYPE ekko-ktwrt,
+
+    getcontractnumber   EXPORTING value(get_value) TYPE ekko-ebeln,
+    getdocumentdate     EXPORTING value(get_value) TYPE ekko-bedat,
+    getdocumentcategory EXPORTING value(get_value) TYPE ekko-bstyp,
+    getdocumenttype     EXPORTING value(get_value) TYPE ekko-bsart,
+    getbuyername        EXPORTING value(get_value) TYPE ekko-ernam,
+    getvendor           EXPORTING value(get_value) TYPE ekko-lifnr,
+    getpaymentterms     EXPORTING value(get_value) TYPE ekko-zterm,
+    getpurchasinggroup  EXPORTING value(get_value) TYPE ekko-ekgrp,
+    getcurrency         EXPORTING value(get_value) TYPE ekko-waers,
+    getexchangerate     EXPORTING value(get_value) TYPE ekko-wkurs,
+    getvaliditystart    EXPORTING value(get_value) TYPE ekko-kdatb,
+    getvailidtyend      EXPORTING value(get_value) TYPE ekko-kdate,
+    getsalesperson      EXPORTING value(get_value) TYPE ekko-verkf,
+    gettelephone        EXPORTING value(get_value) TYPE ekko-telf1,
+    gettargetvaue       EXPORTING value(get_value) TYPE ekko-ktwrt,
+    gettargetval        EXPORTING value(get_value) TYPE ekko-ktwrt.
+
+  PRIVATE SECTION.
+
+    DATA: zebeln TYPE ekko-ebeln,
+          zbedat TYPE ekko-bedat,
+          zbstyp TYPE ekko-bstyp,
+          zbsart TYPE ekko-bsart,
+          zernam TYPE ekko-ernam,
+          zlifnr TYPE ekko-lifnr,
+          zzterm TYPE ekko-zterm,
+          zekgrp TYPE ekko-ekgrp,
+          zwaers TYPE ekko-waers,
+          zwkurs TYPE ekko-wkurs,
+          zkdatb TYPE ekko-kdatb,
+          zkdate TYPE ekko-kdate,
+          zverkf TYPE ekko-verkf,
+          ztelf1 TYPE ekko-telf1,
+          zktwrt TYPE ekko-ktwrt.
+
+ENDCLASS.               "ZCONTRACTHEADER
+
+*&---------------------------------------------------------------------*
+*&       Class ZCONTRACTITEM
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zcontractitem DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING ebeln TYPE ekko-ebeln
+                                    ebelp TYPE ekpo-ebelp
+                                    txz01 TYPE ekpo-txz01
+                                    matnr TYPE ekpo-matnr
+                                    werks TYPE ekpo-werks
+                                    matkl TYPE ekpo-matkl
+                                    ktmng TYPE ekpo-ktmng
+                                    meins TYPE ekpo-meins
+                                    netpr TYPE ekpo-netpr
+                                    peinh TYPE ekpo-peinh
+                                    brtwr TYPE ekpo-brtwr
+                                    anfnr TYPE ekpo-anfnr
+                                    banfn TYPE ekpo-banfn
+                                    afnam TYPE ekpo-afnam,
+
+          getcontractnumber EXPORTING value(get_value) TYPE ekpo-ebeln,
+          getcontractitem   EXPORTING value(get_value) TYPE ekpo-ebelp,
+          getdescription    EXPORTING value(get_value) TYPE ekpo-txz01,
+          getmaterial       EXPORTING value(get_value) TYPE ekpo-matnr,
+          getplant          EXPORTING value(get_value) TYPE ekpo-werks,
+          getmaterialgroup  EXPORTING value(get_value) TYPE ekpo-matkl,
+          getquantity       EXPORTING value(get_value) TYPE ekpo-ktmng,
+          getuom            EXPORTING value(get_value) TYPE ekpo-meins,
+          getunitprice      EXPORTING value(get_value) TYPE ekpo-netpr,
+          getperunit        EXPORTING value(get_value) TYPE ekpo-peinh,
+          getnetvalue       EXPORTING value(get_value) TYPE ekpo-brtwr,
+          getrfq            EXPORTING value(get_value) TYPE ekpo-anfnr,
+          getrequisition    EXPORTING value(get_value) TYPE ekpo-banfn,
+          getrequisitioner  EXPORTING value(get_value) TYPE ekpo-afnam.
+
+  PRIVATE SECTION.
+
+    DATA: zebeln TYPE ekpo-ebeln,
+          zebelp TYPE ekpo-ebelp,
+          ztxz01 TYPE ekpo-txz01,
+          zmatnr TYPE ekpo-matnr,
+          zwerks TYPE ekpo-werks,
+          zmatkl TYPE ekpo-matkl,
+          zktmng TYPE ekpo-ktmng,
+          zmeins TYPE ekpo-meins,
+          znetpr TYPE ekpo-netpr,
+          zpeinh TYPE ekpo-peinh,
+          zbrtwr TYPE ekpo-brtwr,
+          zanfnr TYPE ekpo-anfnr,
+          zbanfn TYPE ekpo-banfn,
+          zafnam TYPE ekpo-afnam.
+
+ENDCLASS.               "ZCONTRACTITEM
+
+*&---------------------------------------------------------------------*
+*&       Class ZPURCHASE_CONTRACT
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zpurchase_contract DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : getcontractheader,
+              getcontractitem.
+
+
+    TYPES : chdr_ref     TYPE REF TO zcontractheader,
+            chdr_ref_tab TYPE STANDARD TABLE OF chdr_ref
+                                       WITH DEFAULT KEY.
+
+    TYPES : citm_ref     TYPE REF TO zcontractitem,
+            citm_ref_tab TYPE STANDARD TABLE OF citm_ref
+                                       WITH DEFAULT KEY.
+
+    DATA:  chdr TYPE REF TO zcontractheader,
+           citm TYPE REF TO zcontractitem.
+
+    DATA : chdr_tab TYPE chdr_ref_tab,
+           chdr_obj LIKE LINE OF chdr_tab,
+           citm_tab TYPE citm_ref_tab,
+           citm_obj LIKE LINE OF citm_tab.
+
+  PRIVATE SECTION.
+
+    DATA : wa_ekko TYPE ekko,
+           wa_ekpo TYPE ekpo.
+
+ENDCLASS.               "ZPURCHASE_CONTRACT
+
+*&---------------------------------------------------------------------*
+*&       Class ZORDERHEADER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zorderheader DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING ebeln TYPE ekko-ebeln
+                                    bedat TYPE ekko-bedat
+                                    bstyp TYPE ekko-bstyp
+                                    bsart TYPE ekko-bsart
+                                    ernam TYPE ekko-ernam
+                                    buyer TYPE t024-telfx
+                                    phone TYPE t024-ektel
+                                    lifnr TYPE ekko-lifnr
+                                    zterm TYPE ekko-zterm
+                                    ekgrp TYPE ekko-ekgrp
+                                    ekorg TYPE ekko-ekorg
+                                    waers TYPE ekko-waers
+                                    wkurs TYPE ekko-wkurs
+                                    verkf TYPE ekko-verkf
+                                    telf1 TYPE ekko-telf1
+                                    amtpr TYPE ekpo-brtwr
+                                    gstam TYPE ekpo-netwr
+                                    laddr TYPE zitb_po_hdr-shiptoaddress
+                                    adnbr TYPE t024-tel_number
+                                    txt01 TYPE zitb_po_hdr-remark
+                                    loekz TYPE ekko-loekz,
+
+    getordernumber      EXPORTING value(get_value) TYPE ekko-ebeln,
+    getdocumentdate     EXPORTING value(get_value) TYPE ekko-bedat,
+    getdocumentcategory EXPORTING value(get_value) TYPE ekko-bstyp,
+    getdocumenttype     EXPORTING value(get_value) TYPE ekko-bsart,
+    getcreatename       EXPORTING value(get_value) TYPE ekko-ernam,
+    getbuyername        EXPORTING value(get_value) TYPE t024-telfx,
+    getbuyerphone       EXPORTING value(get_value) TYPE t024-ektel,
+    getvendor           EXPORTING value(get_value) TYPE ekko-lifnr,
+    getpaymentterms     EXPORTING value(get_value) TYPE ekko-zterm,
+    getpurchasinggroup  EXPORTING value(get_value) TYPE ekko-ekgrp,
+    getpurchasingorg    EXPORTING value(get_value) TYPE ekko-ekorg,
+    getcurrency         EXPORTING value(get_value) TYPE ekko-waers,
+    getexchangerate     EXPORTING value(get_value) TYPE ekko-wkurs,
+    getsalesperson      EXPORTING value(get_value) TYPE ekko-verkf,
+    gettelephone        EXPORTING value(get_value) TYPE ekko-telf1,
+    getpuramt           EXPORTING value(get_value) TYPE ekpo-brtwr,
+    getpurgst           EXPORTING value(get_value) TYPE ekpo-netwr,
+    getaddress          EXPORTING value(get_value) TYPE
+                                  zitb_po_hdr-shiptoaddress,
+    gettelnumber        EXPORTING value(get_value) TYPE t024-tel_number,
+    getremark           EXPORTING value(get_value) TYPE
+                                  zitb_po_hdr-remark,
+    getdeletestatus     EXPORTING value(get_value) TYPE ekko-loekz.
+
+
+  PRIVATE SECTION.
+
+    DATA: zebeln TYPE ekko-ebeln,
+          zbedat TYPE ekko-bedat,
+          zbstyp TYPE ekko-bstyp,
+          zbsart TYPE ekko-bsart,
+          zernam TYPE ekko-ernam,
+          zbuyer TYPE t024-telfx,
+          zphone TYPE t024-ektel,
+          zlifnr TYPE ekko-lifnr,
+          zzterm TYPE ekko-zterm,
+          zekgrp TYPE ekko-ekgrp,
+          zekorg TYPE ekko-ekorg,
+          zwaers TYPE ekko-waers,
+          zwkurs TYPE ekko-wkurs,
+          zverkf TYPE ekko-verkf,
+          ztelf1 TYPE ekko-telf1,
+          zamtpr TYPE ekpo-brtwr,
+          zgstam TYPE ekpo-netwr,
+          zladdr TYPE zitb_po_hdr-shiptoaddress,
+          zadnbr TYPE t024-tel_number,
+          ztxt01 TYPE zitb_po_hdr-remark,
+          zloekz TYPE ekko-loekz.
+
+ENDCLASS.               "ZORDERHEADER
+
+*&---------------------------------------------------------------------*
+*&       Class ZORDERITEM
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zorderitem DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING ebeln TYPE ekpo-ebeln
+                                    ebelp TYPE ekpo-ebelp
+                                    pstyp TYPE ekpo-pstyp
+                                    matnr TYPE ekpo-matnr
+                                    txz01 TYPE ekpo-txz01
+                                    bismt TYPE mara-bismt
+                                    menge TYPE ekpo-menge
+                                    peinh TYPE ekpo-peinh
+                                    meins TYPE ekpo-meins
+                                    netpr TYPE ekpo-netpr
+                                    netwr TYPE ekpo-netwr
+                                    wemng TYPE ekpo-menge
+                                    ktext TYPE cskt-ktext
+                                    kostl TYPE ekkn-kostl
+                                    aufnr TYPE ekkn-aufnr
+                                    lgort TYPE ekpo-lgort
+                                    loekz TYPE ekpo-loekz
+                                    txt01 TYPE zitb_po_hdr-remark,
+
+
+    getordernumber EXPORTING value(get_value) TYPE ekpo-ebeln,
+    getorderitem   EXPORTING value(get_value) TYPE ekpo-ebelp,
+    getmaterial    EXPORTING value(get_value) TYPE ekpo-matnr,
+    getdescription EXPORTING value(get_value) TYPE ekpo-txz01,
+    getoldmaterial EXPORTING value(get_value) TYPE mara-bismt,
+    getorderqty    EXPORTING value(get_value) TYPE ekpo-menge,
+    getorderunit   EXPORTING value(get_value) TYPE ekpo-peinh,
+    getunitmeasure EXPORTING value(get_value) TYPE ekpo-meins,
+    getnetprice    EXPORTING value(get_value) TYPE ekpo-netpr,
+    getnetvalue    EXPORTING value(get_value) TYPE ekpo-netwr,
+    getdeliveryqty EXPORTING value(get_value) TYPE ekpo-menge,
+    getcostctrdesc EXPORTING value(get_value) TYPE cskt-ktext,
+    getcostcentre  EXPORTING value(get_value) TYPE ekkn-kostl,
+    getprdorder    EXPORTING value(get_value) TYPE ekkn-aufnr,
+    getstorageloc  EXPORTING value(get_value) TYPE ekpo-lgort,
+    getdeleteindc  EXPORTING value(get_value) TYPE ekpo-loekz,
+    getremark      EXPORTING value(get_value) TYPE zitb_po_hdr-remark,
+    getcategory    EXPORTING value(get_value) TYPE ekpo-pstyp.
+
+
+
+
+  PRIVATE SECTION.
+
+    DATA: zebeln TYPE ekpo-ebeln,
+          zebelp TYPE ekpo-ebelp,
+          zpstyp TYPE ekpo-pstyp,
+          zmatnr TYPE ekpo-matnr,
+          ztxz01 TYPE ekpo-txz01,
+          zbismt TYPE mara-bismt,
+          zmenge TYPE ekpo-menge,
+          zpeinh TYPE ekpo-peinh,
+          zmeins TYPE ekpo-meins,
+          znetpr TYPE ekpo-netpr,
+          znetwr TYPE ekpo-netwr,
+          zwemng TYPE ekpo-menge,
+          zktext TYPE cskt-ktext,
+          zkostl TYPE ekkn-kostl,
+          zaufnr TYPE ekkn-aufnr,
+          zlgort TYPE ekpo-lgort,
+          zloekz TYPE ekpo-loekz,
+          ztxt01 TYPE zitb_po_hdr-remark.
+
+ENDCLASS.               "ZORDERITEM
+
+*&---------------------------------------------------------------------*
+*&       Class ZORDERSCHEDULE
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zorderschedule DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING ebeln  TYPE ekpo-ebeln
+                                    ebelp  TYPE ekpo-ebelp
+                                    matnr  TYPE ekpo-matnr
+                                    etenr  TYPE eket-etenr
+                                    slfdt  TYPE eket-slfdt
+                                    menge  TYPE eket-menge
+                                    eindt  TYPE eket-eindt
+                                    wemng  TYPE eket-wemng,
+
+
+    getordernumber  EXPORTING value(get_value) TYPE ekpo-ebeln,
+    getorderitem    EXPORTING value(get_value) TYPE ekpo-ebelp,
+    getmaterial     EXPORTING value(get_value) TYPE ekpo-matnr,
+    getschline      EXPORTING value(get_value) TYPE eket-etenr,
+    getschdate      EXPORTING value(get_value) TYPE eket-slfdt,
+    getschqty       EXPORTING value(get_value) TYPE eket-menge,
+    getdeliverydate EXPORTING value(get_value) TYPE eket-eindt,
+    getdeliveryqty  EXPORTING value(get_value) TYPE eket-wemng.
+
+
+
+
+  PRIVATE SECTION.
+
+    DATA: zebeln TYPE ekpo-ebeln,
+          zebelp TYPE ekpo-ebelp,
+          zmatnr TYPE ekpo-matnr,
+          zetenr TYPE eket-etenr,
+          zslfdt TYPE eket-slfdt,
+          zmenge TYPE eket-menge,
+          zeindt TYPE eket-eindt,
+          zwemng TYPE eket-wemng.
+
+ENDCLASS.               "ZORDERSCHEDULE
+
+*&---------------------------------------------------------------------*
+*&       Class ZORDERCOMPONENT
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zordercomponent DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING ebeln TYPE resb-ebeln
+                                    ebelp TYPE resb-ebelp
+                                    compl TYPE resb-ebele
+                                    matnr TYPE resb-matnr
+                                    maktx TYPE makt-maktx
+                                    bdmng TYPE resb-bdmng
+                                    meins TYPE resb-meins,
+
+
+    getordernumber    EXPORTING value(get_value) TYPE resb-ebeln,
+    getorderitem      EXPORTING value(get_value) TYPE resb-ebelp,
+    getcompoenentline EXPORTING value(get_value) TYPE resb-ebele,
+    getmaterial       EXPORTING value(get_value) TYPE resb-matnr,
+    getdescription    EXPORTING value(get_value) TYPE makt-maktx,
+    getcomponentqty   EXPORTING value(get_value) TYPE resb-bdmng,
+    getunitmeasure    EXPORTING value(get_value) TYPE resb-meins.
+
+  PRIVATE SECTION.
+
+    DATA: zebeln TYPE resb-ebeln,
+          zebelp TYPE resb-ebelp,
+          zcompl TYPE resb-ebele,
+          zmatnr TYPE resb-matnr,
+          zmaktx TYPE makt-maktx,
+          zbdmng TYPE resb-bdmng,
+          zmeins TYPE resb-meins.
+
+
+
+ENDCLASS.               "ZORDERCOMPONENT
+
+*&---------------------------------------------------------------------*
+*&       Class ZORDERSERVICE
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zorderservice DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING ebeln  TYPE essr_rel-ebeln
+                                    ebelp  TYPE essr_rel-ebelp
+                                    lblni  TYPE essr_rel-lblni
+                                    ktext1 TYPE essr_rel-txz01
+                                    menge  TYPE essr_rel-menge
+                                    preis  TYPE essr_rel-netwr
+                                    brtwr  TYPE essr_rel-brtwr,
+
+
+    getordernumber  EXPORTING value(get_value) TYPE essr_rel-ebeln,
+    getorderitem    EXPORTING value(get_value) TYPE essr_rel-ebelp,
+    getserviceline  EXPORTING value(get_value) TYPE essr_rel-lblni,
+    getdescription  EXPORTING value(get_value) TYPE essr_rel-txz01,
+    getserviceqty   EXPORTING value(get_value) TYPE essr_rel-menge,
+    getserviceprice EXPORTING value(get_value) TYPE essr_rel-netwr,
+    getservicevalue EXPORTING value(get_value) TYPE essr_rel-brtwr.
+
+
+  PRIVATE SECTION.
+
+    DATA: zebeln  TYPE essr_rel-ebeln,
+          zebelp  TYPE essr_rel-ebelp,
+          zlblni  TYPE essr_rel-lblni,
+          zktext1 TYPE essr_rel-txz01,
+          zmenge  TYPE essr_rel-menge,
+          zpreis  TYPE essr_rel-netwr,
+          zbrtwr  TYPE essr_rel-brtwr.
+
+ENDCLASS.               "ZORDERSERVICE
+
+*&---------------------------------------------------------------------*
+*&       Class ZSERVICETASK
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zservicetask DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING lblni  TYPE essr_rel-lblni
+                                    extrow TYPE esll-extrow
+                                    srvpos TYPE esll-srvpos
+                                    mengev TYPE esll-menge
+                                    meins  TYPE esll-meins
+                                    sbrtwr TYPE esll-netwr
+                                    ktext1 TYPE esll-ktext1,
+
+
+    getserviceline  EXPORTING value(get_value) TYPE essr_rel-lblni,
+    getsequence     EXPORTING value(get_value) TYPE esll-extrow,
+    getposition     EXPORTING value(get_value) TYPE esll-srvpos,
+    getserviceqty   EXPORTING value(get_value) TYPE esll-menge,
+    getunitmeasure  EXPORTING value(get_value) TYPE esll-meins,
+    getserviceprice EXPORTING value(get_value) TYPE esll-netwr,
+    getservicevalue EXPORTING value(get_value) TYPE esll-ktext1.
+
+
+  PRIVATE SECTION.
+
+    DATA: zlblni  TYPE essr_rel-lblni,
+          zextrow TYPE esll-extrow,
+          zsrvpos TYPE esll-srvpos,
+          zmengev TYPE esll-menge,
+          zmeins  TYPE esll-meins,
+          zsbrtwr TYPE esll-netwr,
+          zktext1 TYPE esll-ktext1.
+
+
+ENDCLASS.               "ZSERVICETASK
+
+*&---------------------------------------------------------------------*
+*&       Class ZHEADERTEXT
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zheadertext DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING ebeln  TYPE ekko-ebeln
+                                    txtitm TYPE stxh-tdid
+                                    ltxt   TYPE zitb_text_hdr-ltxt,
+
+    getordernumber EXPORTING value(get_value) TYPE ekko-ebeln,
+    getsequence    EXPORTING value(get_value) TYPE stxh-tdid,
+    getdescription EXPORTING value(get_value) TYPE zitb_text_hdr-ltxt.
+
+  PRIVATE SECTION.
+
+    DATA: zebeln  TYPE ekko-ebeln,
+          ztxtitm TYPE stxh-tdid,
+          zltxt   TYPE zitb_text_hdr-ltxt.
+
+ENDCLASS.               "ZHEADERTEXT
+
+*&---------------------------------------------------------------------*
+*&       Class ZITEMTEXT
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zitemtext DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING ebeln  TYPE ekpo-ebeln
+                                    ebelp  TYPE ekpo-ebelp
+                                    txtitm TYPE stxh-tdid
+                                    ltxt   TYPE zitb_text_hdr-ltxt,
+
+    getordernumber EXPORTING value(get_value) TYPE ekko-ebeln,
+    getorderitem   EXPORTING value(get_value) TYPE ekpo-ebelp,
+    getsequence    EXPORTING value(get_value) TYPE stxh-tdid,
+    getdescription EXPORTING value(get_value) TYPE zitb_text_itm-ltxt.
+
+  PRIVATE SECTION.
+
+    DATA: zebeln  TYPE ekpo-ebeln,
+          zebelp  TYPE ekpo-ebelp,
+          ztxtitm TYPE stxh-tdid,
+          zltxt   TYPE zitb_text_itm-ltxt.
+
+ENDCLASS.               "ZITEMTEXT
+
+*&---------------------------------------------------------------------*
+*&       Class ZPURCHASEHISTORY
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zpurchasehistory DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING ebeln TYPE ekbe-ebeln
+                                    ebelp TYPE ekbe-ebelp
+                                    bewtp TYPE ekbe-bewtp
+                                    belnr TYPE ekbe-belnr
+                                    buzei TYPE ekbe-buzei
+                                    bwart TYPE ekbe-bwart
+                                    budat TYPE ekbe-budat
+                                    menge TYPE ekbe-menge
+                                    dmbtr TYPE ekbe-dmbtr
+                                    wrbtr TYPE ekbe-wrbtr
+                                    waers TYPE ekbe-waers
+                                    shkzg TYPE ekbe-shkzg
+                                    xblnr TYPE ekbe-xblnr
+                                    matnr TYPE ekbe-matnr
+                                    werks TYPE ekbe-werks,
+
+    getordernumber EXPORTING value(get_value) TYPE ekbe-ebeln,
+    getorderitem   EXPORTING value(get_value) TYPE ekbe-ebelp,
+    gettrantype    EXPORTING value(get_value) TYPE ekbe-bewtp,
+    getinvdocument EXPORTING value(get_value) TYPE ekbe-belnr,
+    getinvserial   EXPORTING value(get_value) TYPE ekbe-buzei,
+    getmovetype    EXPORTING value(get_value) TYPE ekbe-bwart,
+    getpostdate    EXPORTING value(get_value) TYPE ekbe-budat,
+    gettrnquantity EXPORTING value(get_value) TYPE ekbe-menge,
+    getlocalvalue  EXPORTING value(get_value) TYPE ekbe-dmbtr,
+    gettransvalue  EXPORTING value(get_value) TYPE ekbe-wrbtr,
+    getcurrency    EXPORTING value(get_value) TYPE ekbe-waers,
+    getdbcr        EXPORTING value(get_value) TYPE ekbe-shkzg,
+    getrefdocument EXPORTING value(get_value) TYPE ekbe-xblnr,
+    getmaterial    EXPORTING value(get_value) TYPE ekbe-matnr,
+    getplant       EXPORTING value(get_value) TYPE ekbe-werks.
+
+
+  PRIVATE SECTION.
+
+    DATA:  zebeln TYPE ekbe-ebeln,
+           zebelp TYPE ekbe-ebelp,
+           zbewtp TYPE ekbe-bewtp,
+           zbelnr TYPE ekbe-belnr,
+           zbuzei TYPE ekbe-buzei,
+           zbwart TYPE ekbe-bwart,
+           zbudat TYPE ekbe-budat,
+           zmenge TYPE ekbe-menge,
+           zdmbtr TYPE ekbe-dmbtr,
+           zwrbtr TYPE ekbe-wrbtr,
+           zwaers TYPE ekbe-waers,
+           zshkzg TYPE ekbe-shkzg,
+           zxblnr TYPE ekbe-xblnr,
+           zmatnr TYPE ekbe-matnr,
+           zwerks TYPE ekbe-werks.
+
+ENDCLASS.               "ZPURCHASEHISTORY
+
+*&---------------------------------------------------------------------*
+*&       Class ZPURCHASE_ORDER
+*&---------------------------------------------------------------------*
+*&        Text
+*&---------------------------------------------------------------------*
+
+CLASS zpurchase_order DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : getorderheader,      "Get Purchase Order Header Details
+              getorderitem,        "Get Purchase Order Item Details
+              getorderschedule,    "Get Purchase Order Item Schedule
+              getordercomponent,   "Get Purchase Order Component
+              getorderservice,     "Get Purchase Order Service
+              getorderservicetask, "Get Purchase Order Service Task
+              getorderheadertext,  "Get Purchase Order Header Text
+              getorderitemtext,    "Get Purchase Order Item Text
+              getorderhistory.     "Get Purchase Order History
+
+
+    TYPES : purhdr_ref     TYPE REF TO zorderheader,
+            purhdr_ref_tab TYPE STANDARD TABLE OF purhdr_ref
+                                 WITH DEFAULT KEY.
+
+    TYPES : puritm_ref     TYPE REF TO zorderitem,
+            puritm_ref_tab TYPE STANDARD TABLE OF puritm_ref
+                                       WITH DEFAULT KEY.
+
+    TYPES : pursch_ref     TYPE REF TO zorderschedule,
+            pursch_ref_tab TYPE STANDARD TABLE OF pursch_ref
+                                       WITH DEFAULT KEY.
+
+    TYPES : purcmp_ref     TYPE REF TO zordercomponent,
+            purcmp_ref_tab TYPE STANDARD TABLE OF purcmp_ref
+                                       WITH DEFAULT KEY.
+
+    TYPES : pursrv_ref     TYPE REF TO zorderservice,
+            pursrv_ref_tab TYPE STANDARD TABLE OF pursrv_ref
+                                       WITH DEFAULT KEY.
+
+    TYPES : purtsk_ref     TYPE REF TO zservicetask,
+            purtsk_ref_tab TYPE STANDARD TABLE OF purtsk_ref
+                                       WITH DEFAULT KEY.
+
+    TYPES : purhtxt_ref     TYPE REF TO zheadertext,
+            purhtxt_ref_tab TYPE STANDARD TABLE OF purhtxt_ref
+                                       WITH DEFAULT KEY.
+
+    TYPES : puritxt_ref     TYPE REF TO zitemtext,
+            puritxt_ref_tab TYPE STANDARD TABLE OF puritxt_ref
+                                       WITH DEFAULT KEY.
+
+    TYPES : purhst_ref     TYPE REF TO zpurchasehistory,
+            purhst_ref_tab TYPE STANDARD TABLE OF purhst_ref
+                                       WITH DEFAULT KEY.
+
+    DATA:  purhdr  TYPE REF TO zorderheader,
+           puritm  TYPE REF TO zorderitem,
+           pursch  TYPE REF TO zorderschedule,
+           purcmp  TYPE REF TO zordercomponent,
+           pursrv  TYPE REF TO zorderservice,
+           purtsk  TYPE REF TO zservicetask,
+           purhtxt TYPE REF TO zheadertext,
+           puritxt TYPE REF TO zitemtext,
+           purhst  TYPE REF TO zpurchasehistory.
+
+    DATA : purhdr_tab TYPE purhdr_ref_tab,
+           puritm_tab TYPE puritm_ref_tab,
+           pursch_tab TYPE pursch_ref_tab,
+           purcmp_tab TYPE purcmp_ref_tab,
+           pursrv_tab TYPE pursrv_ref_tab,
+           purtsk_tab TYPE purtsk_ref_tab,
+           hdrtxt_tab TYPE purhtxt_ref_tab,
+           itmtxt_tab TYPE puritxt_ref_tab,
+           purhst_tab TYPE purhst_ref_tab,
+           purhdr_obj LIKE LINE OF purhdr_tab,
+           puritm_obj LIKE LINE OF puritm_tab,
+           purcmp_obj LIKE LINE OF purcmp_tab,
+           pursch_obj LIKE LINE OF pursch_tab,
+           pursrv_obj LIKE LINE OF pursrv_tab,
+           purtsk_obj LIKE LINE OF purtsk_tab,
+           hdrtxt_obj LIKE LINE OF hdrtxt_tab,
+           itmtxt_obj LIKE LINE OF itmtxt_tab,
+           purhst_obj LIKE LINE OF purhst_tab.
+
+
+  PRIVATE SECTION.
+
+    DATA : zadrnr TYPE adrnr,
+           zgstpr TYPE ekpo-netwr,
+           znetpr TYPE ekpo-brtwr,
+           zbismt TYPE mara-bismt,
+           zktext TYPE cskt-ktext,
+           zaufnr TYPE ekkn-aufnr,
+           zkostl TYPE ekkn-kostl,
+           zmaktx TYPE makt-maktx,
+           ytxt01 TYPE zitb_po_hdr-remark,
+           uebeln TYPE ekko-ebeln,
+           zcpudt TYPE ekbe-cpudt,
+           zshiptoaddr(80) TYPE c,
+           ztdline(132)    TYPE c,
+           ztdline1(255)   TYPE c,
+           ztdname(15)     TYPE c.
+
+
+    DATA : wa_ekko TYPE ekko,
+           wa_ekpo TYPE ekpo,
+           wa_eket TYPE eket,
+           wa_ekkn TYPE ekkn,
+           wa_ekbe TYPE ekbe,
+           wa_resb TYPE resb,
+           wa_essr TYPE essr_rel,
+           wa_esll TYPE esll,
+           ya_esll TYPE esll,
+           wa_t024 TYPE t024,
+           wa_zscs01 TYPE zscs01,
+           wa_adrc TYPE adrc.
+
+
+    DATA : tb_ftxt TYPE TABLE OF tline,
+           wa_ftxt TYPE tline,
+           tb_stxh TYPE TABLE OF stxh,
+           wa_stxh TYPE stxh.
+
+ENDCLASS.               "ZPURCHASE_ORDER
+
+*&---------------------------------------------------------------------*
+*&       Class ZREQUISTIONHEADER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zrequistionheader DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING banfn TYPE eban-banfn
+                                    bsart TYPE eban-bsart
+                                    bstyp TYPE eban-bstyp
+                                    badat TYPE eban-badat
+                                    statu TYPE eban-statu
+                                    frgzu TYPE eban-frgzu
+                                    frgdt TYPE eban-frgdt
+                                    ernam TYPE eban-ernam,
+
+    getreqnumber     EXPORTING value(get_value) TYPE eban-banfn,
+    getdocumenttype  EXPORTING value(get_value) TYPE eban-bsart,
+    getcategroy      EXPORTING value(get_value) TYPE eban-bstyp,
+    getreqdate       EXPORTING value(get_value) TYPE eban-badat,
+    getreqstatus     EXPORTING value(get_value) TYPE eban-statu,
+    getreleasestatus EXPORTING value(get_value) TYPE eban-frgzu,
+    getreleasedate   EXPORTING value(get_value) TYPE eban-frgdt,
+    getrequisitioner EXPORTING value(get_value) TYPE eban-ernam.
+
+
+  PRIVATE SECTION.
+
+    DATA: zbanfn TYPE eban-banfn,
+          zbsart TYPE eban-bsart,
+          zbstyp TYPE eban-bstyp,
+          zbadat TYPE eban-badat,
+          zstatu TYPE eban-statu,
+          zfrgzu TYPE eban-frgzu,
+          zfrgdt TYPE eban-frgdt,
+          zernam TYPE eban-ernam.
+
+ENDCLASS.               "ZREQUISTIONHEADER
+
+*&---------------------------------------------------------------------*
+*&       Class ZREQUISTIONITEM
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zrequistionitem DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING banfn TYPE eban-banfn
+                                    bnfpo TYPE eban-bnfpo
+                                    ekgrp TYPE eban-ekgrp
+                                    ekorg TYPE eban-ekorg
+                                    matnr TYPE eban-matnr
+                                    txz01 TYPE eban-txz01
+                                    werks TYPE eban-werks
+                                    menge TYPE eban-menge
+                                    meins TYPE eban-meins
+                                    lfdat TYPE eban-lfdat
+                                    preis TYPE eban-preis
+                                    peinh TYPE eban-peinh
+                                    ebeln TYPE eban-ebeln
+                                    ebelp TYPE eban-ebelp
+                                    bedat TYPE eban-bedat
+                                    bsmng TYPE eban-bsmng
+                                    waers TYPE eban-waers
+                                    rlwrt TYPE eban-rlwrt
+                                    afnam TYPE eban-afnam
+                                    flief TYPE eban-flief
+                                    loekz TYPE eban-loekz,
+
+    getreqnumber     EXPORTING value(get_value) TYPE eban-banfn,
+    getreqsequence   EXPORTING value(get_value) TYPE eban-bnfpo,
+    getpurchasegroup EXPORTING value(get_value) TYPE eban-ekgrp,
+    getpurchaseorg   EXPORTING value(get_value) TYPE eban-ekorg,
+    getmaterial      EXPORTING value(get_value) TYPE eban-matnr,
+    getdescription   EXPORTING value(get_value) TYPE eban-txz01,
+    getplant         EXPORTING value(get_value) TYPE eban-werks,
+    getreqquantity   EXPORTING value(get_value) TYPE eban-menge,
+    getunitmeasure   EXPORTING value(get_value) TYPE eban-meins,
+    getrequiredate   EXPORTING value(get_value) TYPE eban-lfdat,
+    getprice         EXPORTING value(get_value) TYPE eban-preis,
+    getpriceunit     EXPORTING value(get_value) TYPE eban-peinh,
+    getordernumber   EXPORTING value(get_value) TYPE eban-ebeln,
+    getorderitem     EXPORTING value(get_value) TYPE eban-ebelp,
+    getorderquantity EXPORTING value(get_value) TYPE eban-bedat,
+    getcurrency      EXPORTING value(get_value) TYPE eban-bsmng,
+    gettotalvalue    EXPORTING value(get_value) TYPE eban-waers,
+    getrequestor     EXPORTING value(get_value) TYPE eban-rlwrt,
+    getfixedvendor   EXPORTING value(get_value) TYPE eban-afnam,
+    getindicator     EXPORTING value(get_value) TYPE eban-loekz.
+
+
+  PRIVATE SECTION.
+
+    DATA: zbanfn TYPE eban-banfn,
+          zbnfpo TYPE eban-bnfpo,
+          zekgrp TYPE eban-ekgrp,
+          zekorg TYPE eban-ekorg,
+          zmatnr TYPE eban-matnr,
+          ztxz01 TYPE eban-txz01,
+          zwerks TYPE eban-werks,
+          zmenge TYPE eban-menge,
+          zmeins TYPE eban-meins,
+          zlfdat TYPE eban-lfdat,
+          zpreis TYPE eban-preis,
+          zpeinh TYPE eban-peinh,
+          zebeln TYPE eban-ebeln,
+          zebelp TYPE eban-ebelp,
+          zbedat TYPE eban-bedat,
+          zbsmng TYPE eban-bsmng,
+          zwaers TYPE eban-waers,
+          zrlwrt TYPE eban-rlwrt,
+          zafnam TYPE eban-afnam,
+          zflief TYPE eban-flief,
+          zloekz TYPE eban-loekz.
+
+ENDCLASS.               "ZREQUISTIONITEM
+
+*&---------------------------------------------------------------------*
+*&       Class ZPURCHASE_REQUISITION
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zpurchase_requisition DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : getrequisition.      "Get Requisition Details
+
+
+    TYPES : reqhdr_ref     TYPE REF TO zrequistionheader,
+            reqhdr_ref_tab TYPE STANDARD TABLE OF reqhdr_ref
+                                       WITH DEFAULT KEY.
+
+    TYPES : reqitm_ref     TYPE REF TO zrequistionitem,
+            reqitm_ref_tab TYPE STANDARD TABLE OF reqitm_ref
+                                       WITH DEFAULT KEY.
+
+
+    DATA:  reqhdr  TYPE REF TO zrequistionheader,
+           reqitm  TYPE REF TO zrequistionitem.
+
+    DATA : reqhdr_tab TYPE reqhdr_ref_tab,
+           reqitm_tab TYPE reqitm_ref_tab,
+           reqhdr_obj LIKE LINE OF reqhdr_tab,
+           reqitm_obj LIKE LINE OF reqitm_tab.
+
+
+  PRIVATE SECTION.
+
+    DATA : wa_eban TYPE eban.
+
+ENDCLASS.               "ZPURCHASE_REQUISITION
+
+*&---------------------------------------------------------------------*
+*&       Class ZMATERIALSTOCK
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zmaterialstock DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING matnr TYPE mard-matnr
+                                    werks TYPE mard-werks
+                                    maktx TYPE makt-maktx
+                                    labst TYPE mard-labst
+                                    insme TYPE mard-insme
+                                    meins TYPE mara-meins,
+
+    getmaterial      EXPORTING value(get_value) TYPE mard-matnr,
+    getplant         EXPORTING value(get_value) TYPE mard-werks,
+    getdescription   EXPORTING value(get_value) TYPE makt-maktx,
+    getstockbalance  EXPORTING value(get_value) TYPE mard-labst,
+    getqualitystock  EXPORTING value(get_value) TYPE mard-insme,
+    getunitmeasure   EXPORTING value(get_value) TYPE mara-meins.
+
+  PRIVATE SECTION.
+
+    DATA:  zmatnr TYPE mard-matnr,
+           zwerks TYPE mard-werks,
+           zmaktx TYPE makt-maktx,
+           zlabst TYPE mard-labst,
+           zinsme TYPE mard-insme,
+           zmeins TYPE mara-meins.
+
+ENDCLASS.               "ZMATERIALSTOCK
+
+*&---------------------------------------------------------------------*
+*&       Class ZMATERIALREQUIREMENT
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zmaterialrequirement DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING matnr TYPE mdrs-matnr
+                                    werks TYPE mdrs-werks
+                                    bdmng TYPE mdrs-bdmng
+                                    bdter TYPE mdrs-bdter
+                                    meins TYPE mdrs-meins,
+
+
+    getmaterial      EXPORTING value(get_value) TYPE mdrs-matnr,
+    getplant         EXPORTING value(get_value) TYPE mdrs-werks,
+    getrequiredqty   EXPORTING value(get_value) TYPE mdrs-bdmng,
+    getrequireddate  EXPORTING value(get_value) TYPE mdrs-bdter,
+    getunitmeasure   EXPORTING value(get_value) TYPE mdrs-meins.
+
+  PRIVATE SECTION.
+
+    DATA:  zmatnr TYPE mdrs-matnr,
+           zwerks TYPE mdrs-werks,
+           zbdmng TYPE mdrs-bdmng,
+           zbdter TYPE mdrs-bdter,
+           zmeins TYPE mdrs-meins.
+
+ENDCLASS.               "ZMATERIALREQUIREMENT
+
+*&---------------------------------------------------------------------*
+*&       Class ZMATERIALDETAIL
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zmaterialdetail DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : getmaterialstock,           "Get Material Stock Balance
+              getmaterialrequirement.     "Get Material Stock Requirment
+
+
+    TYPES : mtlstk_ref     TYPE REF TO zmaterialstock,
+            mtlstk_ref_tab TYPE STANDARD TABLE OF mtlstk_ref
+                                WITH DEFAULT KEY.
+
+    TYPES : mtlreq_ref     TYPE REF TO zmaterialrequirement,
+            mtlreq_ref_tab TYPE STANDARD TABLE OF mtlreq_ref
+                                WITH DEFAULT KEY.
+
+
+    DATA:  mtlstk  TYPE REF TO zmaterialstock,
+           mtlreq  TYPE REF TO zmaterialrequirement.
+
+    DATA : mtlstk_tab TYPE mtlstk_ref_tab,
+           mtlreq_tab TYPE mtlreq_ref_tab,
+           mtlstk_obj LIKE LINE OF mtlstk_tab,
+           mtlreq_obj LIKE LINE OF mtlreq_tab.
+
+
+  PRIVATE SECTION.
+
+    DATA : wa_mard TYPE zmatl_stock,
+           wa_mdrs TYPE zmatl_require.
+
+ENDCLASS.               "ZMATERIALDETAIL
+
+*&---------------------------------------------------------------------*
+*&       Class ZSUPPLIER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zsupplier DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING lifnr TYPE lfa1-lifnr
+                                    passw TYPE lfa1-lifnr
+                                    anred TYPE lfa1-anred
+                                    name1 TYPE lfa1-name1
+                                    name2 TYPE lfa1-name2
+                                    name3 TYPE lfa1-name3
+                                    stras TYPE lfa1-stras
+                                    adrnr TYPE lfa1-adrnr
+                                    pstlz TYPE lfa1-pstlz
+                                    regio TYPE lfa1-regio
+                                    city  TYPE lfa1-ort01
+                                    land1 TYPE lfa1-land1
+                                    telf1 TYPE lfa1-telf1
+                                    telf2 TYPE lfa1-telf2
+                                    telfx TYPE lfa1-telfx
+                                    email TYPE adr6-smtp_addr
+                                    sperq TYPE lfa1-sperq,
+
+    getsupplierid EXPORTING value(get_value) TYPE lfa1-lifnr,
+    getpassword   EXPORTING value(get_value) TYPE lfa1-lifnr,
+    gettitle      EXPORTING value(get_value) TYPE lfa1-anred,
+    getname1      EXPORTING value(get_value) TYPE lfa1-name1,
+    getname2      EXPORTING value(get_value) TYPE lfa1-name2,
+    getname3      EXPORTING value(get_value) TYPE lfa1-name3,
+    getstreet     EXPORTING value(get_value) TYPE lfa1-stras,
+    getaddress    EXPORTING value(get_value) TYPE lfa1-adrnr,
+    getpostal     EXPORTING value(get_value) TYPE lfa1-pstlz,
+    getregion     EXPORTING value(get_value) TYPE lfa1-regio,
+    getcity       EXPORTING value(get_value) TYPE lfa1-ort01,
+    getcountry    EXPORTING value(get_value) TYPE lfa1-land1,
+    gettelephone1 EXPORTING value(get_value) TYPE lfa1-telf1,
+    gettelephone2 EXPORTING value(get_value) TYPE lfa1-telf2,
+    gettfax       EXPORTING value(get_value) TYPE lfa1-telfx,
+    getemail      EXPORTING value(get_value) TYPE adr6-smtp_addr,
+    getstatus     EXPORTING value(get_value) TYPE lfa1-sperq.
+
+
+  PRIVATE SECTION.
+
+    DATA:  zlifnr TYPE lfa1-lifnr,
+           zpassw TYPE lfa1-lifnr,
+           zanred TYPE lfa1-anred,
+           zname1 TYPE lfa1-name1,
+           zname2 TYPE lfa1-name2,
+           zname3 TYPE lfa1-name3,
+           zstras TYPE lfa1-stras,
+           zadrnr TYPE lfa1-adrnr,
+           zpstlz TYPE lfa1-pstlz,
+           zregio TYPE lfa1-regio,
+           zcity  TYPE lfa1-ort01,
+           zland1 TYPE lfa1-land1,
+           ztelf1 TYPE lfa1-telf1,
+           ztelf2 TYPE lfa1-telf2,
+           ztelfx TYPE lfa1-telfx,
+           zemail TYPE adr6-smtp_addr,
+           zsperq TYPE lfa1-sperq.
+
+ENDCLASS.               "ZSUPPLIER
+
+*&---------------------------------------------------------------------*
+*&       Class ZSUPPLIER_MASTER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zsupplier_master DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : getsupplier.  "Get Supplier Master
+
+    TYPES : supplier_ref     TYPE REF TO zsupplier,
+            supplier_ref_tab TYPE STANDARD TABLE OF supplier_ref
+                                WITH DEFAULT KEY.
+
+    DATA:  supmst  TYPE REF TO zsupplier.
+
+    DATA : supplier_tab TYPE supplier_ref_tab,
+           supplier_obj LIKE LINE OF supplier_tab.
+
+  PRIVATE SECTION.
+
+    DATA : wa_lfa1 TYPE lfa1,
+           zemail  TYPE adr6-smtp_addr.
+
+ENDCLASS.               "ZSUPPLIER_MASTER
+
+*&---------------------------------------------------------------------*
+*&       Class ZORDERREJECTION
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zorderrejection DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : constructor IMPORTING  ebeln TYPE mseg-ebeln
+                                     ebelp TYPE mseg-ebelp
+                                     mblnr TYPE mseg-mblnr
+                                     matnr TYPE mseg-matnr
+                                     werks TYPE mseg-werks
+                                     lgort TYPE mseg-lgort
+                                     lifnr TYPE mseg-lifnr
+                                     menge TYPE mseg-menge
+                                     meins TYPE mseg-meins
+                                     dmbtr TYPE mseg-dmbtr
+                                     waers TYPE mseg-waers
+                                     budat TYPE mkpf-budat
+                                     shkzg TYPE mseg-shkzg
+                                     xblnr TYPE mkpf-xblnr,
+
+    getordernumber    EXPORTING value(get_value) TYPE mseg-ebeln,
+    getordersequence  EXPORTING value(get_value) TYPE mseg-ebelp,
+    getdocumentnumber EXPORTING value(get_value) TYPE mseg-mblnr,
+    getmaterial       EXPORTING value(get_value) TYPE mseg-matnr,
+    getplant          EXPORTING value(get_value) TYPE mseg-werks,
+    getlocation       EXPORTING value(get_value) TYPE mseg-lgort,
+    getsupplier       EXPORTING value(get_value) TYPE mseg-lifnr,
+    gettrnquantity    EXPORTING value(get_value) TYPE mseg-menge,
+    getunitmeasure    EXPORTING value(get_value) TYPE mseg-meins,
+    gettrnamount      EXPORTING value(get_value) TYPE mseg-dmbtr,
+    getcurrency       EXPORTING value(get_value) TYPE mseg-waers,
+    getpostingdate    EXPORTING value(get_value) TYPE mkpf-budat,
+    getdbcrindicator  EXPORTING value(get_value) TYPE mseg-shkzg,
+    getdeliverynumber EXPORTING value(get_value) TYPE mkpf-xblnr.
+
+
+  PRIVATE SECTION.
+
+    DATA:  zebeln TYPE mseg-ebeln,
+           zebelp TYPE mseg-ebelp,
+           zmblnr TYPE mseg-mblnr,
+           zmatnr TYPE mseg-matnr,
+           zwerks TYPE mseg-werks,
+           zlgort TYPE mseg-lgort,
+           zlifnr TYPE mseg-lifnr,
+           zmenge TYPE mseg-menge,
+           zmeins TYPE mseg-meins,
+           zdmbtr TYPE mseg-dmbtr,
+           zwaers TYPE mseg-waers,
+           zbudat TYPE mkpf-budat,
+           zshkzg TYPE mseg-shkzg,
+           zxblnr TYPE mkpf-xblnr.
+
+ENDCLASS.               "ZORDERREJECTION
+
+*&---------------------------------------------------------------------*
+*&       Class ZREJECTION_GOODS
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zrejection_goods DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS : getrejection.
+
+    TYPES : reject_ref     TYPE REF TO zorderrejection,
+            reject_ref_tab TYPE STANDARD TABLE OF reject_ref
+                                WITH DEFAULT KEY.
+
+    DATA:  reject  TYPE REF TO zorderrejection.
+
+    DATA : reject_tab TYPE reject_ref_tab,
+           reject_obj LIKE LINE OF reject_tab.
+
+  PRIVATE SECTION.
+
+    DATA : yebeln TYPE mseg-ebeln,
+           yebelp TYPE mseg-ebelp,
+           ymblnr TYPE mseg-mblnr,
+           ymatnr TYPE mseg-matnr,
+           ywerks TYPE mseg-werks,
+           ylgort TYPE mseg-lgort,
+           ylifnr TYPE mseg-lifnr,
+           ymenge TYPE mseg-menge,
+           ymeins TYPE mseg-meins,
+           ydmbtr TYPE mseg-dmbtr,
+           ywaers TYPE mseg-waers,
+           ybudat TYPE mkpf-budat,
+           yshkzg TYPE mseg-shkzg,
+           yxblnr TYPE mkpf-xblnr.
+
+    DATA : zextdt TYPE mkpf-budat.
+
+ENDCLASS.               "ZREJECTION_GOODS
+
+*&---------------------------------------------------------------------*
+*&       Class ZCLEARCONTRACT
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zclearcontract DEFINITION.
+
+  PUBLIC SECTION.
+    METHODS : cleardata.
+
+ENDCLASS.               "ZCLEARCONTRACT
+
+*&---------------------------------------------------------------------*
+*&       Class ZCLEARORDER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zclearorder DEFINITION.
+
+  PUBLIC SECTION.
+    METHODS : clearorder.
+
+ENDCLASS.                    "zclearorder DEFINITION
+
+*&---------------------------------------------------------------------*
+*&       Class ZCLEARREQUISITION
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zclearrequisition DEFINITION.
+
+  PUBLIC SECTION.
+    METHODS : clearrequisition.
+
+ENDCLASS.                    "zclearrequisition DEFINITION
+
+
+*&---------------------------------------------------------------------*
+*&       Class ZHISTORY_CTLUPDATE
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zcontrolupdate DEFINITION.
+
+  PUBLIC  SECTION.
+    METHODS : update_rejection,
+              update_history.
+
+ENDCLASS.               "ZHISTORY_CTLUPDATE
+
+*&---------------------------------------------------------------------*
+*&       Class ZCLOSEORDER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zcloseorder DEFINITION.
+
+  PUBLIC SECTION.
+    METHODS : constructor IMPORTING ebeln TYPE ekbe-ebeln
+                                    ebelp TYPE ekbe-ebelp
+                                    posts TYPE ekko-loekz
+                                    itsts TYPE ekko-loekz,
+    getordernumber  EXPORTING value(get_value) TYPE ekbe-ebeln,
+    getitemsequence EXPORTING value(get_value) TYPE ekbe-ebelp,
+    getorderstatus  EXPORTING value(get_value) TYPE ekko-loekz,
+    getitemstatus   EXPORTING value(get_value) TYPE ekko-loekz,
+    setitemstatus   IMPORTING value(set_value) TYPE ekko-loekz.
+
+  PRIVATE SECTION.
+
+    DATA : zebeln TYPE ekbe-ebeln,
+           zebelp TYPE ekbe-ebelp,
+           zposts TYPE ekko-loekz,
+           zitsts TYPE ekko-loekz.
+
+ENDCLASS.               "ZCLOSEORDER
+
+*&---------------------------------------------------------------------*
+*&       Class ZGETCLOSEDORDER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zgetclosedorder DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS: getcloseorder.
+
+    TYPES : close_ref     TYPE REF TO zcloseorder,
+            close_ref_tab TYPE STANDARD TABLE OF close_ref
+                                WITH DEFAULT KEY.
+
+    DATA :  clsord  TYPE REF TO zcloseorder.
+
+    DATA : clsord_tab TYPE close_ref_tab,
+           clsord_obj LIKE LINE OF clsord_tab.
+
+    DATA : yebeln  TYPE ekbe-ebeln,
+           yebelp  TYPE ekbe-ebelp,
+           yposts  TYPE ekko-loekz,
+           yitsts  TYPE ekko-loekz,
+           zcpudt  TYPE ekbe-cpudt,
+           ztqty   TYPE ekbe-menge,
+           zmenge  TYPE ekpo-menge,
+           yloekz  TYPE ekko-loekz,
+           wa_ekbe TYPE ekbe.
+
+ENDCLASS.               "ZGETCLOSEDORDER

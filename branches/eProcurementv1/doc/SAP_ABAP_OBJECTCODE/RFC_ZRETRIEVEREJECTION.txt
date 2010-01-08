@@ -1,0 +1,72 @@
+FUNCTION zretrieverejection.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  TABLES
+*"      REJECTION_GOODS STRUCTURE  ZORDER_REJECT
+*"  EXCEPTIONS
+*"      RECORDNOTFOUND
+*"----------------------------------------------------------------------
+
+
+  DATA : zrejections TYPE REF TO zrejection_goods.
+
+  CREATE OBJECT zrejections.
+
+  CALL METHOD zrejections->getrejection.
+
+  IF zrejections->reject_tab  IS NOT INITIAL.
+
+    LOOP AT zrejections->reject_tab INTO zrejections->reject_obj.
+
+      CALL METHOD zrejections->reject_obj->getordernumber
+        IMPORTING
+          get_value = rejection_goods-ebeln.
+      CALL METHOD zrejections->reject_obj->getordersequence
+        IMPORTING
+          get_value = rejection_goods-ebelp.
+      CALL METHOD zrejections->reject_obj->getdocumentnumber
+        IMPORTING
+          get_value = rejection_goods-mblnr.
+      CALL METHOD zrejections->reject_obj->getmaterial
+        IMPORTING
+          get_value = rejection_goods-matnr.
+      CALL METHOD zrejections->reject_obj->getplant
+        IMPORTING
+          get_value = rejection_goods-werks.
+      CALL METHOD zrejections->reject_obj->getlocation
+        IMPORTING
+          get_value = rejection_goods-lgort.
+      CALL METHOD zrejections->reject_obj->getsupplier
+        IMPORTING
+          get_value = rejection_goods-lifnr.
+      CALL METHOD zrejections->reject_obj->gettrnquantity
+        IMPORTING
+          get_value = rejection_goods-menge.
+      CALL METHOD zrejections->reject_obj->getunitmeasure
+        IMPORTING
+          get_value = rejection_goods-meins.
+      CALL METHOD zrejections->reject_obj->gettrnamount
+        IMPORTING
+          get_value = rejection_goods-dmbtr.
+      CALL METHOD zrejections->reject_obj->getcurrency
+        IMPORTING
+          get_value = rejection_goods-waers.
+      CALL METHOD zrejections->reject_obj->getpostingdate
+        IMPORTING
+          get_value = rejection_goods-budat.
+      CALL METHOD zrejections->reject_obj->getdbcrindicator
+        IMPORTING
+          get_value = rejection_goods-shkzg.
+      CALL METHOD zrejections->reject_obj->getdeliverynumber
+        IMPORTING
+          get_value = rejection_goods-xblnr.
+
+      APPEND rejection_goods.
+      CLEAR  rejection_goods.
+
+    ENDLOOP.
+  ELSE.
+    RAISE recordnotfound.
+  ENDIF.
+
+ENDFUNCTION.

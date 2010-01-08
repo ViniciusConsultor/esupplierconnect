@@ -1,0 +1,155 @@
+*----------------------------------------------------------------------*
+***INCLUDE LZEPROCUREMENTP05 .
+***Author : Chetan Potnis
+***Description: Implementation of eProcurement Supplier Classes
+***eProcurement and SAP Interface Module
+***Remote SAP Server side Classes
+*----------------------------------------------------------------------*
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZSUPPLIER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zsupplier IMPLEMENTATION.
+
+
+  METHOD constructor.
+
+    zlifnr = lifnr.
+    zpassw = lifnr.
+    zanred = anred.
+    zname1 = name1.
+    zname2 = name2.
+    zname3 = name3.
+    zstras = stras.
+    zadrnr = adrnr.
+    zpstlz = pstlz.
+    zregio = regio.
+    zcity  = city.
+    zland1 = land1.
+    ztelf1 = telf1.
+    ztelf2 = telf2.
+    ztelfx = telfx.
+    zemail = email.
+    zsperq = sperq.
+
+  ENDMETHOD.                    "constructor
+
+  METHOD getsupplierid.
+    get_value = zlifnr.
+  ENDMETHOD.                    "getsupplierid
+
+  METHOD getpassword.
+    get_value = zpassw.
+  ENDMETHOD.                    "getpassword
+
+  METHOD gettitle.
+    get_value = zanred.
+  ENDMETHOD.                    "gettitle
+
+  METHOD getname1.
+    get_value = zname1.
+  ENDMETHOD.                                                "getname1
+
+  METHOD getname2.
+    get_value = zname2.
+  ENDMETHOD.                                                "getname2
+
+  METHOD getname3.
+    get_value = zname3.
+  ENDMETHOD.                                                "getname3
+
+  METHOD getstreet.
+    get_value = zstras.
+  ENDMETHOD.                    "getstreet
+
+  METHOD getaddress.
+    get_value = zadrnr.
+  ENDMETHOD.                    "getaddress
+
+  METHOD getpostal.
+    get_value = zpstlz.
+  ENDMETHOD.                    "getpostal
+
+  METHOD getregion.
+    get_value = zregio.
+  ENDMETHOD.                    "getregion
+
+  METHOD getcity.
+    get_value = zcity.
+  ENDMETHOD.                    "getcity
+
+  METHOD getcountry.
+    get_value = zland1.
+  ENDMETHOD.                    "getcountry
+
+  METHOD gettelephone1.
+    get_value = ztelf1.
+  ENDMETHOD.                    "gettelephone1
+
+  METHOD gettelephone2.
+    get_value = ztelf2.
+  ENDMETHOD.                    "gettelephone2
+
+  METHOD gettfax.
+    get_value = ztelfx.
+  ENDMETHOD.                    "gettfax
+
+  METHOD getemail.
+    get_value = zemail.
+  ENDMETHOD.                    "getemail
+
+  METHOD getstatus.
+    get_value = zsperq.
+  ENDMETHOD.                    "getstatus
+
+ENDCLASS.               "ZSUPPLIER
+
+*&---------------------------------------------------------------------*
+*&       Class (Implementation)  ZSUPPLIER_MASTER
+*&---------------------------------------------------------------------*
+*        Text
+*----------------------------------------------------------------------*
+CLASS zsupplier_master IMPLEMENTATION.
+
+
+  METHOD  getsupplier.
+
+    SELECT * FROM lfa1 INTO wa_lfa1.
+
+*----------------------------------------------------------------------
+*   GET Suplier Email Address
+*----------------------------------------------------------------------
+
+      SELECT SINGLE smtp_addr FROM adr6 INTO zemail
+       WHERE addrnumber = wa_lfa1-adrnr.
+      IF sy-subrc NE 0.
+        CLEAR zemail.
+      ENDIF.
+
+      CREATE OBJECT supmst EXPORTING lifnr = wa_lfa1-lifnr
+                                     passw = wa_lfa1-lifnr
+                                     anred = wa_lfa1-anred
+                                     name1 = wa_lfa1-name1
+                                     name2 = wa_lfa1-name2
+                                     name3 = wa_lfa1-name3
+                                     stras = wa_lfa1-stras
+                                     adrnr = wa_lfa1-adrnr
+                                     pstlz = wa_lfa1-pstlz
+                                     regio = wa_lfa1-regio
+                                     city  = wa_lfa1-ort01
+                                     land1 = wa_lfa1-land1
+                                     telf1 = wa_lfa1-telf1
+                                     telf2 = wa_lfa1-telf2
+                                     telfx = wa_lfa1-telfx
+                                     email = zemail
+                                     sperq = wa_lfa1-sperq.
+
+      APPEND  supmst TO supplier_tab.
+
+    ENDSELECT.
+
+  ENDMETHOD.                    "getsupplier
+
+ENDCLASS.               "ZSUPPLIER_MASTER

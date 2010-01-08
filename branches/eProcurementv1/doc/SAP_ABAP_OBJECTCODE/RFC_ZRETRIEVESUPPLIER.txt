@@ -1,0 +1,81 @@
+FUNCTION zretrievesupplier.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  TABLES
+*"      SUPPLIER_MASTER STRUCTURE  ZSUPPLIER
+*"  EXCEPTIONS
+*"      RECORDNOTFOUND
+*"----------------------------------------------------------------------
+
+  DATA : zsup_master TYPE REF TO zsupplier_master.
+
+  CREATE OBJECT zsup_master.
+
+  CALL METHOD zsup_master->getsupplier.
+
+  IF zsup_master->supplier_tab IS NOT INITIAL.
+
+    LOOP AT zsup_master->supplier_tab INTO zsup_master->supplier_obj.
+
+      CALL METHOD zsup_master->supplier_obj->getsupplierid
+        IMPORTING
+          get_value = supplier_master-lifnr.
+      CALL METHOD zsup_master->supplier_obj->getpassword
+        IMPORTING
+          get_value = supplier_master-passw.
+      CALL METHOD zsup_master->supplier_obj->gettitle
+        IMPORTING
+          get_value = supplier_master-anred.
+      CALL METHOD zsup_master->supplier_obj->getname1
+        IMPORTING
+          get_value = supplier_master-name1.
+      CALL METHOD zsup_master->supplier_obj->getname2
+        IMPORTING
+          get_value = supplier_master-name2.
+      CALL METHOD zsup_master->supplier_obj->getname3
+        IMPORTING
+          get_value = supplier_master-name3.
+      CALL METHOD zsup_master->supplier_obj->getstreet
+        IMPORTING
+          get_value = supplier_master-stras.
+      CALL METHOD zsup_master->supplier_obj->getaddress
+        IMPORTING
+          get_value = supplier_master-adrnr.
+      CALL METHOD zsup_master->supplier_obj->getpostal
+        IMPORTING
+          get_value = supplier_master-pstlz.
+      CALL METHOD zsup_master->supplier_obj->getregion
+        IMPORTING
+          get_value = supplier_master-regio.
+      CALL METHOD zsup_master->supplier_obj->getcity
+        IMPORTING
+          get_value = supplier_master-city.
+      CALL METHOD zsup_master->supplier_obj->getcountry
+        IMPORTING
+          get_value = supplier_master-land1.
+      CALL METHOD zsup_master->supplier_obj->gettelephone1
+        IMPORTING
+          get_value = supplier_master-telf1.
+      CALL METHOD zsup_master->supplier_obj->gettelephone2
+        IMPORTING
+          get_value = supplier_master-telf2.
+      CALL METHOD zsup_master->supplier_obj->gettfax
+        IMPORTING
+          get_value = supplier_master-telfx.
+      CALL METHOD zsup_master->supplier_obj->getemail
+        IMPORTING
+          get_value = supplier_master-email.
+      CALL METHOD zsup_master->supplier_obj->getstatus
+        IMPORTING
+          get_value = supplier_master-sperq.
+
+      APPEND supplier_master.
+      CLEAR  supplier_master.
+    ENDLOOP.
+  ELSE.
+    RAISE recordnotfound.
+  ENDIF.
+
+
+
+ENDFUNCTION.

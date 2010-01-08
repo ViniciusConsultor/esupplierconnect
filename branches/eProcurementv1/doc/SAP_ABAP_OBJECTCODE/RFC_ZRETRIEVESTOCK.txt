@@ -1,0 +1,47 @@
+FUNCTION zretrievestock.
+*"----------------------------------------------------------------------
+*"*"Local interface:
+*"  TABLES
+*"      MATERIAL_STOCK STRUCTURE  ZMATL_STOCK
+*"  EXCEPTIONS
+*"      RECORDNOTFOUND
+*"----------------------------------------------------------------------
+
+  DATA : zmaterial TYPE REF TO zmaterialdetail.
+
+  CREATE OBJECT zmaterial.
+
+  CALL METHOD zmaterial->getmaterialstock.
+
+  IF zmaterial->mtlstk_tab IS NOT INITIAL.
+
+    LOOP AT zmaterial->mtlstk_tab INTO zmaterial->mtlstk_obj.
+
+      CALL METHOD zmaterial->mtlstk_obj->getmaterial
+        IMPORTING
+          get_value = material_stock-matnr.
+      CALL METHOD zmaterial->mtlstk_obj->getplant
+        IMPORTING
+          get_value = material_stock-werks.
+      CALL METHOD zmaterial->mtlstk_obj->getdescription
+        IMPORTING
+          get_value = material_stock-maktx.
+      CALL METHOD zmaterial->mtlstk_obj->getstockbalance
+        IMPORTING
+          get_value = material_stock-labst.
+      CALL METHOD zmaterial->mtlstk_obj->getqualitystock
+        IMPORTING
+          get_value = material_stock-insme.
+      CALL METHOD zmaterial->mtlstk_obj->getunitmeasure
+        IMPORTING
+          get_value = material_stock-meins.
+
+      APPEND material_stock.
+
+    ENDLOOP.
+
+  ELSE.
+    RAISE recordnotfound.
+  ENDIF.
+
+ENDFUNCTION.
