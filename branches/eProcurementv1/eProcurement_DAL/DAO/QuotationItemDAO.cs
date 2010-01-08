@@ -109,7 +109,7 @@ namespace eProcurement_DAL
             //Insert 
             cm.CommandText = "INSERT INTO rfqdtl ([EBELN],[EBELP],[MATNR],[TXZ01],[WERKS],[KTMNG],[MEINS],[NETPR],[PEINH],[NETWR],[RECSTS],[BANFN],[BNFPO]) VALUES(@EBELN,@EBELP,@MATNR,@TXZ01,@WERKS,@KTMNG,@MEINS,@NETPR,@PEINH,@NETWR,@RECSTS,@BANFN,@BNFPO)";
 
-            SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
+            SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 21);
             cm.Parameters.Add(p1);
             p1.Value = entity.RequestNumber;
 
@@ -214,7 +214,7 @@ namespace eProcurement_DAL
             //Update 
             cm.CommandText = "UPDATE rfqdtl SET [MATNR]=@MATNR,[TXZ01]=@TXZ01,[WERKS]=@WERKS,[KTMNG]=@KTMNG,[MEINS]=@MEINS,[NETPR]=@NETPR,[PEINH]=@PEINH,[NETWR]=@NETWR,[RECSTS]=@RECSTS,[BANFN]=@BANFN,[BNFPO]=@BNFPO WHERE [EBELN]=@EBELN and [EBELP]=@EBELP";
 
-            SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
+            SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 21);
             cm.Parameters.Add(p1);
             p1.Value = entity.RequestNumber;
 

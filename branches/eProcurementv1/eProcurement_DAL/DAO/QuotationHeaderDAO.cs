@@ -108,7 +108,7 @@ namespace eProcurement_DAL
             //Insert 
             cm.CommandText = "INSERT INTO rfqhdr ([EBELN],[LIFNR],[ANGDT],[ANGNR],[KDATB],[RECSTS], [BUYER]) VALUES(@EBELN,@LIFNR,@ANGDT,@ANGNR,@KDATB,@RECSTS, @BUYER)";
 
-            SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
+            SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 21);
             cm.Parameters.Add(p1);
             p1.Value = entity.RequestNumber;
 
@@ -185,7 +185,7 @@ namespace eProcurement_DAL
             //Update 
             cm.CommandText = "UPDATE rfqhdr set [EBELN]=@EBELN,[LIFNR]=@LIFNR,[ANGDT]=@ANGDT,[ANGNR]=@ANGNR,[KDATB]=@KDATB,[RECSTS]=@RECSTS WHERE EBELN=@EBELN";
 
-            SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
+            SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 21);
             cm.Parameters.Add(p1);
             p1.Value = entity.RequestNumber;
 
@@ -307,22 +307,22 @@ namespace eProcurement_DAL
                 else
                     entity.SupplierId = rd["LIFNR"].ToString();
 
-                if (rd.IsDBNull(1))
+                if (rd.IsDBNull(2))
                     entity.ExpiryDate = null;
                 else
                     entity.ExpiryDate = Convert.ToInt64(rd["ANGDT"]);
 
-                if (rd.IsDBNull(1))
+                if (rd.IsDBNull(3))
                     entity.QuotationNumber = null;
                 else
                     entity.QuotationNumber = rd["ANGNR"].ToString();
 
-                if (rd.IsDBNull(1))
+                if (rd.IsDBNull(4))
                     entity.QuotationDate = null;
                 else
                     entity.QuotationDate = Convert.ToInt64(rd["KDATB"]);
 
-                if (rd.IsDBNull(1))
+                if (rd.IsDBNull(5))
                     entity.RecordStatus = null;
                 else
                     entity.RecordStatus = rd["RECSTS"].ToString();
