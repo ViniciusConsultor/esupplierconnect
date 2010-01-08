@@ -411,14 +411,14 @@
      <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
            
-            <td nowrap="nowrap" style="height: 20px">
+            <td nowrap="nowrap" style="height: 21px" align="center">
                <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click"/>
             </td>
-            <td nowrap="nowrap" style="height: 20px">&nbsp;</td>
-            <td nowrap="nowrap" style="height: 20px">
+            <td nowrap="nowrap" style="height: 21px">&nbsp;</td>
+            <td nowrap="nowrap" style="height: 21px" align="center">
                <asp:Button ID="btnCreateDO" runat="server" Text="Create DO" onclick="btnSubmit_Click"/>
             </td>
-            <td nowrap="nowrap" width="50%" style="height: 20px">&nbsp;&nbsp;</td>
+            <td nowrap="nowrap" width="50%" style="height: 21px">&nbsp;&nbsp;</td>
         </tr> 
     </table>
     <br />
