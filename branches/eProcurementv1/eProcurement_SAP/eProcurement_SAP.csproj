@@ -33,6 +33,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\eProcurement_BLL\bin\Debug\eProcurement_BLL.dll</HintPath>
     </Reference>
+    <Reference Include="eProcurement_DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eProcurement_DAL\bin\Debug\eProcurement_DAL.dll</HintPath>
+    </Reference>
     <Reference Include="SAP.Connector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=50436dca5c7f7d23">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Project_eProduction\Required_Dependencies\SAP.Connector.dll</HintPath>
@@ -77,12 +81,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>ScheduleInterface.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\eProcurement_DAL\eProcurement_DAL.csproj">
-      <Project>{27E99553-CBFF-48C1-A103-10830F3A52EB}</Project>
-      <Name>eProcurement_DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
