@@ -74,12 +74,6 @@
     <Compile Include="Quotation\QuotationController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Reports\ContractDocument.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ContractDocument.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Requisition\RequisitionController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -107,13 +101,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\ContractDocument.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ContractDocument.cs</LastGenOutput>
-    </EmbeddedResource>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+    <Folder Include="Reports\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
