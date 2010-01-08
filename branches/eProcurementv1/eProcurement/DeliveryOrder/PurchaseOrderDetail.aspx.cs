@@ -388,10 +388,19 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
             
         }
 
+        if (doColl.Count > 0)
+        {
 
-        Session.Add(SessionKey.DELIVERY_ORDER_COLLECTION, doColl);
 
-        Response.Redirect("CreateDeliveryOrder.aspx");
+            Session.Add(SessionKey.DELIVERY_ORDER_COLLECTION, doColl);
+
+            Response.Redirect("CreateDeliveryOrder.aspx");
+        }
+        else
+        {
+            lblMessage.Text = "Please select items to create DO, Thanks!";
+            lblMessage.Visible = true;
+        }
 
     }
     catch (Exception ex)
