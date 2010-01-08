@@ -89,8 +89,8 @@ public partial class DeliveryOrder_GoodsRejEnqPrnt : BaseForm
               
 
 
-                //string functionId = Request.QueryString["FunctionId"];
-                string functionId = "S-0016";
+                string functionId = Request.QueryString["FunctionId"];
+                //string functionId = "S-0016";
                 if (string.IsNullOrEmpty(functionId))
                 {
                     throw new Exception("Invalid Function Id.");
@@ -220,10 +220,10 @@ public partial class DeliveryOrder_GoodsRejEnqPrnt : BaseForm
     private Collection<RejectedGood> GetData()
     {
         Collection<RejectedGood> rgColl = new Collection<RejectedGood>();
-        // if (string.Compare(m_FuncFlag, "ENQ_DELIVERYORDER", false) == 0)
-        // {
+        if (string.Compare(m_FuncFlag, "ENQ_REJECTEDGOODS", false) == 0)
+        {
         rgColl = mainController.GetDeliveryController().RetrieveByQueryRejectedGood(m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.MaterialNumber, m_SearchCriteriaVO.DeliveryNumber, m_SearchCriteriaVO.DeliveryNumber,m_SearchCriteriaVO.SupplierID);
-        // }
+        }
 
 
         return rgColl;
