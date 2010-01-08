@@ -65,7 +65,7 @@ namespace eProcurement_DAL
         {
             DeliveryOrder entity = null;
             string whereClause = " EBELN='" + DataManager.EscapeSQL(OrderNumber) + "' ";
-            whereClause += "AND EBELP='" + DataManager.EscapeSQL(ItemSequence) + "'";
+            whereClause += "AND EBELP='" + DataManager.EscapeSQL(ItemSequence) + "' ";
             whereClause += "AND VBELN='" + DataManager.EscapeSQL(DeliveryNumber) + "'";
 
             Collection<DeliveryOrder> entities = Retrieve(epTran, whereClause, "");
