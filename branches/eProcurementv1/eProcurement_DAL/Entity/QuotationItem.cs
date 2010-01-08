@@ -57,6 +57,20 @@ namespace eProcurement_DAL
             set { unitMeasure = value; }
         }
 
+        Nullable<decimal> supplyQuantity;
+        public Nullable<decimal> SupplyQuantity
+        {
+            get { return supplyQuantity; }
+            set { supplyQuantity = value; }
+        }
+
+        string supplyunitMeasure;
+        public string SupplyUnitMeasure
+        {
+            get { return supplyunitMeasure; }
+            set { supplyunitMeasure = value; }
+        }
+
         Nullable<decimal> netPrice;
         public Nullable<decimal> NetPrice
         {
