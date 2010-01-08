@@ -243,6 +243,47 @@ namespace eProcurement_BLL
             }
         }
 
+        public Collection<QuotationHeader> GetPendingProcessQuotationList(string supplierId)
+        {
+            try
+            {
+                string whereClause = "";
+                string orderClause = "";
+                //whereClause = " LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "'";
+                whereClause = " LIFNR = '" + supplierId + "'";
+                
+                whereClause += " AND isnull(RECSTS,'') = '" + QuotationStatus.Request + "' ";
+
+                //if (orderNumber != "")
+                //{
+                //    whereClause += " AND EBELN like '" + Utility.EscapeSQL(orderNumber) + "' ";
+                //}
+                //if (itemSequence != "")
+                //{
+                //    whereClause += " AND EBELP like '" + Utility.EscapeSQL(itemSequence) + "' ";
+                //}
+                //if (documentNumber != "")
+                //{
+                //    whereClause += " AND DOCNO like '" + Utility.EscapeSQL(documentNumber) + "' ";
+                //}
+                //if (materialNumber != "")
+                //{
+                //    whereClause += " AND MATNR like '" + Utility.EscapeSQL(materialNumber) + "' ";
+                //}
+
+                //whereClause += " AND EBELN IN (SELECT EBELN FROM PURHDR WHERE LIFNR = '" + this.mainController.GetLoginUserVO().SupplierId + "')";
+                orderClause = " EBELN asc ";
+                return this.mainController.GetDAOCreator().CreateQuotationHeaderDAO().RetrieveByQuery (whereClause, orderClause);
+                //return this.mainController.GetDAOCreator().CreateDeliveryOrderDAO().RetrieveByQuery(whereClause, orderClause);
+            }
+            catch (Exception ex)
+            {
+                Utility.ExceptionLog(ex);
+                throw (ex);
+
+            }
+        }
+
     }
     
 }
