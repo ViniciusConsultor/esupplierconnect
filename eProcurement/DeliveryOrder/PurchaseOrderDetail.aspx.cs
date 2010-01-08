@@ -88,7 +88,7 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionIdColl.Add("S-0002");
+                base.m_FunctionIdColl.Add("S-0004");
                
 
                 string functionId = Request.QueryString["FunctionId"];
@@ -100,10 +100,10 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
                 else
                 {
                     base.m_FunctionId = functionId;
-                   
-                    if (string.Compare(functionId, "S-0002", true) == 0)
+
+                    if (string.Compare(functionId, "S-0004", true) == 0)
                     {
-                        m_FuncFlag = "VIEW_ORDER";
+                        m_FuncFlag = "Create Delivery Order";
                     }
                     
                 }
@@ -242,14 +242,14 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
          if (e.Row.RowType == DataControlRowType.DataRow)
          {
              Label lblAcknowledgeDate = (Label)e.Row.FindControl("lblAcknowledgeDate");
-             UserControls_DatePicker dtAcknowledgeDate = (UserControls_DatePicker)e.Row.FindControl("dtAcknowledgeDate");
+             //UserControls_DatePicker dtAcknowledgeDate = (UserControls_DatePicker)e.Row.FindControl("dtAcknowledgeDate");
 
              string strAcknowledgementDate = lblAcknowledgeDate.Text;
              if (!string.IsNullOrEmpty(strAcknowledgementDate)) 
              {
                  DateTime dtAcknowledgementDate = GetDateTimeFormStoredValue(Convert.ToInt64(strAcknowledgementDate));
                  lblAcknowledgeDate.Text = GetShortDate(dtAcknowledgementDate);
-                 dtAcknowledgeDate.SelectedDate = dtAcknowledgementDate;
+                 //dtAcknowledgeDate.SelectedDate = dtAcknowledgementDate;
              } 
          }
      }
@@ -350,12 +350,6 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
 
         Collection<DeliveryOrder> doColl = new Collection<DeliveryOrder>();
 
-
-
-
-
-               
-
         foreach (RepeaterItem item in gvItem.Items)
         {
             if (((CheckBox)item.FindControl("ckboxSelect")).Checked)
@@ -384,22 +378,25 @@ public partial class DeliveryOrder_PurchaseOrderDetail : BaseForm
 
             i++;
 
-            
-            
+        }
+
+        if (cnt == 0) 
+        {
+            plMessage.Visible = true;
+            displayCustomMessage(FormatErrorMessage("Please select at least one item to create DO."), lblMessage, SystemMessageType.Error);
+            return;
         }
 
         if (doColl.Count > 0)
         {
-
-
             Session.Add(SessionKey.DELIVERY_ORDER_COLLECTION, doColl);
 
             Response.Redirect("CreateDeliveryOrder.aspx");
         }
         else
         {
-            lblMessage.Text = "Please select items to create DO, Thanks!";
-            lblMessage.Visible = true;
+            plMessage.Visible = true;
+            displayCustomMessage(FormatErrorMessage("The selected order items are fully deliveried."), lblMessage, SystemMessageType.Error);
         }
 
     }

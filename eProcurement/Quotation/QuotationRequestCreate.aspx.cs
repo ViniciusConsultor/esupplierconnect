@@ -281,8 +281,8 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                                     qtoItem = new QuotationItem();
                                     qtoItem.RequestNumber = strResqNo;
                                     qtoItem.RequestSequence = Convert.ToString(requestSequence + 1);
-                                    qtoItem.MaterialNumber = ddlMaterialNo.SelectedValue;
-                                    qtoItem.MaterialDescription = txtMaterialDesc.Text;
+                                    qtoItem.MaterialNumber = items[requestSequence].MaterialNumber;
+                                    qtoItem.MaterialDescription = items[requestSequence].MaterialDescription;
 
                                     //requisitionItemList.Add(items[0]);
                                     qtoItem.Plant = items[requestSequence].Plant;
@@ -418,8 +418,8 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                                     qtoItem = new QuotationItem();
                                     qtoItem.RequestNumber = strResqNo;
                                     qtoItem.RequestSequence = Convert.ToString(requestSequence + 1);
-                                    qtoItem.MaterialNumber = ddlMaterialNo.SelectedValue;
-                                    qtoItem.MaterialDescription = txtMaterialDesc.Text;
+                                    qtoItem.MaterialNumber = items[requestSequence].MaterialNumber;
+                                    qtoItem.MaterialDescription = items[requestSequence].MaterialDescription;
 
                                     //requisitionItemList.Add(items[0]);
                                     qtoItem.Plant = items[requestSequence].Plant;

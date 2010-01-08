@@ -1,7 +1,6 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPageWithMenu.master" AutoEventWireup="true" CodeFile="ProcessQuotationDetail.aspx.cs" Inherits="Quotation_ProcessQuotationDetail" Title="eProcurement System" %>
 <%@ Register Src="~/UserControls/DatePicker.ascx" TagName="DatePicker" TagPrefix="DatePicker" %>
 <%@ Register Src="~/UserControls/AttachmentPanel.ascx" TagName="AttachmentPanel" TagPrefix="AttachmentPanel" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMain" Runat="Server">
     <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
         <asp:TableHeaderRow>
@@ -54,9 +53,9 @@
                             &nbsp;</td>
                     </tr> 
                     <tr>
-                        <td Width="40%"><asp:Label runat="server" ID="Label1">Request Number</asp:Label></td> 
+                        <td Width="50%"><asp:Label runat="server" ID="Label1">Request Number</asp:Label></td> 
                         <td>&nbsp;</td>
-                        <td Width="60%"><asp:Label runat="server" ID="lblRequestNumber" CssClass="labelValue">Request Number</asp:Label></td> 
+                        <td Width="50%"><asp:Label runat="server" ID="lblRequestNumber" CssClass="labelValue">Request Number</asp:Label></td> 
                     </tr>
                     <tr>
                         <td Width="40%" style="height: 20px"><asp:Label runat="server" ID="Label2">Request Expiry Date</asp:Label></td> 
@@ -88,26 +87,26 @@
                         </td> 
                     </tr>
                     <tr>
-                        <td style="height: 20px"><asp:Label runat="server" ID="Label4">Quotation Expiry Date</asp:Label></td> 
+                        <td style="height: 20px"><asp:Label runat="server" ID="Label4" nowrap>Quotation Expiry Date</asp:Label></td> 
                         <td style="height: 20px">&nbsp;</td>
                         <td style="height: 20px">
                             <DatePicker:DatePicker ID="dtpExpiryDate" runat="server" />
                         </td> 
                     </tr>
-                    <tr>
-                        <td><asp:Label runat="server" ID="Label6">Attachment</asp:Label></td> 
-                        <td>&nbsp;</td>
-                        <td><asp:Label runat="server" ID="lblAttachment" CssClass="labelValue">Attachment</asp:Label></td> 
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td>&nbsp;</td>
-                        <td></td> 
-                    </tr>
                 </table> 
 		    </td>
 		</tr> 
 	</table> 
+	<table id="Table2" cellspacing="0" cellpadding="0" width="100%" border="0">
+    <tr>
+        <td valign="top" style="height: 8px">
+             <AttachmentPanel:AttachmentPanel ID="attPanel" runat="server" />                   
+        </td>
+    </tr>
+    <tr>
+        <td><hr /></td>
+    </tr>
+</table>
 	<asp:Panel ID="plResult" runat="server" > 
     <!--Display Result Number-->
     <table cellspacing="0" cellpadding="0" width="100%" border="0">

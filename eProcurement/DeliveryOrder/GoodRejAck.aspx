@@ -6,7 +6,7 @@
 <asp:Table ID="tblNavigation" CellSpacing="0" CellPadding="0" runat="server" Width="100%">
     <asp:TableHeaderRow>
         <asp:TableCell CssClass="navigation" VerticalAlign="Middle">
-            <asp:Label ForeColor="White" ID="lblSubPath" runat="server">Goods Rejection Acknowledgment</asp:Label></asp:TableCell>
+            <asp:Label ForeColor="White" ID="lblSubPath" runat="server">Acknowledge Receipt Rejected Goods</asp:Label></asp:TableCell>
     </asp:TableHeaderRow>
 </asp:Table>
 <!--Message Panel-->
@@ -14,58 +14,58 @@
         <asp:Label runat="server" ID="lblMessage" CssClass="" Visible="True"></asp:Label>
 </asp:Panel>
 <!--Search Criteria Panel-->
- <asp:Panel ID="plSearch" runat="server" Visible="true" Width="827px" Height="79px">
+ <asp:Panel ID="plSearch" runat="server" Visible="true">
     <table id="GreyTable" cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
             <td valign="top" >
                <table id="tblSearch" cellspacing="0" cellpadding="1" width="100%" border="0">
                      <tr>
-                        <td align="left" style="width: 60px; height: 20px">
-                            <asp:Label ID="lbl1" runat="server" Text="Order No" Width="113px"></asp:Label>
+                        <td align="left" nowrap Width="130px">
+                            <asp:Label ID="lbl1" runat="server" Text="Order No"></asp:Label>
                         </td> 
-                        <td  align="left" style="width: 22%; height: 20px;">
-                            <asp:TextBox ID="txtOrderNo" runat="server" Width="104px" OnTextChanged="txtOrderNo_TextChanged" AutoPostBack="True"></asp:TextBox></td>
-                         <td align="left" style="width: 83px; height: 20px;">
-                            <asp:Label ID="Label1" runat="server" Text="Document No" Width="91px"></asp:Label></td>
-                         <td align="left" style="width: 6px; height: 20px;">
-                            <asp:DropDownList ID="ddlDocumentNo" runat="server" AutoPostBack="false" Width ="155px" OnSelectedIndexChanged="ddlDocumentNo_SelectedIndexChanged">
-                                <asp:ListItem value="0"></asp:ListItem>
+                        <td  align="left" style="width: 100%">
+                            <asp:DropDownList ID="ddlOrderNo" runat="server" AutoPostBack="false" Width ="100">
+                                <asp:ListItem value="0" Text=""></asp:ListItem>
                                 <asp:ListItem value="1" Text="Text 1"></asp:ListItem>
-                            </asp:DropDownList></td>
-                    </tr>
-                    <tr>
-                        <td align="left" nowrap style="height: 20px; width: 60px;">
-                            <asp:Label ID="Label4" runat="server" Text="Item Sequence" Width="112px"></asp:Label></td> 
-                        <td  align="left" style="width: 22%; height: 20px;">
-                            <asp:DropDownList ID="ddlItemSequence" runat="server" AutoPostBack="false" Width ="100" OnSelectedIndexChanged="ddlItemSequence_SelectedIndexChanged">
-                                <asp:ListItem value="0"></asp:ListItem>
-                                <asp:ListItem value="1" Text="Text 1"></asp:ListItem>
-                            </asp:DropDownList></td>
-                        <td align="left" style="width: 83px; height: 20px">
-                            <asp:Label ID="Label3" runat="server" Text="Material No"></asp:Label></td>
-                        <td align="left" style="width: 6px; height: 20px">
-                            <asp:DropDownList ID="ddlMaterialNo" runat="server" AutoPostBack="false" Width ="155px" OnSelectedIndexChanged="ddlMaterialNo_SelectedIndexChanged">
-                                <asp:ListItem value="0"></asp:ListItem>
-                                <asp:ListItem value="1" Text="Text 1"></asp:ListItem>
-                            </asp:DropDownList></td>
-                    </tr>
-                    <tr>
-                        <td align="left" nowrap style="height: 20px; width: 60px;">
-                            &nbsp;</td> 
-                        <td  align="left" style="width: 22%; height: 20px;">
-                            &nbsp;</td>
-                        <td align="left" style="width: 83px; height: 20px">
-                        </td>
-                        <td align="left" style="width: 6px; height: 20px">
+                            </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: right; height: 20px;">
+                        <td align="left" nowrap Width="130px">
+                            <asp:Label ID="Label1" runat="server" Text="Document No"></asp:Label>
+                        </td> 
+                        <td  align="left" style="width: 100%">
+                            <asp:DropDownList ID="ddlDocumentNo" runat="server" AutoPostBack="false" Width ="100">
+                                <asp:ListItem value="0" Text=""></asp:ListItem>
+                                <asp:ListItem value="1" Text="Text 1"></asp:ListItem>
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" nowrap Width="130px">
+                            <asp:Label ID="Label3" runat="server" Text="Material No"></asp:Label>
+                        </td> 
+                        <td  align="left" style="width: 100%">
+                            <asp:DropDownList ID="ddlMaterialNo" runat="server" AutoPostBack="false" Width ="100">
+                                <asp:ListItem value="0" Text=""></asp:ListItem>
+                                <asp:ListItem value="1" Text="Text 1"></asp:ListItem>
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td align="left" nowrap Width="130px">
+                            <asp:Label ID="Label4" runat="server" Text="Delivery No"></asp:Label>
+                        </td> 
+                        <td  align="left" style="width: 100%">
+                            <asp:DropDownList ID="ddlDeliveryNo" runat="server" AutoPostBack="false" Width ="100">
+                                <asp:ListItem value="0" Text=""></asp:ListItem>
+                                <asp:ListItem value="1" Text="Text 1"></asp:ListItem>
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: right">
                             <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"/>
-                        </td>
-                        <td colspan="1" style="height: 20px; text-align: right; width: 83px;">
-                        </td>
-                        <td colspan="1" style="width: 6px; height: 20px; text-align: right">
                         </td>
                     </tr>
                 </table>
@@ -88,7 +88,8 @@
     <table cellspacing="0" cellpadding="0" width="100%" border="0">
         <tr>
 	        <td valign="top" colspan="10" style="height: 20px">
-                <asp:GridView Width="100%" ID="gvItem" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellPadding="2" OnRowDataBound="gvItem_RowDataBound">
+                 <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellPadding="2"
+                OnPageIndexChanging ="gvData_PageIndexChanging" OnRowDataBound="gvData_RowDataBound">
                     <Columns>
                         <asp:TemplateField HeaderText="S/N">
                             <ItemTemplate>
@@ -111,7 +112,8 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label runat="server" ID="lblOrderNo" Text=' <%# Eval("OrderNumber") %> '></asp:Label>  
+                                            <asp:Label ID="lblOrderNumber" runat="server" CssClass="" Text='<%# Eval("OrderNumber") %> '></asp:Label>      
+      
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -120,13 +122,14 @@
                             <ItemStyle Wrap="False" Width="15%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Material No">
+                        
+                        <asp:TemplateField HeaderText="Item Sequence No">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblMaterialNumber" runat="server" CssClass="" Text='<%# Eval("MaterialNumber") %> '></asp:Label>  
+                                            <asp:Label ID="lblItemSequenceNo" runat="server" CssClass="" Text='<%# Eval("ItemSequence") %> '></asp:Label>  
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -135,19 +138,20 @@
                             <ItemStyle Wrap="False" Width="10%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Item Seq">
-                        <ItemTemplate>
-                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        
+                        <asp:TemplateField HeaderText="Material No">
+                            <ItemTemplate>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblItemSeq" runat="server" CssClass="" Text=' <%# Eval("ItemSequence") %> '></asp:Label>
+                                            <asp:Label ID="lblMaterialNo" runat="server" CssClass="" Text='<%# Eval("MaterialNumber") %> '></asp:Label>  
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
                                 </table>  
-                        </ItemTemplate>
-                        <ItemStyle Wrap="False" Width="15%"/>
+                            </ItemTemplate> 
+                            <ItemStyle Wrap="False" Width="10%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Document No">
@@ -156,7 +160,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" nowrap="nowrap">
-                                            <asp:Label ID="lblDocumentNo" runat="server" CssClass="" Text=' <%# Eval("DocumentNumber") %> '></asp:Label>
+                                            <asp:Label ID="lblDocumentNo" runat="server" CssClass="" Text=' <%#Eval("DocumentNumber")  %> '></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -165,13 +169,14 @@
                             <ItemStyle Wrap="False" Width="15%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
+                       
                         <asp:TemplateField HeaderText="UOM ">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" align="right">
-                                            <asp:Label ID="lblUOM" runat="server" CssClass="" Text='<%# Eval("UnitofMeasure") %>'></asp:Label>
+                                            <asp:Label ID="lblUOM" runat="server" CssClass="" Text='<%# Eval("UnitOfMeasure") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -180,13 +185,13 @@
                             <ItemStyle Width="5%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Ref No">
+                        <asp:TemplateField HeaderText=" Ref No">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%">
-                                            <asp:Label ID="lblRefNo" runat="server" CssClass="" Text='<%# Eval("ReferenceNumber") %>'></asp:Label>
+                                            <asp:Label ID="lblRefNumber" runat="server" CssClass="" Text='<%# Eval("ReferenceNumber") %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -201,7 +206,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" >
-                                            <asp:Label ID="lblRejectQuantity" runat="server" CssClass="" Text='<%# Eval("RejectQuantity") %>'></asp:Label>
+                                            <asp:Label ID="lblRejectQty" runat="server" CssClass="" Text='<%# Eval("RejectQuantity") %>'></asp:Label>
                                         </tdP
                                        <td>&nbsp;</td>
                                     </tr>
@@ -216,7 +221,7 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" >
-                                            <asp:Label ID="lblRejectDate" runat="server" CssClass="" Text='<%#  GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("RejectDate")))) %>'></asp:Label>
+                                            <asp:Label ID="lblRejectDate" runat="server" CssClass="" Text='<%# GetShortDate(GetDateTimeFormStoredValue(Convert.ToInt64( Eval("RejectDate")))) %>'></asp:Label>
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -225,14 +230,13 @@
                             <ItemStyle Width="15%"/>
                             <HeaderStyle HorizontalAlign="Center" Wrap="False" />
                         </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Acknowledge">
+                        <asp:TemplateField HeaderText="Ack">
                             <ItemTemplate>
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td Width="100%" >
-                                            <asp:CheckBox ID="chkAcknowledge" runat="server" CssClass="" ></asp:CheckBox>
-                                             <asp:HiddenField ID="hdStatus" Visible="false" runat="server" Value=' <%# Eval("AcknowledgeStatus")%> '></asp:HiddenField>
+                                            <asp:CheckBox ID="chkAcknowledge" runat ="server" />
                                         </td>
                                        <td>&nbsp;</td>
                                     </tr>
@@ -245,14 +249,14 @@
                 </asp:GridView>
 	        </td>
         </table>
-        <table cellspacing="0" cellpadding="0" width="100%" border="0">
-        <tr>
-        <td nowrap="nowrap"  align ="center" style="height: 20px">   
-                <asp:Button ID="btnAcknowledge" runat="server" Text="Acknowledge" OnClick="btnAcknowledge_Click" Visible="False" />
-                <asp:Button ID="btnReturn" runat="server" Text="Return" OnClick="btnReturn_Click" Visible="False" />
+         <table cellspacing="0" cellpadding="0" width="100%" border="0">
+            <tr>
+                <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
+                <td nowrap="nowrap">
+                   <asp:Button ID="btnAcknowledge" runat="server" Text="Acknowledge" onclick="btnAcknowledge_Click"/>
                 </td>
-                
-              </tr> 
+                <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
+            </tr> 
         </table>
 </asp:Panel>
 <script language="javascript" type="text/javascript">    

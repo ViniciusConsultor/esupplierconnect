@@ -179,7 +179,7 @@
                  </td> 
            </tr> 
       </table> 
-<table id="GreyTable" cellspacing="0" cellpadding="0" width="100%" border="0">
+<table id="tbl1" cellspacing="0" cellpadding="0" width="100%" border="0">
     <tr>
         <td valign="top" style="height: 8px">
              <AttachmentPanel:AttachmentPanel ID="attPanel" runat="server" />                   

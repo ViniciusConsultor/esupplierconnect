@@ -81,12 +81,12 @@ public partial class DeliveryOrder_PurchaseOrderList : BaseForm
             {
                 //Access control
                 /***************************************************/
-                
-                base.m_FunctionIdColl.Add("S-0002");
+
+                base.m_FunctionIdColl.Add("S-0004");
                
                   
                // string functionId = Request.QueryString["FunctionId"];
-                string functionId = "S-0002";
+                string functionId = "S-0004";
                 if (string.IsNullOrEmpty(functionId)) 
                 {
                     throw new Exception("Invalid Function Id."); 
@@ -94,8 +94,8 @@ public partial class DeliveryOrder_PurchaseOrderList : BaseForm
                 else
                 {
                     base.m_FunctionId = functionId;
-                   
-                    if (string.Compare(functionId, "S-0002", true) == 0)
+
+                    if (string.Compare(functionId, "S-0004", true) == 0)
                     {
                         m_FuncFlag = "VIEW_ORDER_SUPPLIER";
                     }
@@ -156,7 +156,7 @@ public partial class DeliveryOrder_PurchaseOrderList : BaseForm
 
             if (string.Compare(m_FuncFlag, "VIEW_ORDER_SUPPLIER", false) == 0)
             {
-                lblSubPath.Text = "Enquire Order";
+                lblSubPath.Text = "Create Delivery Order";
                 plshSupplier.Visible = false;
                 plshBuyer.Visible = true;
                 plshStatus.Visible = false;

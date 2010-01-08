@@ -85,29 +85,10 @@ public partial class DeliveryOrder_GoodsRejEnqPrnt : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionIdColl.Add("S-0016");
-              
+                
+                base.m_FunctionId = "S-0016";
+                m_FuncFlag = "ENQ_REJECTEDGOODS";
 
-
-                string functionId = Request.QueryString["FunctionId"];
-                //string functionId = "S-0016";
-                if (string.IsNullOrEmpty(functionId))
-                {
-                    throw new Exception("Invalid Function Id.");
-                }
-                else
-                {
-                    base.m_FunctionId = functionId;
-                    if (string.Compare(functionId, "S-0016", true) == 0)
-                    {
-                        m_FuncFlag = "ENQ_REJECTEDGOODS";
-                    }
-
-
-
-
-                   
-                } 
                 base.Page_Load(sender, e);
                 /***************************************************/
 
@@ -134,35 +115,66 @@ public partial class DeliveryOrder_GoodsRejEnqPrnt : BaseForm
 
             rgColl = mainController.GetDeliveryController().RetrieveAllRejectedGood();
 
+            Collection<string> refNos = new Collection<string>();
+            Collection<string> orderNos = new Collection<string>();
+            Collection<string> materialNos = new Collection<string>();
+            Collection<string> docNos = new Collection<string>();
 
-            ddlDeliveryNo.DataSource = rgColl;
-            ddlDeliveryNo.DataTextField = "ReferenceNumber";
-            ddlDeliveryNo.DataValueField = "ReferenceNumber";
-            ddlDeliveryNo.DataBind();
-            ddlDeliveryNo.Items.Insert(0, String.Empty);
+            ddlDeliveryNo.Items.Clear();
+            ddlOrderNo.Items.Clear();
+            ddlMaterialNo.Items.Clear();
+            ddlDocumentNo.Items.Clear();
 
+            ListItem liAdd;
+            string sText, sValue;
 
+            foreach (RejectedGood rg in rgColl) 
+            {
+                if (!refNos.Contains(rg.ReferenceNumber)) 
+                {
+                    liAdd = new ListItem();
+                    sText = rg.ReferenceNumber;
+                    liAdd.Text = sText;
+                    liAdd.Value = sText;
+                    ddlDeliveryNo.Items.Add(liAdd);
+                    refNos.Add(sText);
+                }
 
-            ddlOrderNo.DataSource = rgColl;
-            ddlOrderNo.DataTextField = "OrderNumber";
-            ddlOrderNo.DataValueField = "OrderNumber";
-            ddlOrderNo.DataBind();
-            ddlOrderNo.Items.Insert(0, String.Empty);
+                if (!orderNos.Contains(rg.OrderNumber))
+                {
+                    liAdd = new ListItem();
+                    sText = rg.OrderNumber;
+                    liAdd.Text = sText;
+                    liAdd.Value = sText;
+                    ddlOrderNo.Items.Add(liAdd);
+                    orderNos.Add(sText);
+                }
 
+                if (!materialNos.Contains(rg.MaterialNumber))
+                {
+                    liAdd = new ListItem();
+                    sText = rg.MaterialNumber;
+                    liAdd.Text = sText;
+                    liAdd.Value = sText;
+                    ddlMaterialNo.Items.Add(liAdd);
+                    materialNos.Add(sText);
+                }
 
+                if (!docNos.Contains(rg.DocumentNumber))
+                {
+                    liAdd = new ListItem();
+                    sText = rg.DocumentNumber;
+                    liAdd.Text = sText;
+                    liAdd.Value = sText;
+                    ddlDocumentNo.Items.Add(liAdd);
+                    docNos.Add(sText);
+                }
+            }
 
-            ddlMaterialNo.DataSource = rgColl;
-            ddlMaterialNo.DataTextField = "MaterialNumber";
-            ddlMaterialNo.DataValueField = "MaterialNumber";
-            ddlMaterialNo.DataBind();
-            ddlMaterialNo.Items.Insert(0, String.Empty);
-
-            ddlDocumentNo.DataSource = rgColl;
-            ddlDocumentNo.DataTextField = "DocumentNumber";
-            ddlDocumentNo.DataValueField = "DocumentNumber";
-            ddlDocumentNo.DataBind();
-            ddlDocumentNo.Items.Insert(0, String.Empty);
-
+            insertItem_DropDownList(ddlDeliveryNo, true, false);
+            insertItem_DropDownList(ddlOrderNo, true, false);
+            insertItem_DropDownList(ddlMaterialNo, true, false);
+            insertItem_DropDownList(ddlDocumentNo, true, false);
 
         }
         catch (Exception ex)
@@ -222,7 +234,7 @@ public partial class DeliveryOrder_GoodsRejEnqPrnt : BaseForm
         Collection<RejectedGood> rgColl = new Collection<RejectedGood>();
         if (string.Compare(m_FuncFlag, "ENQ_REJECTEDGOODS", false) == 0)
         {
-        rgColl = mainController.GetDeliveryController().RetrieveByQueryRejectedGood(m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.MaterialNumber, m_SearchCriteriaVO.DeliveryNumber, m_SearchCriteriaVO.DeliveryNumber,m_SearchCriteriaVO.SupplierID);
+        rgColl = mainController.GetDeliveryController().RetrieveByQueryRejectedGood(m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.MaterialNumber, m_SearchCriteriaVO.DeliveryNumber, m_SearchCriteriaVO.DeliveryNumber,m_SearchCriteriaVO.SupplierID,"");
         }
 
 
@@ -240,8 +252,9 @@ public partial class DeliveryOrder_GoodsRejEnqPrnt : BaseForm
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            LinkButton lbhlOrderNo = (LinkButton)e.Row.FindControl("lbhlOrderNo");
-            lbhlOrderNo.Attributes.Add("OrderNo", lbhlOrderNo.Text);
+            Label lblAcknowledged = (Label)e.Row.FindControl("lblAcknowledged");
+            if (lblAcknowledged.Text.Trim() == "")
+                lblAcknowledged.Text = "N";
         }
     }
 

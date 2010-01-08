@@ -83,22 +83,9 @@ public partial class Quotation_ProcessQuotationList : BaseForm
             {
                 //Access control
                 /***************************************************/
-                base.m_FunctionIdColl.Add("S-0010");
+                base.m_FunctionId = "S-0010";
+                m_FuncFlag = "PROCESS_QUOTATION";
 
-                string functionId = Request.QueryString["FunctionId"];
-                if (string.IsNullOrEmpty(functionId))
-                {
-                    throw new Exception("Invalid Function Id.");
-                }
-                else
-                {
-                    base.m_FunctionId = functionId;
-                    if (string.Compare(functionId, "S-0010", true) == 0)
-                    {
-                        m_FuncFlag = "PROCESS_QUOTATION";
-                    }
-
-                }
                 base.Page_Load(sender, e);
                 /***************************************************/
                 //imgSupplierSearch.Attributes.Add("onclick", "OpenSupplierDialog('" + txtSupplierId.ClientID + "')");
