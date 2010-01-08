@@ -111,7 +111,7 @@
                         <td style="height: 20px">&nbsp;</td>
                         <td style="height: 20px">
                             <asp:TextBox ID="txtDeliveryNo" runat="server" Width="142px"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvDeliveryNo" runat="server" ErrorMessage="Please enter Delivery No" ControlToValidate="txtDeliveryNo"></asp:RequiredFieldValidator></td> 
+                            </td> 
 	    </tr>
 	     <tr>
 	     <td><asp:Label runat="server" ID="lblDeliveryDate">Delivery Date</asp:Label></td> 
