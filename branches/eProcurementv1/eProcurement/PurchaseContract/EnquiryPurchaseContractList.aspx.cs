@@ -391,14 +391,14 @@ public partial class PurchaseContract_EnquiryPurchaseContractList : BaseForm
             }
         }
 
-        if (txtContractNumber.Text.Trim() == "")
-        {
-            if (dtpContractFrom.Text == "" && dtpContractTo.Text == "" &&
-                dtpExpiryTo.Text == "" && dtpExpiryTo.Text == "")
-            {
-                strErrorMsg.Append(MakeListItem("Please select a value for Order Date or Expiry Date."));
-            }
-        }
+        //if (txtContractNumber.Text.Trim() == "")
+        //{
+        //    if (dtpContractFrom.Text == "" && dtpContractTo.Text == "" &&
+        //        dtpExpiryTo.Text == "" && dtpExpiryTo.Text == "")
+        //    {
+        //        strErrorMsg.Append(MakeListItem("Please select a value for Order Date or Expiry Date."));
+        //    }
+        //}
 
         return strErrorMsg.ToString();
     }
