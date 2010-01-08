@@ -211,7 +211,7 @@ namespace eProcurement_DAL
             }
 
             //Insert 
-            cm.CommandText = "INSERT INTO purhdr ([EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[LOEKZ],[RECSTS],[ACKSTS],[ACKBY],[TELPHN]) VALUES(@EBELN,@LIFNR,@BEDAT,@AMTPR,@GSTPR,@WAERS,@ZTERM,@BUYER,@AD_TLNMBR,@VERKF,@ADRNR_TXT,@REMARK,@LOEKZ,@RECSTS,@ACKSTS,@ACKBY,@TELPHN)";
+            cm.CommandText = "INSERT INTO purhdr ([EBELN],[LIFNR],[BEDAT],[AMTPR],[GSTPR],[WAERS],[ZTERM],[BUYER],[AD_TLNMBR],[VERKF],[ADRNR_TXT],[REMARK],[LOEKZ],[RECSTS],[ACKSTS],[ACKBY],[TELPHN], [BSTYP], [BSART]) VALUES(@EBELN,@LIFNR,@BEDAT,@AMTPR,@GSTPR,@WAERS,@ZTERM,@BUYER,@AD_TLNMBR,@VERKF,@ADRNR_TXT,@REMARK,@LOEKZ,@RECSTS,@ACKSTS,@ACKBY,@TELPHN, @BSTYP, @BSART, @EKGRP, @EKORG)";
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.OrderNumber;
@@ -272,6 +272,22 @@ namespace eProcurement_DAL
             SqlParameter p17 = new SqlParameter("@TELPHN", SqlDbType.VarChar, 20);
             cm.Parameters.Add(p17);
             p17.Value = entity.BuyerPhone;
+
+            SqlParameter p18 = new SqlParameter("@BSTYP", SqlDbType.Char, 1);
+            cm.Parameters.Add(p18);
+            p18.Value = entity.OrderType;
+
+            SqlParameter p19 = new SqlParameter("@BSART", SqlDbType.Char, 4);
+            cm.Parameters.Add(p19);
+            p19.Value =  entity.OrderCategory;
+
+            SqlParameter p20 = new SqlParameter("@EKGRP", SqlDbType.Char, 3);
+            cm.Parameters.Add(p20);
+            p20.Value = entity.PurchaseGroup;
+
+            SqlParameter p21 = new SqlParameter("@EKORG", SqlDbType.Char, 4);
+            cm.Parameters.Add(p21);
+            p21.Value = entity.PurchaseOrg;
 
             cm.ExecuteNonQuery();
 
@@ -321,7 +337,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE purhdr SET LIFNR=@LIFNR,BEDAT=@BEDAT,AMTPR=@AMTPR,GSTPR=@GSTPR,WAERS=@WAERS,ZTERM=@ZTERM,BUYER=@BUYER,AD_TLNMBR=@AD_TLNMBR,VERKF=@VERKF,ADRNR_TXT=@ADRNR_TXT,REMARK=@REMARK,LOEKZ=@LOEKZ,RECSTS=@RECSTS,ACKSTS=@ACKSTS,[ACKBY]=@ACKBY,[TELPHN]=@TELPHN WHERE EBELN=@EBELN";
+            cm.CommandText = "UPDATE purhdr SET LIFNR=@LIFNR,BEDAT=@BEDAT,AMTPR=@AMTPR,GSTPR=@GSTPR,WAERS=@WAERS,ZTERM=@ZTERM,BUYER=@BUYER,AD_TLNMBR=@AD_TLNMBR,VERKF=@VERKF,ADRNR_TXT=@ADRNR_TXT,REMARK=@REMARK,LOEKZ=@LOEKZ,RECSTS=@RECSTS,ACKSTS=@ACKSTS,[ACKBY]=@ACKBY,[TELPHN]=@TELPHN,[BSTYP]=@BSTYP,[BSART]=@BSART,[EKGRP]=@EKGRP,[EKORG]=@EKORG WHERE EBELN=@EBELN";
             SqlParameter p1 = new SqlParameter("@EBELN", SqlDbType.Char, 10);
             cm.Parameters.Add(p1);
             p1.Value = entity.OrderNumber;
@@ -382,6 +398,22 @@ namespace eProcurement_DAL
             SqlParameter p17 = new SqlParameter("@TELPHN", SqlDbType.VarChar, 20);
             cm.Parameters.Add(p17);
             p17.Value = entity.BuyerPhone;
+
+            SqlParameter p18 = new SqlParameter("@BSTYP", SqlDbType.Char, 1);
+            cm.Parameters.Add(p18);
+            p18.Value = entity.OrderType;
+
+            SqlParameter p19 = new SqlParameter("@BSART", SqlDbType.Char, 4);
+            cm.Parameters.Add(p19);
+            p19.Value = entity.OrderCategory;
+
+            SqlParameter p20 = new SqlParameter("@EKGRP", SqlDbType.Char, 3);
+            cm.Parameters.Add(p20);
+            p20.Value = entity.PurchaseGroup;
+
+            SqlParameter p21 = new SqlParameter("@EKORG", SqlDbType.Char, 4);
+            cm.Parameters.Add(p21);
+            p21.Value = entity.PurchaseOrg;
 
             cm.ExecuteNonQuery();
 
