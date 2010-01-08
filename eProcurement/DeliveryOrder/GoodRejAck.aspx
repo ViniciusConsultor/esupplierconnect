@@ -259,14 +259,4 @@
             </tr> 
         </table>
 </asp:Panel>
-<script language="javascript" type="text/javascript">    
-function CheckACKStatus(Val AckStatus)
-{
-    alert("Hi HI " & AckStatus)
-    if (AckStatus == "Y")
-   {return true;}
-   else 
-    {return false;}
-}
-</script>
 </asp:Content>

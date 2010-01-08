@@ -246,8 +246,8 @@ public partial class DeliveryOrder_GoodRejAck : BaseForm
    private Collection<RejectedGood> GetData()
    {
        Collection<RejectedGood> rgColl = new Collection<RejectedGood>();
-      
-       rgColl = mainController.GetDeliveryController().RetrieveByQueryRejectedGood(m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.MaterialNumber, m_SearchCriteriaVO.DeliveryNumber, m_SearchCriteriaVO.DeliveryNumber, m_SearchCriteriaVO.SupplierID,"N");
+
+       rgColl = mainController.GetDeliveryController().GetPendingAckRejectedGood(m_SearchCriteriaVO.OrderNumber, m_SearchCriteriaVO.MaterialNumber, m_SearchCriteriaVO.DeliveryNumber, m_SearchCriteriaVO.DeliveryNumber, m_SearchCriteriaVO.SupplierID);
      
        return rgColl;
    }
