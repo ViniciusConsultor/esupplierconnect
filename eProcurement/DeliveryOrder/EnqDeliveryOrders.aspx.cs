@@ -90,9 +90,9 @@ public partial class DeliveryOrder_EnquireDeliveryOrders : BaseForm
                 base.m_FunctionIdColl.Add("W-0001");
                 
 
-             // string functionId = Request.QueryString["FunctionId"];
+                string functionId = Request.QueryString["FunctionId"];
 
-                string functionId = "S-0005";
+               // string functionId = "S-0005";
                 if (string.IsNullOrEmpty(functionId))
                 {
                     throw new Exception("Invalid Function Id.");
@@ -228,10 +228,10 @@ public partial class DeliveryOrder_EnquireDeliveryOrders : BaseForm
     private Collection<DeliveryOrder> GetData()
     {
         Collection<DeliveryOrder> doColl = new Collection<DeliveryOrder>();
-       // if (string.Compare(m_FuncFlag, "ENQ_DELIVERYORDER_SUPPLIER", false) == 0)
-      // {
+       if (string.Compare(m_FuncFlag, "ENQ_DELIVERYORDER_SUPPLIER", false) == 0)
+     {
             doColl = mainController.GetDeliveryController().RetrieveByQueryDeliveryOrder(m_SearchCriteriaVO.OrderNumber,m_SearchCriteriaVO.MaterialNumber,m_SearchCriteriaVO.DeliveryNumber,m_SearchCriteriaVO.SupplierID,m_SearchCriteriaVO.FromDate,m_SearchCriteriaVO.ToDate);
-       //}
+     }
        
 
         
