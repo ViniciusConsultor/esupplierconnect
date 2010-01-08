@@ -172,7 +172,7 @@ namespace eProcurement_DAL
                 cm.Parameters.Add(p9);
                 p9.Value = entity.CreateBy;
 
-                SqlParameter p10 = new SqlParameter("@EBELN", SqlDbType.VarChar, 10);
+                SqlParameter p10 = new SqlParameter("@EBELN", SqlDbType.VarChar, 21);
                 cm.Parameters.Add(p10);
                 p10.Value = entity.RfqNumber;
 
@@ -271,7 +271,7 @@ namespace eProcurement_DAL
                 cm.Parameters.Add(p9);
                 p9.Value = entity.CreateBy;
 
-                SqlParameter p10 = new SqlParameter("@EBELN", SqlDbType.VarChar, 10);
+                SqlParameter p10 = new SqlParameter("@EBELN", SqlDbType.VarChar, 21);
                 cm.Parameters.Add(p10);
                 p10.Value = entity.RfqNumber;
 
