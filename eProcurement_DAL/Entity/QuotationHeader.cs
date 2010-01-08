@@ -54,6 +54,11 @@ namespace eProcurement_DAL
             get { return buyerID ; }
             set { buyerID  = value; }
         }
-       
+        Nullable<long> quotationExpiryDate;
+        public Nullable<long> QuotationExpiryDate
+        {
+            get { return quotationExpiryDate; }
+            set { quotationExpiryDate = value; }
+        }
     }
 }
