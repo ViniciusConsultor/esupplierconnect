@@ -67,6 +67,8 @@ namespace eProcurement_SAP
             this.btn_vreject = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.btn_vhist = new System.Windows.Forms.Button();
+            this.txt_record = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PurchaseGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -544,11 +546,31 @@ namespace eProcurement_SAP
             this.btn_vhist.UseVisualStyleBackColor = true;
             this.btn_vhist.Click += new System.EventHandler(this.btn_vhist_Click);
             // 
+            // txt_record
+            // 
+            this.txt_record.Location = new System.Drawing.Point(728, 636);
+            this.txt_record.MaxLength = 10;
+            this.txt_record.Name = "txt_record";
+            this.txt_record.Size = new System.Drawing.Size(129, 24);
+            this.txt_record.TabIndex = 31;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(725, 615);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(137, 16);
+            this.label2.TabIndex = 32;
+            this.label2.Text = "Numbe of Records";
+            // 
             // InterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1094, 738);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txt_record);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox7);
@@ -623,5 +645,7 @@ namespace eProcurement_SAP
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Button btn_vhist;
         private System.Windows.Forms.Button btn_ordhst;
+        private System.Windows.Forms.TextBox txt_record;
+        private System.Windows.Forms.Label label2;
     }
 }

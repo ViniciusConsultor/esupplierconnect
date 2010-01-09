@@ -395,5 +395,10 @@ namespace eProcurement_SAP
             return label1;
         }
 
+        public TextBox getTextBox ()
+        {
+            return txt_record;
+        }
+
     }
 }

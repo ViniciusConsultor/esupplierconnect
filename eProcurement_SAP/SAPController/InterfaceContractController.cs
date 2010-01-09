@@ -18,6 +18,7 @@ namespace eProcurement_SAP
 
         private string aMsgstr = "";
         private int aRecCount = 0;
+        private int aCount = 0;
 
         private InterfaceForm aForm;
         private MainController mainController;
@@ -75,7 +76,7 @@ namespace eProcurement_SAP
                     aRecCount = contractHeader.Count;
                     wstep = 10;
                     this.setParameters();
-
+                    notificationCollection = new Collection<Notification>();
                     foreach (ZCONTRACT_HDR conhdr in contractHeader)
                     {
                         ContractHeader chdr = new ContractHeader();
@@ -126,7 +127,8 @@ namespace eProcurement_SAP
                         }
                         notification.Status = "0";
                         notificationCollection.Add(notification);
-
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
                         aForm.getProgressBar().Increment(wstep);
                     }
 
@@ -135,6 +137,7 @@ namespace eProcurement_SAP
                     //---------------------------------------
 
                     aRecCount = contractHeader.Count;
+                    aCount = 0;
                     wstep = 10; 
                     this.setParameters();
  
@@ -162,6 +165,8 @@ namespace eProcurement_SAP
                             mainController.GetDAOCreator().CreateContractItemDAO().Insert(tran, itm);
 
                         aMsgstr = aMsgstr + conitm.Ebeln + ", ";
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
                         aForm.getProgressBar().Increment(wstep);
                     }
                     tran.Commit();
@@ -175,8 +180,6 @@ namespace eProcurement_SAP
                 {
                     tran.Dispose();
                 } 
-
-                this.RemoveContractDetails();
             }
             catch (Exception ex)
             {

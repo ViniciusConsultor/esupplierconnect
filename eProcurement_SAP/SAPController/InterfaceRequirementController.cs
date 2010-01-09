@@ -16,6 +16,7 @@ namespace eProcurement_SAP
         private string aMsgstr = "";
         private InterfaceForm aForm;
         private int aRecCount = 0;
+        private int aCount = 0;
         private MainController mainController;
 
         public InterfaceRequirementController(InterfaceForm aForm, MainController mainController)
@@ -87,6 +88,9 @@ namespace eProcurement_SAP
 
                         aMsgstr = aMsgstr + reqobj.Matnr + ", " + reqobj.Werks + ", " + reqobj.Bdter;
                         aForm.getProgressBar().Increment(wstep);
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
+
                     }
 
                     tran.Commit();

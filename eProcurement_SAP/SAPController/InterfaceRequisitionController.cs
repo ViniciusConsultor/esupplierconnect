@@ -17,6 +17,7 @@ namespace eProcurement_SAP
         
         private string aMsgstr = "";
         private int aRecCount = 0;
+        private int aCount = 0;
         private InterfaceForm aForm;
         private MainController mainController;
 
@@ -95,6 +96,9 @@ namespace eProcurement_SAP
 
                         aMsgstr = aMsgstr + reqhdr.Banfn + ", ";
                         aForm.getProgressBar().Increment(wstep);
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
+
                     }
 
                     //---------------------------------------
@@ -102,6 +106,7 @@ namespace eProcurement_SAP
                     //---------------------------------------
 
                     aRecCount = requisitionItem.Count;
+                    aCount = 0;
                     wstep = 10;
                     this.setParameters();
 
@@ -136,6 +141,8 @@ namespace eProcurement_SAP
 
                         aMsgstr = aMsgstr + reqitm.Banfn + ", " + reqitm.Bnfpo;
                         aForm.getProgressBar().Increment(wstep);
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
                     }
                     tran.Commit();
                 }
@@ -148,8 +155,6 @@ namespace eProcurement_SAP
                 {
                     tran.Dispose();
                 }
-
-                this.RemoveRequisitionDetails();
             }
             catch (Exception ex)
             {

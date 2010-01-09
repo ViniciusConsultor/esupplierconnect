@@ -16,6 +16,7 @@ namespace eProcurement_SAP
 
         private string aMsgstr = "";
         private int aRecCount = 0;
+        private int aCount = 0;
         private InterfaceForm aForm;
         private MainController mainController;
 
@@ -111,6 +112,8 @@ namespace eProcurement_SAP
                         notification.Status = "0";
                         this.ProcessNotification(notification);
                         aForm.getProgressBar().Increment(wstep);
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
                     }
 
                     tran.Commit();
