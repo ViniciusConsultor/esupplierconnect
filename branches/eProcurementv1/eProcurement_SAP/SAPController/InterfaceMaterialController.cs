@@ -15,6 +15,7 @@ namespace eProcurement_SAP
 
         private string aMsgstr = "";
         private int aRecCount = 0;
+        private int aCount = 0;
         private InterfaceForm aForm;
         private MainController mainController;
 
@@ -87,6 +88,8 @@ namespace eProcurement_SAP
                             mainController.GetDAOCreator().CreateMaterialStockDAO().Insert(tran, mtlstk);
 
                         aMsgstr = aMsgstr + mtlobj.Matnr + ", " + mtlobj.Werks;
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
                         aForm.getProgressBar().Increment(wstep);
                     }
 

@@ -26,6 +26,7 @@ namespace eProcurement_SAP
 
         private string aMsgstr = "";
         private int aRecCount = 0;
+        private int aCount = 0;
         private InterfaceForm aForm;
         private MainController mainController;
         private Collection<Notification> notificationCollection;
@@ -145,6 +146,8 @@ namespace eProcurement_SAP
                         pohdr.AcknowledgeStatus = "N";
                         pohdr.RecordStatus = "";
                         pohdr.AcknowledgeBy = "";
+                        pohdr.PurchaseGroup = ordobj.Ekgrp;
+                        pohdr.PurchaseOrg = ordobj.Ekorg;
 
                         Notification notification = new Notification();
                         
@@ -175,6 +178,9 @@ namespace eProcurement_SAP
                         notification.Status = "0";
                         notificationCollection.Add(notification);
 
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
+
                         aForm.getProgressBar().Increment(wstep);
                     }
 
@@ -183,6 +189,7 @@ namespace eProcurement_SAP
                     //------------------------------------------
 
                     aRecCount = orderItem.Count;
+                    aCount = 0;
                     wstep = 10;
                     this.setParameters();
 
@@ -218,6 +225,8 @@ namespace eProcurement_SAP
 
                         aMsgstr = aMsgstr + itmobj.Ebeln + ", ";
                         aForm.getProgressBar().Increment(wstep);
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
                     }
 
                     //-------------------------------------------
@@ -225,6 +234,7 @@ namespace eProcurement_SAP
                     //-------------------------------------------
 
                     aRecCount = orderSchedule.Count;
+                    aCount = 0;
                     wstep = 10;
                     this.setParameters();
                     
@@ -251,6 +261,8 @@ namespace eProcurement_SAP
 
                             aMsgstr = aMsgstr + schobj.Ebeln + ", ";
                             aForm.getProgressBar().Increment(wstep);
+                            aCount++;
+                            aForm.getTextBox().Text = aCount.ToString();
                         }
                         catch (Exception ex)
                         {
@@ -263,6 +275,7 @@ namespace eProcurement_SAP
                     //-------------------------------------------
 
                     aRecCount = orderComponent.Count;
+                    aCount = 0;
                     wstep = 10;
                     this.setParameters();
 
@@ -289,6 +302,8 @@ namespace eProcurement_SAP
 
                         aMsgstr = aMsgstr + cmpobj.Ebeln + ", ";
                         aForm.getProgressBar().Increment(wstep);
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
                     }
 
                     //-------------------------------------------
@@ -296,6 +311,7 @@ namespace eProcurement_SAP
                     //-------------------------------------------
 
                     aRecCount = orderService.Count;
+                    aCount = 0;
                     wstep = 10;
                     this.setParameters();
 
@@ -317,6 +333,9 @@ namespace eProcurement_SAP
 
                         aMsgstr = aMsgstr + srvobj.Ebeln + ", ";
                         aForm.getProgressBar().Increment(wstep);
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
+
                     }
 
                     //-------------------------------------------
@@ -324,6 +343,7 @@ namespace eProcurement_SAP
                     //-------------------------------------------
 
                     aRecCount = serviceTask.Count;
+                    aCount = 0;
                     wstep = 10;
                     this.setParameters();
 
@@ -348,6 +368,9 @@ namespace eProcurement_SAP
 
                         aMsgstr = aMsgstr + tskobj.Lblni + ", " + tskobj.Extrow + ", " + tskobj.Srvpos;
                         aForm.getProgressBar().Increment(wstep);
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
+
                     }
 
                     //-------------------------------------------
@@ -355,6 +378,7 @@ namespace eProcurement_SAP
                     //-------------------------------------------
 
                     aRecCount = headerText.Count;
+                    aCount = 0;
                     wstep = 10;
                     this.setParameters();
 
@@ -372,6 +396,9 @@ namespace eProcurement_SAP
 
                         aMsgstr = aMsgstr + hdrtxt.Ebeln + ", " ;
                         aForm.getProgressBar().Increment(wstep);
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
+
                     }
 
                     //-------------------------------------------
@@ -379,6 +406,7 @@ namespace eProcurement_SAP
                     //-------------------------------------------
 
                     aRecCount = itemText.Count;
+                    aCount = 0;
                     wstep = 10;
                     this.setParameters();
 
@@ -397,6 +425,8 @@ namespace eProcurement_SAP
 
                         aMsgstr = aMsgstr + itmtxt.Ebeln + ", " + itmtxt.Ebelp + ", " + itmtxt.Txtitm;
                         aForm.getProgressBar().Increment(wstep);
+                        aCount++;
+                        aForm.getTextBox().Text = aCount.ToString();
                     }
 
                     tran.Commit();
@@ -411,8 +441,6 @@ namespace eProcurement_SAP
                 {
                     tran.Dispose();
                 } 
-
-                this.RemoveOrderDetails();
             }
             catch (Exception ex)
             {
@@ -432,6 +460,7 @@ namespace eProcurement_SAP
                 //---------------------------------------
 
                 aRecCount = orderHistory.Count;
+                aCount = 0;
                 wstep = 10;
                 this.setParameters();
                 foreach (ZORDER_HISTORY hstobj in orderHistory)
@@ -463,6 +492,8 @@ namespace eProcurement_SAP
                         mainController.GetDAOCreator().CreatePurchaseOrderHistoryDAO().Insert(tran, pohst);
                     }
                     aForm.getProgressBar().Increment(wstep);
+                    aCount++;
+                    aForm.getTextBox().Text = aCount.ToString();
                 }
 
                 //---------------------------------------
@@ -470,6 +501,7 @@ namespace eProcurement_SAP
                 //---------------------------------------
 
                 aRecCount = orderClose.Count;
+                aCount = 0;
                 wstep = 10;
                 this.setParameters();
                 
@@ -497,6 +529,9 @@ namespace eProcurement_SAP
                             mainController.GetDAOCreator().CreatePurchaseOrderItemDAO().Update(tran, poitm);
                         }
                     }
+                    aForm.getProgressBar().Increment(wstep);
+                    aCount++;
+                    aForm.getTextBox().Text = aCount.ToString();
                 }
 
                 tran.Commit();
