@@ -65,13 +65,16 @@ namespace eProcurement_DAL
 
             string connectString = settings.ConnectionString;
 
-            String encryptedPWD =ConfigurationManager.AppSettings[ENCRYPTED_PWD].ToString();
-            if (string.Compare(encryptedPWD,"Y",true) ==0)
+            if (ConfigurationManager.AppSettings[ENCRYPTED_PWD] != null) 
             {
-                SqlConnectionStringBuilder csb =
-                    new SqlConnectionStringBuilder(connectString);
-                csb.Password = Encryption.Decrypt(csb.Password);
-                connectString = csb.ConnectionString;
+                String encryptedPWD = ConfigurationManager.AppSettings[ENCRYPTED_PWD].ToString();
+                if (string.Compare(encryptedPWD, "Y", true) == 0)
+                {
+                    SqlConnectionStringBuilder csb =
+                        new SqlConnectionStringBuilder(connectString);
+                    csb.Password = Encryption.Decrypt(csb.Password);
+                    connectString = csb.ConnectionString;
+                }
             }
             return connectString;
         }
