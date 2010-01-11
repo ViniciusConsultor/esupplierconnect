@@ -13,6 +13,7 @@ namespace eProcurement_DAL
     public sealed class DataManager
     {
         private const string CONNECTION_NAME = "eProcurement.ConnectionString";
+        private const string ENCRYPTED_PWD = "DB_KEY";
 
         // singleton instances
         private static volatile string _connectionString;
@@ -61,7 +62,18 @@ namespace eProcurement_DAL
                        "Please add an entry to connectionStrings section named '{0}'.", CONNECTION_NAME);
                 throw new Exception(message);
             }
-            return settings.ConnectionString;
+
+            string connectString = settings.ConnectionString;
+
+            String dbKey =ConfigurationManager.AppSettings[ENCRYPTED_PWD].ToString();
+            if (!string.IsNullOrEmpty(dbKey)) 
+            {
+                SqlConnectionStringBuilder csb =
+                    new SqlConnectionStringBuilder(connectString);
+                csb.Password = Encryption.Decrypt(dbKey);
+                connectString = csb.ConnectionString;
+            }
+            return connectString;
         }
 
         public static EpTransaction BeginTransaction()

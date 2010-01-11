@@ -67,6 +67,7 @@
     <Compile Include="DAO\SupplierDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="DataManager.cs" />
+    <Compile Include="Encryption.cs" />
     <Compile Include="Entity\AccessMatrix.cs" />
     <Compile Include="Entity\Attachment.cs" />
     <Compile Include="Entity\ContractHeader.cs" />
