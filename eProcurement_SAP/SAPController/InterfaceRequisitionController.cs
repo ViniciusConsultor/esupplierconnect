@@ -98,7 +98,7 @@ namespace eProcurement_SAP
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
-
+                        aForm.getTextBox().Refresh();
                     }
 
                     //---------------------------------------
@@ -143,6 +143,7 @@ namespace eProcurement_SAP
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
+                        aForm.getTextBox().Refresh();
                     }
                     tran.Commit();
                 }

@@ -28,6 +28,8 @@ namespace eProcurement_SAP
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.PurchaseGrid = new System.Windows.Forms.DataGridView();
             this.pbar_sts = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
@@ -83,10 +85,23 @@ namespace eProcurement_SAP
             // 
             // PurchaseGrid
             // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.PurchaseGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.PurchaseGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.SlateBlue;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PurchaseGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.PurchaseGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PurchaseGrid.Location = new System.Drawing.Point(8, 13);
             this.PurchaseGrid.Margin = new System.Windows.Forms.Padding(4);
             this.PurchaseGrid.Name = "PurchaseGrid";
+            this.PurchaseGrid.ReadOnly = true;
+            this.PurchaseGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.PurchaseGrid.Size = new System.Drawing.Size(1078, 351);
             this.PurchaseGrid.TabIndex = 0;
             // 

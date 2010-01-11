@@ -29,6 +29,8 @@ namespace eProcurement_SAP
             groupBox5.Enabled = false;
             groupBox8.Enabled = false;
             groupBox9.Enabled = false;
+            PurchaseGrid.ColumnCount = 12;
+            PurchaseGrid.RowCount = 15;
         }
 
         private void btn_contract_Click(object sender, EventArgs e)
@@ -254,6 +256,8 @@ namespace eProcurement_SAP
             mainController.GetOrderHeader();
             if (mainController.GetInterfaceData() != null)
             {
+                PurchaseGrid.Rows.Clear();
+                PurchaseGrid.Columns.Clear();
                 PurchaseGrid.DataSource = mainController.GetInterfaceData();
             }
         }
@@ -263,7 +267,7 @@ namespace eProcurement_SAP
             mainController.GetOrderItem();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -272,7 +276,7 @@ namespace eProcurement_SAP
             mainController.GetOrderSchedule();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -281,7 +285,7 @@ namespace eProcurement_SAP
             mainController.GetOrderComponent();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -290,7 +294,7 @@ namespace eProcurement_SAP
             mainController.GetOrderService();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -299,7 +303,7 @@ namespace eProcurement_SAP
             mainController.GetServiceTask();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -308,7 +312,7 @@ namespace eProcurement_SAP
             mainController.GetHeaderText();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -317,7 +321,7 @@ namespace eProcurement_SAP
             mainController.GetItemText();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -326,7 +330,7 @@ namespace eProcurement_SAP
             mainController.GetRequisitionHeader();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -335,7 +339,7 @@ namespace eProcurement_SAP
             mainController.GetRequisitionItem();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -344,7 +348,7 @@ namespace eProcurement_SAP
             mainController.GetMaterial();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -353,7 +357,7 @@ namespace eProcurement_SAP
             mainController.GetRequirement();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -362,7 +366,7 @@ namespace eProcurement_SAP
             mainController.GetSupplier();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -371,7 +375,7 @@ namespace eProcurement_SAP
             mainController.GetRejection();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
         }
 
@@ -380,9 +384,16 @@ namespace eProcurement_SAP
             mainController.GetOrderHistory();
             if (mainController.GetInterfaceData() != null)
             {
-                PurchaseGrid.DataSource = mainController.GetInterfaceData();
+                this.BindData();
             }
 
+        }
+
+        private void BindData()
+        {
+            PurchaseGrid.Rows.Clear();
+            PurchaseGrid.Columns.Clear();
+            PurchaseGrid.DataSource = mainController.GetInterfaceData();
         }
 
         public ProgressBar getProgressBar()

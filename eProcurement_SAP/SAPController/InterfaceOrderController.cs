@@ -180,7 +180,7 @@ namespace eProcurement_SAP
 
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
-
+                        aForm.getTextBox().Refresh();
                         aForm.getProgressBar().Increment(wstep);
                     }
 
@@ -227,6 +227,7 @@ namespace eProcurement_SAP
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
+                        aForm.getTextBox().Refresh();
                     }
 
                     //-------------------------------------------
@@ -263,6 +264,7 @@ namespace eProcurement_SAP
                             aForm.getProgressBar().Increment(wstep);
                             aCount++;
                             aForm.getTextBox().Text = aCount.ToString();
+                            aForm.getTextBox().Refresh();
                         }
                         catch (Exception ex)
                         {
@@ -304,6 +306,7 @@ namespace eProcurement_SAP
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
+                        aForm.getTextBox().Refresh();
                     }
 
                     //-------------------------------------------
@@ -335,7 +338,7 @@ namespace eProcurement_SAP
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
-
+                        aForm.getTextBox().Refresh();
                     }
 
                     //-------------------------------------------
@@ -370,7 +373,7 @@ namespace eProcurement_SAP
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
-
+                        aForm.getTextBox().Refresh();
                     }
 
                     //-------------------------------------------
@@ -398,7 +401,7 @@ namespace eProcurement_SAP
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
-
+                        aForm.getTextBox().Refresh();
                     }
 
                     //-------------------------------------------
@@ -427,6 +430,7 @@ namespace eProcurement_SAP
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
+                        aForm.getTextBox().Refresh();
                     }
 
                     tran.Commit();
@@ -494,6 +498,7 @@ namespace eProcurement_SAP
                     aForm.getProgressBar().Increment(wstep);
                     aCount++;
                     aForm.getTextBox().Text = aCount.ToString();
+                    aForm.getTextBox().Refresh();
                 }
 
                 //---------------------------------------
@@ -532,6 +537,7 @@ namespace eProcurement_SAP
                     aForm.getProgressBar().Increment(wstep);
                     aCount++;
                     aForm.getTextBox().Text = aCount.ToString();
+                    aForm.getTextBox().Refresh();
                 }
 
                 tran.Commit();

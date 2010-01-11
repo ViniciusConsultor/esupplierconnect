@@ -129,6 +129,7 @@ namespace eProcurement_SAP
                         notificationCollection.Add(notification);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
+                        aForm.getTextBox().Refresh();
                         aForm.getProgressBar().Increment(wstep);
                     }
 
@@ -167,6 +168,7 @@ namespace eProcurement_SAP
                         aMsgstr = aMsgstr + conitm.Ebeln + ", ";
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
+                        aForm.getTextBox().Refresh();
                         aForm.getProgressBar().Increment(wstep);
                     }
                     tran.Commit();
