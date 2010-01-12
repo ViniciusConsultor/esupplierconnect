@@ -16,14 +16,14 @@ namespace eProcurement_BLL.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class PurchaseOrder : ReportClass {
+    public class GoodsRejection : ReportClass {
         
-        public PurchaseOrder() {
+        public GoodsRejection() {
         }
         
         public override string ResourceName {
             get {
-                return "PurchaseOrder.rpt";
+                return "GoodsRejection.rpt";
             }
             set {
                 // Do nothing
@@ -104,9 +104,9 @@ namespace eProcurement_BLL.Reports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedPurchaseOrder : Component, ICachedReport {
+    public class CachedGoodsRejection : Component, ICachedReport {
         
-        public CachedPurchaseOrder() {
+        public CachedGoodsRejection() {
         }
         
         [Browsable(false)]
@@ -143,7 +143,7 @@ namespace eProcurement_BLL.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            PurchaseOrder rpt = new PurchaseOrder();
+            GoodsRejection rpt = new GoodsRejection();
             rpt.Site = this.Site;
             return rpt;
         }
