@@ -49,7 +49,17 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
+                if (ex.Message == "RECORDNOTFOUND")
+                {
+                    aForm.getLabel().Text = "No Records for Update...";
+                }
+                else
+                {
+                    aForm.getLabel().Text = "Error while Updating... Please check the Log";
+                }
+                aForm.getLabel().Refresh();
                 Utility.ExceptionLog(ex);
+                Utility.EscapeSQL(aMsgstr);
                 throw (ex);
             }
         }
@@ -82,12 +92,13 @@ namespace eProcurement_SAP
                         mtlstk.InspectionStock = mtlobj.Insme;
                         mtlstk.UnitOfMeasure = mtlobj.Meins;
 
+                        aMsgstr = "Material Stock : " + mtlobj.Matnr + ", " + mtlobj.Werks;
+
                         if (mainController.GetDAOCreator().CreateMaterialStockDAO().RetrieveByKey(tran, mtlobj.Matnr, mtlobj.Werks) != null)
                             mainController.GetDAOCreator().CreateMaterialStockDAO().Update(tran, mtlstk);
                         else
                             mainController.GetDAOCreator().CreateMaterialStockDAO().Insert(tran, mtlstk);
 
-                        aMsgstr = aMsgstr + mtlobj.Matnr + ", " + mtlobj.Werks;
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
                         aForm.getTextBox().Refresh();

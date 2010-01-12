@@ -54,7 +54,17 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
+                if (ex.Message == "RECORDNOTFOUND")
+                {
+                    aForm.getLabel().Text = "No Records for Update...";
+                }
+                else
+                {
+                    aForm.getLabel().Text = "Error while Updating... Please check the Log";
+                }
+                aForm.getLabel().Refresh();
                 Utility.ExceptionLog(ex);
+                Utility.EscapeSQL(aMsgstr);
                 throw (ex);
             }
         }
@@ -89,12 +99,13 @@ namespace eProcurement_SAP
                         rhdr.ReleaseDate = Convert.ToInt64(reqhdr.Frgdt);
                         rhdr.CreateBy = reqhdr.Ernam;
 
+                        aMsgstr = "Requisition No: " + reqhdr.Banfn;
+
                         if (mainController.GetDAOCreator().CreateRequisitionHeaderDAO().RetrieveByKey(tran, reqhdr.Banfn) != null)
                             mainController.GetDAOCreator().CreateRequisitionHeaderDAO().Update(tran, rhdr);
                         else
                             mainController.GetDAOCreator().CreateRequisitionHeaderDAO().Insert(tran, rhdr);
 
-                        aMsgstr = aMsgstr + reqhdr.Banfn + ", ";
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
@@ -134,12 +145,13 @@ namespace eProcurement_SAP
                         ritm.FixedVendor = reqitm.Flief;
                         ritm.Status = reqitm.Loekz;
 
+                        aMsgstr = "Requisition Item : " + reqitm.Banfn + ", " + reqitm.Bnfpo;
+
                         if (mainController.GetDAOCreator().CreateRequisitionItemDAO().RetrieveByKey(tran, reqitm.Banfn, reqitm.Bnfpo) != null)
                             mainController.GetDAOCreator().CreateRequisitionItemDAO().Update(tran, ritm);
                         else
                             mainController.GetDAOCreator().CreateRequisitionItemDAO().Insert(tran, ritm);
 
-                        aMsgstr = aMsgstr + reqitm.Banfn + ", " + reqitm.Bnfpo;
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();

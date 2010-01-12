@@ -51,7 +51,17 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
+                if (ex.Message == "RECORDNOTFOUND")
+                {
+                    aForm.getLabel().Text = "No Records for Update...";
+                }
+                else
+                {
+                    aForm.getLabel().Text = "Error while Updating... Please check the Log";
+                }
+                aForm.getLabel().Refresh();
                 Utility.ExceptionLog(ex);
+                Utility.EscapeSQL(aMsgstr);
                 throw (ex);
             }
         }
@@ -88,12 +98,14 @@ namespace eProcurement_SAP
                         rejgood.UnitofMeasure = rejobj.Meins;
                         rejgood.Location = rejobj.Lgort;
                         rejgood.Plant = rejobj.Werks;
+
+                        aMsgstr = "Goods Rejection for Order Number : " + rejobj.Ebeln + " and Line Sequence: " + rejobj.Ebelp + " and Material : " + rejobj.Mblnr + " Dated : " + rejobj.Budat + " is available for returns, Please collect the rejection parts";
+
                         if (mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByKey(tran, rejobj.Ebeln, rejobj.Ebelp, rejobj.Mblnr) != null)
                             mainController.GetDAOCreator().CreateRejectedGoodDAO().Update(tran, rejgood);
                         else
                             mainController.GetDAOCreator().CreateRejectedGoodDAO().Insert(tran, rejgood);
 
-                        aMsgstr = "Goods Rejection for Order Number : " + rejobj.Ebeln + " and Line Sequence: " + rejobj.Ebelp + " and Material : " + rejobj.Mblnr + " Dated : " + rejobj.Budat + " is available for returns, Please collect the rejection parts";
 
                         Notification notification = new Notification();
                         notification.NotificationId = 0;

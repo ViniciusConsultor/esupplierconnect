@@ -51,12 +51,22 @@ namespace eProcurement_SAP
                 this.UpdateContract();
                 this.RemoveContractDetails();
                 
-                aForm.getLabel().Text = "Update of Purchase Contract Data Completed";
+                aForm.getLabel().Text = "Update of Purchase Contract Data Completed...";
                 aForm.getLabel().Refresh();
             }
             catch (Exception ex)
             {
+                if (ex.Message == "RECORDNOTFOUND")
+                {
+                    aForm.getLabel().Text = "No Records for Update...";
+                }
+                else
+                {
+                    aForm.getLabel().Text = "Error while Updating... Please check the Log";
+                }
+                aForm.getLabel().Refresh();
                 Utility.ExceptionLog(ex);
+                Utility.EscapeSQL(aMsgstr);
                 throw (ex);
             }
         }
@@ -102,15 +112,15 @@ namespace eProcurement_SAP
 
                         if (mainController.GetDAOCreator().CreateContractHeaderDAO().RetrieveByKey(tran, conhdr.Ebeln) != null)
                         {
+                            aMsgstr = "ContractNumber : " + conhdr.Ebeln + "Dated : " + conhdr.Bedat + " has been Amended please acknowledge";
                             mainController.GetDAOCreator().CreateContractHeaderDAO().Update(tran, chdr);
                             notification.NotificationType = NotificationMessage.ContractUpdate;
-                            aMsgstr = "ContractNumber : " + conhdr.Ebeln + "Dated : " + conhdr.Bedat + " has been Amended please acknowledge";
                         }
                         else
                         {
+                            aMsgstr = "Please Acknowlegde Contract Number: " + conhdr.Ebeln + "Dated : " + conhdr.Bedat;
                             mainController.GetDAOCreator().CreateContractHeaderDAO().Insert(tran, chdr);
                             notification.NotificationType = NotificationMessage.ContractCreate;
-                            aMsgstr = "Please Acknowlegde Contract Number: " + conhdr.Ebeln + "Dated : " + conhdr.Bedat;
                         }
 
                         notification.NotificationId = 0;
@@ -160,12 +170,13 @@ namespace eProcurement_SAP
                         itm.UnitOfMeasure = conitm.Meins;
                         itm.UnitPrice = conitm.Netpr;
 
+                        aMsgstr = "Contract Item : " + conitm.Ebeln + ", " + conitm.Ebelp;
+
                         if (mainController.GetDAOCreator().CreateContractItemDAO().RetrieveByKey(tran, conitm.Ebeln, conitm.Ebelp) != null)
                             mainController.GetDAOCreator().CreateContractItemDAO().Update(tran, itm);  
                         else
                             mainController.GetDAOCreator().CreateContractItemDAO().Insert(tran, itm);
 
-                        aMsgstr = aMsgstr + conitm.Ebeln + ", ";
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
                         aForm.getTextBox().Refresh();
