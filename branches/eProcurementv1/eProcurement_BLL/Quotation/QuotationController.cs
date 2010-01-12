@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel; 
 using System.Text;
 using eProcurement_DAL;
-using eProcurement_BLL.UserManagement; 
+using eProcurement_BLL.UserManagement;
+using eProcurement_BLL.Notification;
 
 namespace eProcurement_BLL
 {
@@ -177,6 +178,40 @@ namespace eProcurement_BLL
 
                     mainController.GetDAOCreator().CreateQuotationHeaderDAO().Update(tran, header);
 
+                    //Send Notificatio
+                    Collection<string> buyerEmailList = new Collection<string>();
+                    User user = mainController.GetDAOCreator().CreateUserDAO().RetrieveByKey(header.BuyerID);
+                    if (user != null) 
+                    {
+                        if (!string.IsNullOrEmpty(user.UserEmail)) 
+                        {
+                            buyerEmailList.Add(user.UserEmail); 
+                        } 
+                    }
+                    
+                    if (buyerEmailList.Count == 0)
+                        buyerEmailList.Add(NotificationMessage.buyerEmail);
+                    foreach (string email in buyerEmailList)
+                    {
+                        eProcurement_DAL.Notification notification = new eProcurement_DAL.Notification();
+                        notification.NotificationType = NotificationMessage.RFQUpdate;
+                        notification.NotificationDate = Utility.GetStoredDateValue(DateTime.Now);
+                        notification.ReferenceNumber = header.RequestNumber;
+                        notification.ReferenceSequence = "";
+
+                        string sDate = "";
+                        if (header.QuotationExpiryDate.HasValue)
+                            sDate = Utility.GetShortDate(Utility.GetDateTimeFormStoredValue(header.QuotationExpiryDate.Value));
+                        notification.Message = string.Format("Request for Quotation:{0} Dated: {1} created please provide your quotation.",
+                              header.RequestNumber, sDate);
+
+                        notification.Sender = header.SupplierId;
+                        notification.Recipient = NotificationMessage.buyerRecepient;
+                        notification.Email = email.Trim();
+                        notification.Status = "0";
+                        mainController.GetNotificationController().InsertEmailNotification(tran, notification);
+                    }
+
                     tran.Commit();
                     return iReturn;
                 }
@@ -222,6 +257,28 @@ namespace eProcurement_BLL
                             att.RfqNumber = quotationItems[0].RequisitionNumber;
                             mainController.GetDAOCreator().CreateAttachmentDAO(true).Update(tran, att);
                         }
+                    }
+
+                    //Send Notificatio
+                    string email = mainController.GetSupplierController().GetSupplierEmailAddr(quotationHeader.SupplierId);
+                    if (!string.IsNullOrEmpty(email))
+                    {
+                        eProcurement_DAL.Notification notification = new eProcurement_DAL.Notification();
+                        notification.NotificationType = NotificationMessage.RFQCreate;
+                        notification.NotificationDate = Utility.GetStoredDateValue(DateTime.Now);
+                        notification.ReferenceNumber = quotationHeader.RequestNumber;
+                        notification.ReferenceSequence = "";
+
+                        string sDate = "";
+                        if (quotationHeader.ExpiryDate.HasValue)
+                            sDate = Utility.GetShortDate(Utility.GetDateTimeFormStoredValue(quotationHeader.ExpiryDate.Value));
+                        notification.Message = string.Format("Request for Quotation:{0}  Dated: {1} created please provide your quotation.",
+                              quotationHeader.RequestNumber, sDate);
+                        notification.Sender = this.mainController.GetLoginUserVO().UserName;
+                        notification.Recipient = quotationHeader.SupplierId;
+                        notification.Email = email.Trim();
+                        notification.Status = "0";
+                        mainController.GetNotificationController().InsertEmailNotification(tran, notification);
                     }
                         
                     tran.Commit();
