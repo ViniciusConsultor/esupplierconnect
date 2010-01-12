@@ -258,7 +258,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                             string strResqNo = lstRequisition.Items[RequisitionItem].Text + "-" + lstSupplier.Items[SupplierItem].Value;
                             qtoHeader = new QuotationHeader();
                             qtoHeader.RequestNumber = strResqNo;
-                            qtoHeader.SupplierId = lstSupplier.Items[SupplierItem].Text;
+                            qtoHeader.SupplierId = lstSupplier.Items[SupplierItem].Value;
                             qtoHeader.ExpiryDate = GetStoredDateValue(dtpExpiry.SelectedDate);
                             qtoHeader.QuotationNumber = "";
                             qtoHeader.QuotationDate = null;
@@ -397,7 +397,7 @@ public partial class Quotation_QuotationRequestCreate : BaseForm
                             string strResqNo = lstRequisition.Items[RequisitionItem].Text + "-" + lstSupplier.Items[SupplierItem].Value;
                             qtoHeader = new QuotationHeader();
                             qtoHeader.RequestNumber = strResqNo; 
-                            qtoHeader.SupplierId = lstSupplier.Items[SupplierItem].Text;
+                            qtoHeader.SupplierId = lstSupplier.Items[SupplierItem].Value;
                             qtoHeader.ExpiryDate = GetStoredDateValue(dtpExpiry.SelectedDate);
                             qtoHeader.QuotationNumber = "";
                             qtoHeader.QuotationDate = null;

@@ -258,6 +258,40 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
                     mainController.GetDAOCreator().CreateQuotationItemDAO().Update(tran, item);
                 }
 
+                //Send Notificatio
+                //Collection<string> buyerEmailList = new Collection<string>();
+                //User user = mainController.GetDAOCreator().CreateUserDAO().RetrieveByKey(header.BuyerID);
+                //if (user != null)
+                //{
+                //    if (!string.IsNullOrEmpty(user.UserEmail))
+                //    {
+                //        buyerEmailList.Add(user.UserEmail);
+                //    }
+                //}
+
+                //if (buyerEmailList.Count == 0)
+                //    buyerEmailList.Add(NotificationMessage.buyerEmail);
+                //foreach (string email in buyerEmailList)
+                //{
+                //    eProcurement_DAL.Notification notification = new eProcurement_DAL.Notification();
+                //    notification.NotificationType = NotificationMessage.RFQUpdate;
+                //    notification.NotificationDate = Utility.GetStoredDateValue(DateTime.Now);
+                //    notification.ReferenceNumber = header.RequestNumber;
+                //    notification.ReferenceSequence = "";
+
+                //    string sDate = "";
+                //    if (header.QuotationExpiryDate.HasValue)
+                //        sDate = Utility.GetShortDate(Utility.GetDateTimeFormStoredValue(header.QuotationExpiryDate.Value));
+                //    notification.Message = string.Format("Request for Quotation:{0} Dated: {1} created please provide your quotation.",
+                //          header.RequestNumber, sDate);
+
+                //    notification.Sender = header.SupplierId;
+                //    notification.Recipient = NotificationMessage.buyerRecepient;
+                //    notification.Email = email.Trim();
+                //    notification.Status = "0";
+                //    mainController.GetNotificationController().InsertEmailNotification(tran, notification);
+                //}
+
                 tran.Commit();
                 plMessage.Visible = true;
                 lblMessage.Visible = true;
