@@ -11,7 +11,7 @@ namespace SAPInterface
 	/// System : eProcurement System
 	/// Module : eProcurement and SAP Interface 
 	/// Author : Chetan Potnis
-	/// Dated  : 02/12/2009
+	/// Dated  : 02/10/2009
 	/// Class  : ClearPurchaseData
 	/// --------------------------------------------------------------------------------
 	/// </summary>
