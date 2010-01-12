@@ -50,7 +50,17 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
+                if (ex.Message == "RECORDNOTFOUND")
+                {
+                    aForm.getLabel().Text = "No Records for Update...";
+                }
+                else
+                {
+                    aForm.getLabel().Text = "Error while Updating... Please check the Log";
+                }
+                aForm.getLabel().Refresh();
                 Utility.ExceptionLog(ex);
+                Utility.EscapeSQL(aMsgstr);
                 throw (ex);
             }
         }
@@ -89,7 +99,11 @@ namespace eProcurement_SAP
                         supmst.EmailID = supobj.Email.Trim();
                         supmst.UserField = supobj.Sperq;
                         supmst.RecordStatus = "";
+                        
                         Notification notification = new Notification();
+
+                        aMsgstr = "You have been assigned with supplier Id : " + supobj.Lifnr + ", please login with following user Id and password to access eProcurement Web Site. Please change your password at initial login.";
+
                         if (mainController.GetDAOCreator().CreateSupplierDAO().RetrieveByKey(tran, supobj.Lifnr) != null)
                         {
                             mainController.GetDAOCreator().CreateSupplierDAO().Update(tran, supmst);
@@ -101,7 +115,6 @@ namespace eProcurement_SAP
                             notification.NotificationType = NotificationMessage.VendorCreate;
                         }
 
-                        aMsgstr = "You have been assigned with supplier Id : " + supobj.Lifnr + ", please login with following user Id and password to access eProcurement Web Site. Please change your password at initial login.";
 
                         notification.NotificationId = 0;
                         notification.NotificationDate = Convert.ToInt64(System.DateTime.Now.Year.ToString() + System.DateTime.Now.Month.ToString().PadLeft(2, '0') + System.DateTime.Now.Day.ToString().PadLeft(2, '0'));

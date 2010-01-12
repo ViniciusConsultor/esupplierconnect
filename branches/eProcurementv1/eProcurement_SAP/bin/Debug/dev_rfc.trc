@@ -185,3 +185,24 @@ T:2160 Error in program 'eProcurement_SAP': ======> Missing R3NAME=... or ASHOST
 
 **** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
 T:1988 Error in program 'eProcurement_SAP': ======> Missing R3NAME=... or ASHOST=... in connect_param in RfcOpenEx
+
+**** ERROR file opened at , SAP-REL 640,0,157 RFC-VER 3 870445 MT-SL
+T:2532 Error in program 'eProcurement_SAP': ======> Connect to SAP gateway failed
+Connect_PM  GWHOST=SAPPR3, GWSERV=sapgw00, ASHOST=SAPPR3, SYSNR=00
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       partner not reached (host 82.98.86.171, service 3300)
+
+TIME        Wed Jan 13 02:32:04 2010
+RELEASE     640
+COMPONENT   NI (network interface)
+VERSION     37
+RC          -10
+MODULE      nixxi_r.cpp
+LINE        8724
+DETAIL      NiPConnect2
+SYSTEM CALL SiPeekPendConn
+ERRNO       10060
+ERRNO TEXT  WSAETIMEDOUT: Connection timed out
+COUNTER     1
+

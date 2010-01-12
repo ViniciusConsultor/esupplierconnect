@@ -49,7 +49,17 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
+                if (ex.Message == "RECORDNOTFOUND")
+                {
+                    aForm.getLabel().Text = "No Records for Update...";
+                }
+                else
+                {
+                    aForm.getLabel().Text = "Error while Updating... Please check the Log";
+                }
+                aForm.getLabel().Refresh();
                 Utility.ExceptionLog(ex);
+                Utility.EscapeSQL(aMsgstr);
                 throw (ex);
             }
         }
@@ -80,6 +90,8 @@ namespace eProcurement_SAP
                         mtlreq.RequiredDate = Convert.ToInt64(reqobj.Bdter);
                         mtlreq.RequiredQuantity = reqobj.Bdmng;
                         mtlreq.UnitOfMeasure = reqobj.Meins;
+
+                        aMsgstr = "Material Requirement : " + reqobj.Matnr + ", " + reqobj.Bdter + ", " + reqobj.Bdmng.ToString();
 
                         if (mainController.GetDAOCreator().CreateMaterialRequirementDAO().RetrieveByKey(tran, reqobj.Matnr, reqobj.Werks, Convert.ToInt64(reqobj.Bdter)) != null)
                             mainController.GetDAOCreator().CreateMaterialRequirementDAO().Update(tran, mtlreq);

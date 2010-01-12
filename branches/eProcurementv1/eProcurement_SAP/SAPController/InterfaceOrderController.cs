@@ -69,7 +69,17 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
+                if (ex.Message == "RECORDNOTFOUND")
+                {
+                    aForm.getLabel().Text = "No Records for Update...";
+                }
+                else
+                {
+                    aForm.getLabel().Text = "Error while Updating... Please check the Log";
+                }
+                aForm.getLabel().Refresh();
                 Utility.ExceptionLog(ex);
+                Utility.EscapeSQL(aMsgstr);
                 throw (ex);
             }
         }
@@ -99,7 +109,17 @@ namespace eProcurement_SAP
             }
             catch (Exception ex)
             {
+                if (ex.Message == "RECORDNOTFOUND")
+                {
+                    aForm.getLabel().Text = "No Records for Update...";
+                }
+                else
+                {
+                    aForm.getLabel().Text = "Error while Updating... Please check the Log";
+                }
+                aForm.getLabel().Refresh();
                 Utility.ExceptionLog(ex);
+                Utility.EscapeSQL(aMsgstr);
                 throw (ex);
             }
 
@@ -120,6 +140,7 @@ namespace eProcurement_SAP
                     aRecCount = orderHeader.Count;
                     wstep = 10;
                     this.setParameters();
+                    aMsgstr = "";
                     
                     foreach (ZORDER_HDR ordobj in orderHeader)
                     {
@@ -153,15 +174,15 @@ namespace eProcurement_SAP
                         
                         if (mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByKey(tran, ordobj.Ebeln) != null)
                         {
+                            aMsgstr = "Order Number : " + ordobj.Ebeln + "Dated : " + ordobj.Bedat + " has been Amended please acknowledge";
                             mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Update(tran, pohdr);
                             notification.NotificationType = NotificationMessage.OrderUpdate;
-                            aMsgstr = "Order Number : " + ordobj.Ebeln + "Dated : " + ordobj.Bedat + " has been Amended please acknowledge";
                         }
                         else
                         {
+                            aMsgstr = "Please Acknowlegde Order Number: " + ordobj.Ebeln + "Dated : " + ordobj.Bedat;
                             mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().Insert(tran, pohdr);
                             notification.NotificationType = NotificationMessage.OrderCreate;
-                            aMsgstr = "Please Acknowlegde Order Number: " + ordobj.Ebeln + "Dated : " + ordobj.Bedat;
                         }
                         notification.NotificationId = 0;
                         notification.NotificationDate = Convert.ToInt64(System.DateTime.Now.Year.ToString() + System.DateTime.Now.Month.ToString().PadLeft(2, '0') + System.DateTime.Now.Day.ToString().PadLeft(2, '0'));
@@ -192,6 +213,7 @@ namespace eProcurement_SAP
                     aCount = 0;
                     wstep = 10;
                     this.setParameters();
+                    aMsgstr = "";
 
                     foreach (ZORDER_ITM itmobj in orderItem)
                     {
@@ -218,12 +240,13 @@ namespace eProcurement_SAP
                         poitm.ItemStatus = "";
                         poitm.RecordStatus = "";
 
+                        aMsgstr = "PO Item : " + itmobj.Ebeln + ", " + itmobj.Ebelp;
+
                         if (mainController.GetDAOCreator().CreatePurchaseOrderItemDAO().RetrieveByKey(tran, itmobj.Ebeln, itmobj.Ebelp) != null)
                             mainController.GetDAOCreator().CreatePurchaseOrderItemDAO().Update(tran, poitm);
                         else
                             mainController.GetDAOCreator().CreatePurchaseOrderItemDAO().Insert(tran, poitm);
 
-                        aMsgstr = aMsgstr + itmobj.Ebeln + ", ";
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
@@ -238,6 +261,7 @@ namespace eProcurement_SAP
                     aCount = 0;
                     wstep = 10;
                     this.setParameters();
+                    aMsgstr = "";
                     
                     foreach (ZORDER_SCH schobj in orderSchedule)
                     {
@@ -255,12 +279,14 @@ namespace eProcurement_SAP
                             posch.AcknowledgementDate = 0;
                             posch.ExpeditingPromiseDate = 0;
                             posch.RecordStatus = "";
+
+                            aMsgstr = "PO Schedule : " + schobj.Ebeln + ", " + schobj.Ebelp + ", " + schobj.Etenr;
+
                             if (mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO().RetrieveByKey(tran, schobj.Ebeln, schobj.Ebelp, schobj.Etenr) != null)
                                 mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO().Update(tran, posch);
                             else
                                 mainController.GetDAOCreator().CreatePurchaseOrderItemScheduleDAO().Insert(tran, posch);
 
-                            aMsgstr = aMsgstr + schobj.Ebeln + ", ";
                             aForm.getProgressBar().Increment(wstep);
                             aCount++;
                             aForm.getTextBox().Text = aCount.ToString();
@@ -280,6 +306,7 @@ namespace eProcurement_SAP
                     aCount = 0;
                     wstep = 10;
                     this.setParameters();
+                    aMsgstr = "";
 
                     foreach (ZORDER_COMP cmpobj in orderComponent)
                     {
@@ -294,6 +321,8 @@ namespace eProcurement_SAP
                         pocmp.RecordStatus = "";
                         pocmp.ItemStatus = "";
 
+                        aMsgstr = "PO Component : " + cmpobj.Ebeln + ", " + cmpobj.Ebelp + ", " + cmpobj.Compl;
+
                         if (cmpobj.Ebeln != "") 
                         {
                         if (mainController.GetDAOCreator().CreateSubcontractorMaterialDAO().RetrieveByKey(tran, cmpobj.Ebeln, cmpobj.Ebelp, cmpobj.Compl, cmpobj.Matnr) != null)
@@ -302,7 +331,6 @@ namespace eProcurement_SAP
                             mainController.GetDAOCreator().CreateSubcontractorMaterialDAO().Insert(tran, pocmp);
                         }
 
-                        aMsgstr = aMsgstr + cmpobj.Ebeln + ", ";
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
@@ -317,6 +345,7 @@ namespace eProcurement_SAP
                     aCount = 0;
                     wstep = 10;
                     this.setParameters();
+                    aMsgstr = "";
 
                     foreach (ZORDER_SRV srvobj in orderService)
                     {
@@ -329,12 +358,14 @@ namespace eProcurement_SAP
                         posrv.ServicePrice = srvobj.Preis;
                         posrv.ServiceValue = srvobj.Brtwr;
                         posrv.RecordStatus = "";
+
+                        aMsgstr = "Service Item : " + srvobj.Ebeln + ", " + srvobj.Ebelp + ", " + srvobj.Lblni;
+
                         if (mainController.GetDAOCreator().CreatePurchaseOrderServiceItemDAO().RetrieveByKey(tran, srvobj.Ebeln, srvobj.Ebelp, srvobj.Lblni) != null)
                             mainController.GetDAOCreator().CreatePurchaseOrderServiceItemDAO().Update(tran, posrv);
                         else
                             mainController.GetDAOCreator().CreatePurchaseOrderServiceItemDAO().Insert(tran, posrv);
 
-                        aMsgstr = aMsgstr + srvobj.Ebeln + ", ";
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
@@ -349,6 +380,7 @@ namespace eProcurement_SAP
                     aCount = 0;
                     wstep = 10;
                     this.setParameters();
+                    aMsgstr = "";
 
                     foreach (ZORDER_SRVTSK tskobj in serviceTask)
                     {
@@ -361,6 +393,8 @@ namespace eProcurement_SAP
                         srvtsk.ServicePrice = tskobj.Sbrtwr;
                         srvtsk.UnitOfMeasure = tskobj.Meins;
 
+                        aMsgstr = "Service Task : " + tskobj.Lblni + ", " + tskobj.Extrow + ", " + tskobj.Srvpos;
+
                         if (tskobj.Lblni != "")
                         {
                             if (mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().RetrieveByKey(tran, tskobj.Lblni, tskobj.Extrow) != null)
@@ -369,7 +403,6 @@ namespace eProcurement_SAP
                                 mainController.GetDAOCreator().CreatePurchaseServiceTaskDAO().Insert(tran, srvtsk);
                         }
 
-                        aMsgstr = aMsgstr + tskobj.Lblni + ", " + tskobj.Extrow + ", " + tskobj.Srvpos;
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
@@ -384,6 +417,7 @@ namespace eProcurement_SAP
                     aCount = 0;
                     wstep = 10;
                     this.setParameters();
+                    aMsgstr = "";
 
                     foreach (ZORDER_HDRTXT hdrtxt in headerText)
                     {
@@ -392,12 +426,13 @@ namespace eProcurement_SAP
                         pohtxt.TextSequence = hdrtxt.Txtitm;
                         pohtxt.LongText = hdrtxt.Ltxt;
 
+                        aMsgstr = "PO Header Text : " + hdrtxt.Ebeln + ", ";
+
                         if (mainController.GetDAOCreator().CreatePurchaseHeaderTextDAO().RetrieveByKey(tran, hdrtxt.Ebeln, hdrtxt.Txtitm) != null)
                             mainController.GetDAOCreator().CreatePurchaseHeaderTextDAO().Update(tran, pohtxt);
                         else
                             mainController.GetDAOCreator().CreatePurchaseHeaderTextDAO().Insert(tran, pohtxt);
 
-                        aMsgstr = aMsgstr + hdrtxt.Ebeln + ", " ;
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
@@ -412,6 +447,7 @@ namespace eProcurement_SAP
                     aCount = 0;
                     wstep = 10;
                     this.setParameters();
+                    aMsgstr = "";
 
                     foreach (ZORDER_ITMTXT itmtxt in itemText)
                     {
@@ -421,12 +457,13 @@ namespace eProcurement_SAP
                         poitxt.TextSequence = itmtxt.Txtitm;
                         poitxt.LongText = itmtxt.Ltxt;
 
+                        aMsgstr = "PO Item Text :" + itmtxt.Ebeln + ", " + itmtxt.Ebelp + ", " + itmtxt.Txtitm;
+
                         if (mainController.GetDAOCreator().CreatePurchaseItemTextDAO().RetrieveByKey(tran, itmtxt.Ebeln, itmtxt.Ebelp, itmtxt.Txtitm) != null)
                             mainController.GetDAOCreator().CreatePurchaseItemTextDAO().Update(tran, poitxt);
                         else
                             mainController.GetDAOCreator().CreatePurchaseItemTextDAO().Insert(tran, poitxt);
 
-                        aMsgstr = aMsgstr + itmtxt.Ebeln + ", " + itmtxt.Ebelp + ", " + itmtxt.Txtitm;
                         aForm.getProgressBar().Increment(wstep);
                         aCount++;
                         aForm.getTextBox().Text = aCount.ToString();
@@ -467,6 +504,8 @@ namespace eProcurement_SAP
                 aCount = 0;
                 wstep = 10;
                 this.setParameters();
+                aMsgstr = "";
+
                 foreach (ZORDER_HISTORY hstobj in orderHistory)
                 {
                     PurchaseOrderHistory pohst = new PurchaseOrderHistory();
@@ -486,6 +525,8 @@ namespace eProcurement_SAP
                     pohst.ReferenceNumber = hstobj.Xblnr;
                     pohst.Indicator = hstobj.Shkzg;
                     pohst.PostingDate = Convert.ToInt64(hstobj.Budat);
+
+                    aMsgstr = "Order History: " + hstobj.Ebeln + ", " + hstobj.Ebelp + ", " + hstobj.Belnr;
 
                     if (mainController.GetDAOCreator().CreatePurchaseOrderHistoryDAO().RetrieveByKey(tran, hstobj.Ebeln, hstobj.Ebelp, hstobj.Belnr) != null)
                     {
@@ -515,6 +556,8 @@ namespace eProcurement_SAP
 
                 foreach (ZORDER_CLOSE clsobj in orderClose)
                 {
+                    aMsgstr = "Order Close: " + clsobj.Ebeln + ", " + clsobj.Ebelp;
+
                     pohdr = mainController.GetDAOCreator().CreatePurchaseOrderHeaderDAO().RetrieveByKey(tran, clsobj.Ebeln);
                     if ( pohdr != null)
                     {
