@@ -11,7 +11,7 @@ namespace SAPInterface
 	/// System : eProcurement System
 	/// Module : eProcurement and SAP Interface 
 	/// Author : Chetan Potnis
-	/// Dated  : 15/11/2009
+	/// Dated  : 15/10/2009
 	/// Class  : RetrieveContract
 	/// ---------------------------------------------------------------------------------
 	/// </summary>

@@ -11,7 +11,7 @@ namespace SAPInterface
 	/// System : eProcurement System
 	/// Module : eProcurement and SAP Interface 
 	/// Author : Chetan Potnis
-	/// Dated  : 28/11/2009
+	/// Dated  : 28/10/2009
 	/// Class  : RetrieveMaterialRequirement
 	/// ---------------------------------------------------------------------------------
 	/// </summary>
