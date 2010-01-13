@@ -156,6 +156,8 @@ public partial class Quotation_QuotationRequestList : BaseForm
             string quoNo = hlReqNo.Attributes["ReqNo"].ToString();
             string url = "";
 
+            Session[SessionKey.RequestNumber] = quoNo; 
+
             url = "~/Quotation/QuotationRequestDetails.aspx?FunctionId=" + base.m_FunctionId;
             url += "&RequestNumber=" + quoNo;
 

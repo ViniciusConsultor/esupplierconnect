@@ -38,6 +38,15 @@ public partial class Quotation_QuotationRequestDetails : BaseForm
                 base.Page_Load(sender, e);
                 /***************************************************/
 
+                if (LoginUser.FuncList.Contains("S-0012") || LoginUser.FuncList.Contains("B-0009"))
+                {
+                    btnPrint.Attributes.Add("onclick", "PrintReport()");
+                }
+                else
+                {
+                    btnPrint.Visible = false;
+                }
+
                 string reqNumber = Request.QueryString["RequestNumber"];
                 ViewState.Add("RequestNumber", reqNumber);
 
@@ -48,21 +57,6 @@ public partial class Quotation_QuotationRequestDetails : BaseForm
 
                 attPanel.InitPanel(reqNumber, true);
             }
-        }
-        catch (Exception ex)
-        {
-            ExceptionLog(ex);
-            plMessage.Visible = true;
-            string sMessage = ex.Message;
-            displayCustomMessage(sMessage, lblMessage, SystemMessageType.Error);
-        }
-    }
-
-    protected void btnSubmit_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            
         }
         catch (Exception ex)
         {
