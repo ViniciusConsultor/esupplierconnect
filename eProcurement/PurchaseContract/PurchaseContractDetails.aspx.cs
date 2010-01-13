@@ -53,6 +53,17 @@ public partial class PurchaseContract_PurchaseContractDetails : BaseForm
                 base.Page_Load(sender, e);
                 /***************************************************/
 
+                if (LoginUser.FuncList.Contains("S-0009") || LoginUser.FuncList.Contains("B-0006"))
+                {
+                    btnPrint1.Attributes.Add("onclick", "PrintReport()");
+                    btnPrint2.Attributes.Add("onclick", "PrintReport()");
+                }
+                else
+                {
+                    btnPrint1.Visible = false;
+                    btnPrint2.Visible = false;
+                }
+
                 //store querystring in viewstate, it will be used to pass back to list page
                 string queryString = Request.QueryString.ToString();
                 m_QueryString = queryString + "&ReturnFromDetails=Y";

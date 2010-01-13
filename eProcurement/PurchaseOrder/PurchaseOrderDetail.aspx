@@ -118,6 +118,10 @@
             </td>
             <td nowrap="nowrap">&nbsp;</td>
             <td nowrap="nowrap">
+               <asp:Button ID="btnPrint1" runat="server" Text="Print"/>
+            </td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">
                <asp:Button ID="btnReturn1" runat="server" Text="Return" onclick="btnReturn_Click"/>
             </td>
             <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
@@ -432,6 +436,10 @@
             </td>
             <td nowrap="nowrap">&nbsp;</td>
             <td nowrap="nowrap">
+               <asp:Button ID="btnPrint2" runat="server" Text="Print"/>
+            </td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">
                <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click"/>
             </td>
             <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
@@ -460,11 +468,20 @@
             MyArgs = window.showModalDialog("PurchaseOrderComponents.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
             
         }
-         function ShowService(itemNo)
+        
+        function ShowService(itemNo)
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
             MyArgs = window.showModalDialog("PurchaseOrderServices.aspx?" + Math.random()*5 + "&ItemNo=" + itemNo, MyArgs, WinSettings);
+            
+        }
+        
+        function PrintReport()
+        {
+            var MyArgs;
+            var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
+            MyArgs = window.showModalDialog("../Reports/ReportControl.aspx?" + Math.random()*5 + "&ReportName=ORDER", MyArgs, WinSettings);
             
         }
     </script>	
