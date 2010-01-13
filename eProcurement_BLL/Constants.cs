@@ -117,7 +117,8 @@ namespace eProcurement_BLL
         public const string OrderScheduleSeq = "ORDER_SCHEDULE_SEQ";
         public const string DELIVERY_ORDER_COLLECTION = "DELIVERY_ORDER_COLLECTION";
         public const string RequestNumber = "REQUEST_NUMBER";
-        
+        public const string DeliveryOrderNumber = "DELIVERY_ORDER_NUMBER";
+        public const string rptSupplierId = "RPT_SUPPLIER_ID"; 
     }
 
     public class ProfileType
