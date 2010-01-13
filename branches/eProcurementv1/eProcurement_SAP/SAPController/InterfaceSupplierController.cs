@@ -99,7 +99,27 @@ namespace eProcurement_SAP
                         supmst.EmailID = supobj.Email.Trim();
                         supmst.UserField = supobj.Sperq;
                         supmst.RecordStatus = "";
-                        
+
+                        User eUser = new User();
+                        eUser.SupplierID  = supobj.Lifnr;
+                        eUser.UpdatedDate = Convert.ToInt64(DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0'));
+                        eUser.UserEmail = supobj.Email.Trim();
+                        if (supobj.Lifnr.Trim().Length == 10)
+                        {
+                            eUser.UserId = supobj.Lifnr.Substring(4, 6);
+                            eUser.UserPassword = supobj.Lifnr.Substring(4, 6);
+                        }
+                        else
+                        {
+                            eUser.UserId = supobj.Lifnr.Trim();
+                            eUser.UserPassword = supobj.Lifnr.Trim();
+                        }
+                        eUser.UserName = supobj.Name1.Trim();
+                        eUser.UserRole = "Administrator";
+                        eUser.UserStatus = "A";
+                        eUser.ProfileType = "Supplier";
+                        eUser.UpdatedBy = aForm.GetUserId();
+
                         Notification notification = new Notification();
 
                         aMsgstr = "You have been assigned with supplier Id : " + supobj.Lifnr + ", please login with following user Id and password to access eProcurement Web Site. Please change your password at initial login.";
@@ -112,6 +132,7 @@ namespace eProcurement_SAP
                         else
                         {
                             mainController.GetDAOCreator().CreateSupplierDAO().Insert(tran, supmst);
+                            mainController.GetDAOCreator().CreateUserDAO().Insert(eUser);
                             notification.NotificationType = NotificationMessage.VendorCreate;
                         }
 

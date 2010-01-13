@@ -411,5 +411,10 @@ namespace eProcurement_SAP
             return txt_record;
         }
 
+        public string GetUserId()
+        {
+            return mainController.GetUserId();
+        }
+
     }
 }

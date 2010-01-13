@@ -12,6 +12,7 @@ namespace eProcurement_SAP
         private InterfaceForm scheduleInterface;
         private MainController mainController = null;
         private DataTable interfaceTbl;
+        private string aUserId = "";
 
         // SAP Interface Controllers
 
@@ -23,9 +24,10 @@ namespace eProcurement_SAP
         private InterfaceMaterialController materialController;
         private InterfaceRejectionController rejectionController;
 
-        public InterfaceMainController(MainController mainControl)
+        public InterfaceMainController(MainController mainControl, string pUserId)
         {
             this.mainController = mainControl;
+            this.aUserId = pUserId;
             scheduleInterface = new InterfaceForm(this);
             scheduleInterface.Show();
         }
@@ -291,6 +293,11 @@ namespace eProcurement_SAP
                 return interfaceTbl;
             else
                 return null;
+        }
+
+        public string GetUserId()
+        {
+            return aUserId;
         }
     }
 }
