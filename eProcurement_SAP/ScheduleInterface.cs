@@ -21,6 +21,7 @@ namespace eProcurement_SAP
         
         private int validsts = 0;
         private MainController mainControl;
+        private String aUserId = "";
 
         public ScheduleInterface()
         {
@@ -121,7 +122,8 @@ namespace eProcurement_SAP
 
             if (validsts == 0)
             {
-                InterfaceMainController interfaceControl = new InterfaceMainController(mainControl);
+                aUserId = this.txt_pswd.Text.Trim();
+                InterfaceMainController interfaceControl = new InterfaceMainController(mainControl, aUserId);
             }
 
         }
