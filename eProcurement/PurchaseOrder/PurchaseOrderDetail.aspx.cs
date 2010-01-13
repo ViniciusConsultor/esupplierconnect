@@ -122,7 +122,8 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
                 }
                 base.Page_Load(sender, e);
                 /***************************************************/
-                if (LoginUser.FuncList.Contains("S-0003") || LoginUser.FuncList.Contains("S-0003"))
+                if ((LoginUser.FuncList.Contains("S-0003") || LoginUser.FuncList.Contains("S-0003"))
+                    && string.Compare(m_FuncFlag, "VIEW_ORDER", false) == 0)
                 {
                     btnPrint1.Attributes.Add("onclick", "PrintReport()");
                     btnPrint2.Attributes.Add("onclick", "PrintReport()");

@@ -57,6 +57,8 @@ public partial class PurchaseContract_PurchaseContractDetails : BaseForm
                 {
                     btnPrint1.Attributes.Add("onclick", "PrintReport()");
                     btnPrint2.Attributes.Add("onclick", "PrintReport()");
+                    btnPrint1.Visible = false;
+                    btnPrint2.Visible = false;
                 }
                 else
                 {
