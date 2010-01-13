@@ -17,6 +17,7 @@ namespace eProcurement_DAL
 
         // singleton instances
         private static volatile string _connectionString;
+        private static SqlConnectionStringBuilder _csb = null;
        
         // lock objects, each singleton has own to prevent deadlock
         private static object _connectionStringLock = new Object();
@@ -98,6 +99,42 @@ namespace eProcurement_DAL
             if (!string.IsNullOrEmpty(str))
                 strReturn = str.Replace("'", "''");
             return strReturn;
+        }
+
+        public static string GetServerName()
+        {
+            if (_csb == null) 
+            {
+                _csb = new SqlConnectionStringBuilder(GetDefaultConnectionString());
+            }
+            return _csb.DataSource; 
+        }
+
+        public static string GetDatabaseName()
+        {
+            if (_csb == null)
+            {
+                _csb = new SqlConnectionStringBuilder(GetDefaultConnectionString());
+            }
+            return _csb.InitialCatalog;
+        }
+
+        public static string GetUserID()
+        {
+            if (_csb == null)
+            {
+                _csb = new SqlConnectionStringBuilder(GetDefaultConnectionString());
+            }
+            return _csb.UserID;
+        }
+
+        public static string GetPassword()
+        {
+            if (_csb == null)
+            {
+                _csb = new SqlConnectionStringBuilder(GetDefaultConnectionString());
+            }
+            return _csb.Password;
         }
     }
 }
