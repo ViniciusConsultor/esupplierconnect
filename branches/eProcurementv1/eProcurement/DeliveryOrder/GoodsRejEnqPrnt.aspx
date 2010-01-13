@@ -63,9 +63,12 @@
                             </asp:DropDownList>
                         </td>
                     </tr>
+                    
                     <tr>
                         <td colspan="2" style="text-align: right">
+                            <asp:Button ID="btnPrint" runat="server" Text="Print All Goods Rejection"/>&nbsp;
                             <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"/>
+                            
                         </td>
                     </tr>
                 </table>
@@ -249,13 +252,16 @@
                 </asp:GridView>
 	        </td>
         </tr>
-        <tr>
-        <td align="center">
-                            <asp:Button ID="btnPrint" runat="server" Visible ="false"  Text="Print" OnClick="btnPrint_Click"/>
-                        </td>
-        </tr>
-        
     </table>
 </asp:Panel>
+<script language="javascript" type="text/javascript">    
+        function PrintReport()
+        {
+            var MyArgs;
+            var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
+            MyArgs = window.showModalDialog("../Reports/ReportControl.aspx?" + Math.random()*5 + "&ReportName=REJECTION", MyArgs, WinSettings);
+            
+        }
+    </script>	
 </asp:Content>
 
