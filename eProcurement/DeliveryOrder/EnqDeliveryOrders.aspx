@@ -129,7 +129,7 @@
         <tr>
 	        <td valign="top" colspan="10" style="height: 20px">
                  <asp:GridView Width="100%" ID="gvData" runat="server" AllowPaging="True" AutoGenerateColumns="False" 
-                   AllowSorting="false" CellPadding="2">
+                   AllowSorting="false" CellPadding="2"  OnRowDataBound="gvData_RowDataBound">
                     <Columns>
                         <asp:TemplateField HeaderText="S/N" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>
@@ -231,8 +231,20 @@
                             </ItemTemplate> 
                             <ItemStyle Width="5%"/>
                         </asp:TemplateField>
-                        
-                            
+                        <asp:TemplateField HeaderText="Print" HeaderStyle-Wrap="false"  HeaderStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td Width="100%">
+                                            <asp:Button ID="btnPrint" runat="server" Text="Print"/>
+                                        </td>
+                                       <td>&nbsp;</td>
+                                    </tr>
+                                </table> 
+                            </ItemTemplate> 
+                            <ItemStyle Width="5%"/>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
 	        </td>
@@ -254,6 +266,14 @@
             {
                 document.getElementById(txtSupplierId).value = MyArgs[0].toString();
             }
+        }
+        
+        function PrintReport(refNo)
+        {
+            var MyArgs;
+            var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
+            MyArgs = window.showModalDialog("../Reports/ReportControl.aspx?" + Math.random()*5 + "&ReportName=DELIVERY&Delivery=" + refNo, MyArgs, WinSettings);
+            
         }
     </script>
 </asp:Content>
