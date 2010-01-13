@@ -193,9 +193,9 @@
             <td nowrap="nowrap">
                <asp:Button ID="btnReturn" runat="server" Text="Return" onclick="btnReturn_Click"/>
             </td>
-            <td nowrap="nowrap">&nbsp;&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
             <td nowrap="nowrap">
-               <asp:Button ID="btnSubmit" runat="server" Text="Submit" onclick="btnSubmit_Click" Visible="false" />
+               <asp:Button ID="btnPrint" runat="server" Text="Print"/>
             </td>
             <td nowrap="nowrap" width="50%">&nbsp;&nbsp;</td>
         </tr> 
@@ -204,31 +204,11 @@
     
 	<script language="javascript" type="text/javascript">    
     
-        function ShowHeaderText(orderNumber)
+         function PrintReport()
         {
             var MyArgs;
             var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderHeaderText.aspx?" + Math.random()*5 + "&OrderNumber=" + orderNumber , MyArgs, WinSettings);
-        }
-        
-        function ShowItemText(orderNumber,itemNo)
-        {
-            var MyArgs;
-            var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderItemText.aspx?" + Math.random()*5 + "&OrderNumber=" + orderNumber + "&ItemNo=" + itemNo, MyArgs, WinSettings);
-        }
-        function ShowComponent(orderNumber,itemNo)
-        {
-            var MyArgs;
-            var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderComponents.aspx?" + Math.random()*5 + "&OrderNumber=" + orderNumber + "&ItemNo=" + itemNo, MyArgs, WinSettings);
-            
-        }
-         function ShowService(orderNumber,itemNo)
-        {
-            var MyArgs;
-            var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("PurchaseOrderServices.aspx?" + Math.random()*5 + "&OrderNumber=" + orderNumber + "&ItemNo=" + itemNo, MyArgs, WinSettings);
+            MyArgs = window.showModalDialog("../Reports/ReportControl.aspx?" + Math.random()*5 + "&ReportName=RFQ", MyArgs, WinSettings);
             
         }
     </script>	

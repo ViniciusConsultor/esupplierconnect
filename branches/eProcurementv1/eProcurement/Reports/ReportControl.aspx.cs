@@ -50,9 +50,9 @@ public partial class Reports_ReportControl : System.Web.UI.Page
             case "RFQ":
                 {
                     objReport = new RFQDocument();
-                    //ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
-                    //objParamer.Value = Request.QueryString["RFQNo"];
-                    //objReport.SetParameterValue("@Order", objParamer);
+                    ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
+                    objParamer.Value = Session[SessionKey.RequestNumber].ToString();
+                    objReport.SetParameterValue("@Order", objParamer);
                     break;
                 }
             case "QUOTATION":
