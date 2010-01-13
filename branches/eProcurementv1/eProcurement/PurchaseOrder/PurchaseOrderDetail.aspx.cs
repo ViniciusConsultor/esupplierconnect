@@ -122,7 +122,17 @@ public partial class PurchaseOrder_PurchaseOrderDetail : BaseForm
                 }
                 base.Page_Load(sender, e);
                 /***************************************************/
-
+                if (LoginUser.FuncList.Contains("S-0003") || LoginUser.FuncList.Contains("S-0003"))
+                {
+                    btnPrint1.Attributes.Add("onclick", "PrintReport()");
+                    btnPrint2.Attributes.Add("onclick", "PrintReport()");
+                }
+                else 
+                {
+                    btnPrint1.Visible = false;
+                    btnPrint2.Visible = false; 
+                }
+                
                 //Initialize Page
                 InitPage();
 
