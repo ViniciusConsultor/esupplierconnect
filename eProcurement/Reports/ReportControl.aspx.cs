@@ -68,7 +68,7 @@ public partial class Reports_ReportControl : System.Web.UI.Page
                 {
                     objReport = new Quotation();
                     ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
-                    objParamer.Value = Session[SessionKey.rptSupplierId].ToString();
+                    objParamer.Value = ((LoginUserVO)Session[SessionKey.LOGIN_USER]).SupplierId;
                     objReport.SetParameterValue("@Order", objParamer);
                     break;
                 }
