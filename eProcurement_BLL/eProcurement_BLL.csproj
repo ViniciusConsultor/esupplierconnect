@@ -80,9 +80,6 @@
       <DependentUpon>contract.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\Contract1.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reports\DeliveryOrder.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
