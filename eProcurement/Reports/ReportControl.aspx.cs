@@ -69,7 +69,7 @@ public partial class Reports_ReportControl : System.Web.UI.Page
                 }
             case "REJECTION":
                 {
-                    objReport = new Quotation();
+                    objReport = new GoodsRejection();
                     ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
                     objParamer.Value = ((LoginUserVO)Session[SessionKey.LOGIN_USER]).SupplierId;
                     //objReport.SetParameterValue("@Order", objParamer);
@@ -77,7 +77,7 @@ public partial class Reports_ReportControl : System.Web.UI.Page
                 }
             case "DELIVERY":
                 {
-                    objReport = new Quotation();
+                    objReport = new eProcurement_BLL.Reports.DeliveryOrder();
                     ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
                     objParamer.Value = Request.QueryString["Delivery"].ToUpper();
                     //objReport.SetParameterValue("@Order", objParamer);

@@ -207,8 +207,11 @@
          function PrintReport()
         {
             var MyArgs;
-            var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
-            MyArgs = window.showModalDialog("../Reports/ReportControl.aspx?" + Math.random()*5 + "&ReportName=RFQ", MyArgs, WinSettings);
+            //var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
+            //MyArgs = window.showModalDialog("../Reports/ReportControl.aspx?" + Math.random()*5 + "&ReportName=RFQ", MyArgs, WinSettings);
+            
+            var WinSettings = "toolbar=0,location=0,status=1,menubar=0,scrollbars=1,resizable=1,width=1024px,height=700px,top=0,left=0";    
+            window.open("../Reports/ReportControl.aspx?" + Math.random()*5 + "&ReportName=RFQ","epReport",WinSettings);
             
         }
     </script>	
