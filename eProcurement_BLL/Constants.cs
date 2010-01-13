@@ -118,7 +118,8 @@ namespace eProcurement_BLL
         public const string DELIVERY_ORDER_COLLECTION = "DELIVERY_ORDER_COLLECTION";
         public const string RequestNumber = "REQUEST_NUMBER";
         public const string DeliveryOrderNumber = "DELIVERY_ORDER_NUMBER";
-        public const string rptSupplierId = "RPT_SUPPLIER_ID"; 
+        public const string rptSupplierId = "RPT_SUPPLIER_ID";
+        public const string QuotationNumber = "QUOTATION_NUMBER";
     }
 
     public class ProfileType
