@@ -92,6 +92,16 @@ public partial class DeliveryOrder_GoodsRejEnqPrnt : BaseForm
                 base.Page_Load(sender, e);
                 /***************************************************/
 
+                if (LoginUser.FuncList.Contains("S-0017"))
+                {
+                    btnPrint.Attributes.Add("onclick", "PrintReport()");
+                }
+                else
+                {
+                    btnPrint.Visible = false;
+                }
+
+
                 //Initialize Page
                 InitPage();
 
@@ -256,12 +266,5 @@ public partial class DeliveryOrder_GoodsRejEnqPrnt : BaseForm
             if (lblAcknowledged.Text.Trim() == "")
                 lblAcknowledged.Text = "N";
         }
-    }
-
-
-
-    protected void btnPrint_Click(object sender, EventArgs e)
-    {
-        Collection<RejectedGood> rgColl = GetData();
     }
 }
