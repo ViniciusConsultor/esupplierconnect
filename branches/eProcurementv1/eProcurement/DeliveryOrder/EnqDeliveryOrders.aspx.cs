@@ -249,8 +249,17 @@ public partial class DeliveryOrder_EnquireDeliveryOrders : BaseForm
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            LinkButton lbhlOrderNo = (LinkButton)e.Row.FindControl("lbhlOrderNo");
-            lbhlOrderNo.Attributes.Add("OrderNo", lbhlOrderNo.Text);
+            Label lblDeliveryNumber = (Label)e.Row.FindControl("lblDeliveryNumber");
+            Button btnPrint = (Button)e.Row.FindControl("btnPrint");
+            if (LoginUser.FuncList.Contains("S-0006") || LoginUser.FuncList.Contains("W-0002"))
+            {
+                btnPrint.Enabled = true;
+                btnPrint.Attributes.Add("onclick", "PrintReport('" + lblDeliveryNumber.Text + "')");
+            }
+            else
+            {
+                btnPrint.Enabled = false;
+            }
         }
     }
 
