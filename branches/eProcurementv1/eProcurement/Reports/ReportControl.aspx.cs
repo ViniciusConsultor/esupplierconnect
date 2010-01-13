@@ -13,6 +13,7 @@ using CrystalDecisions.Shared;
 using eProcurement_BLL.Reports;
 using eProcurement_DAL;
 using eProcurement_BLL;
+using eProcurement_BLL.UserManagement;
 
 public partial class Reports_ReportControl : System.Web.UI.Page
 {
@@ -66,17 +67,17 @@ public partial class Reports_ReportControl : System.Web.UI.Page
             case "REJECTION":
                 {
                     objReport = new Quotation();
-                    //ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
-                    //objParamer.Value = Request.QueryString["Supplier"].ToUpper();
-                    //objReport.SetParameterValue("@Order", objParamer);
+                    ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
+                    objParamer.Value = Session[SessionKey.rptSupplierId].ToString();
+                    objReport.SetParameterValue("@Order", objParamer);
                     break;
                 }
             case "DELIVERY":
                 {
                     objReport = new Quotation();
-                    //ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
-                    //objParamer.Value = Request.QueryString["Delivery"].ToUpper();
-                    //objReport.SetParameterValue("@Order", objParamer);
+                    ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
+                    objParamer.Value = Request.QueryString["Delivery"].ToUpper();
+                    objReport.SetParameterValue("@Order", objParamer);
                     break;
                 }
         }
