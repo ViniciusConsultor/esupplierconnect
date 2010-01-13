@@ -288,11 +288,15 @@
             <td nowrap="nowrap" style="height: 18px; width: 20px;">
                 &nbsp;</td>
             <td nowrap="nowrap" style="height: 18px">&nbsp;</td>
-             <td nowrap="nowrap" style="height: 18px">
+            <td nowrap="nowrap" style="height: 18px">
                  &nbsp;</td>
             <td nowrap="nowrap" style="height: 18px">&nbsp;</td>
             <td nowrap="nowrap" style="height: 18px">
                <asp:Button ID="btnSubmit" runat="server" Text="Submit" onclick="btnSubmit_Click"/>
+            </td>
+            <td nowrap="nowrap" style="height: 18px">&nbsp;</td>
+            <td nowrap="nowrap" style="height: 18px">
+                <asp:Button ID="btnPrint" runat="server" Enabled="false" Text="Print"/>
             </td>
             <td nowrap="nowrap" style="height: 18px">&nbsp;</td>
             <td nowrap="nowrap" style="height: 18px">
@@ -311,4 +315,13 @@
       </table> 
     <br />
     <br />
+    <script language="javascript" type="text/javascript">    
+        function PrintReport()
+        {
+            var MyArgs;
+            var WinSettings = "center:yes;resizable:no;status:no;dialogHeight:768px;dialogWidth:1024px;dialogHide:true";    
+            MyArgs = window.showModalDialog("../Reports/ReportControl.aspx?" + Math.random()*5 + "&ReportName=QUOTATION", MyArgs, WinSettings);
+            
+        }
+    </script>	
 	</asp:Content>

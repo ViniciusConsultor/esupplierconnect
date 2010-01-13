@@ -299,6 +299,10 @@ public partial class Quotation_ProcessQuotationDetail : BaseForm
                 displayCustomMessage(sMessage, lblMessage, SystemMessageType.Information);
                 btnSubmit.Enabled = false;
                 attPanel.InitPanel(Session[SessionKey.RequestNumber].ToString(), true);
+                txtQuotationNo.ReadOnly = true;
+                btnPrint.Enabled = true;
+                btnPrint.Attributes.Add("onclick", "PrintReport()");
+                Session[SessionKey.QuotationNumber] = txtQuotationNo.Text;
 
             }
             catch (Exception ex)
