@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 
 namespace SAPInterface
 {
@@ -66,7 +67,6 @@ namespace SAPInterface
 			{
 				this.OpenConnection();
 				materialRequirement = new ZMATL_REQUIRETable();
-
 				requirementProxy.Zretrieverequirement(ref materialRequirement);
 				this.CloseConnection();
 			}
@@ -75,7 +75,7 @@ namespace SAPInterface
 				throw(ex);
 			}
 		}
-
+		
 		public ZMATL_REQUIRETable GetMaterialRequirement()
 		{
 			return materialRequirement;
