@@ -66,7 +66,7 @@
                     
                     <tr>
                         <td colspan="2" style="text-align: right">
-                            <asp:Button ID="btnPrint" runat="server" Text="Print All Goods Rejection"/>&nbsp;
+                            <asp:Button ID="btnPrint" runat="server" Text="Print Goods Rejection"/>&nbsp;
                             <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"/>
                             
                         </td>
