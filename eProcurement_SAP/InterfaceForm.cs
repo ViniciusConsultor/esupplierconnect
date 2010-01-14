@@ -29,8 +29,6 @@ namespace eProcurement_SAP
             groupBox5.Enabled = false;
             groupBox8.Enabled = false;
             groupBox9.Enabled = false;
-            PurchaseGrid.ColumnCount = 12;
-            PurchaseGrid.RowCount = 15;
         }
 
         private void btn_contract_Click(object sender, EventArgs e)
@@ -391,8 +389,6 @@ namespace eProcurement_SAP
 
         private void BindData()
         {
-            PurchaseGrid.Rows.Clear();
-            PurchaseGrid.Columns.Clear();
             PurchaseGrid.DataSource = mainController.GetInterfaceData();
         }
 

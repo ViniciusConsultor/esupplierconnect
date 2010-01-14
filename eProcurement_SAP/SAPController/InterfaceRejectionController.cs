@@ -99,7 +99,7 @@ namespace eProcurement_SAP
                         rejgood.Location = rejobj.Lgort;
                         rejgood.Plant = rejobj.Werks;
 
-                        aMsgstr = "Goods Rejection for Order Number : " + rejobj.Ebeln + " and Line Sequence: " + rejobj.Ebelp + " and Material : " + rejobj.Mblnr + " Dated : " + rejobj.Budat + " is available for returns, Please collect the rejection parts";
+                        aMsgstr = "Goods Rejection for Order Number : " + rejobj.Ebeln + " and Line Sequence: " + rejobj.Ebelp + " and Material : " + rejobj.Matnr + " Dated : " + rejobj.Budat + " is available for returns, Please collect the rejection parts";
 
                         if (mainController.GetDAOCreator().CreateRejectedGoodDAO().RetrieveByKey(tran, rejobj.Ebeln, rejobj.Ebelp, rejobj.Mblnr) != null)
                             mainController.GetDAOCreator().CreateRejectedGoodDAO().Update(tran, rejgood);
