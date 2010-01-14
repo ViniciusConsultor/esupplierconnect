@@ -1,15 +1,48 @@
+
+
+SET XACT_ABORT ON;
+BEGIN TRANSACTION;
+
 --Delete records from tables
 DELETE FROM dbo.[ACCESSMATRIX]  ;
 
 --Add records to [ACCESSMATRIX]
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0001')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0002')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0003')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0004')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0005')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0006')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0007')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0008')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0009')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0010')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0011')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0012')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0013')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','B-0014')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','U-0001')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','U-0002')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','U-0003')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','W-0001')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Buyer','W-0002')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0001')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0002')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0003')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0004')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0005')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0006')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0007')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0008')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0009')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0010')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0011')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0012')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0013')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0014')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0015')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0016')
+insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','S-0017')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','U-0001')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','U-0002')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Administrator','Supplier','U-0003')
@@ -70,3 +103,7 @@ insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Viewer','Supplier','U
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Viewer','Supplier','U-0003')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Viewer','WHUser','U-0002')
 insert into [ACCESSMATRIX](USRROLE,PROFTYP,FUNCID) values('Viewer','WHUser','U-0003')
+
+COMMIT;
+
+
