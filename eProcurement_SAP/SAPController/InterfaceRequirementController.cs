@@ -12,7 +12,6 @@ namespace eProcurement_SAP
     public class InterfaceRequirementController
     {
         private ZMATL_REQUIRETable requirement;
-
         private string aMsgstr = "";
         private InterfaceForm aForm;
         private int aRecCount = 0;
@@ -70,6 +69,25 @@ namespace eProcurement_SAP
 
             try
             {
+                // Delete all Material Requirement Records
+
+                EpTransaction trans = DataManager.BeginTransaction();
+                try
+                {
+                    mainController.GetDAOCreator().CreateMaterialRequirementDAO().DeleteAll(trans);
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw (ex);
+                }
+                finally
+                {
+                    trans.Dispose();
+                }
+
+
                 EpTransaction tran = DataManager.BeginTransaction();
                 try
                 {
@@ -93,10 +111,10 @@ namespace eProcurement_SAP
 
                         aMsgstr = "Material Requirement : " + reqobj.Matnr + ", " + reqobj.Bdter + ", " + reqobj.Bdmng.ToString();
 
-                        if (mainController.GetDAOCreator().CreateMaterialRequirementDAO().RetrieveByKey(tran, reqobj.Matnr, reqobj.Werks, Convert.ToInt64(reqobj.Bdter)) != null)
-                            mainController.GetDAOCreator().CreateMaterialRequirementDAO().Update(tran, mtlreq);
-                        else
-                            mainController.GetDAOCreator().CreateMaterialRequirementDAO().Insert(tran, mtlreq);
+                        //if (mainController.GetDAOCreator().CreateMaterialRequirementDAO().RetrieveByKey(reqobj.Matnr, reqobj.Werks, Convert.ToInt64(reqobj.Bdter)) != null)
+                        //    mainController.GetDAOCreator().CreateMaterialRequirementDAO().Update(mtlreq);
+                        //else
+                        mainController.GetDAOCreator().CreateMaterialRequirementDAO().Insert(mtlreq);
 
                         aMsgstr = aMsgstr + reqobj.Matnr + ", " + reqobj.Werks + ", " + reqobj.Bdter;
                         aForm.getProgressBar().Increment(wstep);

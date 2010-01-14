@@ -52,7 +52,6 @@ C:\eProcurement\eProcurement_SAP\bin\Debug\eProcurement_SAP.exe
 C:\eProcurement\eProcurement_SAP\bin\Debug\eProcurement_SAP.pdb
 C:\eProcurement\eProcurement_SAP\bin\Debug\eProcurement_BLL.dll
 C:\eProcurement\eProcurement_SAP\bin\Debug\eProcurement_DAL.dll
-C:\eProcurement\eProcurement_SAP\bin\Debug\SAPInterface.dll
 C:\eProcurement\eProcurement_SAP\bin\Debug\log4net.dll
 C:\eProcurement\eProcurement_SAP\bin\Debug\eProcurement_BLL.pdb
 C:\eProcurement\eProcurement_SAP\bin\Debug\eProcurement_DAL.pdb
@@ -76,3 +75,4 @@ C:\eProcurement\eProcurement_SAP\obj\Release\eProcurement_SAP.ScheduleInterface.
 C:\eProcurement\eProcurement_SAP\obj\Release\eProcurement_SAP.csproj.GenerateResource.Cache
 C:\eProcurement\eProcurement_SAP\obj\Release\eProcurement_SAP.exe
 C:\eProcurement\eProcurement_SAP\obj\Release\eProcurement_SAP.pdb
+C:\eProcurement\eProcurement_SAP\bin\Debug\SAPInterface.dll
