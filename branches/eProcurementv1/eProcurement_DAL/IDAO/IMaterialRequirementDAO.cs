@@ -43,6 +43,7 @@ namespace eProcurement_DAL
         #region Delete
         public abstract  void Delete(MaterialRequirement entity);
         public abstract  void Delete(EpTransaction epTran, MaterialRequirement entity);
+        public abstract void DeleteAll(EpTransaction epTrans);
         #endregion
 
     }
