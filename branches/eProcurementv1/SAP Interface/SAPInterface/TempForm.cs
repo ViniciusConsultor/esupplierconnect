@@ -20,7 +20,7 @@ namespace SAPInterface
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
-		private RetrieveGoodsRejection xdata;
+		private RetrieveMaterialRequirement xdata;
 
 		public TempForm()
 		{
@@ -28,7 +28,7 @@ namespace SAPInterface
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
-			xdata = new RetrieveGoodsRejection();
+			xdata = new RetrieveMaterialRequirement();
 
 			//
 			// TODO: Add any constructor code after InitializeComponent call
@@ -117,11 +117,12 @@ namespace SAPInterface
 
 		private void button1_Click(object sender, System.EventArgs e)
 		{
-			xdata.GetRejectionDetails();
-			xdata.UpdateRejectControlDate();
+//			xdata.GetRejectionDetails();
+//			xdata.UpdateRejectControlDate();
+//			xdata.GetRequirementDetails();	
 //			RetrieveContract retrieveContract = new RetrieveContract();
 //			retrieveContract.GetContractDetails();
-//			DataTable aTable = retrieveContract.GetContractItem().ToADODataTable();
+//			DataTable aTable = xdata.GetMaterialRequirement().ToADODataTable();
 //			DataGrid.DataSource = aTable;
 
 		}
