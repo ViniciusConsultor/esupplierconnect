@@ -35,7 +35,7 @@ public partial class Reports_ReportControl : System.Web.UI.Page
                     objReport.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
                     ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
                     objParamer.Value =Session[SessionKey.OrderNumber].ToString();
-                    objReport.SetParameterValue("@Order", objParamer);
+                    objReport.SetParameterValue("Order", objParamer);
                     break;
                 }
             case "CONTRACT":
@@ -45,7 +45,7 @@ public partial class Reports_ReportControl : System.Web.UI.Page
                     objReport.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
                     ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
                     objParamer.Value =Session[SessionKey.ContractNumber].ToString();
-                    objReport.SetParameterValue("@Contract", objParamer);
+                    objReport.SetParameterValue("Contract", objParamer);
                     break;
                 }
             case "RFQ":
@@ -53,7 +53,7 @@ public partial class Reports_ReportControl : System.Web.UI.Page
                     objReport = new RFQDocument();
                     ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
                     objParamer.Value = Session[SessionKey.RequestNumber].ToString();
-                    objReport.SetParameterValue("@RfqNo", objParamer);
+                    objReport.SetParameterValue("RfqNo", objParamer);
                     break;
                 }
             case "QUOTATION":
@@ -61,10 +61,10 @@ public partial class Reports_ReportControl : System.Web.UI.Page
                     objReport = new Quotation();
                     ParameterDiscreteValue objParamer1 = new ParameterDiscreteValue();
                     objParamer1.Value = Session[SessionKey.QuotationNumber].ToString();
-                    objReport.SetParameterValue("@QuoteNo", objParamer1);
+                    objReport.SetParameterValue("QuoteNo", objParamer1);
                     ParameterDiscreteValue objParamer2 = new ParameterDiscreteValue();
                     objParamer2.Value = ((LoginUserVO)Session[SessionKey.LOGIN_USER]).SupplierId;
-                    objReport.SetParameterValue("@Lifnr", objParamer2);
+                    objReport.SetParameterValue("Lifnr", objParamer2);
                     break;
                 }
             case "REJECTION":
@@ -72,7 +72,7 @@ public partial class Reports_ReportControl : System.Web.UI.Page
                     objReport = new GoodsRejection();
                     ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
                     objParamer.Value = ((LoginUserVO)Session[SessionKey.LOGIN_USER]).SupplierId;
-                    objReport.SetParameterValue("@Lifnr", objParamer);
+                    objReport.SetParameterValue("Lifnr", objParamer);
                     break;
                 }
             case "DELIVERY":
@@ -80,7 +80,7 @@ public partial class Reports_ReportControl : System.Web.UI.Page
                     objReport = new eProcurement_BLL.Reports.DeliveryOrder();
                     ParameterDiscreteValue objParamer = new ParameterDiscreteValue();
                     objParamer.Value = Request.QueryString["Delivery"].ToUpper();
-                    objReport.SetParameterValue("@DlvNo", objParamer);
+                    objReport.SetParameterValue("DlvNo", objParamer);
                     break;
                 }
         }
