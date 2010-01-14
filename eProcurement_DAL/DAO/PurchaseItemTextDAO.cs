@@ -278,7 +278,7 @@ namespace eProcurement_DAL
             }
 
             //Update 
-            cm.CommandText = "UPDATE puritxt SET LTXT=@LTXT,WHERE EBELN=@EBELN AND EBELP=@EBELP AND TXTITM=@TXTITM";
+            cm.CommandText = "UPDATE puritxt SET LTXT=@LTXT WHERE EBELN=@EBELN AND EBELP=@EBELP AND TXTITM=@TXTITM";
             SqlParameter p1 = new SqlParameter("@LTXT", SqlDbType.NVarChar, 255);
             cm.Parameters.Add(p1);
             p1.Value = entity.LongText;
