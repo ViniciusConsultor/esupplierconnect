@@ -74,10 +74,10 @@
     <Compile Include="Quotation\QuotationController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Reports\contract.cs">
+    <Compile Include="Reports\Contract1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>contract.rpt</DependentUpon>
+      <DependentUpon>Contract.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DeliveryOrder.cs">
@@ -140,9 +140,9 @@
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\contract.rpt">
+    <EmbeddedResource Include="Reports\Contract.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>contract.cs</LastGenOutput>
+      <LastGenOutput>Contract1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\DeliveryOrder.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
