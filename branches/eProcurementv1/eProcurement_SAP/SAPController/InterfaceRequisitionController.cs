@@ -47,7 +47,7 @@ namespace eProcurement_SAP
                 aForm.getLabel().Refresh();
                 
                 this.UpdateRequisition();
-                this.RemoveRequisitionDetails();
+                //this.RemoveRequisitionDetails();
                 
                 aForm.getLabel().Text = "Update of Purchase Requisition Data Completed";
                 aForm.getLabel().Refresh();

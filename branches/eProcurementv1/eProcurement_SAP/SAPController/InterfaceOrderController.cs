@@ -62,7 +62,7 @@ namespace eProcurement_SAP
                 aForm.getLabel().Refresh();
 
                 this.UpdatePurchaseOrder();
-                this.RemoveOrderDetails();
+                //this.RemoveOrderDetails();
 
                 aForm.getLabel().Text = "Update of Purchase Order Data Completed";
                 aForm.getLabel().Refresh();
@@ -209,6 +209,7 @@ namespace eProcurement_SAP
                     // Get Purchase Order Item Details
                     //------------------------------------------
 
+                    
                     aRecCount = orderItem.Count;
                     aCount = 0;
                     wstep = 10;

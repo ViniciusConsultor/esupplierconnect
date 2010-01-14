@@ -49,7 +49,7 @@ namespace eProcurement_SAP
                 aForm.getLabel().Refresh();
                 
                 this.UpdateContract();
-                this.RemoveContractDetails();
+                //this.RemoveContractDetails();
                 
                 aForm.getLabel().Text = "Update of Purchase Contract Data Completed...";
                 aForm.getLabel().Refresh();
