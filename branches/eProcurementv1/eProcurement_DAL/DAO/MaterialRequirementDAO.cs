@@ -216,6 +216,32 @@ namespace eProcurement_DAL
             Delete(null, entity);
         }
 
+        public override void DeleteAll(EpTransaction epTran)
+        {
+            SqlCommand cm = new SqlCommand();
+            cm.CommandType = CommandType.Text;
+
+            //set connection
+            SqlConnection connection;
+            if (epTran == null)
+                connection = DataManager.GetConnection();
+            else
+                connection = epTran.GetSqlConnection();
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+            cm.Connection = connection;
+
+            //set transaction
+            if (epTran != null)
+                cm.Transaction = epTran.GetSqlTransaction();
+
+            //Update 
+            cm.CommandText = "DELETE FROM MTLREQ";
+            cm.ExecuteNonQuery();
+
+            if (epTran == null)
+                if (connection.State != System.Data.ConnectionState.Closed) connection.Close();
+        }
+
         public override void Delete(EpTransaction epTran, MaterialRequirement entity)
         {
             SqlCommand cm = new SqlCommand();
