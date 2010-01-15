@@ -81,7 +81,7 @@ namespace eProcurement_SAP
                     //---------------------------------------
 
                     aRecCount = orderRejection.Count;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
 
                     foreach (ZORDER_REJECT rejobj in orderRejection)
@@ -162,6 +162,7 @@ namespace eProcurement_SAP
             aForm.getProgressBar().Value = 1;
             aForm.getProgressBar().Maximum = aRecCount;
             aForm.getProgressBar().Minimum = 1;
+            aForm.getProgressBar().Refresh();
         }
 
         private void ProcessNotification(Notification pNotification)

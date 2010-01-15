@@ -97,7 +97,7 @@ namespace eProcurement_SAP
                     //---------------------------------------
 
                     aRecCount = requirement.Count;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
 
                     foreach (ZMATL_REQUIRE reqobj in requirement)
@@ -156,6 +156,7 @@ namespace eProcurement_SAP
             aForm.getProgressBar().Step = 0;
             aForm.getProgressBar().Maximum = aRecCount;
             aForm.getProgressBar().Minimum = 1;
+            aForm.getProgressBar().Refresh();
         }
 
     }

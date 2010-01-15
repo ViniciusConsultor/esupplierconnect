@@ -80,7 +80,7 @@ namespace eProcurement_SAP
                     //---------------------------------------
                     aRecCount = supplier.Count;
                     this.setParameters();
-                    wstep = 10;
+                    wstep = 1;
                     foreach (ZSUPPLIER supobj in supplier)
                     {
                         Supplier supmst = new Supplier();
@@ -190,6 +190,7 @@ namespace eProcurement_SAP
             aForm.getProgressBar().Step = 0;
             aForm.getProgressBar().Maximum = aRecCount;
             aForm.getProgressBar().Minimum = 1;
+            aForm.getProgressBar().Refresh();
         }
 
         private void ProcessNotification(Notification pNotification)
