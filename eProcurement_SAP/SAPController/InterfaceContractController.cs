@@ -84,7 +84,7 @@ namespace eProcurement_SAP
                     // Get Contract Header Details
                     //---------------------------------------
                     aRecCount = contractHeader.Count;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
                     notificationCollection = new Collection<Notification>();
                     foreach (ZCONTRACT_HDR conhdr in contractHeader)
@@ -183,6 +183,7 @@ namespace eProcurement_SAP
                         aForm.getProgressBar().Increment(wstep);
                     }
                     tran.Commit();
+                    this.ProcessNotification(notificationCollection);
                 }
                 catch (Exception ex)
                 {
@@ -222,6 +223,8 @@ namespace eProcurement_SAP
             aForm.getProgressBar().Step = 0;
             aForm.getProgressBar().Maximum = aRecCount;
             aForm.getProgressBar().Minimum = 1;
+            aForm.getProgressBar().Value = 1;
+            aForm.getProgressBar().Refresh();
         }
 
         private void RemoveContractDetails()

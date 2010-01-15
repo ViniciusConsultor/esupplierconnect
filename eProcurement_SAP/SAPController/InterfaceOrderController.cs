@@ -138,7 +138,7 @@ namespace eProcurement_SAP
                     // Get Purchase Order Header Details
                     //---------------------------------------
                     aRecCount = orderHeader.Count;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
                     aMsgstr = "";
                     
@@ -212,7 +212,7 @@ namespace eProcurement_SAP
                     
                     aRecCount = orderItem.Count;
                     aCount = 0;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
                     aMsgstr = "";
 
@@ -260,7 +260,7 @@ namespace eProcurement_SAP
 
                     aRecCount = orderSchedule.Count;
                     aCount = 0;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
                     aMsgstr = "";
                     
@@ -305,7 +305,7 @@ namespace eProcurement_SAP
 
                     aRecCount = orderComponent.Count;
                     aCount = 0;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
                     aMsgstr = "";
 
@@ -344,7 +344,7 @@ namespace eProcurement_SAP
 
                     aRecCount = orderService.Count;
                     aCount = 0;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
                     aMsgstr = "";
 
@@ -379,7 +379,7 @@ namespace eProcurement_SAP
 
                     aRecCount = serviceTask.Count;
                     aCount = 0;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
                     aMsgstr = "";
 
@@ -416,7 +416,7 @@ namespace eProcurement_SAP
 
                     aRecCount = headerText.Count;
                     aCount = 0;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
                     aMsgstr = "";
 
@@ -446,7 +446,7 @@ namespace eProcurement_SAP
 
                     aRecCount = itemText.Count;
                     aCount = 0;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
                     aMsgstr = "";
 
@@ -503,7 +503,7 @@ namespace eProcurement_SAP
 
                 aRecCount = orderHistory.Count;
                 aCount = 0;
-                wstep = 10;
+                wstep = 1;
                 this.setParameters();
                 aMsgstr = "";
 
@@ -549,7 +549,7 @@ namespace eProcurement_SAP
 
                 aRecCount = orderClose.Count;
                 aCount = 0;
-                wstep = 10;
+                wstep = 1;
                 this.setParameters();
                 
                 PurchaseOrderHeader pohdr;
@@ -676,6 +676,7 @@ namespace eProcurement_SAP
             aForm.getProgressBar().Value = 1;
             aForm.getProgressBar().Maximum = aRecCount;
             aForm.getProgressBar().Minimum = 1;
+            aForm.getProgressBar().Refresh();
         }
 
         private void RemoveOrderDetails()

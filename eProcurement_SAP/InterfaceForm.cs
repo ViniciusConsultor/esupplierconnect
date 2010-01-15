@@ -11,6 +11,7 @@ namespace eProcurement_SAP
     public partial class InterfaceForm : Form
     {
         private InterfaceMainController mainController;
+        private string animationFile = "";
 
         public InterfaceForm(InterfaceMainController mainController)
         {
@@ -31,10 +32,18 @@ namespace eProcurement_SAP
             groupBox9.Enabled = false;
         }
 
+        private void InitializeProcess()
+        {
+            Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+            this.txt_record.Text = "0";
+            this.txt_record.Refresh();
+        }
+
         private void btn_contract_Click(object sender, EventArgs e)
         {
             try
             {
+                this.InitializeProcess();
                 mainController.ProcessPurchaseContract();
                 groupBox1.Enabled = false;
                 groupBox2.Enabled = true;
@@ -50,6 +59,10 @@ namespace eProcurement_SAP
                 this.label1.Text = "Error during retrieving of Purchase Contract Details...";
                 this.initForm();
             }
+            finally
+            {
+                Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
         }
 
 
@@ -57,6 +70,7 @@ namespace eProcurement_SAP
         {
             try
             {
+                this.InitializeProcess();
                 mainController.ProcessPurchaseOrder();
                 groupBox1.Enabled = true;
                 groupBox2.Enabled = false;
@@ -72,12 +86,17 @@ namespace eProcurement_SAP
                 this.label1.Text = "Error during retrieving of Purchase Details...";
                 this.initForm();
             }
+            finally
+            {
+                Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
         }
 
         private void btn_reqn_Click(object sender, EventArgs e)
         {
             try
             {
+                this.InitializeProcess();
                 mainController.ProcessRequisition();
                 groupBox1.Enabled = false;
                 groupBox2.Enabled = false;
@@ -93,12 +112,17 @@ namespace eProcurement_SAP
                 this.label1.Text = "Error during retrieving of Requisition Details...";
                 this.initForm();
             }
+            finally
+            {
+                Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
         }
 
         private void btn_supp_Click(object sender, EventArgs e)
         {
             try
             {
+                this.InitializeProcess();
                 mainController.ProcessSupplier();
                 groupBox1.Enabled = false;
                 groupBox2.Enabled = false;
@@ -113,12 +137,17 @@ namespace eProcurement_SAP
                 this.label1.Text = "Error during retrieving of Supplier Details...";
                 this.initForm();
             }
+            finally
+            {
+                Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
         }
 
         private void btn_reqmt_Click(object sender, EventArgs e)
         {
             try
             {
+                this.InitializeProcess();
                 mainController.ProcessMaterialRequirement();
                 groupBox1.Enabled = false;
                 groupBox2.Enabled = false;
@@ -133,12 +162,17 @@ namespace eProcurement_SAP
                 this.label1.Text = "Error during retrieving of Requirement Details...";
                 this.initForm();
             }
+            finally
+            {
+                Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
         }
 
         private void btn_stock_Click(object sender, EventArgs e)
         {
             try
             {
+                this.InitializeProcess();
                 mainController.ProcessMaterialStock();
                 groupBox1.Enabled = false;
                 groupBox2.Enabled = false;
@@ -153,12 +187,17 @@ namespace eProcurement_SAP
                 this.label1.Text = "Error during retrieving of Material Stock Details...";
                 this.initForm();
             }
+            finally
+            {
+                Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
         }
 
         private void btn_reject_Click(object sender, EventArgs e)
         {
             try
             {
+                this.InitializeProcess();
                 mainController.ProcessGoodsRejection();
                 groupBox1.Enabled = false;
                 groupBox2.Enabled = false;
@@ -173,13 +212,17 @@ namespace eProcurement_SAP
                 this.label1.Text = "Error during retrieving of Goods Rejection Details...";
                 this.initForm();
             }
-
+            finally
+            {
+                Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
         }
 
         private void btn_ordhst_Click(object sender, EventArgs e)
         {
             try
             {
+                this.InitializeProcess();
                 mainController.ProcessPurchaseHistory();
                 groupBox1.Enabled = false;
                 groupBox2.Enabled = false;
@@ -195,15 +238,17 @@ namespace eProcurement_SAP
                 this.label1.Text = "Error during retrieving of Purchase Order History Details...";
                 this.initForm();
             }
-
+            finally
+            {
+                Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
         }
 
         private void btn_intall_Click(object sender, EventArgs e)
         {
             try
             {
-                Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
-
+                this.InitializeProcess();
                 mainController.ProcessPurchaseContract();
                 mainController.ProcessPurchaseOrder();
                 mainController.ProcessRequisition();
@@ -411,6 +456,25 @@ namespace eProcurement_SAP
         {
             return mainController.GetUserId();
         }
-
     }
 }
+
+//--------------------------------------------------------------------------------------------------
+//           animationFile = Environment.CurrentDirectory + "\\cwbwait.avi";
+//            axAnimation1.Open(animationFile);
+//            axAnimation1.Open("C:\\eProcurement\\eProcurement_SAP\\cwbwait.avi");
+
+//        private void ActivateAnimation()
+//        {
+//            axAnimation1.AutoPlay = true;
+//            axAnimation1.Visible = true;
+//            axAnimation1.Refresh();
+//        }
+
+//        private void DeactivateAnimation()
+//        {
+//            axAnimation1.AutoPlay = false;
+//            axAnimation1.Visible = false;
+//        }
+//
+//------------------------------------------------------------------------------------------------------

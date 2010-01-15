@@ -118,7 +118,7 @@ namespace eProcurement_SAP
 
                     aRecCount = requisitionItem.Count;
                     aCount = 0;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
 
                     foreach (ZREQN_ITM reqitm in requisitionItem)
@@ -198,6 +198,7 @@ namespace eProcurement_SAP
             aForm.getProgressBar().Value = 1;
             aForm.getProgressBar().Maximum = aRecCount;
             aForm.getProgressBar().Minimum = 1;
+            aForm.getProgressBar().Refresh();
         }
 
         private void RemoveRequisitionDetails()

@@ -79,7 +79,7 @@ namespace eProcurement_SAP
                     //---------------------------------------
                     
                     aRecCount = materialStock.Count;
-                    wstep = 10;
+                    wstep = 1;
                     this.setParameters();
 
                     foreach (ZMATL_STOCK mtlobj in materialStock)
@@ -138,6 +138,7 @@ namespace eProcurement_SAP
             aForm.getProgressBar().Value = 1;
             aForm.getProgressBar().Maximum = aRecCount;
             aForm.getProgressBar().Minimum = 1;
+            aForm.getProgressBar().Refresh();
         }
     }
 }

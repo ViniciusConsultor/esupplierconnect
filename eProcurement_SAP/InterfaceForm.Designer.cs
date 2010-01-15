@@ -28,8 +28,8 @@ namespace eProcurement_SAP
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.PurchaseGrid = new System.Windows.Forms.DataGridView();
             this.pbar_sts = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
@@ -85,17 +85,17 @@ namespace eProcurement_SAP
             // 
             // PurchaseGrid
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.PurchaseGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.PurchaseGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.PurchaseGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.SlateBlue;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PurchaseGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.SlateBlue;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PurchaseGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.PurchaseGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PurchaseGrid.Location = new System.Drawing.Point(8, 13);
             this.PurchaseGrid.Margin = new System.Windows.Forms.Padding(4);
@@ -108,6 +108,7 @@ namespace eProcurement_SAP
             // pbar_sts
             // 
             this.pbar_sts.Location = new System.Drawing.Point(205, 636);
+            this.pbar_sts.MarqueeAnimationSpeed = 1000;
             this.pbar_sts.Name = "pbar_sts";
             this.pbar_sts.Size = new System.Drawing.Size(466, 31);
             this.pbar_sts.TabIndex = 4;
@@ -575,9 +576,9 @@ namespace eProcurement_SAP
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(725, 615);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(137, 16);
+            this.label2.Size = new System.Drawing.Size(142, 16);
             this.label2.TabIndex = 32;
-            this.label2.Text = "Numbe of Records";
+            this.label2.Text = "Number of Records";
             // 
             // InterfaceForm
             // 
